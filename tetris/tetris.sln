@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "multi_tetris", "multi_tetris\multi_tetris.vcxproj", "{81FF08B8-E766-4E42-AD3C-9C0A60ADF60B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "server\server.vcxproj", "{81FF08B8-E766-4E42-AD3C-9C0A60ADF60B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E30307C9-D407-41A9-B065-815887D3B807}
+		SolutionGuid = {6008C62A-21E1-414E-990A-D0C73BC586E3}
 	EndGlobalSection
 EndGlobal

@@ -3,6 +3,8 @@
 #include <WinSock2.h>
 #include "clientSocket.h"
 
+
+
 int main(int argc, char* argv[])
 {
     char ip[100] = "127.0.0.1";
