@@ -140,8 +140,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="clientSocket.cpp" />
-    <ClCompile Include="clientSocket.h" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="client.h" />
     <ClCompile Include="error.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
