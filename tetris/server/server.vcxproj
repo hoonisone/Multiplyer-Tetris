@@ -140,17 +140,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="basic.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="error.cpp" />
-    <ClCompile Include="serverSocket.cpp" />
+    <ClCompile Include="list_test.cpp" />
+    <ClCompile Include="server.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="user.cpp" />
+    <ClCompile Include="userManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="basic.h" />
     <ClInclude Include="error.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="list_test.h" />
     <ClInclude Include="node.h" />
-    <ClInclude Include="serverSocket.h" />
+    <ClInclude Include="server.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="user.h" />
+    <ClInclude Include="userManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

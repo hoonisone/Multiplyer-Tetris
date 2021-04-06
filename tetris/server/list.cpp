@@ -4,13 +4,21 @@
 #include "list.h"
 #include "node.h"
 #include "error.h"
+#include "basic.h"
+#include "test.h"
 
-List* listCreate() {
+List* listCreateList(	int (*equal)(Data data1, Data data2),
+						int (*compare)(Data data1, Data data2),
+						void (*print)(Data data))
+{
 	List* newList = (List*)malloc(sizeof(List));
 	newList->core = nodeCreateNode(0);
 	newList->core->next = newList->core;
 	newList->core->prev = newList->core;
 	newList->num = 0;
+	newList->equal = equal;
+	newList->compare = compare;
+	newList->print = print;
 	return newList;
 }
 int listGetSize(List * list) {
@@ -21,9 +29,19 @@ int listGetSize(List * list) {
 		return list->num;
 	}
 }
-
+int listIsEmpty(List* list) {
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else {
+		return listGetSize(list) == 0;
+	}
+}
 static int listIsAccessableByIdx(List* list, int idx) {
-	if (0 <= idx && idx < listGetSize(list)){
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else if (0 <= idx && idx < listGetSize(list)){
 		return 1;
 	}
 	else{
@@ -63,10 +81,20 @@ static Node* listGetNode(List* list, int idx) {
 	}
 }
 static Node* listGetFirstNode(List* list) {
-	return listGetNode(list, 0);
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else {
+		return listGetNode(list, 0);
+	}
 }
 static Node* listGetLastNode(List* list) {
-	return listGetNode(list, listGetSize(list) - 1);
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else {
+		return listGetNode(list, listGetSize(list) - 1);
+	}
 }
 static void listPushNode(List* list, int idx, Node* node) {
 	if (list == NULL) {
@@ -89,14 +117,22 @@ static void listPushNode(List* list, int idx, Node* node) {
 	}
 }
 static void listPushBackNode(List* list, Node* node) {
-	Node* targetNode = listGetCore(list);
-	Node* prevNode = nodeGetPrevNode(targetNode);
-	
-	nodeSetNextNode(prevNode, node);
-	nodeSetPrevNode(node, prevNode);
-	nodeSetNextNode(node, targetNode);
-	nodeSetPrevNode(targetNode, node);
-	list->num++;
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else if (node == NULL) {
+		errorPrint("The parameter \"node\" is out of range");
+	}
+	else {
+		Node* targetNode = listGetCore(list);
+		Node* prevNode = nodeGetPrevNode(targetNode);
+
+		nodeSetNextNode(prevNode, node);
+		nodeSetPrevNode(node, prevNode);
+		nodeSetNextNode(node, targetNode);
+		nodeSetPrevNode(targetNode, node);
+		list->num++;
+	}
 }
 static void listPopNode(List* list, int idx) {
 	if (list == NULL) {
@@ -114,6 +150,10 @@ static void listPopNode(List* list, int idx) {
 		nodeDeleteNode(targetNode);
 		list->num--;
 	}
+}
+
+List* listCopyEmptyList(List* list) {
+	return listCreateList(list->equal, list->compare, list->print);
 }
 
 Data listGetElement(List* list, int idx) {
@@ -137,7 +177,7 @@ void listPushList(List* subject, int idx, List* object) {
 	Data data;
 	int objectSize = listGetSize(object);
 	for (int i = 0 ; i < objectSize; i++) {
-		data = listGetElement(object, objectSize-1);
+		data = listGetElement(object, objectSize-1-i);
 		listPushElement(subject, idx, data);
 	}
 }
@@ -152,12 +192,10 @@ void listPushBackList(List* subject, List* object) {
 void listPopElement(List* list, int idx) {
 	listPopNode(list, idx);
 }
-
-void listDelete(List* list) {
+void listDeleteList(List* list) {
 	listEmptyOut(list);
 	free(list);
 }
-
 void listEmptyOut(List* list) {
 	while (listGetSize(list)) {
 		listPopElement(list, 0);
@@ -175,7 +213,7 @@ List* listCopyPartialList(List* list, int from, int to) {
 		errorPrint("The parameter to must less then the parameter to");
 	}
 	else {
-		List* newList = listCreate();
+		List* newList = listCopyEmptyList(list);
 		for (int idx = from; idx <= to; idx++) {
 			Data data = listGetElement(list, idx);
 			listPushBackElement(newList, data);
@@ -183,8 +221,8 @@ List* listCopyPartialList(List* list, int from, int to) {
 		return newList;
 	}
 }
-
-void listSort(List* list, int(*compare)(Data a, Data b)) {
+void listSort(List* list) {
+	int(*compare)(Data data1, Data data2) = list->compare;
 	if (list == NULL) {
 		errorPrint("The parameter \"list\" does not exist");
 	}
@@ -196,8 +234,8 @@ void listSort(List* list, int(*compare)(Data a, Data b)) {
 		return;
 	} 
 	else if (size == 2) {
-		int first = listGetElement(list, 0);
-		int last = listGetElement(list, 1);
+		Data first = listGetElement(list, 0);
+		Data last = listGetElement(list, 1);
 		if (!compare(first, last)) {
 			listPopElement(list, 0);
 			listPushBackElement(list, first);
@@ -208,11 +246,127 @@ void listSort(List* list, int(*compare)(Data a, Data b)) {
 		int size = listGetSize(list);
 		List* leftList = listCopyPartialList(list, 0, size/2);
 		List* rightList = listCopyPartialList(list, size/2+1, size-1);
-		listSort(leftList, compare);
-		listSort(rightList, compare);
+		listSort(leftList);
+		listSort(rightList);
 		listEmptyOut(list);
-		listPushBackList(list, leftList);
-		listPushBackList(list, rightList);
-		listPushBackList(leftList, rightList);
+		while (!listIsEmpty(leftList) && !listIsEmpty(rightList)) {
+			Data leftFirst = listGetElement(leftList, 0);
+			Data rightFirst = listGetElement(rightList, 0);
+			if (compare(leftFirst, rightFirst)) {
+				listPushBackElement(list, leftFirst);
+				listPopElement(leftList, 0);
+			}else {
+				listPushBackElement(list, rightFirst);
+				listPopElement(rightList, 0);
+			}
+		}
+		if (!listIsEmpty(leftList)) {
+			listPushBackList(list, leftList);
+		}else {
+			listPushBackList(list, rightList);
+		}
+	}
+}
+
+int listFindFirstElement(List* list, Data target) {
+	int (*equal)(Data data1, Data data2) = list->equal;
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else if (equal == NULL) {
+		errorPrint("The parameter \"compare\" is NULL");
+	}
+
+	int idx = -1;
+	for (int i = 0; i < listGetSize(list); i++) {
+		Data value = listGetElement(list, i);
+		if (equal(value, target)) {
+			return i;
+		}
+	}
+	return -1;
+}
+int listCountElement(List* list, Data target) {
+	int (*equal)(Data data1, Data data2) = list->equal;
+	if (list == NULL) {
+		errorPrint("The parameter \"list\" does not exist");
+	}
+	else if (equal == NULL) {
+		errorPrint("The parameter \"compare\" is NULL");
+	}
+	int count = 0;
+	for (int i = 0; i < listGetSize(list); i++) {
+		Data value = listGetElement(list, i);
+		if (equal(value, target)) {
+			count++;
+		}
+	}
+	return count;
+}
+
+void listEnrollEqual(List* list, int (*equal)(Data data1, Data data2)) {
+	if (list == NULL) {
+		errorPrint("list is Null");
+	}
+	else if (equal == NULL) {
+		errorPrint("equalCompare is Null");
+	}
+	else {
+		list->equal = equal;
+	}
+}
+void listEnrollCompare(List* list, int (*compare)(Data data1, Data data2)) {
+	if (list == NULL) {
+		errorPrint("list is NULL");
+	}
+	if (compare == NULL) {
+		errorPrint("equalCompare is NULL");
+	}
+
+	list->compare = compare;
+
+}
+void listEnrollPrint(List* list, void (*print)(Data data)) {
+	if (list == NULL) {
+		errorPrint("list is Null");
+	}
+	if (print == NULL) {
+		errorPrint("equalCompare is NULL");
+	}
+	list->print = print;
+}
+
+static int listDefaultEqual(Data data1, Data data2) {
+	return (data1 == data2);
+}
+static int listDefaultCompare(Data data1, Data data2) {
+	return (data1 < data2);
+}
+static int listDefaultPrint(Data data) {
+	return 0;
+}
+
+void listPrintAllElement(List* list) {
+	if (list == NULL) {
+		errorPrint("list is NULL");
+	}
+
+	void (*print)(Data data) = list->print;
+	if (print == NULL) {
+		errorPrint("equalCompare is NULL");
+	}
+
+	int size = listGetSize(list);
+	if (size == 0) {
+		printf("Empty!!!");
+	}
+	else {
+		printf("[");
+		for (int i = 0; i < listGetSize(list) - 1; i++) {
+			print(listGetElement(list, i));
+			printf(", ");
+		}
+		print(listGetElement(list, size - 1));
+		printf("]");
 	}
 }
