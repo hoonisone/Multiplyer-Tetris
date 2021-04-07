@@ -1,12 +1,11 @@
 #pragma once
 #include "list.h"
-#include "basic.h"
 #define NAME_SIZE 100
 
 typedef struct User {
 	char name[NAME_SIZE];
 	int win, draw, lose;
-	Bool login;
+	int login;
 }User;
 
 User* userCreateUser(char* name);

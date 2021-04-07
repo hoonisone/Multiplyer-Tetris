@@ -3,20 +3,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include "user.h"
-#include "basic.h"
 
 User* userCreateUser(char* name) {
 	User* newUser = (User*)malloc(sizeof(User));
 	strcpy(newUser->name, name);
 	newUser->win = newUser->draw = newUser->lose = 0;
-	newUser->login = False;
+	newUser->login = 0;
 	return newUser;
 }
 void userLogin(User* user) {
-	user->login = True;
+	user->login = 1;
 }
 void userLogout(User* user) {
-	user->login = False;
+	user->login = 0;
 }
 void userWin(User* user) {
 	user->win++;
