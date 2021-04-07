@@ -5,8 +5,6 @@
 #include <WinSock2.h>
 #include "list.h"
 
-
-
 typedef struct ClientSocket {
 	SOCKET socket;
 	SOCKADDR_IN address;

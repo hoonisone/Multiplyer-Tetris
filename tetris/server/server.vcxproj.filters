@@ -33,16 +33,19 @@
     <ClCompile Include="user.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="basic.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="userManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="list_test.cpp">
+    <ClCompile Include="utill.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="string+.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,16 +65,19 @@
     <ClInclude Include="user.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="basic.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="userManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="test.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="list_test.h">
+    <ClInclude Include="utill.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="string+.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="file.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

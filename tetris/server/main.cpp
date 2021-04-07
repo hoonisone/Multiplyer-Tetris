@@ -5,7 +5,11 @@
 #include "error.h"
 #include "list.h"
 #include "user.h"
-#include "list_test.h"
+#include "utill.h"
+#include "string+.h"
+#include "file.h"
+#include "userManager.h"
+
 void responseHandler(char* request, char* response) {
 	if (request) {
 
@@ -14,6 +18,23 @@ void responseHandler(char* request, char* response) {
 }
 
 int main(int argc, char* argv[]) {
-	/*ListTestAll();*/
+	//ListTestAll();
+	UserManager* um = umCreateUserManager((char*)"userInfor.txt");
+	umReadUserInfor(um);
+	listPrintAllElement(um->users);
+	umRemoveUser(um, userCreateUser((char*)"apple"));
+	umRemoveUser(um, userCreateUser((char*)"apple"));
+	umRemoveUser(um, userCreateUser((char*)"apple"));
+	printf("***\n");
+	listPrintAllElement(um->users);
+	umWriteUserInfor(um);
+
+	printf("count = %d\n", listCountElement(um->users, userCreateUser((char*)"apple")));
+
+	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
+	//List* list = split(buffer, (char*)"/");
+	//printf("hello");
+	//listPrintAllElement(list);
+
 	//serverRun(5000, responseHandler);
 }

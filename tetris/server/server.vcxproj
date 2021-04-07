@@ -140,10 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="basic.cpp" />
+    <ClCompile Include="file.cpp" />
+    <ClCompile Include="string+.cpp" />
+    <ClCompile Include="utill.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="error.cpp" />
-    <ClCompile Include="list_test.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="node.cpp" />
@@ -152,10 +153,11 @@
     <ClCompile Include="userManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basic.h" />
+    <ClInclude Include="file.h" />
+    <ClInclude Include="string+.h" />
+    <ClInclude Include="utill.h" />
     <ClInclude Include="error.h" />
     <ClInclude Include="list.h" />
-    <ClInclude Include="list_test.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="test.h" />
