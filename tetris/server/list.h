@@ -55,8 +55,32 @@ void listPrintAllElement(List* list);
 
 //void listReverse(List* list); // ±¸Çö ¾ÈµÊ
 
-void ListTest();
 int ListTestEqual(Data data1, Data data2);
 int ListTestCompare(Data data1, Data data2);
-void ListPrintState(List* list);
 void ListTestPrint(Data data);
+
+void ListTestAll();
+int ListTestListCountElement();
+int ListTestListFindFirstElement();
+int ListTestListSort();
+int ListTestListPushList();
+
+int listCharEqual(Data data1, Data data2);
+int listCharCompare(Data data1, Data data2);
+void listCharPrint(Data data);
+
+int listIntEqual(Data data1, Data data2);
+int listIntCompare(Data data1, Data data2);
+void listIntPrint(Data data);
+
+int listFloatEqual(Data data1, Data data2);
+int listFloatCompare(Data data1, Data data2);
+void listFloatPrint(Data data);
+
+int listDoubleEqual(Data data1, Data data2);
+int listDoubleCompare(Data data1, Data data2);
+void listDoublePrint(Data data);
+
+int listStringEqual(Data data1, Data data2);
+int listStringCompare(Data data1, Data data2);
+void listStringPrint(Data data);

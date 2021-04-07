@@ -4,7 +4,7 @@
 #include "list.h"
 #include "node.h"
 #include "error.h"
-#include "basic.h"
+#include "utill.h"
 #include "test.h"
 
 List* listCreateList(	int (*equal)(Data data1, Data data2),
@@ -25,17 +25,13 @@ int listGetSize(List * list) {
 	if (list == NULL){
 		errorPrint("The parameter \"list\" does not exist");
 	}
-	else{
-		return list->num;
-	}
+	return list->num;
 }
 int listIsEmpty(List* list) {
 	if (list == NULL) {
 		errorPrint("The parameter \"list\" does not exist");
 	}
-	else {
-		return listGetSize(list) == 0;
-	}
+	return listGetSize(list) == 0;
 }
 static int listIsAccessableByIdx(List* list, int idx) {
 	if (list == NULL) {
@@ -44,17 +40,14 @@ static int listIsAccessableByIdx(List* list, int idx) {
 	else if (0 <= idx && idx < listGetSize(list)){
 		return 1;
 	}
-	else{
-		return 0;
-	}
+	return 0;
+
 }
 static Node* listGetCore(List* list) {
 	if (list == NULL) {
 		errorPrint("The parameter \"list\" does not exist");
 	}
-	else {
-		return list->core;
-	}
+	return list->core;
 }
 static Node* listGetNode(List* list, int idx) {
 	if (list == NULL){
@@ -84,17 +77,14 @@ static Node* listGetFirstNode(List* list) {
 	if (list == NULL) {
 		errorPrint("The parameter \"list\" does not exist");
 	}
-	else {
-		return listGetNode(list, 0);
-	}
+	return listGetNode(list, 0);
+
 }
 static Node* listGetLastNode(List* list) {
 	if (list == NULL) {
 		errorPrint("The parameter \"list\" does not exist");
 	}
-	else {
-		return listGetNode(list, listGetSize(list) - 1);
-	}
+	return listGetNode(list, listGetSize(list) - 1);
 }
 static void listPushNode(List* list, int idx, Node* node) {
 	if (list == NULL) {
@@ -369,4 +359,191 @@ void listPrintAllElement(List* list) {
 		print(listGetElement(list, size - 1));
 		printf("]");
 	}
+}
+
+int ListTestEqual(Data data1, Data data2) {
+	return (*(int*)data1 == *(int*)data2);
+}
+int ListTestCompare(Data data1, Data data2) {
+	return (*(int*)data1 < *(int*)data2);
+}
+void ListTestPrint(Data data) {
+	printf("%d", *(int*)data);
+}
+void ListPrintState(List* list) {
+	printf("listState:\n");
+	printf("\tsize: %d\n", listGetSize(list));
+	printf("\telements: ");
+	listPrintAllElement(list);
+}
+
+void ListTestAll() {
+	TestStart();
+	Test("CountElement()", ListTestListCountElement);
+	Test("FindFirstElement()", ListTestListFindFirstElement);
+	Test("ListSort()", ListTestListSort);
+	Test("ListPushList", ListTestListPushList);
+
+	TestEnd();
+}
+
+int ListTestListCountElement() {
+	List* list = listCreateList(ListTestEqual, ListTestCompare, ListTestPrint);
+
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(2));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(2));
+
+	if (listCountElement(list, newInt(1)) != 5) return 0;
+	if (listCountElement(list, newInt(2)) != 2) return 0;
+
+	return 1;
+}
+
+int ListTestListFindFirstElement() {
+	List* list = listCreateList(ListTestEqual, ListTestCompare, ListTestPrint);
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(2));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(2));
+
+	if (listFindFirstElement(list, newInt(2)) != 3) return 0;
+
+	return 1;
+}
+
+int ListTestListSort() {
+	List* list = listCreateList(ListTestEqual, ListTestCompare, ListTestPrint);
+	listPushBackElement(list, newInt(3));
+	listPushBackElement(list, newInt(5));
+	listPushBackElement(list, newInt(1));
+	listPushBackElement(list, newInt(2));
+	listPushBackElement(list, newInt(7));
+	listPushBackElement(list, newInt(6));
+	listPushBackElement(list, newInt(4));
+	listSort(list);
+
+	if (*(int*)listGetElement(list, 0) != 1) return 0;
+	if (*(int*)listGetElement(list, 1) != 2) return 0;
+	if (*(int*)listGetElement(list, 2) != 3) return 0;
+	if (*(int*)listGetElement(list, 3) != 4) return 0;
+	if (*(int*)listGetElement(list, 4) != 5) return 0;
+	if (*(int*)listGetElement(list, 5) != 6) return 0;
+	if (*(int*)listGetElement(list, 6) != 7) return 0;
+	if (listGetSize(list) != 7) return 0;
+
+	return 1;
+}
+
+int ListTestListPushList() {
+	List* list1 = listCreateList(ListTestEqual, ListTestCompare, ListTestPrint);
+	int* value;
+	
+	listPushBackElement(list1, newInt(1));
+	listPushBackElement(list1, newInt(2));
+	listPushBackElement(list1, newInt(3));
+	listPushBackElement(list1, newInt(4));
+	listPushBackElement(list1, newInt(5));
+	listPushBackElement(list1, newInt(6));
+	listPushBackElement(list1, newInt(7));
+
+	List* list2 = listCreateList(ListTestEqual, ListTestCompare, ListTestPrint);
+	listPushBackElement(list2, newInt(1));
+	listPushBackElement(list2, newInt(2));
+	listPushBackElement(list2, newInt(3));
+	listPushBackElement(list2, newInt(4));
+
+
+	int total = listGetSize(list1) + listGetSize(list2);
+	listPushBackList(list1, list2);
+
+	if (listGetSize(list1) != total) return 0;
+	if (*(int*)listGetElement(list1, 7) != 1) return 0;
+	if (*(int*)listGetElement(list1, 8) != 2) return 0;
+	if (*(int*)listGetElement(list1, 9) != 3) return 0;
+	if (*(int*)listGetElement(list1, 10) != 4) return 0;
+
+	return 1;
+}
+
+int listCharEqual(Data data1, Data data2) {
+	char* value1 = (char*)data1;
+	char* value2 = (char*)data2;
+	return (*value1 == *value2);
+}
+int listCharCompare(Data data1, Data data2) {
+	char* value1 = (char*)data1;
+	char* value2 = (char*)data2;
+	return (*value1 < *value2);
+}
+void listCharPrint(Data data) {
+	char* value = (char*)data;
+	printf("%c", *value);
+}
+
+int listIntEqual(Data data1, Data data2) {
+	int* value1 = (int*)data1;
+	int* value2 = (int*)data2;
+	return (*value1 == *value2);
+}
+int listIntCompare(Data data1, Data data2) {
+	int* value1 = (int*)data1;
+	int* value2 = (int*)data2;
+	return (*value1 < *value2);
+}
+void listIntPrint(Data data) {
+	int* value = (int*)data;
+	printf("%d", *value);
+}
+
+int listFloatEqual(Data data1, Data data2) {
+	float* value1 = (float*)data1;
+	float* value2 = (float*)data2;
+	return (*value1 == *value2);
+}
+int listFloatCompare(Data data1, Data data2) {
+	float* value1 = (float*)data1;
+	float* value2 = (float*)data2;
+	return (*value1 < *value2);
+}
+void listFloatPrint(Data data) {
+	float* value = (float*)data;
+	printf("%f", *value);
+}
+
+int listDoubleEqual(Data data1, Data data2) {
+	double* value1 = (double*)data1;
+	double* value2 = (double*)data2;
+	return (*value1 == *value2);
+}
+int listDoubleCompare(Data data1, Data data2) {
+	double* value1 = (double*)data1;
+	double* value2 = (double*)data2;
+	return (*value1 < *value2);
+}
+void listDoublePrint(Data data) {
+	double* value = (double*)data;
+	printf("%fl", *value);
+}
+
+int listStringEqual(Data data1, Data data2) {
+	char* value1 = (char*)data1;
+	char* value2 = (char*)data2;
+	return strcmp(value1, value2) == 0;
+}
+int listStringCompare(Data data1, Data data2) {
+	char* value1 = (char*)data1;
+	char* value2 = (char*)data2;
+	return strcmp(value1, value2) == 1;
+}
+void listStringPrint(Data data) {
+	char* value = (char*)data;
+	printf("%s", value);
 }
