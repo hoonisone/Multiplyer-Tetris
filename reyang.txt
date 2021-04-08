@@ -1,2 +1,2 @@
-Hello c world! hahahahahaha
+Hello c world!
 
