@@ -1,7 +1,7 @@
 #pragma once
 #define NODE_SIZE 100
 
-typedef int Data;
+typedef void* Data;
 
 typedef struct Node {
     Data data;

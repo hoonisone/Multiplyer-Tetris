@@ -9,6 +9,5 @@ typedef struct ClientSocket {
 } ClientSocket;
 
 ClientSocket* clientSocketCreate(char* ip, int port);
-void clientSocketSend(ClientSocket* cs, char* message);
-int clientSocketReceive(ClientSocket* cs, char* buffer);
+int clientSocketRequest(ClientSocket* cs, char* message);
 void clientSocketTerminate(ClientSocket* cs);

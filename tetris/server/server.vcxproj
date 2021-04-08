@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{febc49df-1ed7-4321-a661-f1024a8d74ac}</ProjectGuid>
-    <RootNamespace>tetrisclient</RootNamespace>
+    <ProjectGuid>{81ff08b8-e766-4e42-ad3c-9c0a60adf60b}</ProjectGuid>
+    <RootNamespace>multitetris</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -85,7 +85,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>false</SDLCheck>
+      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -140,13 +140,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="clientSocket.cpp" />
-    <ClCompile Include="clientSocket.h" />
+    <ClCompile Include="file.cpp" />
+    <ClCompile Include="string+.cpp" />
+    <ClCompile Include="utill.cpp" />
+    <ClCompile Include="list.cpp" />
     <ClCompile Include="error.cpp" />
+    <ClCompile Include="server.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="node.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="user.cpp" />
+    <ClCompile Include="userManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="file.h" />
+    <ClInclude Include="string+.h" />
+    <ClInclude Include="utill.h" />
     <ClInclude Include="error.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="server.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="user.h" />
+    <ClInclude Include="userManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

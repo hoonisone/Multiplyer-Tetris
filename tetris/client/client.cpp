@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <WinSock2.h>
 #include "error.h"
-#include "clientSocket.h"
+#include "client.h"
 
 ClientSocket* clientSocketCreate(char* ip, int port) {
 
@@ -25,12 +25,9 @@ ClientSocket* clientSocketCreate(char* ip, int port) {
     return cs;
 }
 
-void clientSocketSend(ClientSocket* cs, char* message) {
-    send(cs->hSocket, message, BUFFER_SIZE, 0);
-}
-
-int clientSocketReceive(ClientSocket* cs, char* buffer) {
-    return recv(cs->hSocket, buffer, BUFFER_SIZE - 1, 0); //recv 함수 호출을 통해서 서버로부터 전송되는 데이터를 수신하고 있다.
+int clientSocketRequest(ClientSocket* cs, char* request, char* response) {
+    send(cs->hSocket, request, BUFFER_SIZE, 0);
+    return recv(cs->hSocket, response, BUFFER_SIZE - 1, 0); //recv 함수 호출을 통해서 서버로부터 전송되는 데이터를 수신하고 있다.
 }
 
 void clientSocketTerminate(ClientSocket* cs) {

@@ -18,30 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="list.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="node.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="error.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="serverSocket.cpp">
+    <ClCompile Include="client.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="client.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="serverSocket.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="error.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="list.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="node.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
