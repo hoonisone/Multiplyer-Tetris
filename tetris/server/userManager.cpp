@@ -19,7 +19,6 @@ UserManager* umCreateUserManager(char* fileName) {
 	return um;
 }
 
-
 void umReadUserInfor(UserManager* um) {
 	List* lines = readFileIntoList(um->fileName);
 	listEmptyOut(um->users);
@@ -48,7 +47,7 @@ void umWriteUserInfor(UserManager* um) {
 	}
 	writeListIntoFile(lines, um->fileName);
 }
-int umUserExistenceCheck(UserManager* um, User* user) {
+int  umUserExistenceCheck(UserManager* um, User* user) {
 	return (listFindFirstElement(um->users, user) != -1);
 }
 void umEnrollUser(UserManager* um, User* user) {
@@ -84,12 +83,12 @@ void umModifyUser(UserManager* um, User* user) {
 }
 
 
-int userEqual(const Data data1, const Data data2) {
+int  userEqual(const Data data1, const Data data2) {
 	User* user1 = (User*)data1;
 	User* user2 = (User*)data2;
 	return strcmp(user1->name, user2->name) == 0;
 }
-int userCompare(const Data data1, const Data data2) {
+int  userCompare(const Data data1, const Data data2) {
 	User* user1 = (User*)data1;
 	User* user2 = (User*)data2;
 	return strcmp(user1->name, user2->name) == -1;

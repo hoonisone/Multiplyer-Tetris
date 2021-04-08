@@ -25,8 +25,6 @@ int main(int argc, char* argv[]) {
 	UserManager* um = umCreateUserManager((char*)"userInfor.txt");
 	umReadUserInfor(um);
 	umWriteUserInfor(um);
-	listPrintAllElement(um->users);
-	printf("count = %d\n", listCountElement(um->users, userCreateUser((char*)"apple")));
 
 	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
 	//List* list = split(buffer, (char*)"/");
