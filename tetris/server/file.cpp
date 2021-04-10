@@ -6,7 +6,7 @@
 #include "utill.h"
 
 List* readFileIntoList(char* fileName) {
-	List* list = listCreateList(listStringEqual, listStringCompare, listStringPrint);
+	List* list = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
 	FILE* fp = fopen(fileName, "r");
 	char line[FILE_LINE_SIZE];
 	while (fgets(line, FILE_LINE_SIZE, fp) != NULL) {

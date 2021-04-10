@@ -17,19 +17,22 @@ void responseHandler(char* request, char* response) {
 	strcpy(response, "hello c world!!!");
 }
 
-int main(int argc, char* argv[]) {
-	//ListTestAll();
-	UserManager* um = umCreateUserManager((char*)"userInfor.txt");
-	umReadUserInfor(um);
-	listPrintAllElement(um->users);
-	umRemoveUser(um, userCreateUser((char*)"apple"));
-	umRemoveUser(um, userCreateUser((char*)"apple"));
-	umRemoveUser(um, userCreateUser((char*)"apple"));
-	printf("***\n");
-	listPrintAllElement(um->users);
-	umWriteUserInfor(um);
+void Test() {
+	ListTestAll();
 
-	printf("count = %d\n", listCountElement(um->users, userCreateUser((char*)"apple")));
+}
+struct Person {
+	int a;
+	int b;
+} person;
+int main(int argc, char* argv[]) {
+	Person person;
+	person = { 1, 2 };
+	printf("%d", person.a);
+	printf("%d", person.b);
+	//UserManager* um = umCreateUserManager((char*)"userInfor.txt");
+	//umReadUserInfor(um);
+	//umWriteUserInfor(um);
 
 	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
 	//List* list = split(buffer, (char*)"/");

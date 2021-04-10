@@ -11,10 +11,13 @@ typedef struct UserManager {
 UserManager* umCreateUserManager(char* fileName);
 void umReadUserInfor(UserManager* um);
 void umWriteUserInfor(UserManager* um);
-
+int umUserExistenceCheck(UserManager* um, User* user);
 void umEnrollUser(UserManager* um, User* user);
 void umRemoveUser(UserManager* um, User* user);
+void umRemoveUser(UserManager* um, User* user);
+
 
 int userEqual(const Data data1, const Data data2);
 int userCompare(const Data data1, const Data data2);
 void userPrint(const Data data);
+void userDelete(Data data);
