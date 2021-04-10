@@ -21,10 +21,18 @@ void Test() {
 	ListTestAll();
 
 }
+struct Person {
+	int a;
+	int b;
+} person;
 int main(int argc, char* argv[]) {
-	UserManager* um = umCreateUserManager((char*)"userInfor.txt");
-	umReadUserInfor(um);
-	umWriteUserInfor(um);
+	Person person;
+	person = { 1, 2 };
+	printf("%d", person.a);
+	printf("%d", person.b);
+	//UserManager* um = umCreateUserManager((char*)"userInfor.txt");
+	//umReadUserInfor(um);
+	//umWriteUserInfor(um);
 
 	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
 	//List* list = split(buffer, (char*)"/");

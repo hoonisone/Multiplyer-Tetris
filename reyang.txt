@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 @@@@@@@@@@@@
 
+=======
+Hello c world!
+hello
+hello
+hello
+>>>>>>> 287bfabd847e63939b7febedbac265c1a99cb18d
