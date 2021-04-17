@@ -11,10 +11,15 @@
 #include "userManager.h"
 
 void responseHandler(char* request, char* response) {
-	if (request) {
-
+	/*if (strcmp(request, "hello") == 0) {
+		strcpy(response, "hello");
 	}
+	else {
+		
+	}*/
+
 	strcpy(response, "hello c world!!!");
+	return;
 }
 
 void Test() {
@@ -26,18 +31,5 @@ struct Person {
 	int b;
 } person;
 int main(int argc, char* argv[]) {
-	Person person;
-	person = { 1, 2 };
-	printf("%d", person.a);
-	printf("%d", person.b);
-	//UserManager* um = umCreateUserManager((char*)"userInfor.txt");
-	//umReadUserInfor(um);
-	//umWriteUserInfor(um);
-
-	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
-	//List* list = split(buffer, (char*)"/");
-	//printf("hello");
-	//listPrintAllElement(list);
-
-	//serverRun(5000, responseHandler);
+	serverRun(5000, responseHandler);
 }
