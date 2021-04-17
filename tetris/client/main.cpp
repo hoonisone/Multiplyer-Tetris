@@ -9,6 +9,7 @@
 char ip[100] = "127.0.0.1";
 int port = 5000;
 char request[BUFFER_SIZE];
+char response[BUFFER_SIZE];
 int scene = SCENE_LOGIN;
 ClientSocket* cs;
 
@@ -17,14 +18,15 @@ int main(int argc, char* argv[])
     cs = clientSocketCreate(ip, port);
 
     while (1) {
+
         switch (scene) {
         case SCENE_LOGIN:
-            char command[COMMAND_SIZE];
-            scanf("%s", command);
+            
+            scanf("%s", request);
 
         }
-        int len = clientSocketRequest(cs, (char*)"hello gg");
-        printf("Massage(%d): %s\n", len, request);
+        int len = clientSocketRequest(cs, request, response);
+        printf("Massage(%d): %s\n", len, response);
     }
     clientSocketTerminate(cs);
 }
