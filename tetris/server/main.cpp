@@ -10,34 +10,23 @@
 #include "file.h"
 #include "userManager.h"
 
+#include <conio.h>
+
 void responseHandler(char* request, char* response) {
 	if (request) {
 
 	}
-	strcpy(response, "hello c world!!!");
+	response[0] = NULL;
+	strcpy(response, (char*)"hello c world!!!");
 }
 
 void Test() {
 	ListTestAll();
-
 }
-struct Person {
-	int a;
-	int b;
-} person;
+
 int main(int argc, char* argv[]) {
-	Person person;
-	person = { 1, 2 };
-	printf("%d", person.a);
-	printf("%d", person.b);
 	//UserManager* um = umCreateUserManager((char*)"userInfor.txt");
 	//umReadUserInfor(um);
 	//umWriteUserInfor(um);
-
-	//char buffer[100] = "asdf/asdgb/wertg/dfh/wertg/wertg/";
-	//List* list = split(buffer, (char*)"/");
-	//printf("hello");
-	//listPrintAllElement(list);
-
-	//serverRun(5000, responseHandler);
+	serverRun(5000, responseHandler);
 }

@@ -7,7 +7,7 @@
 ClientSocket* clientSocketCreate(char* ip, int port) {
 
     ClientSocket* cs = (ClientSocket*)malloc(sizeof(ClientSocket));
-    if (WSAStartup(MAKEWORD(2, 2), &cs->wsaData) != 0) //소켓 라이브러리를 초기화하고 있다
+    if (WSAStartup(MAKEWORD(2, 2), &cs->wsaData) != 0) //소켓 라이브러리를 초기화하고 있다.
         ErrorHandling((char*)"WSAStartup() error!");
 
     cs->hSocket = socket(PF_INET, SOCK_STREAM, 0); //소켓을 생성하고
@@ -26,12 +26,14 @@ ClientSocket* clientSocketCreate(char* ip, int port) {
 }
 
 int clientSocketRequest(ClientSocket* cs, char* request, char* response) {
-    send(cs->hSocket, request, BUFFER_SIZE, 0);
-    return recv(cs->hSocket, response, BUFFER_SIZE - 1, 0); //recv 함수 호출을 통해서 서버로부터 전송되는 데이터를 수신하고 있다.
+    send(cs->hSocket, request, BUFFER_SIZE-1, 0);
+    int result = recv(cs->hSocket, response, BUFFER_SIZE - 1, 0); //recv 함수 호출을 통해서 서버로부터 전송되는 데이터를 수신하고 있다.
+    return result;
 }
 
 void clientSocketTerminate(ClientSocket* cs) {
     closesocket(cs->hSocket); //소켓 라이브러리 해제
+
     WSACleanup();
     free(cs);
 }

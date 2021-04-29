@@ -74,11 +74,10 @@ DWORD WINAPI serverConnectHandler(void* data) {
 DWORD WINAPI serverCommunicateHandler(void* data) {
     ClientSocket* clientSocket = _clientSocket; // 전역(공유)변수 가져오기
     void (*requestHandling)(char* request, char* response) = _responseHandler; // 전역(공유)변수 가져오기
-
+    char request[BUFFER_SIZE];
+    char response[BUFFER_SIZE];
     while (1) {
-        char request[BUFFER_SIZE];
-        char response[BUFFER_SIZE];
-        int code = recv(clientSocket->socket, request, BUFFER_SIZE - 1, 0);
+        int code = recv(clientSocket->socket, request, BUFFER_SIZE, 0);
         if (code == -1) {
             closesocket(clientSocket->socket);  // 클라이언트 소켓 정리
             free(clientSocket);
@@ -86,7 +85,8 @@ DWORD WINAPI serverCommunicateHandler(void* data) {
         }
         printf("Client[%s:%d]: Receive-\"%s\"\n", inet_ntoa(clientSocket->address.sin_addr), clientSocket->address.sin_port, request);
         requestHandling(request, response);
-        send(clientSocket->socket, response, BUFFER_SIZE, 0);
+        printf("%s\n", response);
+        send(clientSocket->socket, response, BUFFER_SIZE-1, 0);
     }
     return 0;
 }
