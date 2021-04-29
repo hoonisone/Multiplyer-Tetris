@@ -13,11 +13,8 @@
 #include <conio.h>
 
 void responseHandler(char* request, char* response) {
-	if (request) {
-
-	}
-	response[0] = NULL;
-	strcpy(response, (char*)"hello c world!!!");
+	strcpy(response, "hello c world!!!");
+	return;
 }
 
 void Test() {
@@ -25,8 +22,5 @@ void Test() {
 }
 
 int main(int argc, char* argv[]) {
-	//UserManager* um = umCreateUserManager((char*)"userInfor.txt");
-	//umReadUserInfor(um);
-	//umWriteUserInfor(um);
 	serverRun(5000, responseHandler);
 }
