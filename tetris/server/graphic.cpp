@@ -3,7 +3,7 @@
 
 static char _letter = '*';
 
-void graphicChangeColor(int color){
+void graphicChangeColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
@@ -13,7 +13,7 @@ void graphicMoveCursor(int x, int y) {
 }
 
 void drawPoint(int x, int y) {
-	graphicMoveCursor(x*2, y);
+	graphicMoveCursor(x * 2, y);
 	printf("%c", _letter);
 }
 
