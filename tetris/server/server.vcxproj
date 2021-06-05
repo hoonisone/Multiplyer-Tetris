@@ -145,6 +145,7 @@
     <ClCompile Include="graphic.cpp" />
     <ClCompile Include="listener.cpp" />
     <ClCompile Include="string+.cpp" />
+    <ClCompile Include="tetrisBlock.cpp" />
     <ClCompile Include="utill.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="error.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="graphic.h" />
     <ClInclude Include="listener.h" />
     <ClInclude Include="string+.h" />
+    <ClInclude Include="tetrisBlock.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="utill.h" />
     <ClInclude Include="error.h" />
