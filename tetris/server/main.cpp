@@ -14,7 +14,7 @@
 #include <conio.h>
 
 void responseHandler(char* request, char* response) {
-	strcpy(response, "hello c world!!!");
+	strcpy(response, request);
 	return;
 }
 

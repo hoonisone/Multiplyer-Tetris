@@ -51,12 +51,15 @@
     <ClCompile Include="listener.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="tetrisBlock.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="tetrisScreen.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+=======
+>>>>>>> 3ceeea2d3164ea94c1669a19c2b6f1de5f494583
     <ClCompile Include="graphic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -98,12 +101,15 @@
     <ClInclude Include="timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="tetrisBlock.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="tetrisScreen.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+=======
+>>>>>>> 3ceeea2d3164ea94c1669a19c2b6f1de5f494583
     <ClInclude Include="graphic.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

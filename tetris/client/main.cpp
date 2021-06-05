@@ -16,7 +16,6 @@ ClientSocket* cs;
 int main(int argc, char* argv[])
 {
     cs = clientSocketCreate(ip, port);
-
     while (1) {
 
         switch (scene) {
