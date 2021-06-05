@@ -10,9 +10,13 @@
 #define BLOCK_SHAPE_J 5
 #define BLOCK_SHAPE_T 6
 
+#define BLOCK_SHAPE_NUM 7
+#define BLOCK_ANGLE_NUM 4
+#define BLOCK_WIDTH 4
+#define BLOCK_HEIGHT 4
+
 typedef struct Block
 {
-	int x, y;
 	int shape;
 	int angle;
 	int color;
@@ -23,12 +27,12 @@ Block* blockCreateBlock(int color, int shape);
 void blockTurnRight(Block* block);
 void blockTurnLeft(Block* block);
 
-void blockMoveTo(Block* block, int x, int y);
-void blockMoveUp(Block* block);
-void blockMoveDown(Block* block);
-void blockMoveRight(Block* block);
-void blockMoveLeft(Block* block);
+//void blockMoveTo(Block* block, int x, int y);
+//void blockMoveUp(Block* block);
+//void blockMoveDown(Block* block);
+//void blockMoveRight(Block* block);
+//void blockMoveLeft(Block* block);
 
 
-int (*blockGetCurBlock(Block* block))[4];
+int (*blockGetShape(Block* block))[4];
 
