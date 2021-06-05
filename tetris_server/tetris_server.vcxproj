@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{81ff08b8-e766-4e42-ad3c-9c0a60adf60b}</ProjectGuid>
-    <RootNamespace>multitetris</RootNamespace>
+    <ProjectGuid>{d0a14fc9-044e-4dc6-843f-4a2692696660}</ProjectGuid>
+    <RootNamespace>tetrisserver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -92,7 +92,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +120,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,36 +139,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="file.cpp" />
-    <ClCompile Include="graphic.cpp" />
-    <ClCompile Include="listener.cpp" />
-    <ClCompile Include="string+.cpp" />
-    <ClCompile Include="tetrisBlock.cpp" />
-    <ClCompile Include="utill.cpp" />
-    <ClCompile Include="list.cpp" />
-    <ClCompile Include="error.cpp" />
-    <ClCompile Include="server.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="node.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="user.cpp" />
-    <ClCompile Include="userManager.cpp" />
+    <ClCompile Include="source\error.cpp" />
+    <ClCompile Include="source\file.cpp" />
+    <ClCompile Include="source\graphic.cpp" />
+    <ClCompile Include="source\list.cpp" />
+    <ClCompile Include="source\listener.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\node.cpp" />
+    <ClCompile Include="source\server.cpp" />
+    <ClCompile Include="source\string+.cpp" />
+    <ClCompile Include="source\test.cpp" />
+    <ClCompile Include="source\tetrisBlock.cpp" />
+    <ClCompile Include="source\tetrisScreen.cpp" />
+    <ClCompile Include="source\user.cpp" />
+    <ClCompile Include="source\userManager.cpp" />
+    <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="file.h" />
-    <ClInclude Include="graphic.h" />
-    <ClInclude Include="listener.h" />
-    <ClInclude Include="string+.h" />
-    <ClInclude Include="tetrisBlock.h" />
-    <ClInclude Include="timer.h" />
-    <ClInclude Include="utill.h" />
-    <ClInclude Include="error.h" />
-    <ClInclude Include="list.h" />
-    <ClInclude Include="node.h" />
-    <ClInclude Include="server.h" />
-    <ClInclude Include="test.h" />
-    <ClInclude Include="user.h" />
-    <ClInclude Include="userManager.h" />
+    <ClInclude Include="header\error.h" />
+    <ClInclude Include="header\file.h" />
+    <ClInclude Include="header\graphic.h" />
+    <ClInclude Include="header\list.h" />
+    <ClInclude Include="header\listener.h" />
+    <ClInclude Include="header\node.h" />
+    <ClInclude Include="header\server.h" />
+    <ClInclude Include="header\string+.h" />
+    <ClInclude Include="header\test.h" />
+    <ClInclude Include="header\tetrisBlock.h" />
+    <ClInclude Include="header\tetrisScreen.h" />
+    <ClInclude Include="header\timer.h" />
+    <ClInclude Include="header\user.h" />
+    <ClInclude Include="header\userManager.h" />
+    <ClInclude Include="header\utill.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

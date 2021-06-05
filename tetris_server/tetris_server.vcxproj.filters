@@ -15,90 +15,96 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\error.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="list.cpp">
+    <ClCompile Include="source\file.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="node.cpp">
+    <ClCompile Include="source\graphic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="error.cpp">
+    <ClCompile Include="source\list.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="server.cpp">
+    <ClCompile Include="source\listener.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="user.cpp">
+    <ClCompile Include="source\main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="userManager.cpp">
+    <ClCompile Include="source\node.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="source\server.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="utill.cpp">
+    <ClCompile Include="source\string+.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="string+.cpp">
+    <ClCompile Include="source\test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="file.cpp">
+    <ClCompile Include="source\tetrisBlock.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="listener.cpp">
+    <ClCompile Include="source\tetrisScreen.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphic.cpp">
+    <ClCompile Include="source\user.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="tetrisBlock.cpp">
+    <ClCompile Include="source\userManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="source\utill.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="error.h">
+    <ClInclude Include="header\error.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="list.h">
+    <ClInclude Include="header\file.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="node.h">
+    <ClInclude Include="header\graphic.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="server.h">
+    <ClInclude Include="header\list.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="user.h">
+    <ClInclude Include="header\listener.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="userManager.h">
+    <ClInclude Include="header\node.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="header\server.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utill.h">
+    <ClInclude Include="header\string+.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="string+.h">
+    <ClInclude Include="header\test.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="file.h">
+    <ClInclude Include="header\tetrisBlock.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="listener.h">
+    <ClInclude Include="header\tetrisScreen.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="timer.h">
+    <ClInclude Include="header\timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphic.h">
+    <ClInclude Include="header\user.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="tetrisBlock.h">
+    <ClInclude Include="header\userManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utill.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

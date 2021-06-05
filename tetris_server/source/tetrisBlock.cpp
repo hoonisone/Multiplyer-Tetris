@@ -120,48 +120,20 @@ static int BLOCK_SHAPE[7][4][4][4] = {
 Block* blockCreateBlock(int color, int shape)
 {
 	Block* newBlock = (Block*)malloc(sizeof(Block));
-	newBlock->x = 0;
-	newBlock->y = 0;
 	newBlock->shape = shape;
 	newBlock->angle = 0;
 	newBlock->color = color;
 	return newBlock;
 }
 
-void blockTurnRight(Block* block)
-{
+void blockTurnRight(Block* block){
 	block->angle = (block->angle + 1) % 4;
 }
-void blockTurnLeft(Block* block)
-{
+void blockTurnLeft(Block* block){
 	block->angle = (block->angle + 3) % 4;
 }
 
-
-void blockMoveTo(Block* block, int x, int y)
-{
-	block->x = x;
-	block->y = y;
-}
-void blockMoveUp(Block* block)
-{
-	block->y--;
-}
-void blockMoveDown(Block* block)
-{
-	block->y++;
-}
-void blockMoveRight(Block* block)
-{
-	block->x++;
-}
-void blockMoveLeft(Block* block)
-{
-	block->x--;
-}
-
-int(*blockGetCurBlock(Block* block))[4]
+int(*blockGetShape(Block* block))[4]
 {
 	return BLOCK_SHAPE[block->shape][block->angle];
 }
-
