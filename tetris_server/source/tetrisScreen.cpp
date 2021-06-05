@@ -4,6 +4,8 @@
 #include <time.h>
 #include "tetrisScreen.h"
 #include "tetrisBlock.h"
+#include "math+.h"
+#include "graphic.h"
 
 static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, BRIGHT_WHITE, LIGHT_AQUA };
 
@@ -12,12 +14,16 @@ Screen* screenCreateScreen()
 	Screen* newScreen = (Screen*)malloc(sizeof(Screen));
 	newScreen->x = 0;
 	newScreen->y = 0;
-	newScreen->width = DEFAULT_WIDTH;
-	newScreen->height = DEFAULT_HEIGHT;
+	newScreen->width = 0;
+	newScreen->height = 0;
+	strcpy(newScreen->letter, SCREEN_DEFAULT_LETTER);
+	newScreen->color = SCREEN_DEFAULT_COLOR;
+	newScreen->blockBoard = NULL;
+	screenChangeSize(newScreen, SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
 	newScreen->curBlock = NULL;
 	newScreen->nextBlock = NULL;
 	screenSetNextBlock(newScreen);
-	screenSetNewBlock(newScreen);
+	screenSetCurBlock(newScreen);
 	return newScreen;
 }
 
@@ -26,20 +32,19 @@ void screenChangeSize(Screen* screen, int width, int height) {
 	for (int i = 0; i < height; i++) {
 		tmp[i] = (int*)calloc(width, sizeof(int));
 	}
-
 	int minWidth = (width < screen->width) ? width : screen->width;
 	int minHeight = (height < screen->height) ? height : screen->height;
-
 	for (int i = 0; i < minHeight; i++) {
 		memcpy(tmp[height - 1 - i], screen->blockBoard[screen->height - 1 - i], minWidth);
 	}
-
 	for (int i = 0; i < screen->height; i++) {
 		free(screen->blockBoard[i]);
 	}
 	free(screen->blockBoard);
 
 	screen->blockBoard = tmp;
+	screen->width = width;
+	screen->height = height;
 }
 
 Block* screenNewBlock() {
@@ -56,7 +61,7 @@ void screenSetNextBlock(Screen* screen) {
 	screen->nextBlock = screenNewBlock();
 }
 
-void screenSetNewBlock(Screen* screen) {
+void screenSetCurBlock(Screen* screen) {
 	if (screen->curBlock != NULL) {
 		free(screen->curBlock);
 	}
@@ -67,25 +72,148 @@ void screenSetNewBlock(Screen* screen) {
 	screenSetNextBlock(screen);
 }
 
-//void blockMoveTo(Block* block, int x, int y)
-//{
-//	block->x = x;
-//	block->y = y;
-//}
-//void blockMoveUp(Block* block)
-//{
-//	block->y--;
-//}
-//void blockMoveDown(Block* block)
-//{
-//	block->y++;
-//}
-//void blockMoveRight(Block* block)
-//{
-//	block->x++;
-//}
-//void blockMoveLeft(Block* block)
-//{
-//	block->x--;
-//}
+void blockMoveTo(Screen* screen, int x, int y)
+{
+	int preX = screen->curBlockX;
+	int preY = screen->curBlockY;
 
+	screen->curBlockX = x;
+	screen->curBlockY = y;
+
+	if (!curBlockPositionPermitCheck(screen)) {
+		screen->curBlockX = preX;
+		screen->curBlockY = preY;
+	}
+}
+
+void blockMoveUp(Screen* screen)
+{
+	screen->curBlockY--;
+	if (!curBlockPositionPermitCheck(screen))
+		screen->curBlockY++;
+}
+
+void blockMoveDown(Screen* screen)
+{
+	screen->curBlockY++;
+	if (!curBlockPositionPermitCheck(screen))
+		screen->curBlockY--;
+}
+
+void blockMoveRight(Screen* screen)
+{
+	screen->curBlockX++;
+	if (!curBlockPositionPermitCheck(screen))
+		screen->curBlockX--;
+}
+
+void blockMoveLeft(Screen* screen)
+{
+	screen->curBlockX--;
+	if (!curBlockPositionPermitCheck(screen))
+		screen->curBlockX++;
+}
+
+int curBlockPositionPermitCheck(Screen* screen) {
+	if (curBlockCrashCheck(screen))
+		return 0;
+	if (curBlockOutOfRangeCheck(screen))
+		return 0;
+	return 1;
+}
+
+int curBlockCrashCheck(Screen* screen) {
+	screen->curBlockX;
+	screen->curBlockY;
+	screen->width;
+	screen->height;
+	screen->blockBoard;
+
+	int screenX1 = 0;
+	int screenY1 = 0;
+	int screenX2 = screen->width-1;
+	int screenY2 = screen->height-1;
+
+	int blockX1 = screen->curBlockX;
+	int blockY1 = screen->curBlockY;
+	int blockX2 = blockX1 + BLOCK_WIDTH;
+	int blockY2 = blockY1 + BLOCK_HEIGHT;
+
+	int commonX1 = greater(screenX1, blockX1);
+	int commonY1 = greater(screenY1, blockY1);
+	int commonX2 = smaller(screenY2, blockY2);
+	int commonY2 = smaller(screenY2, blockY2);
+
+	for (int y = commonY1; y <= commonY2; y++) {
+		for (int x = commonX1; x <= commonX2; x++) {
+			if (screen->blockBoard[y][x] != 0 && blockGetShape(screen->curBlock)[y][x] != 0) {
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+
+int isInRange(Screen* screen, int x, int y) {
+	if (0 <= x && x < screen->width)
+	if (0 <= y && y < screen->height)
+		return 1;
+	return 0;
+}
+
+int curBlockOutOfRangeCheck(Screen* screen) {
+	int blockX1 = screen->curBlockX;
+	int blockY1 = screen->curBlockY;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (blockGetShape(screen->curBlock)[y][x] == 0)
+				continue;
+			if (!isInRange(screen, x + blockX1, y + blockY1))
+				return 1;
+		}
+	}
+	return 0;
+}
+
+void pressCurBlock(Screen * screen) {
+	int color = screen->curBlock->color;
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (blockGetShape(screen->curBlock)[y][x] == 1) {
+				int relativeX = x + screen->curBlockX;
+				int relativeY = y + screen->curBlockY;
+				screen->blockBoard[relativeY][relativeX] = color;
+			}
+		}
+	}
+}
+
+void drawScreen(Screen * screen, int X, int Y) {
+	drawBoardFrame(screen, X, Y);
+	drawBoard(screen, X+1, Y+1);
+	drawCurBlock(screen, X+1, Y+1);
+}
+
+void drawBoardFrame(Screen * screen, int X, int Y) {
+	graphicChangeLetter(screen->letter);
+	graphicChangeColor(screen->color);
+	drawRectangle(X, Y, screen->width+2, screen->height+2);
+}
+
+void drawBoard(Screen* screen, int X, int Y) {
+	for (int y = 0; y < screen->height; y++) {
+		for (int x = 0; x < screen->width; x++) {
+			int color = screen->blockBoard[y][x];
+			if (color != 0) {
+				graphicChangeLetter(screen->letter);
+				graphicChangeColor(color);
+				drawPoint(X + x, Y + y);
+			}
+		}
+	}
+}
+
+void drawCurBlock(Screen* screen, int X, int Y) {
+	blockDrawBlock(screen->curBlock, X + screen->curBlockX, Y + screen->curBlockY);
+}

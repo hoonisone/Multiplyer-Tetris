@@ -14,12 +14,14 @@
 #define BLOCK_ANGLE_NUM 4
 #define BLOCK_WIDTH 4
 #define BLOCK_HEIGHT 4
+#define BLOCK_DEFAULT_LETTER "бс"
 
 typedef struct Block
 {
 	int shape;
 	int angle;
 	int color;
+	char letter[4]; // unicode(3bype) + null(1byte)
 }Block;
 
 Block* blockCreateBlock(int color, int shape);
@@ -27,12 +29,6 @@ Block* blockCreateBlock(int color, int shape);
 void blockTurnRight(Block* block);
 void blockTurnLeft(Block* block);
 
-//void blockMoveTo(Block* block, int x, int y);
-//void blockMoveUp(Block* block);
-//void blockMoveDown(Block* block);
-//void blockMoveRight(Block* block);
-//void blockMoveLeft(Block* block);
+int (*blockGetShape(Block* block))[BLOCK_ANGLE_NUM];
 
-
-int (*blockGetShape(Block* block))[4];
-
+void blockDrawBlock(Block* block, int X, int Y);

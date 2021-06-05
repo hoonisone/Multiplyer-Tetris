@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "tetrisBlock.h"
+#include "graphic.h"
 
 static int BLOCK_SHAPE[7][4][4][4] = {
 {{{0,0,0,0}, //O
@@ -123,6 +124,7 @@ Block* blockCreateBlock(int color, int shape)
 	newBlock->shape = shape;
 	newBlock->angle = 0;
 	newBlock->color = color;
+	strcpy(newBlock->letter, BLOCK_DEFAULT_LETTER);
 	return newBlock;
 }
 
@@ -136,4 +138,19 @@ void blockTurnLeft(Block* block){
 int(*blockGetShape(Block* block))[4]
 {
 	return BLOCK_SHAPE[block->shape][block->angle];
+}
+
+void blockDrawBlock(Block * block, int X, int Y) {
+	
+	graphicChangeColor(block->color);
+	graphicChangeLetter(block->letter);
+	
+	int (*shape)[4] = blockGetShape(block);
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (shape[y][x] == 1) {
+				drawPoint(X + x, Y + y);
+			}
+		}
+	}
 }

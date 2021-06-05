@@ -22,4 +22,4 @@ void drawPoint(int x, int y);
 void drawVertical(int x, int y, int len);
 void drawHorizontal(int x, int y, int len);
 void drawRectangle(int x, int y, int width, int height);
-void graphicChangeLetter(char letter);
+void graphicChangeLetter(char *letter);

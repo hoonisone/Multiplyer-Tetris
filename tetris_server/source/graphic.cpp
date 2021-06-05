@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-static char _letter = '*';
+static char _letter[4] = "*";
 
 void graphicChangeColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -14,7 +14,7 @@ void graphicMoveCursor(int x, int y) {
 
 void drawPoint(int x, int y) {
 	graphicMoveCursor(x * 2, y);
-	printf("%c", _letter);
+	printf("%s", _letter);
 }
 
 void drawVertical(int x, int y, int len) {
@@ -34,6 +34,6 @@ void drawRectangle(int x, int y, int width, int height) {
 	drawHorizontal(x, y + height - 1, width);
 }
 
-void graphicChangeLetter(char letter) {
-	_letter = letter;
+void graphicChangeLetter(char *letter) {
+	strcpy(_letter, letter);
 }
