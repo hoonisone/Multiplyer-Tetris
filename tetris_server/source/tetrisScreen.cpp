@@ -48,7 +48,7 @@ void screenChangeSize(Screen* screen, int width, int height) {
 }
 
 Block* screenNewBlock() {
-	srand(time(NULL));
+	//srand(time(NULL));
 	int color = rand() % BLOCK_COLOR_NUM;
 	int shape = rand() % BLOCK_SHAPE_NUM;
 	return blockCreateBlock(colors[color], shape);
@@ -72,7 +72,7 @@ void screenSetCurBlock(Screen* screen) {
 	screenSetNextBlock(screen);
 }
 
-void blockMoveTo(Screen* screen, int x, int y)
+void curBlockMoveTo(Screen* screen, int x, int y)
 {
 	int preX = screen->curBlockX;
 	int preY = screen->curBlockY;
@@ -86,28 +86,28 @@ void blockMoveTo(Screen* screen, int x, int y)
 	}
 }
 
-void blockMoveUp(Screen* screen)
+void curBlockMoveUp(Screen* screen)
 {
 	screen->curBlockY--;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockY++;
 }
 
-void blockMoveDown(Screen* screen)
+void curBlockMoveDown(Screen* screen)
 {
 	screen->curBlockY++;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockY--;
 }
 
-void blockMoveRight(Screen* screen)
+void curBlockMoveRight(Screen* screen)
 {
 	screen->curBlockX++;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockX--;
 }
 
-void blockMoveLeft(Screen* screen)
+void curBlockMoveLeft(Screen* screen)
 {
 	screen->curBlockX--;
 	if (!curBlockPositionPermitCheck(screen))
@@ -136,17 +136,17 @@ int curBlockCrashCheck(Screen* screen) {
 
 	int blockX1 = screen->curBlockX;
 	int blockY1 = screen->curBlockY;
-	int blockX2 = blockX1 + BLOCK_WIDTH;
-	int blockY2 = blockY1 + BLOCK_HEIGHT;
+	int blockX2 = blockX1 + BLOCK_WIDTH-1;
+	int blockY2 = blockY1 + BLOCK_HEIGHT-1;
 
 	int commonX1 = greater(screenX1, blockX1);
 	int commonY1 = greater(screenY1, blockY1);
-	int commonX2 = smaller(screenY2, blockY2);
+	int commonX2 = smaller(screenX2, blockX2);
 	int commonY2 = smaller(screenY2, blockY2);
 
 	for (int y = commonY1; y <= commonY2; y++) {
 		for (int x = commonX1; x <= commonX2; x++) {
-			if (screen->blockBoard[y][x] != 0 && blockGetShape(screen->curBlock)[y][x] != 0) {
+			if (screen->blockBoard[y][x] != 0 && blockGetShape(screen->curBlock)[y-commonY1][x-commonX1] != 0) {
 				return 1;
 			}
 		}
@@ -193,6 +193,8 @@ void drawScreen(Screen * screen, int X, int Y) {
 	drawBoardFrame(screen, X, Y);
 	drawBoard(screen, X+1, Y+1);
 	drawCurBlock(screen, X+1, Y+1);
+	drawNextBlock(screen, X+screen->width+1, Y);
+	drawHoldBlock(screen, X + screen->width + 1, Y+BLOCK_HEIGHT+2);
 }
 
 void drawBoardFrame(Screen * screen, int X, int Y) {
@@ -216,4 +218,25 @@ void drawBoard(Screen* screen, int X, int Y) {
 
 void drawCurBlock(Screen* screen, int X, int Y) {
 	blockDrawBlock(screen->curBlock, X + screen->curBlockX, Y + screen->curBlockY);
+}
+
+void drawNextBlock(Screen* screen, int X, int Y) {
+	graphicChangeLetter(screen->letter);
+	graphicChangeColor(screen->color);
+	drawRectangle(X, Y, BLOCK_WIDTH+2, BLOCK_HEIGHT+2+1);
+	graphicChangeColor(WHITE);
+	graphicMovePoint(X + 1, Y + 1);
+
+	printf("  NEXT  ")
+	blockDrawBlock(screen->nextBlock, X+1, Y+2);
+}
+
+void drawHoldBlock(Screen* screen, int X, int Y) {
+	graphicChangeLetter(screen->letter);
+	graphicChangeColor(screen->color);
+	drawRectangle(X, Y, BLOCK_WIDTH + 2, BLOCK_HEIGHT + 2 + 1);
+	graphicChangeColor(WHITE);
+	graphicMovePoint(X + 1, Y + 1);
+	printf("  HOLD  ");
+	blockDrawBlock(screen->nextBlock, X + 1, Y + 2);////////////////////////////// need to modify
 }

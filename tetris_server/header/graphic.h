@@ -18,8 +18,12 @@
 void graphicChangeColor(int color);
 void graphicMoveCursor(int x, int y);
 
+void graphicMovePoint(int x, int y);
+
 void drawPoint(int x, int y);
 void drawVertical(int x, int y, int len);
 void drawHorizontal(int x, int y, int len);
 void drawRectangle(int x, int y, int width, int height);
 void graphicChangeLetter(char *letter);
+
+void drawLineRectangle(int x, int y, int width, int height);

@@ -129,13 +129,13 @@ Block* blockCreateBlock(int color, int shape)
 }
 
 void blockTurnRight(Block* block){
-	block->angle = (block->angle + 1) % 4;
+	block->angle = (block->angle + 1) % BLOCK_ANGLE_NUM;
 }
 void blockTurnLeft(Block* block){
-	block->angle = (block->angle + 3) % 4;
+	block->angle = (block->angle + (BLOCK_ANGLE_NUM-1)) % BLOCK_ANGLE_NUM;
 }
 
-int(*blockGetShape(Block* block))[4]
+int(*blockGetShape(Block* block))[BLOCK_ANGLE_NUM]
 {
 	return BLOCK_SHAPE[block->shape][block->angle];
 }
@@ -145,7 +145,7 @@ void blockDrawBlock(Block * block, int X, int Y) {
 	graphicChangeColor(block->color);
 	graphicChangeLetter(block->letter);
 	
-	int (*shape)[4] = blockGetShape(block);
+	int (*shape)[BLOCK_ANGLE_NUM] = blockGetShape(block);
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
 		for (int x = 0; x < BLOCK_WIDTH; x++) {
 			if (shape[y][x] == 1) {

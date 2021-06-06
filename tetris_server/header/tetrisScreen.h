@@ -31,6 +31,18 @@ Block* screenNewBlock();
 void screenSetNextBlock(Screen* screen);
 void screenSetCurBlock(Screen* screen);
 
+void curBlockMoveTo(Screen* screen, int x, int y);
+
+void curBlockMoveUp(Screen* screen);
+
+void curBlockMoveDown(Screen* screen);
+
+void curBlockMoveRight(Screen* screen);
+
+void curBlockMoveLeft(Screen* screen);
+
+
+
 int curBlockPositionPermitCheck(Screen* screen);
 int curBlockCrashCheck(Screen* screen);
 void pressCurBlock(Screen* screen);
@@ -41,3 +53,7 @@ void drawScreen(Screen* screen, int X, int Y);
 void drawBoardFrame(Screen* screen, int X, int Y);
 void drawBoard(Screen* screen, int X, int Y);
 void drawCurBlock(Screen* screen, int X, int Y);
+
+void drawNextBlock(Screen* screen, int X, int Y);
+
+void drawHoldBlock(Screen* screen, int X, int Y);
