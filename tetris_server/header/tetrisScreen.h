@@ -17,9 +17,17 @@ typedef struct Screen {
 	Block* curBlock;
 	int curBlockX;
 	int curBlockY;
+	int floorCheck;
 
-	// NextBlock
+	// shadowBlock
+	Block* shadowBlock;
+	int shadowBlockY;
+
+	// nextBlock
 	Block* nextBlock;
+
+	// holdBlock
+	Block* holdBlock;
 
 	// Data
 	int** blockBoard;
@@ -45,14 +53,21 @@ void curBlockMoveLeft(Screen* screen);
 
 int curBlockPositionPermitCheck(Screen* screen);
 int curBlockCrashCheck(Screen* screen);
+void screenInitShadowBlock(Screen* screen);
+void screenUpdateShadowBlock(Screen* screen);
+void screenUpdateShadowBlockPosition(Screen* screen);
 void pressCurBlock(Screen* screen);
+void screenHoldBlock(Screen* screen);
 int curBlockOutOfRangeCheck(Screen* screen);
 int isInRange(Screen* screen, int x, int y);
 
 void drawScreen(Screen* screen, int X, int Y);
 void drawBoardFrame(Screen* screen, int X, int Y);
+void drawAddFrame(Screen* screen, int X, int Y);
 void drawBoard(Screen* screen, int X, int Y);
 void drawCurBlock(Screen* screen, int X, int Y);
+
+void drawShadowBlock(Screen* screen, int X, int Y);
 
 void drawNextBlock(Screen* screen, int X, int Y);
 

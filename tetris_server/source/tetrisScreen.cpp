@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -12,18 +12,21 @@ static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT
 Screen* screenCreateScreen()
 {
 	Screen* newScreen = (Screen*)malloc(sizeof(Screen));
-	newScreen->x = 0;
-	newScreen->y = 0;
-	newScreen->width = 0;
-	newScreen->height = 0;
+	newScreen->x = newScreen->y = 0;
+	newScreen->width = newScreen->height = 0;
 	strcpy(newScreen->letter, SCREEN_DEFAULT_LETTER);
 	newScreen->color = SCREEN_DEFAULT_COLOR;
 	newScreen->blockBoard = NULL;
 	screenChangeSize(newScreen, SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
 	newScreen->curBlock = NULL;
-	newScreen->nextBlock = NULL;
+	newScreen->floorCheck = 0;
+	newScreen->shadowBlock = blockCreateBlock(0, 0);	// shadowBlock은 계속 유지되면서 curBlock을 memcpy하여 사용
+	
+	newScreen->nextBlock = newScreen->holdBlock = NULL;
+	
 	screenSetNextBlock(newScreen);
 	screenSetCurBlock(newScreen);
+	screenInitShadowBlock(newScreen);
 	return newScreen;
 }
 
@@ -70,6 +73,8 @@ void screenSetCurBlock(Screen* screen) {
 	screen->curBlockX = screen->width/2 - BLOCK_WIDTH/2;
 	screen->curBlockY = 0;
 	screenSetNextBlock(screen);
+	screen->floorCheck = 0; // cur블록이 바닥에 닿았다는 사실을 초기화
+	screenUpdateShadowBlock(screen);
 }
 
 void curBlockMoveTo(Screen* screen, int x, int y)
@@ -91,13 +96,17 @@ void curBlockMoveUp(Screen* screen)
 	screen->curBlockY--;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockY++;
+	else
+		screenUpdateShadowBlockPosition(screen);
 }
 
 void curBlockMoveDown(Screen* screen)
 {
 	screen->curBlockY++;
-	if (!curBlockPositionPermitCheck(screen))
+	if (!curBlockPositionPermitCheck(screen)){
+		screen->floorCheck = 1;
 		screen->curBlockY--;
+	}
 }
 
 void curBlockMoveRight(Screen* screen)
@@ -105,6 +114,8 @@ void curBlockMoveRight(Screen* screen)
 	screen->curBlockX++;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockX--;
+	else
+		screenUpdateShadowBlockPosition(screen);
 }
 
 void curBlockMoveLeft(Screen* screen)
@@ -112,6 +123,8 @@ void curBlockMoveLeft(Screen* screen)
 	screen->curBlockX--;
 	if (!curBlockPositionPermitCheck(screen))
 		screen->curBlockX++;
+	else
+		screenUpdateShadowBlockPosition(screen);
 }
 
 int curBlockPositionPermitCheck(Screen* screen) {
@@ -153,6 +166,28 @@ int curBlockCrashCheck(Screen* screen) {
 	}
 	return 0;
 }
+void screenInitShadowBlock(Screen* screen){
+	strcpy(screen->shadowBlock->letter, "□");
+	screenUpdateShadowBlock(screen);
+}
+
+void screenUpdateShadowBlock(Screen* screen) {
+	
+	screen->shadowBlock->angle = screen->curBlock->angle;
+	screen->shadowBlock->color = screen->curBlock->color;
+	screen->shadowBlock->shape = screen->curBlock->shape;
+	screenUpdateShadowBlockPosition(screen);
+}
+
+void screenUpdateShadowBlockPosition(Screen* screen) {
+	int originY = screen->curBlockY;
+	while (!screen->floorCheck) {	// curBlock을 바닥 까지 내린다.
+		curBlockMoveDown(screen);
+	}
+	screen->floorCheck = 0;	// 임시로 내린 것이기 때문에 바닥에 닿았는지에 대한 check값 복구
+	screen->shadowBlockY = screen->curBlockY;
+	curBlockMoveTo(screen, screen->curBlockX, originY);
+}
 
 int isInRange(Screen* screen, int x, int y) {
 	if (0 <= x && x < screen->width)
@@ -189,18 +224,44 @@ void pressCurBlock(Screen * screen) {
 	}
 }
 
+void screenHoldBlock(Screen* screen) {
+	if (screen->holdBlock == NULL) {
+		screen->holdBlock = screen->curBlock;
+		screen->curBlock = NULL;
+		screenSetCurBlock(screen);
+	}
+	else {
+		// setCurBlock()를 이용하여 블록 위치를 초기화 하는데 이용
+		Block* temp = screen->nextBlock;	// nextBlock임시 저장
+		screen->nextBlock = screen->holdBlock; // next블록을 hold블록으로 대체하여 setCurBlock시 hold블록이 나오도록 함
+		screen->holdBlock = screen->curBlock;
+		screen->curBlock = NULL;
+		screenSetCurBlock(screen);
+		free(screen->nextBlock);	// 불 필요한 setCurBlock()에서 생긴 next블록 삭제
+		screen->nextBlock = temp;	// nextBlock 복구
+	}
+}
+
 void drawScreen(Screen * screen, int X, int Y) {
 	drawBoardFrame(screen, X, Y);
 	drawBoard(screen, X+1, Y+1);
 	drawCurBlock(screen, X+1, Y+1);
-	drawNextBlock(screen, X+screen->width+1, Y);
-	drawHoldBlock(screen, X + screen->width + 1, Y+BLOCK_HEIGHT+2);
+	drawShadowBlock(screen, X + 1, Y + 1);
+	drawAddFrame(screen, X+screen->width+1, Y);
+	drawNextBlock(screen, X+screen->width+2, Y+1);
+	drawHoldBlock(screen, X + screen->width+2, Y+BLOCK_HEIGHT+2);
+
 }
 
 void drawBoardFrame(Screen * screen, int X, int Y) {
 	graphicChangeLetter(screen->letter);
 	graphicChangeColor(screen->color);
 	drawRectangle(X, Y, screen->width+2, screen->height+2);
+}
+void drawAddFrame(Screen* screen, int X, int Y) {
+	graphicChangeLetter(screen->letter);
+	graphicChangeColor(screen->color);
+	drawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
 }
 
 void drawBoard(Screen* screen, int X, int Y) {
@@ -220,23 +281,21 @@ void drawCurBlock(Screen* screen, int X, int Y) {
 	blockDrawBlock(screen->curBlock, X + screen->curBlockX, Y + screen->curBlockY);
 }
 
-void drawNextBlock(Screen* screen, int X, int Y) {
-	graphicChangeLetter(screen->letter);
-	graphicChangeColor(screen->color);
-	drawRectangle(X, Y, BLOCK_WIDTH+2, BLOCK_HEIGHT+2+1);
-	graphicChangeColor(WHITE);
-	graphicMovePoint(X + 1, Y + 1);
+void drawShadowBlock(Screen* screen, int X, int Y) {
+	blockDrawBlock(screen->shadowBlock, X + screen->curBlockX, Y + screen->shadowBlockY);
+}
 
-	printf("  NEXT  ")
-	blockDrawBlock(screen->nextBlock, X+1, Y+2);
+void drawNextBlock(Screen* screen, int X, int Y) {
+	graphicChangeColor(WHITE);
+	graphicMovePoint(X, Y);
+	printf("·NEXT·");
+	blockDrawBlock(screen->nextBlock, X, Y+1);
 }
 
 void drawHoldBlock(Screen* screen, int X, int Y) {
-	graphicChangeLetter(screen->letter);
-	graphicChangeColor(screen->color);
-	drawRectangle(X, Y, BLOCK_WIDTH + 2, BLOCK_HEIGHT + 2 + 1);
 	graphicChangeColor(WHITE);
-	graphicMovePoint(X + 1, Y + 1);
-	printf("  HOLD  ");
-	blockDrawBlock(screen->nextBlock, X + 1, Y + 2);////////////////////////////// need to modify
+	graphicMovePoint(X, Y);
+	printf("·HOLD·");
+	if(screen->holdBlock != NULL)
+		blockDrawBlock(screen->holdBlock, X, Y+1);////////////////////////////// need to modify
 }
