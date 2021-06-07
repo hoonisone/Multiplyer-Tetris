@@ -1,8 +1,8 @@
 #include "math+.h"
 #include "test.h"
 
-static int TestGreater();
-static int TestSmaller();
+static int GreaterTest();
+static int SmallerTest();
 
 int greater(int a, int b) {
 	return (a > b) ? a : b;
@@ -12,7 +12,7 @@ int smaller(int a, int b) {
 	return (a < b) ? a : b;
 }
 
-int TestGreater(){
+int GreaterTest(){
 	int a = 10;
 	int b = 20;
 	if (greater(a, b) == b)
@@ -21,7 +21,7 @@ int TestGreater(){
 		return 0;
 }
 
-int TestSmaller() {
+int SmallerTest() {
 	int a = 10;
 	int b = 20;
 	if (smaller(a, b) == a)
@@ -30,9 +30,9 @@ int TestSmaller() {
 		return 0;
 }
 
-void TestMathPlus() {
+void MathPlusTest() {
 	TestStart();
-	Test("greater", TestGreater);
-	Test("smaller", TestSmaller);
+	Test("greater", GreaterTest);
+	Test("smaller", SmallerTest);
 	TestEnd();
 }
