@@ -16,3 +16,5 @@ void userDraw(User* user);
 void userLose(User* user);
 void userDeleteUser(User* user);
 void userPrintState(User* user);
+
+void userDrawUserInfor(User* user, int X, int Y);
