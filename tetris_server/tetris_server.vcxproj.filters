@@ -117,6 +117,12 @@
     <ClCompile Include="source\charList.cpp">
       <Filter>소스 파일\list\listTool</Filter>
     </ClCompile>
+    <ClCompile Include="source\scoreManagerTest.cpp">
+      <Filter>소스 파일\test</Filter>
+    </ClCompile>
+    <ClCompile Include="source\mathPlusTest.cpp">
+      <Filter>소스 파일\test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">
@@ -190,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="header\charList.h">
       <Filter>헤더 파일\list\listTool</Filter>
+    </ClInclude>
+    <ClInclude Include="header\scoreManagerTest.h">
+      <Filter>헤더 파일\test</Filter>
+    </ClInclude>
+    <ClInclude Include="header\mathPlusTest.h">
+      <Filter>헤더 파일\test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

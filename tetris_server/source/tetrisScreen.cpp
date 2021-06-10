@@ -244,12 +244,12 @@ void screenHoldBlock(Screen* screen) {
 void drawBoardFrame(Screen * screen, int X, int Y) {
 	graphicChangeLetter(screen->letter);
 	graphicChangeColor(screen->color);
-	drawRectangle(X, Y, screen->width+2, screen->height+2);
+	graphicDrawRectangle(X, Y, screen->width+2, screen->height+2);
 }
 void drawBlockFrame(Screen* screen, int X, int Y) {
 	graphicChangeLetter(screen->letter);
 	graphicChangeColor(screen->color);
-	drawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
+	graphicDrawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
 }
 void drawBoard(Screen* screen, int X, int Y) {
 	for (int y = 0; y < screen->height; y++) {
@@ -258,7 +258,7 @@ void drawBoard(Screen* screen, int X, int Y) {
 			if (color != 0) {
 				graphicChangeLetter(screen->letter);
 				graphicChangeColor(color);
-				drawPoint(X + x, Y + y);
+				graphicDrawPoint(X + x, Y + y);
 			}
 		}
 	}

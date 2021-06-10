@@ -149,7 +149,7 @@ void blockDrawBlock(Block * block, int X, int Y) {
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
 		for (int x = 0; x < BLOCK_WIDTH; x++) {
 			if (shape[y][x] == 1) {
-				drawPoint(X + x, Y + y);
+				graphicDrawPoint(X + x, Y + y);
 			}
 		}
 	}

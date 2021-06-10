@@ -40,38 +40,38 @@ void userPrintState(User* user) {
 }
 
 void userDrawUserInfor(User* user, int X, int Y) {
-	drawLineRectangle(0, 0, 17, 3);
-	drawLineRectangle(0, 2, 5, 3);
-	drawLineRectangle(4, 2, 5, 3);
-	drawLineRectangle(8, 2, 5, 3);
-	drawLineRectangle(12, 2, 5, 3);
-	drawLineRectangle(0, 4, 5, 3);
-	drawLineRectangle(4, 4, 5, 3);
-	drawLineRectangle(8, 4, 5, 3);
-	drawLineRectangle(12, 4, 5, 3);
+	graphicDrawLineRectangle(0, 0, 17, 3);
+	graphicDrawLineRectangle(0, 2, 5, 3);
+	graphicDrawLineRectangle(4, 2, 5, 3);
+	graphicDrawLineRectangle(8, 2, 5, 3);
+	graphicDrawLineRectangle(12, 2, 5, 3);
+	graphicDrawLineRectangle(0, 4, 5, 3);
+	graphicDrawLineRectangle(4, 4, 5, 3);
+	graphicDrawLineRectangle(8, 4, 5, 3);
+	graphicDrawLineRectangle(12, 4, 5, 3);
 
 	graphicChangeLetter((char*)"¦²");
-	drawPoint(0, 2);
-	drawPoint(0, 4);
+	graphicDrawPoint(0, 2);
+	graphicDrawPoint(0, 4);
 
 	graphicChangeLetter((char*)"¦´");
-	drawPoint(16, 2);
-	drawPoint(16, 4);
+	graphicDrawPoint(16, 2);
+	graphicDrawPoint(16, 4);
 
 	graphicChangeLetter((char*)"¦³");
-	drawPoint(4, 2);
-	drawPoint(8, 2);
-	drawPoint(12, 2);
+	graphicDrawPoint(4, 2);
+	graphicDrawPoint(8, 2);
+	graphicDrawPoint(12, 2);
 
 	graphicChangeLetter((char*)"¦¶");
-	drawPoint(4, 4);
-	drawPoint(8, 4);
-	drawPoint(12, 4);
+	graphicDrawPoint(4, 4);
+	graphicDrawPoint(8, 4);
+	graphicDrawPoint(12, 4);
 
 	graphicChangeLetter((char*)"¦µ");
-	drawPoint(4, 6);
-	drawPoint(8, 6);
-	drawPoint(12, 6);
+	graphicDrawPoint(4, 6);
+	graphicDrawPoint(8, 6);
+	graphicDrawPoint(12, 6);
 
 	graphicMovePoint(1, 1);
 	printf("%10s", user->name);

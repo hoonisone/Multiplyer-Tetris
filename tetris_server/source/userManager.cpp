@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list.h"
+#include "stringList.h"
 #include "user.h"
 #include "file.h"
 #include "string+.h"
@@ -16,7 +16,7 @@
 UserManager* umCreateUserManager(char* fileName) {
 	UserManager* um = (UserManager*)malloc(sizeof(UserManager));
 	strcpy_s(um->fileName, fileName);
-	um->users = listCreateList(userEqual, userCompare, userPrint, userDelete);
+	um->users = createList(userEqual, userCompare, userPrint, userDelete);
 	return um;
 }
 
@@ -38,7 +38,7 @@ void umReadUserInfor(UserManager* um) {
 	}
 }
 void umWriteUserInfor(UserManager* um) {
-	List* lines = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
+	List* lines = createStringList();
 	List* users = um->users;
 	for (int i = 0; i < lines->getSize(users); i++) {
 		User* user = (User*)lines->getElement(users, i);

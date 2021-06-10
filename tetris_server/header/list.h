@@ -1,10 +1,5 @@
 #pragma once
 #include "node.h"
-#include "intList.h"
-#include "charList.h"
-#include "floatList.h"
-#include "doubleList.h"
-#include "stringList.h"
 
 typedef struct List {
     int num;
@@ -48,7 +43,7 @@ typedef struct List {
 } List;
 
 // Basic Calculator
-List* listCreateList(   int (*equal)(Data data1, Data data2),
+List* createList(   int (*equal)(Data data1, Data data2),
                         int (*compare)(Data data1, Data data2),
                         void (*print)(Data data),
                         void (*del)(Data data));

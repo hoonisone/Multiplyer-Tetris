@@ -1,6 +1,16 @@
 #include "doubleList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "doubleList.h"
+
+static int listDoubleEqual(Data data1, Data data2);
+static int listDoubleCompare(Data data1, Data data2);
+static void listDoublePrint(Data data);
+static void listDoubleDelete(Data data);
+
+List* createDoubleList() {
+	return createList(listDoubleEqual, listDoubleCompare, listDoublePrint, listDoubleDelete);
+}
 
 int listDoubleEqual(Data data1, Data data2) {
 	double* value1 = (double*)data1;

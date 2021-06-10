@@ -20,10 +20,10 @@ void graphicMoveCursor(int x, int y);
 
 void graphicMovePoint(int x, int y);
 
-void drawPoint(int x, int y);
-void drawVertical(int x, int y, int len);
-void drawHorizontal(int x, int y, int len);
-void drawRectangle(int x, int y, int width, int height);
+void graphicDrawPoint(int x, int y);
+void graphicDrawVertical(int x, int y, int len);
+void graphicDrawHorizontal(int x, int y, int len);
+void graphicDrawRectangle(int x, int y, int width, int height);
 void graphicChangeLetter(char *letter);
 
-void drawLineRectangle(int x, int y, int width, int height);
+void graphicDrawLineRectangle(int x, int y, int width, int height);

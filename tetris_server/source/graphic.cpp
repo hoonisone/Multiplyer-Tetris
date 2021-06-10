@@ -29,45 +29,45 @@ void graphicMovePoint(int x, int y) {
 	graphicMoveCursor(x * 2, y);
 }
 
-void drawPoint(int x, int y) {
+void graphicDrawPoint(int x, int y) {
 	graphicMovePoint(x, y);
 	printf("%s", _letter);
 }
 
-void drawVertical(int x, int y, int len) {
+void graphicDrawVertical(int x, int y, int len) {
 	for (int i = 0; i < len; i++) {
-		drawPoint(x, y + i);
+		graphicDrawPoint(x, y + i);
 	}
 }
-void drawHorizontal(int x, int y, int len) {
+void graphicDrawHorizontal(int x, int y, int len) {
 	for (int i = 0; i < len; i++) {
-		drawPoint(x + i, y);
+		graphicDrawPoint(x + i, y);
 	}
 }
-void drawRectangle(int x, int y, int width, int height) {
-	drawVertical(x, y, height);
-	drawVertical(x + width - 1, y, height);
-	drawHorizontal(x, y, width);
-	drawHorizontal(x, y + height - 1, width);
+void graphicDrawRectangle(int x, int y, int width, int height) {
+	graphicDrawVertical(x, y, height);
+	graphicDrawVertical(x + width - 1, y, height);
+	graphicDrawHorizontal(x, y, width);
+	graphicDrawHorizontal(x, y + height - 1, width);
 }
 
 void graphicChangeLetter(char *letter) {
 	strcpy(_letter, letter);
 }
 
-void drawLineRectangle(int x, int y, int width, int height) {
+void graphicDrawLineRectangle(int x, int y, int width, int height) {
 	graphicChangeLetter((char*)"¦­");
-	drawVertical(x, y, height);
-	drawVertical(x + width - 1, y, height);
+	graphicDrawVertical(x, y, height);
+	graphicDrawVertical(x + width - 1, y, height);
 	graphicChangeLetter((char*)"¦¬");
-	drawHorizontal(x, y, width);
-	drawHorizontal(x, y + height - 1, width);
+	graphicDrawHorizontal(x, y, width);
+	graphicDrawHorizontal(x, y + height - 1, width);
 	graphicChangeLetter((char*)"¦®");
-	drawPoint(x, y);
+	graphicDrawPoint(x, y);
 	graphicChangeLetter((char*)"¦¯");
-	drawPoint(x+width-1, y);
+	graphicDrawPoint(x+width-1, y);
 	graphicChangeLetter((char*)"¦°");
-	drawPoint(x+width-1, y+height-1);
+	graphicDrawPoint(x+width-1, y+height-1);
 	graphicChangeLetter((char*)"¦±");
-	drawPoint(x, y+height-1);
+	graphicDrawPoint(x, y+height-1);
 }

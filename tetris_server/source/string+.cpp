@@ -1,10 +1,10 @@
 #pragma warning(disable:4996)
 #include <string.h>
 #include "string+.h"
-#include "list.h"
+#include "stringList.h"
 
 List* split(char* string, char* key) {
-	List* list = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
+	List* list = createStringList();
 	char* ptr = strtok(string, key);
 	while (ptr != NULL) {
 		list->pushBackElement(list, ptr);
@@ -12,4 +12,3 @@ List* split(char* string, char* key) {
 	}
 	return list;
 }
-

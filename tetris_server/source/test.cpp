@@ -10,7 +10,7 @@ static int fail;
 static int total;
 char failFunctionNames[TEST_MAX_NUM][TEST_NAME_SIZE];
 
-void TestStart() {
+void testStart() {
 	success = 0;
 	fail = 0;
 	total = 0;
@@ -18,7 +18,7 @@ void TestStart() {
 	printf("-----------------------------------------\n");
 }
 
-void _Test(char* name, int (*testFunction)()) {
+void _test(char* name, int (*testFunction)()) {
 	total++;
 	printf("* Test(%d)\n", total);
 	printf("\t- Name   : %s\n", name);
@@ -40,7 +40,7 @@ void _Test(char* name, int (*testFunction)()) {
 	printf("-----------------------------------------\n");
 }
 
-void TestEnd() {
+void testEnd() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 	printf("Total   ");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);

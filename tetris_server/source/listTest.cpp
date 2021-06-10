@@ -2,18 +2,19 @@
 #include "test.h"
 #include "utill.h"
 #include "listTest.h"
+#include "intList.h"
 
 void ListTestAll() {
-	TestStart();
-	Test("CountElement()", ListTestListCountElement);
-	Test("FindFirstElement()", ListTestListFindFirstElement);
-	Test("ListSort()", ListTestListSort);
-	Test("ListPushList", ListTestListPushList);
+	testStart();
+	test("CountElement()", ListTestListCountElement);
+	test("FindFirstElement()", ListTestListFindFirstElement);
+	test("ListSort()", ListTestListSort);
+	test("ListPushList", ListTestListPushList);
 
-	TestEnd();
+	testEnd();
 }
 int ListTestListCountElement() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
+	List* list = createIntList();
 
 	list->pushBackElement(list, newInt(1));
 	list->pushBackElement(list, newInt(1));
@@ -29,7 +30,7 @@ int ListTestListCountElement() {
 	return 1;
 }
 int ListTestListFindFirstElement() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
+	List* list = createIntList();
 	list->pushBackElement(list, newInt(1));
 	list->pushBackElement(list, newInt(1));
 	list->pushBackElement(list, newInt(1));
@@ -43,7 +44,7 @@ int ListTestListFindFirstElement() {
 	return 1;
 }
 int ListTestListSort() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
+	List* list = createIntList();
 	list->pushBackElement(list, newInt(3));
 	list->pushBackElement(list, newInt(5));
 	list->pushBackElement(list, newInt(1));
@@ -65,7 +66,7 @@ int ListTestListSort() {
 	return 1;
 }
 int ListTestListPushList() {
-	List* list1 = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
+	List* list1 = createIntList();
 	int* value;
 
 	list1->pushBackElement(list1, newInt(1));
@@ -76,7 +77,7 @@ int ListTestListPushList() {
 	list1->pushBackElement(list1, newInt(6));
 	list1->pushBackElement(list1, newInt(7));
 
-	List* list2 = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
+	List* list2 = createIntList();
 	list2->pushBackElement(list2, newInt(1));
 	list2->pushBackElement(list2, newInt(2));
 	list2->pushBackElement(list2, newInt(3));

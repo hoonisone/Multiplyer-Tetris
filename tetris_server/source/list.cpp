@@ -44,9 +44,9 @@ static void listEnrollCompare(List* list, int (*compare)(Data data1, Data data2)
 static void listEnrollPrint(List* list, void (*print)(Data data));
 static void listEnrollDelete(List* list, void (*del)(Data data));
 
-static void fillInternalMethod(List* list);
+static void listFillInternalMethod(List* list);
 
-List* listCreateList(	int (*equal)(Data data1, Data data2),
+List* createList(	int (*equal)(Data data1, Data data2),
 						int (*compare)(Data data1, Data data2),
 						void (*print)(Data data),
 						void (*del)(Data data))
@@ -61,32 +61,32 @@ List* listCreateList(	int (*equal)(Data data1, Data data2),
 	newList->print = print;
 	newList->del = del;
 
-	fillInternalMethod(newList);
+	listFillInternalMethod(newList);
 	return newList;
 }
 
-void fillInternalMethod(List * list) {	// make function like method
-	list->getSize = listGetSize;
-	list->isEmpty = listIsEmpty;
-	list->copyEmptyList = listCopyEmptyList;
-	list->copyPartialList = listCopyPartialList;
-	list->pushList = listPushList;
-	list->pushBackList = listPushBackList;
-	list->emptyOut = listEmptyOut;
-	list->deleteList = listDeleteList;
-	list->sort = listSort;
-	list->getElement = listGetElement;
-	list->setElement = listSetElement;
-	list->pushElement = listPushElement;
-	list->pushBackElement = listPushBackElement;
-	list->popElement = listPopElement;
-	list->findFirstElement = listFindFirstElement;
-	list->countElement = listCountElement;
-	list->printAllElement = listPrintAllElement;
-	list->enrollEqual = listEnrollEqual;
-	list->enrollCompare = listEnrollCompare;
-	list->enrollPrint = listEnrollPrint;
-	list->enrollDelete = listEnrollDelete;
+void listFillInternalMethod(List * list) {	// make function like method
+	list->getSize			= listGetSize;
+	list->isEmpty			= listIsEmpty;
+	list->copyEmptyList		= listCopyEmptyList;
+	list->copyPartialList	= listCopyPartialList;
+	list->pushList			= listPushList;
+	list->pushBackList		= listPushBackList;
+	list->emptyOut			= listEmptyOut;
+	list->deleteList		= listDeleteList;
+	list->sort				= listSort;
+	list->getElement		= listGetElement;
+	list->setElement		= listSetElement;
+	list->pushElement		= listPushElement;
+	list->pushBackElement	= listPushBackElement;
+	list->popElement		= listPopElement;
+	list->findFirstElement	= listFindFirstElement;
+	list->countElement		= listCountElement;
+	list->printAllElement	= listPrintAllElement;
+	list->enrollEqual		= listEnrollEqual;
+	list->enrollCompare		= listEnrollCompare;
+	list->enrollPrint		= listEnrollPrint;
+	list->enrollDelete		= listEnrollDelete;
 }
 
 int listGetSize(List * list) {
@@ -213,7 +213,7 @@ static void listPopNode(List* list, int idx) {
 
 
 List* listCopyEmptyList(List* list) {
-	return listCreateList(list->equal, list->compare, list->print, list->del);
+	return createList(list->equal, list->compare, list->print, list->del);
 }
 List* listCopyPartialList(List* list, int from, int to) {
 	if (!listIsAccessableByIdx(list, from)) {

@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "file.h"
-#include "list.h"
 #include "utill.h"
+#include "stringList.h"
 
 List* readFileIntoList(char* fileName) {
-	List* list = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
+	List* list = createStringList();
 	FILE* fp = fopen(fileName, "r");
 	char line[FILE_LINE_SIZE];
 	while (fgets(line, FILE_LINE_SIZE, fp) != NULL) {
