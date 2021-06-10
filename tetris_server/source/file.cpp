@@ -11,15 +11,15 @@ List* readFileIntoList(char* fileName) {
 	char line[FILE_LINE_SIZE];
 	while (fgets(line, FILE_LINE_SIZE, fp) != NULL) {
 		line[strlen(line) - 1] = NULL;
-		listPushBackElement(list, newString(line));
+		list->pushBackElement(list, newString(line));
 	}
 	return list;
 }
 
 void writeListIntoFile(List* list, char* fileName) {
 	FILE* fp = fopen(fileName, "w");
-	for (int i = 0; i < listGetSize(list); i++) {
-		char* line = (char*)listGetElement(list, i);
+	for (int i = 0; i < list->getSize(list); i++) {
+		char* line = (char*)list->getElement(list, i);
 		fputs(line, fp);
 		fputs("\n", fp);
 	}

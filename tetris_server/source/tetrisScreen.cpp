@@ -241,29 +241,16 @@ void screenHoldBlock(Screen* screen) {
 		screen->nextBlock = temp;	// nextBlock 복구
 	}
 }
-
-void drawScreen(Screen * screen, int X, int Y) {
-	drawBoardFrame(screen, X, Y);
-	drawBoard(screen, X+1, Y+1);
-	drawCurBlock(screen, X+1, Y+1);
-	drawShadowBlock(screen, X + 1, Y + 1);
-	drawAddFrame(screen, X+screen->width+1, Y);
-	drawNextBlock(screen, X+screen->width+2, Y+1);
-	drawHoldBlock(screen, X + screen->width+2, Y+BLOCK_HEIGHT+2);
-
-}
-
 void drawBoardFrame(Screen * screen, int X, int Y) {
 	graphicChangeLetter(screen->letter);
 	graphicChangeColor(screen->color);
 	drawRectangle(X, Y, screen->width+2, screen->height+2);
 }
-void drawAddFrame(Screen* screen, int X, int Y) {
+void drawBlockFrame(Screen* screen, int X, int Y) {
 	graphicChangeLetter(screen->letter);
 	graphicChangeColor(screen->color);
 	drawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
 }
-
 void drawBoard(Screen* screen, int X, int Y) {
 	for (int y = 0; y < screen->height; y++) {
 		for (int x = 0; x < screen->width; x++) {
@@ -276,22 +263,18 @@ void drawBoard(Screen* screen, int X, int Y) {
 		}
 	}
 }
-
 void drawCurBlock(Screen* screen, int X, int Y) {
 	blockDrawBlock(screen->curBlock, X + screen->curBlockX, Y + screen->curBlockY);
 }
-
 void drawShadowBlock(Screen* screen, int X, int Y) {
 	blockDrawBlock(screen->shadowBlock, X + screen->curBlockX, Y + screen->shadowBlockY);
 }
-
 void drawNextBlock(Screen* screen, int X, int Y) {
 	graphicChangeColor(WHITE);
 	graphicMovePoint(X, Y);
 	printf("·NEXT·");
 	blockDrawBlock(screen->nextBlock, X, Y+1);
 }
-
 void drawHoldBlock(Screen* screen, int X, int Y) {
 	graphicChangeColor(WHITE);
 	graphicMovePoint(X, Y);
@@ -299,3 +282,16 @@ void drawHoldBlock(Screen* screen, int X, int Y) {
 	if(screen->holdBlock != NULL)
 		blockDrawBlock(screen->holdBlock, X, Y+1);////////////////////////////// need to modify
 }
+void drawFullScreen(Screen* screen, int X, int Y) {
+	drawBoardFrame(screen, X, Y);
+	drawBoard(screen, X + 1, Y + 1);
+	drawCurBlock(screen, X + 1, Y + 1);
+	drawShadowBlock(screen, X + 1, Y + 1);
+	drawBlockFrame(screen, X + screen->width + 1, Y);
+	drawNextBlock(screen, X + screen->width + 2, Y + 1);
+	drawHoldBlock(screen, X + screen->width + 2, Y + BLOCK_HEIGHT + 2);
+}
+
+//void drawUpdatedScreen(Screen* screen, int X, int Y) {
+//
+//}

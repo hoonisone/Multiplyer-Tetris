@@ -61,9 +61,9 @@ void screenHoldBlock(Screen* screen);
 int curBlockOutOfRangeCheck(Screen* screen);
 int isInRange(Screen* screen, int x, int y);
 
-void drawScreen(Screen* screen, int X, int Y);
+void drawFullScreen(Screen* screen, int X, int Y);
 void drawBoardFrame(Screen* screen, int X, int Y);
-void drawAddFrame(Screen* screen, int X, int Y);
+void drawBlockFrame(Screen* screen, int X, int Y);
 void drawBoard(Screen* screen, int X, int Y);
 void drawCurBlock(Screen* screen, int X, int Y);
 

@@ -7,8 +7,9 @@ List* split(char* string, char* key) {
 	List* list = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
 	char* ptr = strtok(string, key);
 	while (ptr != NULL) {
-		listPushBackElement(list, ptr);
+		list->pushBackElement(list, ptr);
 		ptr = strtok(NULL, key);
 	}
 	return list;
 }
+

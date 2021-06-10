@@ -4,6 +4,18 @@
 
 static char _letter[4] = "*";
 
+
+//DWORD WINAPI aaa(void* data) {
+//	while (1) {
+//	}
+//	return 0;
+//}
+//static char ** board
+//
+//void graphicInit(int width, int height) {
+//
+//}
+
 void graphicChangeColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }

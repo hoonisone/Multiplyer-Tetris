@@ -12,6 +12,7 @@
 #include "error.h"
 
 
+
 UserManager* umCreateUserManager(char* fileName) {
 	UserManager* um = (UserManager*)malloc(sizeof(UserManager));
 	strcpy_s(um->fileName, fileName);
@@ -21,50 +22,50 @@ UserManager* umCreateUserManager(char* fileName) {
 
 void umReadUserInfor(UserManager* um) {
 	List* lines = readFileIntoList(um->fileName);
-	listEmptyOut(um->users);
-	for (int i = 0; i < listGetSize(lines); i++) {
-		char* line = (char*)listGetElement(lines, i);
+	lines->emptyOut(um->users);
+	for (int i = 0; i < lines->getSize(lines); i++) {
+		char* line = (char*)lines->getElement(lines, i);
 		List* tokens = split(line, (char*)"/");
-		char* name   = (char*)listGetElement(tokens, 0);
-		int win      = atoi((char*)listGetElement(tokens, 1));
-		int draw     = atoi((char*)listGetElement(tokens, 2));
-		int lose     =  atoi((char*)listGetElement(tokens, 3));
+		char* name   = (char*)lines->getElement(tokens, 0);
+		int win      = atoi((char*)lines->getElement(tokens, 1));
+		int draw     = atoi((char*)lines->getElement(tokens, 2));
+		int lose     =  atoi((char*)lines->getElement(tokens, 3));
 		User* user   = userCreateUser(name);
 		user->win    = win;
 		user->draw   = draw;
 		user->lose   = lose;
-		listPushBackElement(um->users, user);
+		lines->pushBackElement(um->users, user);
 	}
 }
 void umWriteUserInfor(UserManager* um) {
 	List* lines = listCreateList(listStringEqual, listStringCompare, listStringPrint, listStringDelete);
 	List* users = um->users;
-	for (int i = 0; i < listGetSize(users); i++) {
-		User* user = (User*)listGetElement(users, i);
+	for (int i = 0; i < lines->getSize(users); i++) {
+		User* user = (User*)lines->getElement(users, i);
 		char line[FILE_LINE_SIZE] = "";
 		sprintf(line, "%s/%d/%d/%d", user->name, user->win, user->draw, user->lose);
-		listPushBackElement(lines, newString(line));
+		lines->pushBackElement(lines, newString(line));
 	}
 	writeListIntoFile(lines, um->fileName);
 }
 int  umUserExistenceCheck(UserManager* um, User* user) {
-	return (listFindFirstElement(um->users, user) != -1);
+	return (um->users->findFirstElement(um->users, user) != -1);
 }
 void umEnrollUser(UserManager* um, User* user) {
-	int count = listFindFirstElement(um->users, user);
+	int count = um->users->findFirstElement(um->users, user);
 	if (count != 0) {
 		return;
 	}
 
-	listPushBackElement(um->users, user);
+	um->users->pushBackElement(um->users, user);
 }
 void umRemoveUser(UserManager* um, User* user) {
-	int idx = listFindFirstElement(um->users, user);
+	int idx = um->users->findFirstElement(um->users, user);
 	if (idx == -1) {
 		return;
 	}
 
-	listPopElement(um->users, idx);
+	um->users->popElement(um->users, idx);
 }
 void umModifyUser(UserManager* um, User* user) {
 	if (um == NULL) {
@@ -76,9 +77,9 @@ void umModifyUser(UserManager* um, User* user) {
 	else if (umUserExistenceCheck(um, user)) {
 		return;
 	}
-	int idx = listFindFirstElement(um->users, user);
-	listPushElement(um->users, idx, user);
-	listPopElement(um->users, idx);
+	int idx = um->users->findFirstElement(um->users, user);
+	um->users->pushElement(um->users, idx, user);
+	um->users->popElement(um->users, idx);
 	umWriteUserInfor(um);
 }
 

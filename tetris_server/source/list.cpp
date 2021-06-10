@@ -7,6 +7,45 @@
 #include "utill.h"
 #include "test.h"
 
+static int listIsAccessableByIdx(List* list, int idx);
+static Node* listGetCore(List* list);
+static Node* listGetNode(List* list, int idx);
+static Node* listGetFirstNode(List* list);
+static Node* listGetLastNode(List* list);
+static void listPushNode(List* list, int idx, Node* node);
+static void listPushBackNode(List* list, Node* node);
+static void listPopNode(List* list, int idx);
+
+static int listGetSize(List* list);
+static int listIsEmpty(List* list);
+// List Calculator
+static List* listCopyEmptyList(List* list);
+static List* listCopyPartialList(List* list, int from, int to);
+//void listReverse(List* list); // ±¸Çö ¾ÈµÊ
+static void listPushList(List* subject, int idx, List* object);
+static void listPushBackList(List* subject, List* object);
+static void listEmptyOut(List* list);
+static void listDeleteList(List* list);
+static void listSort(List* list);
+
+// Element Calculator
+static Data listGetElement(List* list, int idx);
+static void listSetElement(List* list, int idx, Data data);
+static void listPushElement(List* list, int idx, Data data);
+static void listPushBackElement(List* list, Data data);
+static void listPopElement(List* list, int idx);
+static int listFindFirstElement(List* list, Data target);
+static int listCountElement(List* list, Data target);
+static void listPrintAllElement(List* list);
+
+//Function Enroll
+static void listEnrollEqual(List* list, int (*equal)(Data data1, Data data2));
+static void listEnrollCompare(List* list, int (*compare)(Data data1, Data data2));
+static void listEnrollPrint(List* list, void (*print)(Data data));
+static void listEnrollDelete(List* list, void (*del)(Data data));
+
+static void fillInternalMethod(List* list);
+
 List* listCreateList(	int (*equal)(Data data1, Data data2),
 						int (*compare)(Data data1, Data data2),
 						void (*print)(Data data),
@@ -21,8 +60,35 @@ List* listCreateList(	int (*equal)(Data data1, Data data2),
 	newList->compare = compare;
 	newList->print = print;
 	newList->del = del;
+
+	fillInternalMethod(newList);
 	return newList;
 }
+
+void fillInternalMethod(List * list) {	// make function like method
+	list->getSize = listGetSize;
+	list->isEmpty = listIsEmpty;
+	list->copyEmptyList = listCopyEmptyList;
+	list->copyPartialList = listCopyPartialList;
+	list->pushList = listPushList;
+	list->pushBackList = listPushBackList;
+	list->emptyOut = listEmptyOut;
+	list->deleteList = listDeleteList;
+	list->sort = listSort;
+	list->getElement = listGetElement;
+	list->setElement = listSetElement;
+	list->pushElement = listPushElement;
+	list->pushBackElement = listPushBackElement;
+	list->popElement = listPopElement;
+	list->findFirstElement = listFindFirstElement;
+	list->countElement = listCountElement;
+	list->printAllElement = listPrintAllElement;
+	list->enrollEqual = listEnrollEqual;
+	list->enrollCompare = listEnrollCompare;
+	list->enrollPrint = listEnrollPrint;
+	list->enrollDelete = listEnrollDelete;
+}
+
 int listGetSize(List * list) {
 	if (list == NULL){
 		errorPrint("The parameter \"list\" does not exist");
@@ -363,99 +429,7 @@ void listEnrollDelete(List* list, void (*del)(Data data)) {
 	list->del = del;
 }
 
-
-int listCharEqual(Data data1, Data data2) {
-	char* value1 = (char*)data1;
-	char* value2 = (char*)data2;
-	return (*value1 == *value2);
-}
-int listCharCompare(Data data1, Data data2) {
-	char* value1 = (char*)data1;
-	char* value2 = (char*)data2;
-	return (*value1 < *value2);
-}
-void listCharPrint(Data data) {
-	char* value = (char*)data;
-	printf("%c", *value);
-}
-void listCharDelete(Data data) {
-	free(data);
-}
-
-
-int listIntEqual(Data data1, Data data2) {
-	int* value1 = (int*)data1;
-	int* value2 = (int*)data2;
-	return (*value1 == *value2);
-}
-int listIntCompare(Data data1, Data data2) {
-	int* value1 = (int*)data1;
-	int* value2 = (int*)data2;
-	return (*value1 < *value2);
-}
-void listIntPrint(Data data) {
-	int* value = (int*)data;
-	printf("%d", *value);
-}
-void listIntDelete(Data data) {
-	free(data);
-}
-
-
-int listFloatEqual(Data data1, Data data2) {
-	float* value1 = (float*)data1;
-	float* value2 = (float*)data2;
-	return (*value1 == *value2);
-}
-int listFloatCompare(Data data1, Data data2) {
-	float* value1 = (float*)data1;
-	float* value2 = (float*)data2;
-	return (*value1 < *value2);
-}
-void listFloatPrint(Data data) {
-	float* value = (float*)data;
-	printf("%f", *value);
-}
-void listFloatDelete(Data data) {
-	free(data);
-}
-
-
-int listDoubleEqual(Data data1, Data data2) {
-	double* value1 = (double*)data1;
-	double* value2 = (double*)data2;
-	return (*value1 == *value2);
-}
-int listDoubleCompare(Data data1, Data data2) {
-	double* value1 = (double*)data1;
-	double* value2 = (double*)data2;
-	return (*value1 < *value2);
-}
-void listDoublePrint(Data data) {
-	double* value = (double*)data;
-	printf("%fl", *value);
-}
-void listDoubleDelete(Data data) {
-	free(data);
-}
-
-
-int listStringEqual(Data data1, Data data2) {
-	char* value1 = (char*)data1;
-	char* value2 = (char*)data2;
-	return strcmp(value1, value2) == 0;
-}
-int listStringCompare(Data data1, Data data2) {
-	char* value1 = (char*)data1;
-	char* value2 = (char*)data2;
-	return strcmp(value1, value2) == 1;
-}
-void listStringPrint(Data data) {
-	char* value = (char*)data;
-	printf("%s", value);
-}
-void listStringDelete(Data data) {
-}
+//listCreateList(listStringEqual, listStringCompare, listStringPrint);
 
 
 void ListPrintState(List* list) {
@@ -464,94 +438,4 @@ void ListPrintState(List* list) {
 	printf("\telements: ");
 	listPrintAllElement(list);
 }
-void ListTestAll() {
-	TestStart();
-	Test("CountElement()", ListTestListCountElement);
-	Test("FindFirstElement()", ListTestListFindFirstElement);
-	Test("ListSort()", ListTestListSort);
-	Test("ListPushList", ListTestListPushList);
 
-	TestEnd();
-}
-int ListTestListCountElement() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
-
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(2));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(2));
-
-	if (listCountElement(list, newInt(1)) != 5) return 0;
-	if (listCountElement(list, newInt(2)) != 2) return 0;
-
-	return 1;
-}
-int ListTestListFindFirstElement() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(2));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(2));
-
-	if (listFindFirstElement(list, newInt(2)) != 3) return 0;
-
-	return 1;
-}
-int ListTestListSort() {
-	List* list = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
-	listPushBackElement(list, newInt(3));
-	listPushBackElement(list, newInt(5));
-	listPushBackElement(list, newInt(1));
-	listPushBackElement(list, newInt(2));
-	listPushBackElement(list, newInt(7));
-	listPushBackElement(list, newInt(6));
-	listPushBackElement(list, newInt(4));
-	listSort(list);
-
-	if (*(int*)listGetElement(list, 0) != 1) return 0;
-	if (*(int*)listGetElement(list, 1) != 2) return 0;
-	if (*(int*)listGetElement(list, 2) != 3) return 0;
-	if (*(int*)listGetElement(list, 3) != 4) return 0;
-	if (*(int*)listGetElement(list, 4) != 5) return 0;
-	if (*(int*)listGetElement(list, 5) != 6) return 0;
-	if (*(int*)listGetElement(list, 6) != 7) return 0;
-	if (listGetSize(list) != 7) return 0;
-
-	return 1;
-}
-int ListTestListPushList() {
-	List* list1 = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
-	int* value;
-
-	listPushBackElement(list1, newInt(1));
-	listPushBackElement(list1, newInt(2));
-	listPushBackElement(list1, newInt(3));
-	listPushBackElement(list1, newInt(4));
-	listPushBackElement(list1, newInt(5));
-	listPushBackElement(list1, newInt(6));
-	listPushBackElement(list1, newInt(7));
-
-	List* list2 = listCreateList(listIntEqual, listIntCompare, listIntPrint, listIntDelete);
-	listPushBackElement(list2, newInt(1));
-	listPushBackElement(list2, newInt(2));
-	listPushBackElement(list2, newInt(3));
-	listPushBackElement(list2, newInt(4));
-
-
-	int total = listGetSize(list1) + listGetSize(list2);
-	listPushBackList(list1, list2);
-
-	if (listGetSize(list1) != total) return 0;
-	if (*(int*)listGetElement(list1, 7) != 1) return 0;
-	if (*(int*)listGetElement(list1, 8) != 2) return 0;
-	if (*(int*)listGetElement(list1, 9) != 3) return 0;
-	if (*(int*)listGetElement(list1, 10) != 4) return 0;
-
-	return 1;
-}
