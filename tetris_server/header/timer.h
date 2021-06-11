@@ -8,8 +8,11 @@ typedef struct Timer {
 
 	void (*init)(Timer* timer);
 	clock_t (*getTime)(Timer* timer);
+	void (*del)(Timer* timer);
 }Timer;
 
 
 Timer * createTimer();
+
+
 

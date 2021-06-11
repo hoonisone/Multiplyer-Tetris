@@ -7,7 +7,7 @@
 static void timerInit(Timer* timer);
 static clock_t timerGetTime(Timer* timer);
 static void timerDelete(Timer* timer);
-
+static void timerFillInternalMethod(Timer* timer);
 
 Timer* createTimer()
 {
@@ -21,6 +21,7 @@ void timerFillInternalMethod(Timer* timer)
 {
 	timer->init = timerInit;
 	timer->getTime = timerGetTime;
+	timer->del = timerDelete;
 }
 
 void timerInit(Timer* timer)

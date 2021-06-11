@@ -169,6 +169,7 @@
     <ClCompile Include="source\tetrisScreen.cpp" />
     <ClCompile Include="source\timer.cpp" />
     <ClCompile Include="source\user.cpp" />
+    <ClCompile Include="source\userInterface.cpp" />
     <ClCompile Include="source\userManager.cpp" />
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>

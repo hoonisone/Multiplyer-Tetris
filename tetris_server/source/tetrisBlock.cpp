@@ -142,14 +142,14 @@ int(*blockGetShape(Block* block))[BLOCK_ANGLE_NUM]
 
 void blockDrawBlock(Block * block, int X, int Y) {
 	
-	graphicChangeColor(block->color);
-	graphicChangeLetter(block->letter);
+	graphicManager->changeColor(block->color);
+	graphicManager->changeLetter(block->letter);
 	
 	int (*shape)[BLOCK_ANGLE_NUM] = blockGetShape(block);
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
 		for (int x = 0; x < BLOCK_WIDTH; x++) {
 			if (shape[y][x] == 1) {
-				graphicDrawPoint(X + x, Y + y);
+				graphicManager->drawPoint(X + x, Y + y);
 			}
 		}
 	}

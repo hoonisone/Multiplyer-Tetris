@@ -40,61 +40,61 @@ void userPrintState(User* user) {
 }
 
 void userDrawUserInfor(User* user, int X, int Y) {
-	graphicDrawLineRectangle(0, 0, 17, 3);
-	graphicDrawLineRectangle(0, 2, 5, 3);
-	graphicDrawLineRectangle(4, 2, 5, 3);
-	graphicDrawLineRectangle(8, 2, 5, 3);
-	graphicDrawLineRectangle(12, 2, 5, 3);
-	graphicDrawLineRectangle(0, 4, 5, 3);
-	graphicDrawLineRectangle(4, 4, 5, 3);
-	graphicDrawLineRectangle(8, 4, 5, 3);
-	graphicDrawLineRectangle(12, 4, 5, 3);
+	static char buffer[100];
 
-	graphicChangeLetter((char*)"¦²");
-	graphicDrawPoint(0, 2);
-	graphicDrawPoint(0, 4);
+	graphicManager->drawLineRectangle(X +  0, Y + 0, 17, 3);
+	graphicManager->drawLineRectangle(X +  0, Y + 2, 6, 3);
+	graphicManager->drawLineRectangle(X +  5, Y + 2, 5, 3);
+	graphicManager->drawLineRectangle(X + 10, Y + 2, 5, 3);
+	graphicManager->drawLineRectangle(X + 15, Y + 2, 5, 3);
 
-	graphicChangeLetter((char*)"¦´");
-	graphicDrawPoint(16, 2);
-	graphicDrawPoint(16, 4);
-
-	graphicChangeLetter((char*)"¦³");
-	graphicDrawPoint(4, 2);
-	graphicDrawPoint(8, 2);
-	graphicDrawPoint(12, 2);
-
-	graphicChangeLetter((char*)"¦¶");
-	graphicDrawPoint(4, 4);
-	graphicDrawPoint(8, 4);
-	graphicDrawPoint(12, 4);
-
-	graphicChangeLetter((char*)"¦µ");
-	graphicDrawPoint(4, 6);
-	graphicDrawPoint(8, 6);
-	graphicDrawPoint(12, 6);
-
-	graphicMovePoint(1, 1);
-	printf("%10s", user->name);
-
-	graphicMovePoint(1, 3);
-	printf(" %4s", "WIN");
-	graphicMovePoint(5, 3);
-	printf(" %4s", "DRAW");
-	graphicMovePoint(9, 3);
-	printf(" %4s", "LOSE");
-
-	graphicMovePoint(1, 5);
-	printf(" %5d", user->win);
-	graphicMovePoint(5, 5);
-	printf(" %5d", user->draw);
-	graphicMovePoint(9, 5);
-	printf(" %5d", user->lose);
+	graphicManager->drawLineRectangle(X +  0, Y + 4, 5, 3);
+	graphicManager->drawLineRectangle(X +  5, Y + 4, 5, 3);
+	graphicManager->drawLineRectangle(X + 10, Y + 4, 5, 3);
+	graphicManager->drawLineRectangle(X + 15, Y + 4, 5, 3);
 	
 
-	//graphicMoveCursor(1, 3);
-	//printf("  WIN: %7d\n", 100);
-	//graphicMoveCursor(1, 4);
-	//printf(" DRAW: %7d\n", 100);
-	//graphicMoveCursor(1, 5);
-	//printf(" LOSE: %7d\n", 100);
+	graphicManager->changeLetter((char*)"¦²");
+	graphicManager->drawPoint(X + 0, Y + 2);
+	graphicManager->drawPoint(X + 0, Y + 4);
+
+	graphicManager->changeLetter((char*)"¦´");
+	graphicManager->drawPoint(X + 20, Y + 2);
+	graphicManager->drawPoint(X + 20, Y + 4);
+
+	graphicManager->changeLetter((char*)"¦³");
+	graphicManager->drawPoint(X + 5, Y + 2);
+	graphicManager->drawPoint(X + 10, Y + 2);
+	graphicManager->drawPoint(X + 15, Y + 2);
+
+	graphicManager->changeLetter((char*)"¦¶");
+	graphicManager->drawPoint(X + 5, Y + 4);
+	graphicManager->drawPoint(X + 10, Y + 4);
+	graphicManager->drawPoint(X + 15, Y + 4);
+
+	graphicManager->changeLetter((char*)"¦µ");
+	graphicManager->drawPoint(X + 5, Y + 6);
+	graphicManager->drawPoint(X + 10, Y + 6);
+	graphicManager->drawPoint(X + 15, Y + 6);
+
+	//sprintf(buffer, "%10s", user->name);
+	//graphicManager->printText(X + 1, Y + 1, buffer);
+
+	//sprintf(buffer, " %4s", "WIN");
+	//graphicManager->printText(X + 1, Y + 3, buffer);
+
+	//sprintf(buffer, " %4s", "DRAW");
+	//graphicManager->printText(X + 5, Y + 3, buffer);
+
+	//sprintf(buffer, " %4s", "LOSE");
+	//graphicManager->printText(X + 9, Y + 3, buffer);
+
+	//sprintf(buffer, " %5d", user->win);
+	//graphicManager->printText(X + 1, Y + 5, buffer);
+
+	//sprintf(buffer, " %5d", user->draw);
+	//graphicManager->printText(X + 5, Y + 5, buffer);
+
+	//sprintf(buffer, " %5d", user->lose);
+	//graphicManager->printText(X + 9, Y+5, buffer);
 }

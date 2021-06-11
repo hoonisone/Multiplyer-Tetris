@@ -25,6 +25,7 @@ void responseHandler(char* request, char* response) {
 }
 
 List* printList;
+GraphicManager* gm;
 
 DWORD WINAPI printAll(void * data) {
 	while(1){
@@ -38,51 +39,37 @@ DWORD WINAPI printAll(void * data) {
 	}
 	return 0;
 }
-
 int main(int argc, char* argv[]) {
-	SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
-	Timer* t1 = createTimer();
-	Timer* t2 = createTimer();
+	graphicManager->setFullScreen();
+	graphicManager->changeLetter((char*)"aa");
+	graphicManager->drawPoint(10, 10);
 
-	while (1) {
-		/*printf("time1 = %d\n", t1->getTime(t1));
-		printf("time2 = %d\n", t2->getTime(t2));
-		t2->init(t2);*/
-		printf("time = %d\n", clock());
-	}
+	//int a;
+	//((char*)(&a))[0];
+	//char arr[9];
+	//strcpy(arr, "¦¡ ¦¡");
+	//arr[5] = 8;
+	//arr[6] = 'a';
+	//arr[7] = 8;
+	//arr[8] = NULL;
+	//printf("%s", arr);
+	//printf("a");
+	////¦¡bb b
+	//while (1);
+
 	//Test();
 	//serverRun(5000, responseHandler);
 
-	//Screen* screen = screenCreateScreen();
-	//
-	//curBlockMoveLeft(screen);
+	Screen* screen = screenCreateScreen();
 
 	//User* user = userCreateUser((char*)"hoonisone");
-	//userDrawUserInfor(user, 0, 0);
-
-	//drawFullScreen(screen, 0, 7);
-	//drawFullScreen(screen, 20, 7);
-	//drawFullScreen(screen, 40, 7);
-	//drawFullScreen(screen, 60, 7);
-	//char output[30][30];
-	////for (int y = 0; y < 30; y++) {
-	////	for (int x = 0; x < 30; x++) {
-	////		output[y][x] = 0;
-	////	}
-	////}
-	////memcpy(&output[10][5], "helÇÑlo", 10);
-	////printf(&output[10][5]);
-
-	//int a = 0;
-	//printList = createStringList();
-	//HANDLE hThread = CreateThread(NULL, 0, printAll, NULL, 0, NULL);
-	//char buffer[100];
-	//while (1){
-	//	sprintf(buffer, "%d", clock());
-	//	printList->pushBackElement(printList, newString(buffer));
-	//	//_sleep(1000);
-	//}
+	//userDrawUserInfor(user, 10, 0);
 	
+	while (1) {
+		screenDrawFullScreen(screen, 10, 10);
+
+	}
+	while (1);
 }
 
 

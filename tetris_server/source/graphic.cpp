@@ -1,20 +1,74 @@
 #include <stdio.h>
 #include <Windows.h>
-#include "..\header\graphic.h"
+#include "graphic.h"
+#include <windows.h>
+#include "stringList.h"
+#include <string.h>
 
-static char _letter[4] = "*";
+#define LETTER_SIZE 4
 
 
-//DWORD WINAPI aaa(void* data) {
-//	while (1) {
-//	}
-//	return 0;
-//}
-//static char ** board
-//
-//void graphicInit(int width, int height) {
-//
-//}
+static GraphicManager* createGraphicManager();
+static void graphicSetFullScreen();
+static void graphicSetScreenSize(int width, int height);
+static void graphicChangeColor(int color);
+static void graphicMoveCursor(int x, int y);
+static void graphicMovePoint(int x, int y);
+static void graphicDrawPoint(int x, int y);
+static void graphicDrawVertical(int x, int y, int len);
+static void graphicDrawHorizontal(int x, int y, int len);
+static void graphicDrawRectangle(int x, int y, int width, int height);
+static void graphicChangeLetter(char* letter);
+static void graphicDrawLineRectangle(int x, int y, int width, int height);
+void graphicDelete(GraphicManager* gm);
+static void graphicManagerFillInternalMethod(GraphicManager* gm);
+void graphicManagerPrintText(int x, int y, char* text);
+
+static char letter[LETTER_SIZE];
+
+GraphicManager* _graphicManager = NULL;
+
+
+GraphicManager* getGraphicManager()
+{
+	if (_graphicManager == NULL) {
+		_graphicManager = createGraphicManager();
+	}
+	return _graphicManager;
+}
+
+GraphicManager* createGraphicManager()
+{
+	GraphicManager* object = (GraphicManager*)malloc(sizeof(GraphicManager));
+	graphicManagerFillInternalMethod(object);
+	return object;
+}
+
+static void graphicManagerFillInternalMethod(GraphicManager* gm) {
+	gm->setFullScreen = graphicSetFullScreen;
+	gm->setScreenSize = graphicSetScreenSize;
+	gm->changeColor = graphicChangeColor;
+	gm->moveCursor = graphicMoveCursor;
+	gm->movePoint = graphicMovePoint;
+	gm->drawPoint = graphicDrawPoint;
+	gm->drawVertical = graphicDrawVertical;
+	gm->drawHorizontal = graphicDrawHorizontal;
+	gm->drawRectangle = graphicDrawRectangle;
+	gm->changeLetter = graphicChangeLetter;
+	gm->drawLineRectangle = graphicDrawLineRectangle;
+	gm->del = graphicDelete;
+	gm->printText = graphicManagerPrintText;
+}
+
+void graphicSetFullScreen() {
+	SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
+}
+
+void graphicSetScreenSize(int width, int height) {
+	char order[100];
+	sprintf(order, "mode con cols=%d lines=%d", width, height, 100);
+	system(order);
+}
 
 void graphicChangeColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -31,12 +85,13 @@ void graphicMovePoint(int x, int y) {
 
 void graphicDrawPoint(int x, int y) {
 	graphicMovePoint(x, y);
-	printf("%s", _letter);
+	printf("%s", letter);
 }
 
 void graphicDrawVertical(int x, int y, int len) {
 	for (int i = 0; i < len; i++) {
 		graphicDrawPoint(x, y + i);
+		
 	}
 }
 void graphicDrawHorizontal(int x, int y, int len) {
@@ -45,21 +100,26 @@ void graphicDrawHorizontal(int x, int y, int len) {
 	}
 }
 void graphicDrawRectangle(int x, int y, int width, int height) {
+
 	graphicDrawVertical(x, y, height);
 	graphicDrawVertical(x + width - 1, y, height);
 	graphicDrawHorizontal(x, y, width);
 	graphicDrawHorizontal(x, y + height - 1, width);
 }
 
-void graphicChangeLetter(char *letter) {
-	strcpy(_letter, letter);
+void graphicChangeLetter(char *_letter) {
+	strcpy(letter, _letter);
 }
 
 void graphicDrawLineRectangle(int x, int y, int width, int height) {
+
 	graphicChangeLetter((char*)"¦­");
+	
 	graphicDrawVertical(x, y, height);
+	
+
 	graphicDrawVertical(x + width - 1, y, height);
-	graphicChangeLetter((char*)"¦¬");
+	graphicChangeLetter((char*)"¤Ñ");
 	graphicDrawHorizontal(x, y, width);
 	graphicDrawHorizontal(x, y + height - 1, width);
 	graphicChangeLetter((char*)"¦®");
@@ -70,4 +130,14 @@ void graphicDrawLineRectangle(int x, int y, int width, int height) {
 	graphicDrawPoint(x+width-1, y+height-1);
 	graphicChangeLetter((char*)"¦±");
 	graphicDrawPoint(x, y+height-1);
+	
+}
+
+void graphicDelete(GraphicManager * gm) {
+	free(gm);
+}
+
+void graphicManagerPrintText(int x, int y, char* text) {
+	graphicMovePoint(x, y);
+	printf("%s", text);
 }

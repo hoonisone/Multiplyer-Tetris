@@ -129,6 +129,9 @@
     <ClCompile Include="source\objectList.cpp">
       <Filter>소스 파일\list\listTool</Filter>
     </ClCompile>
+    <ClCompile Include="source\userInterface.cpp">
+      <Filter>소스 파일\tetris</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">

@@ -1,3 +1,5 @@
+#pragma once
+
 #define BLACK		0
 #define BLUE		1
 #define GERRN		2
@@ -15,15 +17,25 @@
 #define LIGHT_YELLOW 14
 #define BRIGHT_WHITE 15
 
-void graphicChangeColor(int color);
-void graphicMoveCursor(int x, int y);
+#define graphicManager getGraphicManager()
 
-void graphicMovePoint(int x, int y);
+typedef struct GraphicManager {
+	void (*setFullScreen)();
+	void (*setScreenSize)(int width, int height);
+	void (*changeColor)(int color);
+	void (*moveCursor)(int x, int y);
+	void (*movePoint)(int x, int y);
+	void (*drawPoint)(int x, int y);
+	void (*drawVertical)(int x, int y, int len);
+	void (*drawHorizontal)(int x, int y, int len);
+	void (*drawRectangle)(int x, int y, int width, int height);
+	void (*changeLetter)(char* letter);
+	void (*drawLineRectangle)(int x, int y, int width, int height);
+	void (*del)(GraphicManager* gm);
+	void (*erase)();
+	void (*printText)(int x, int y, char* text);
+};
 
-void graphicDrawPoint(int x, int y);
-void graphicDrawVertical(int x, int y, int len);
-void graphicDrawHorizontal(int x, int y, int len);
-void graphicDrawRectangle(int x, int y, int width, int height);
-void graphicChangeLetter(char *letter);
+GraphicManager* getGraphicManager();
 
-void graphicDrawLineRectangle(int x, int y, int width, int height);
+

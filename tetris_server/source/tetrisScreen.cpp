@@ -9,6 +9,7 @@
 
 static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, BRIGHT_WHITE, LIGHT_AQUA };
 
+
 Screen* screenCreateScreen()
 {
 	Screen* newScreen = (Screen*)malloc(sizeof(Screen));
@@ -242,23 +243,23 @@ void screenHoldBlock(Screen* screen) {
 	}
 }
 void drawBoardFrame(Screen * screen, int X, int Y) {
-	graphicChangeLetter(screen->letter);
-	graphicChangeColor(screen->color);
-	graphicDrawRectangle(X, Y, screen->width+2, screen->height+2);
+	graphicManager->changeLetter(screen->letter);
+	graphicManager->changeColor(screen->color);
+	graphicManager->drawRectangle(X, Y, screen->width+2, screen->height+2);
 }
 void drawBlockFrame(Screen* screen, int X, int Y) {
-	graphicChangeLetter(screen->letter);
-	graphicChangeColor(screen->color);
-	graphicDrawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
+	graphicManager->changeLetter(screen->letter);
+	graphicManager->changeColor(screen->color);
+	graphicManager->drawRectangle(X, Y, BLOCK_WIDTH+2, screen->height + 2);
 }
 void drawBoard(Screen* screen, int X, int Y) {
 	for (int y = 0; y < screen->height; y++) {
 		for (int x = 0; x < screen->width; x++) {
 			int color = screen->blockBoard[y][x];
 			if (color != 0) {
-				graphicChangeLetter(screen->letter);
-				graphicChangeColor(color);
-				graphicDrawPoint(X + x, Y + y);
+				graphicManager->changeLetter(screen->letter);
+				graphicManager->changeColor(color);
+				graphicManager->drawPoint(X + x, Y + y);
 			}
 		}
 	}
@@ -270,19 +271,17 @@ void drawShadowBlock(Screen* screen, int X, int Y) {
 	blockDrawBlock(screen->shadowBlock, X + screen->curBlockX, Y + screen->shadowBlockY);
 }
 void drawNextBlock(Screen* screen, int X, int Y) {
-	graphicChangeColor(WHITE);
-	graphicMovePoint(X, Y);
-	printf("·NEXT·");
+	graphicManager->changeColor(WHITE);
+	graphicManager->printText(X, Y, (char*)"·NEXT·");
 	blockDrawBlock(screen->nextBlock, X, Y+1);
 }
 void drawHoldBlock(Screen* screen, int X, int Y) {
-	graphicChangeColor(WHITE);
-	graphicMovePoint(X, Y);
-	printf("·HOLD·");
+	graphicManager->changeColor(WHITE);
+	graphicManager->printText(X, Y, (char*)"·HOLD·");
 	if(screen->holdBlock != NULL)
 		blockDrawBlock(screen->holdBlock, X, Y+1);////////////////////////////// need to modify
 }
-void drawFullScreen(Screen* screen, int X, int Y) {
+void screenDrawFullScreen(Screen* screen, int X, int Y) {
 	drawBoardFrame(screen, X, Y);
 	drawBoard(screen, X + 1, Y + 1);
 	drawCurBlock(screen, X + 1, Y + 1);
