@@ -1,7 +1,6 @@
 #include "doubleList.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "doubleList.h"
 
 static int listDoubleEqual(Data data1, Data data2);
 static int listDoubleCompare(Data data1, Data data2);

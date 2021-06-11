@@ -157,6 +157,7 @@
     <ClCompile Include="source\math+.cpp" />
     <ClCompile Include="source\mathPlusTest.cpp" />
     <ClCompile Include="source\node.cpp" />
+    <ClCompile Include="source\objectList.cpp" />
     <ClCompile Include="source\scoreManager.cpp" />
     <ClCompile Include="source\scoreBoard.cpp" />
     <ClCompile Include="source\scoreManagerTest.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="source\test.cpp" />
     <ClCompile Include="source\tetrisBlock.cpp" />
     <ClCompile Include="source\tetrisScreen.cpp" />
+    <ClCompile Include="source\timer.cpp" />
     <ClCompile Include="source\user.cpp" />
     <ClCompile Include="source\userManager.cpp" />
     <ClCompile Include="source\utill.cpp" />

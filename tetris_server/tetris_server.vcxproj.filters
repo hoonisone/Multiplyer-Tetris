@@ -123,6 +123,12 @@
     <ClCompile Include="source\mathPlusTest.cpp">
       <Filter>소스 파일\test</Filter>
     </ClCompile>
+    <ClCompile Include="source\timer.cpp">
+      <Filter>소스 파일\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="source\objectList.cpp">
+      <Filter>소스 파일\list\listTool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">
