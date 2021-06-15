@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <windows.h>
+#include "graphic.h"
 
 #define BLOCK_SHAPE_O 0
 #define BLOCK_SHAPE_I 1
@@ -17,7 +18,9 @@
 #define BLOCK_DEFAULT_LETTER "бс"
 #define BLOCK_SHAPE_LETTER "бр"
 
-#define BLOCK getBlock()
+#define BLOCK getBlockFunction()
+
+typedef Color (*BlockShape)[BLOCK_HEIGHT];
 
 typedef struct Block
 {
@@ -27,8 +30,10 @@ typedef struct Block
 }Block;
 
 typedef struct BlockFunction {
+	Block* (*create)(int x, int y, int color, int shape);
+
 	// getter setter
-	int(*(*getShape)(Block* block))[BLOCK_ANGLE_NUM];
+	BlockShape (*getShape)(Block* block);
 	void (*setLetter)(Block* block, char* letter);
 
 	// lotate controll
@@ -47,5 +52,4 @@ typedef struct BlockFunction {
 	void (*eraseBlock)(Block* block);
 }BlockFunction;
 
-Block* createBlock(int x, int y, int color, int shape);
-Block* getBlock();
+BlockFunction* getBlockFunction();
