@@ -1,12 +1,14 @@
 #pragma once
 #include "screen.h"
+#include "graphic.h"
 #define SUB_SCREEN getSubScreenFunction();
 typedef struct SubScreen {
 	int x, y;
-	int color;
+	Color color;
 	char letter[4];
 
-	Block* nextBlock, * holdBlock;
+	Block* nextBlock;
+	Block* holdBlock;
 }SubScreen;
 
 typedef struct SubScreenFunction {

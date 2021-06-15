@@ -1,5 +1,8 @@
-#include "subScreen.h"
 #include "error.h"
+#include "block.h"
+#include "graphic.h"
+#include "subScreen.h"
+#include "screen.h"
 
 // defaul function
 static SubScreen* subScreenCreate(int x, int y);
