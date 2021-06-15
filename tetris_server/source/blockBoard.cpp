@@ -13,9 +13,13 @@ static void blockBoardChangeSize(BlockBoard* blockBoard, int newWidth, int newHe
 static void blockBoardDraw(BlockBoard* blockBoard);
 static void blockBoardErase(BlockBoard* blockBoard);
 static void blockBoardPressBlock(BlockBoard* blockBoard, Block* block);
-static int blockBoardIsInRange(BlockBoard* blockBoard, int x, int y);
+static int blockBoardIsPointInRange(BlockBoard* blockBoard, int x, int y);
+static int screenCurBlockPositionPermitCheck(BlockBoard* blockBoard, Block* block);
+static int blockBoardIsBlockOutOfRange(BlockBoard* blockBoard, Block* block);
+static int blockBoardBlockCrashCheck(BlockBoard* blockBoard, Block* block);
 static void blockBoardDelete(BlockBoard* blockBoard);
 static void blockBoardDeleteData(BlockBoard* blockBoard);
+
 
 static BlockBoard* blockBoardCreate(int x, int y) {
 	BlockBoard* object = (BlockBoard*)malloc(sizeof(BlockBoard));
@@ -29,6 +33,7 @@ static BlockBoardFunction* blockBoardFunctionCreate() {
 	object->moveTo = blockBoardMoveTo;
 	object->pressBlock = blockBoardPressBlock;
 	object->changeSize = blockBoardChangeSize;
+	object->blockPositionPermitCheck = screenCurBlockPositionPermitCheck;
 	object->del = blockBoardDelete;
 	return object;
 }
@@ -145,15 +150,15 @@ static void blockBoardPressBlock(BlockBoard* blockBoard, Block* block) {
 	int Y = block->y;
 	for (int y = Y; y < Y+BLOCK_HEIGHT; y++) {
 		for (int x = X; x < X+BLOCK_HEIGHT; x++) {
-			if(blockBoardIsInRange(blockBoard, x, y)){
-				if (shape[y][x] == 1) {
+			if(blockBoardIsPointInRange(blockBoard, x, y)){
+				if (shape[y-Y][x-X] == 1) {
 					data[y-blockBoard->y][x - blockBoard->y] = color;
 				}
 			}
 		}
 	}
 }
-static int blockBoardIsInRange(BlockBoard* blockBoard, int x, int y) {
+static int blockBoardIsPointInRange(BlockBoard* blockBoard, int x, int y) {
 	int X = blockBoard->x;
 	int Y = blockBoard->y;
 	int W = blockBoard->width;
@@ -161,6 +166,61 @@ static int blockBoardIsInRange(BlockBoard* blockBoard, int x, int y) {
 	if (X <= x && x < X+W)
 		if (Y <= y && y < Y+H)
 			return 1;
+	return 0;
+}
+static int screenCurBlockPositionPermitCheck(BlockBoard* blockBoard, Block * block) {
+	if (blockBoard == NULL) {
+		errorPrint("blockBoard is NULL");
+	}
+	if (block == NULL) {
+		errorPrint("block is NULL");
+	}
+	if (blockBoardIsBlockOutOfRange(blockBoard, block))
+		return 0;
+	if (blockBoardBlockCrashCheck(blockBoard, block))
+		return 0;
+	return 1;
+}
+static int blockBoardIsBlockOutOfRange(BlockBoard* blockBoard, Block* block) {
+	if (blockBoard == NULL) {
+		errorPrint("blockBoard is NULL");
+	}
+	if (block == NULL) {
+		errorPrint("block is NULL");
+	}
+	int X = block->x;
+	int Y = block->y;
+	BlockShape shape = BLOCK->getShape(block);
+	for (int y = Y; y < Y + BLOCK_HEIGHT; y++) {
+		for (int x = X; x < X + BLOCK_WIDTH; x++) {
+			if (shape[y][x] == 1 && !blockBoardIsPointInRange(blockBoard, x, y))
+				return 1;
+		}
+	}
+	return 0;
+}
+static int blockBoardBlockCrashCheck(BlockBoard* blockBoard, Block* block) {
+	if (blockBoard == NULL) {
+		errorPrint("blockBoard is NULL");
+	}
+	if (block == NULL) {
+		errorPrint("block is NULL");
+	}
+	int blockX = block->x;
+	int blockY = block->y;
+	int boardX = blockBoard->x;
+	int boardY = blockBoard->y;
+	BlockShape shape = BLOCK->getShape(block);
+	BlockBoardData data = blockBoard->data;
+	for (int y = blockY; y < blockY + BLOCK_HEIGHT; y++) {
+		for (int x = blockX; x < blockX + BLOCK_WIDTH; x++) {
+			if (shape[y - blockY][x - blockX] == 1 &&
+				blockBoardIsPointInRange(blockBoard, x, y)&&
+				data[y-boardY][x- boardX] != 0) {
+				return 1;
+			}
+		}
+	}
 	return 0;
 }
 static void blockBoardDelete(BlockBoard* blockBoard) {

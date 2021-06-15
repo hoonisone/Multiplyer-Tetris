@@ -1,5 +1,6 @@
 #pragma once
 #include "graphic.h"
+#include "block.h"
 
 #define BOARD_WIDTH 10
 #define BOARD_HEIGHT 20
@@ -21,6 +22,7 @@ typedef struct BlockBoardFunction {
 	void (*moveTo)(BlockBoard* blockBoard, int x, int y);
 	void (*pressBlock)(BlockBoard* blockBoard, Block* block);
 	void (*changeSize)(BlockBoard* blockBoard, int newWidth, int newHeight);
+	int (*blockPositionPermitCheck)(BlockBoard* blockBoard, Block* block);
 	void (*del)(BlockBoard* blockBoard);
 };
 
