@@ -42,40 +42,40 @@ void userPrintState(User* user) {
 void userDrawUserInfor(User* user, int X, int Y) {
 	static char buffer[100];
 
-	graphicManager->drawLineRectangle(X +  0, Y + 0, 17, 3);
-	graphicManager->drawLineRectangle(X +  0, Y + 2, 6, 3);
-	graphicManager->drawLineRectangle(X +  5, Y + 2, 5, 3);
-	graphicManager->drawLineRectangle(X + 10, Y + 2, 5, 3);
-	graphicManager->drawLineRectangle(X + 15, Y + 2, 5, 3);
+	GRAPHIC->drawLineRectangle(X +  0, Y + 0, 17, 3);
+	GRAPHIC->drawLineRectangle(X +  0, Y + 2, 6, 3);
+	GRAPHIC->drawLineRectangle(X +  5, Y + 2, 5, 3);
+	GRAPHIC->drawLineRectangle(X + 10, Y + 2, 5, 3);
+	GRAPHIC->drawLineRectangle(X + 15, Y + 2, 5, 3);
 
-	graphicManager->drawLineRectangle(X +  0, Y + 4, 5, 3);
-	graphicManager->drawLineRectangle(X +  5, Y + 4, 5, 3);
-	graphicManager->drawLineRectangle(X + 10, Y + 4, 5, 3);
-	graphicManager->drawLineRectangle(X + 15, Y + 4, 5, 3);
+	GRAPHIC->drawLineRectangle(X +  0, Y + 4, 5, 3);
+	GRAPHIC->drawLineRectangle(X +  5, Y + 4, 5, 3);
+	GRAPHIC->drawLineRectangle(X + 10, Y + 4, 5, 3);
+	GRAPHIC->drawLineRectangle(X + 15, Y + 4, 5, 3);
 	
 
-	graphicManager->changeLetter((char*)"¦²");
-	graphicManager->drawPoint(X + 0, Y + 2);
-	graphicManager->drawPoint(X + 0, Y + 4);
+	GRAPHIC->changeLetter((char*)"¦²");
+	GRAPHIC->drawPoint(X + 0, Y + 2);
+	GRAPHIC->drawPoint(X + 0, Y + 4);
 
-	graphicManager->changeLetter((char*)"¦´");
-	graphicManager->drawPoint(X + 20, Y + 2);
-	graphicManager->drawPoint(X + 20, Y + 4);
+	GRAPHIC->changeLetter((char*)"¦´");
+	GRAPHIC->drawPoint(X + 20, Y + 2);
+	GRAPHIC->drawPoint(X + 20, Y + 4);
 
-	graphicManager->changeLetter((char*)"¦³");
-	graphicManager->drawPoint(X + 5, Y + 2);
-	graphicManager->drawPoint(X + 10, Y + 2);
-	graphicManager->drawPoint(X + 15, Y + 2);
+	GRAPHIC->changeLetter((char*)"¦³");
+	GRAPHIC->drawPoint(X + 5, Y + 2);
+	GRAPHIC->drawPoint(X + 10, Y + 2);
+	GRAPHIC->drawPoint(X + 15, Y + 2);
 
-	graphicManager->changeLetter((char*)"¦¶");
-	graphicManager->drawPoint(X + 5, Y + 4);
-	graphicManager->drawPoint(X + 10, Y + 4);
-	graphicManager->drawPoint(X + 15, Y + 4);
+	GRAPHIC->changeLetter((char*)"¦¶");
+	GRAPHIC->drawPoint(X + 5, Y + 4);
+	GRAPHIC->drawPoint(X + 10, Y + 4);
+	GRAPHIC->drawPoint(X + 15, Y + 4);
 
-	graphicManager->changeLetter((char*)"¦µ");
-	graphicManager->drawPoint(X + 5, Y + 6);
-	graphicManager->drawPoint(X + 10, Y + 6);
-	graphicManager->drawPoint(X + 15, Y + 6);
+	GRAPHIC->changeLetter((char*)"¦µ");
+	GRAPHIC->drawPoint(X + 5, Y + 6);
+	GRAPHIC->drawPoint(X + 10, Y + 6);
+	GRAPHIC->drawPoint(X + 15, Y + 6);
 
 	//sprintf(buffer, "%10s", user->name);
 	//graphicManager->printText(X + 1, Y + 1, buffer);

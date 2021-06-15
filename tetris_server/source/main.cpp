@@ -13,11 +13,14 @@
 #include "string+.h"
 #include "file.h"
 #include "userManager.h"
-#include "tetrisScreen.h"
+#include "mainScreen.h"
 #include "scoreManager.h"
 #include "math+.h"
 #include <windows.h>
 #include "timer.h"
+#include "tetris.h"
+#include "graphic.h"
+#include "block.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -40,35 +43,10 @@ DWORD WINAPI printAll(void * data) {
 	return 0;
 }
 int main(int argc, char* argv[]) {
-	graphicManager->setFullScreen();
-	graphicManager->changeLetter((char*)"aa");
-	graphicManager->drawPoint(10, 10);
-
-	//int a;
-	//((char*)(&a))[0];
-	//char arr[9];
-	//strcpy(arr, "¦¡ ¦¡");
-	//arr[5] = 8;
-	//arr[6] = 'a';
-	//arr[7] = 8;
-	//arr[8] = NULL;
-	//printf("%s", arr);
-	//printf("a");
-	////¦¡bb b
-	//while (1);
-
 	//Test();
 	//serverRun(5000, responseHandler);
-
-	Screen* screen = screenCreateScreen();
-
-	//User* user = userCreateUser((char*)"hoonisone");
-	//userDrawUserInfor(user, 10, 0);
-	
-	while (1) {
-		screenDrawFullScreen(screen, 10, 10);
-
-	}
+	GRAPHIC->setFullScreen();
+	MainScreen * mainScreen = mainScreenCreate(0, 0, 12, 22);
 	while (1);
 }
 

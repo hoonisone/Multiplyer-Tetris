@@ -17,7 +17,7 @@
 #define BLOCK_HEIGHT 4
 #define BLOCK_DEFAULT_LETTER "бс"
 #define BLOCK_SHAPE_LETTER "бр"
-
+#define BLOCK_COLOR_NUM 7
 #define BLOCK getBlockFunction()
 
 typedef Color (*BlockShape)[BLOCK_HEIGHT];
@@ -30,10 +30,14 @@ typedef struct Block
 }Block;
 
 typedef struct BlockFunction {
-	Block* (*create)(int x, int y, int color, int shape);
-
+	Block* (*create)(int x, int y, int color, int shape, int angle);
+	Block* (*createRandomBlock)();
+	Block* (*copy)(Block* block);
 	// getter setter
 	BlockShape (*getShape)(Block* block);
+	void (*setShape)(Block* block, int shape);
+	void (*setAngle)(Block* block, int angle);
+	void (*setColor)(Block* block, Color color);
 	void (*setLetter)(Block* block, char* letter);
 
 	// lotate controll
@@ -49,7 +53,7 @@ typedef struct BlockFunction {
 	
 	// draw
 	void (*drawBlock)(Block* block);
-	void (*eraseBlock)(Block* block);
+	void (*erase)(Block* block);
 }BlockFunction;
 
 BlockFunction* getBlockFunction();

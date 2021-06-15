@@ -18,7 +18,7 @@ typedef struct BlockBoard {
 };
 
 typedef struct BlockBoardFunction {
-	BlockBoard* (*create)(int x, int y);
+	BlockBoard* (*create)(int x, int y, int width, int height);
 	void (*moveTo)(BlockBoard* blockBoard, int x, int y);
 	void (*pressBlock)(BlockBoard* blockBoard, Block* block);
 	void (*changeSize)(BlockBoard* blockBoard, int newWidth, int newHeight);

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static BlockBoard* blockBoardCreate(int x, int y);
+static BlockBoard* blockBoardCreate(int x, int y, int width, int height);
 static BlockBoardFunction* blockBoardFunctionCreate();
 static void blockBoardMoveTo(BlockBoard* blockBoard, int x, int y);
 static Color** blockBoardCreateNewBoard(int width, int height);
@@ -21,10 +21,14 @@ static void blockBoardDelete(BlockBoard* blockBoard);
 static void blockBoardDeleteData(BlockBoard* blockBoard);
 
 
-static BlockBoard* blockBoardCreate(int x, int y) {
+static BlockBoard* blockBoardCreate(int x, int y, int width, int height) {
 	BlockBoard* object = (BlockBoard*)malloc(sizeof(BlockBoard));
-	blockBoardChangeSize(object, BOARD_WIDTH, BOARD_HEIGHT);
+	object->data = NULL;
+
+	blockBoardChangeSize(object, width, height);
+
 	blockBoardMoveTo(object, x, y);
+
 	return object;
 }
 static BlockBoardFunction* blockBoardFunctionCreate() {
@@ -37,7 +41,7 @@ static BlockBoardFunction* blockBoardFunctionCreate() {
 	object->del = blockBoardDelete;
 	return object;
 }
-static BlockBoardFunction* getBlockBoardFunction() {
+BlockBoardFunction* getBlockBoardFunction() {
 	static BlockBoardFunction* blockBoardFunction = blockBoardFunctionCreate();
 	return blockBoardFunction;
 }
@@ -49,6 +53,7 @@ static void blockBoardMoveTo(BlockBoard* blockBoard, int x, int y) {
 	blockBoard->x = x;
 	blockBoard->y = y;
 	blockBoardDraw(blockBoard);		// draw agrin after moving
+
 }
 static Color** blockBoardCreateNewBoard(int width, int height) {
 	Color** newBoard = (Color**)malloc(sizeof(Color*) * height);
@@ -63,7 +68,6 @@ static void blockBoardChangeSize(BlockBoard* blockBoard, int newWidth, int newHe
 	}
 	Color** oldBoard = blockBoard->data;
 	Color** newBoard = blockBoardCreateNewBoard(newWidth, newHeight);
-
 	if (oldBoard == NULL) {	// when to be called first
 		blockBoard->data = newBoard;
 	}
@@ -102,14 +106,15 @@ static void blockBoardDraw(BlockBoard* blockBoard) {
 	int Y = blockBoard->y;
 	int W = blockBoard->width;
 	int H = blockBoard->height;
-	for (int y = Y; y < Y+W; y++) {
+	for (int y = Y; y < Y+H; y++) {
 		for (int x = X; x < X+W; x++) {
-			Color color = blockBoard->data[y][x];
+			Color color = blockBoard->data[y-Y][x-X];
 			if (color != 0) {
 				GRAPHIC->changeLetter(blockBoard->letter);
 				GRAPHIC->changeColor(color);
 				GRAPHIC->drawPoint(x, y);
 			}
+			
 		}
 	}
 }
@@ -123,14 +128,16 @@ static void blockBoardErase(BlockBoard* blockBoard) {
 	int H = blockBoard->height;
 	GRAPHIC->changeLetter(EMPTY_LETTER);
 	GRAPHIC->changeColor(EMPTY_COLOR);
-	for (int y = Y; y < Y + W; y++) {
+	for (int y = Y; y < Y + H; y++) {
 		for (int x = X; x < X + W; x++) {
-			Color color = blockBoard->data[y][x];
+			Color color = blockBoard->data[y-Y][x-X];
+			
 			if (color != 0) {
 				GRAPHIC->drawPoint(x, y);
 			}
 		}
 	}
+
 }
 static void blockBoardPressBlock(BlockBoard* blockBoard, Block* block) {
 	if (blockBoard == NULL) {
@@ -177,8 +184,10 @@ static int screenCurBlockPositionPermitCheck(BlockBoard* blockBoard, Block * blo
 	}
 	if (blockBoardIsBlockOutOfRange(blockBoard, block))
 		return 0;
+
 	if (blockBoardBlockCrashCheck(blockBoard, block))
 		return 0;
+
 	return 1;
 }
 static int blockBoardIsBlockOutOfRange(BlockBoard* blockBoard, Block* block) {
@@ -190,10 +199,11 @@ static int blockBoardIsBlockOutOfRange(BlockBoard* blockBoard, Block* block) {
 	}
 	int X = block->x;
 	int Y = block->y;
+
 	BlockShape shape = BLOCK->getShape(block);
 	for (int y = Y; y < Y + BLOCK_HEIGHT; y++) {
 		for (int x = X; x < X + BLOCK_WIDTH; x++) {
-			if (shape[y][x] == 1 && !blockBoardIsPointInRange(blockBoard, x, y))
+			if (shape[y-Y][x-X] == 1 && !blockBoardIsPointInRange(blockBoard, x, y))
 				return 1;
 		}
 	}

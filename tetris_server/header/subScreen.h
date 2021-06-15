@@ -1,9 +1,10 @@
 #pragma once
-#include "screen.h"
+#include "subScreen.h"
 #include "graphic.h"
-#define SUB_SCREEN getSubScreenFunction();
+#define SUB_SCREEN getSubScreenFunction()
 typedef struct SubScreen {
 	int x, y;
+	int width, height;
 	Color color;
 	char letter[4];
 
@@ -12,8 +13,8 @@ typedef struct SubScreen {
 }SubScreen;
 
 typedef struct SubScreenFunction {
-	SubScreen* (*create)(int x, int y);
-	Block* (*detNextBlock)(SubScreen* subScreen);
+	SubScreen* (*create)(int x, int y, int width, int height);
+	Block* (*takeNextBlock)(SubScreen* subScreen);
 	void (*setNextBlock)(SubScreen* subScreen, Block* block);
 	Block* (*getHoldBlock)(SubScreen* subScreen);
 	void (*setHoldBlock)(SubScreen* subScreen, Block* block);

@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\blockBoard.cpp" />
     <ClCompile Include="source\charList.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\error.cpp" />
@@ -154,19 +155,23 @@
     <ClCompile Include="source\listener.cpp" />
     <ClCompile Include="source\listTest.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\mainBlock.cpp" />
     <ClCompile Include="source\math+.cpp" />
     <ClCompile Include="source\mathPlusTest.cpp" />
     <ClCompile Include="source\node.cpp" />
     <ClCompile Include="source\objectList.cpp" />
+    <ClCompile Include="source\random.cpp" />
     <ClCompile Include="source\scoreManager.cpp" />
     <ClCompile Include="source\scoreBoard.cpp" />
     <ClCompile Include="source\scoreManagerTest.cpp" />
+    <ClCompile Include="source\subScreen.cpp" />
+    <ClCompile Include="source\tetris.cpp" />
     <ClCompile Include="source\server.cpp" />
     <ClCompile Include="source\string+.cpp" />
     <ClCompile Include="source\stringList.cpp" />
     <ClCompile Include="source\test.cpp" />
-    <ClCompile Include="source\tetrisBlock.cpp" />
-    <ClCompile Include="source\tetrisScreen.cpp" />
+    <ClCompile Include="source\block.cpp" />
+    <ClCompile Include="source\mainScreen.cpp" />
     <ClCompile Include="source\timer.cpp" />
     <ClCompile Include="source\user.cpp" />
     <ClCompile Include="source\userInterface.cpp" />
@@ -174,6 +179,7 @@
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\error.h" />
@@ -184,18 +190,22 @@
     <ClInclude Include="header\list.h" />
     <ClInclude Include="header\listener.h" />
     <ClInclude Include="header\listTest.h" />
+    <ClInclude Include="header\mainBlock.h" />
     <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
     <ClInclude Include="header\node.h" />
+    <ClInclude Include="header\random.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
+    <ClInclude Include="header\subScreen.h" />
+    <ClInclude Include="header\tetris.h" />
     <ClInclude Include="header\server.h" />
     <ClInclude Include="header\string+.h" />
     <ClInclude Include="header\stringList.h" />
     <ClInclude Include="header\test.h" />
-    <ClInclude Include="header\tetrisBlock.h" />
-    <ClInclude Include="header\tetrisScreen.h" />
+    <ClInclude Include="header\block.h" />
+    <ClInclude Include="header\mainScreen.h" />
     <ClInclude Include="header\timer.h" />
     <ClInclude Include="header\user.h" />
     <ClInclude Include="header\userManager.h" />

@@ -20,45 +20,35 @@ static void graphicDrawRectangle(int x, int y, int width, int height);
 static void graphicChangeLetter(char* letter);
 static void graphicDrawLineRectangle(int x, int y, int width, int height);
 void graphicDelete(GraphicManager* gm);
-static void graphicManagerFillInternalMethod(GraphicManager* gm);
 void graphicManagerPrintText(int x, int y, char* text);
 static void graphicDrawFilledRectangle(int x, int y, int width, int height);
 
 static char letter[LETTER_SIZE];
 
-GraphicManager* _graphicManager = NULL;
-
-
 GraphicManager* getGraphicManager()
 {
-	if (_graphicManager == NULL) {
-		_graphicManager = createGraphicManager();
-	}
-	return _graphicManager;
+	static GraphicManager* graphicManager = createGraphicManager();
+	return graphicManager;
 }
 
 GraphicManager* createGraphicManager()
 {
 	GraphicManager* object = (GraphicManager*)malloc(sizeof(GraphicManager));
-	graphicManagerFillInternalMethod(object);
+	object->setFullScreen = graphicSetFullScreen;
+	object->setScreenSize = graphicSetScreenSize;
+	object->changeColor = graphicChangeColor;
+	object->moveCursor = graphicMoveCursor;
+	object->movePoint = graphicMovePoint;
+	object->drawPoint = graphicDrawPoint;
+	object->drawVertical = graphicDrawVertical;
+	object->drawHorizontal = graphicDrawHorizontal;
+	object->drawRectangle = graphicDrawRectangle;
+	object->drawFilledRectangle = graphicDrawFilledRectangle;
+	object->changeLetter = graphicChangeLetter;
+	object->drawLineRectangle = graphicDrawLineRectangle;
+	object->del = graphicDelete;
+	object->printText = graphicManagerPrintText;
 	return object;
-}
-
-static void graphicManagerFillInternalMethod(GraphicManager* gm) {
-	gm->setFullScreen = graphicSetFullScreen;
-	gm->setScreenSize = graphicSetScreenSize;
-	gm->changeColor = graphicChangeColor;
-	gm->moveCursor = graphicMoveCursor;
-	gm->movePoint = graphicMovePoint;
-	gm->drawPoint = graphicDrawPoint;
-	gm->drawVertical = graphicDrawVertical;
-	gm->drawHorizontal = graphicDrawHorizontal;
-	gm->drawRectangle = graphicDrawRectangle;
-	gm->drawFilledRectangle = graphicDrawFilledRectangle;
-	gm->changeLetter = graphicChangeLetter;
-	gm->drawLineRectangle = graphicDrawLineRectangle;
-	gm->del = graphicDelete;
-	gm->printText = graphicManagerPrintText;
 }
 
 void graphicSetFullScreen() {

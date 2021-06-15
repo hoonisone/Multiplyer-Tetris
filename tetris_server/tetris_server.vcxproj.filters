@@ -54,10 +54,10 @@
     <ClCompile Include="source\node.cpp">
       <Filter>소스 파일\list</Filter>
     </ClCompile>
-    <ClCompile Include="source\tetrisScreen.cpp">
+    <ClCompile Include="source\mainScreen.cpp">
       <Filter>소스 파일\tetris</Filter>
     </ClCompile>
-    <ClCompile Include="source\tetrisBlock.cpp">
+    <ClCompile Include="source\block.cpp">
       <Filter>소스 파일\tetris</Filter>
     </ClCompile>
     <ClCompile Include="source\user.cpp">
@@ -132,6 +132,21 @@
     <ClCompile Include="source\userInterface.cpp">
       <Filter>소스 파일\tetris</Filter>
     </ClCompile>
+    <ClCompile Include="source\tetris.cpp">
+      <Filter>소스 파일\tetris</Filter>
+    </ClCompile>
+    <ClCompile Include="source\subScreen.cpp">
+      <Filter>소스 파일\tetris</Filter>
+    </ClCompile>
+    <ClCompile Include="source\blockBoard.cpp">
+      <Filter>소스 파일\tetris</Filter>
+    </ClCompile>
+    <ClCompile Include="source\mainBlock.cpp">
+      <Filter>소스 파일\tetris</Filter>
+    </ClCompile>
+    <ClCompile Include="source\random.cpp">
+      <Filter>소스 파일\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">
@@ -161,10 +176,10 @@
     <ClInclude Include="header\scoreManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\tetrisBlock.h">
+    <ClInclude Include="header\block.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\tetrisScreen.h">
+    <ClInclude Include="header\mainScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\userManager.h">
@@ -211,6 +226,21 @@
     </ClInclude>
     <ClInclude Include="header\mathPlusTest.h">
       <Filter>헤더 파일\test</Filter>
+    </ClInclude>
+    <ClInclude Include="header\tetris.h">
+      <Filter>헤더 파일\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="header\subScreen.h">
+      <Filter>헤더 파일\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="header\blockBoard.h">
+      <Filter>헤더 파일\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="header\mainBlock.h">
+      <Filter>헤더 파일\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="header\random.h">
+      <Filter>헤더 파일\utill</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
