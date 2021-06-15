@@ -17,7 +17,13 @@
 #define LIGHT_YELLOW 14
 #define BRIGHT_WHITE 15
 
-#define graphicManager getGraphicManager()
+#define GRAPHIC getGraphicManager()
+
+#define EMPTY_LETTER (char*)"  "
+#define EMPTY_COLOR 0
+
+typedef char Letter[4];
+typedef int Color;
 
 typedef struct GraphicManager {
 	void (*setFullScreen)();
@@ -29,11 +35,13 @@ typedef struct GraphicManager {
 	void (*drawVertical)(int x, int y, int len);
 	void (*drawHorizontal)(int x, int y, int len);
 	void (*drawRectangle)(int x, int y, int width, int height);
+	void (*drawFilledRectangle)(int x, int y, int width, int height);
 	void (*changeLetter)(char* letter);
 	void (*drawLineRectangle)(int x, int y, int width, int height);
 	void (*del)(GraphicManager* gm);
 	void (*erase)();
 	void (*printText)(int x, int y, char* text);
+
 };
 
 GraphicManager* getGraphicManager();

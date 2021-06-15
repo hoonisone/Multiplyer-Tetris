@@ -7,7 +7,6 @@
 
 #define LETTER_SIZE 4
 
-
 static GraphicManager* createGraphicManager();
 static void graphicSetFullScreen();
 static void graphicSetScreenSize(int width, int height);
@@ -23,6 +22,7 @@ static void graphicDrawLineRectangle(int x, int y, int width, int height);
 void graphicDelete(GraphicManager* gm);
 static void graphicManagerFillInternalMethod(GraphicManager* gm);
 void graphicManagerPrintText(int x, int y, char* text);
+static void graphicDrawFilledRectangle(int x, int y, int width, int height);
 
 static char letter[LETTER_SIZE];
 
@@ -54,6 +54,7 @@ static void graphicManagerFillInternalMethod(GraphicManager* gm) {
 	gm->drawVertical = graphicDrawVertical;
 	gm->drawHorizontal = graphicDrawHorizontal;
 	gm->drawRectangle = graphicDrawRectangle;
+	gm->drawFilledRectangle = graphicDrawFilledRectangle;
 	gm->changeLetter = graphicChangeLetter;
 	gm->drawLineRectangle = graphicDrawLineRectangle;
 	gm->del = graphicDelete;
@@ -100,12 +101,19 @@ void graphicDrawHorizontal(int x, int y, int len) {
 	}
 }
 void graphicDrawRectangle(int x, int y, int width, int height) {
-
-	graphicDrawVertical(x, y, height);
-	graphicDrawVertical(x + width - 1, y, height);
-	graphicDrawHorizontal(x, y, width);
-	graphicDrawHorizontal(x, y + height - 1, width);
+		graphicDrawVertical(x, y, height);
+		graphicDrawVertical(x + width - 1, y, height);
+		graphicDrawHorizontal(x, y, width);
+		graphicDrawHorizontal(x, y + height - 1, width);
 }
+void graphicDrawFilledRectangle(int x, int y, int width, int height) {
+	for (int i = y; i < y + height; i++) {
+		graphicDrawHorizontal(x, y, width);
+	}
+}
+
+
+
 
 void graphicChangeLetter(char *_letter) {
 	strcpy(letter, _letter);
