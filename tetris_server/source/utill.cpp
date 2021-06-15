@@ -18,6 +18,7 @@ int* newInt(int value) {
 float* newFloat(float value) {
 	float* ptr = (float*)malloc(sizeof(float));
 	*ptr = value;
+	
 	return ptr;
 }
 
@@ -32,4 +33,11 @@ char* newString(char* string) {
 	return ptr;
 }
 
-
+int isInRange(int X, int Y, int W, int H, int x, int y) {
+	if (X <= x && x < X + W) {
+		if (Y <= y && y < Y + H) {
+			return 1;
+		}
+	}
+	return 0;
+}
