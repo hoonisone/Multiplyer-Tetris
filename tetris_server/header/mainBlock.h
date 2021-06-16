@@ -33,8 +33,10 @@ typedef struct MainBlockFunction {
 	int (*moveDown)(MainBlock* mainBlock);
 	int (*moveRight)(MainBlock* mainBlock);
 	int (*moveLeft)(MainBlock* mainBlock);
+	void (*pullDown)(MainBlock* mainBlock);
 	int (*turnRight)(MainBlock* mainBlock);
 	int (*turnLeft)(MainBlock* mainBlock);
+
 };
 
 MainBlockFunction* mainBlockFunctionCreate();

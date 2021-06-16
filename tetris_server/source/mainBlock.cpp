@@ -11,6 +11,7 @@ static int mainBlockMoveUp(MainBlock* mainBlock);
 static int mainBlockMoveDown(MainBlock* mainBlock);
 static int mainBlockMoveRight(MainBlock* mainBlock);
 static int mainBlockMoveLeft(MainBlock* mainBlock);
+static void mainBlockPullDown(MainBlock* mainBlock);
 static void mainBlockMoveToOrigin(MainBlock* mainBlock);
 static int mainBlockTurnRight(MainBlock* mainBlock);
 static int mainBlockTurnLeft(MainBlock* mainBlock);
@@ -31,6 +32,7 @@ MainBlockFunction* mainBlockFunctionCreate() {
 		object->moveLeft = mainBlockMoveLeft;
 		object->turnRight = mainBlockTurnRight;
 		object->turnLeft = mainBlockTurnLeft;
+		object->pullDown = mainBlockPullDown;
 	}
 	return object;
 }
@@ -75,7 +77,6 @@ static Block* mainBlockChangeBlock(MainBlock* mainBlock, Block* block) {	// chan
 	mainBlockUpdateShawdowBlock(mainBlock);
 	mainBlockDrawMainBlock(mainBlock);
 	mainBlockDrawShadowBlock(mainBlock);
-	printf("");
 	return originBlock;
 }
 static void mainBlockInitShadowBlock(MainBlock* mainBlock) {	// 한 번만 수행
@@ -127,6 +128,13 @@ static int mainBlockMoveLeft(MainBlock* mainBlock) {
 		mainBlockDrawShadowBlock(mainBlock);
 	}
 	return success;
+}
+static void mainBlockPullDown(MainBlock* mainBlock) {
+	int destY = mainBlock->shadowBlock->y;
+	while(mainBlock->bodyBlock->y < destY){
+		mainBlockMoveDown(mainBlock);
+		_sleep(10);
+	}
 }
 static void mainBlockMoveToOrigin(MainBlock* mainBlock) {
 	BlockBoard* blockBoard = mainBlock->blockBoard;

@@ -199,7 +199,6 @@ static Block* blockCopy(Block* block) {
 // getter setter
 static BlockShape blockGetShape(Block* block)
 {
-	GRAPHIC->changeColor(WHITE);
 	return BLOCK_SHAPE[block->shape][block->angle];
 }
 static void blockSetShape(Block* block, int shape) {

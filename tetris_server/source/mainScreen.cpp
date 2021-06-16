@@ -24,6 +24,7 @@ void mainScreenMoveRight(MainScreen* mainScreen);
 void mainScreenMoveLeft(MainScreen* mainScreen);
 void mainScreenTurnRight(MainScreen* mainScreen);
 void mainScreenTurnLeft(MainScreen* mainScreen);
+void mainScreenPullDown(MainScreen* mainScreen, Block* newBlock);
 Block* mainScreenChangeMainBlock(MainScreen* mainScreen, Block* block);
 void mainScreenPressMainBlock(MainScreen* mainScreen, Block* newBlock);
 static void mainScreenEraseFrame(MainScreen* mainScreen);
@@ -44,11 +45,13 @@ MainScreenFunction* mainScreenFunctionCreate() {
 		object->turnLeft = mainScreenTurnLeft;
 		object->changeMainBlock = mainScreenChangeMainBlock;
 		object->pressMainBlock = mainScreenPressMainBlock;
+		object->pullDown = mainScreenPullDown;
 	}
 	return object;
 }
 MainScreen* mainScreenCreate(int x, int y, int width, int height) {
 	MainScreen* object = (MainScreen*)malloc(sizeof(MainBlock));
+	
 	if (object == NULL) {
 		errorPrint("memory allocation failed");
 	}
@@ -59,6 +62,7 @@ MainScreen* mainScreenCreate(int x, int y, int width, int height) {
 	object->color = MAIN_SCREEN_DEFAULT_COLOR;
 	strcpy(object->letter, (char*)MAIN_SCREEN_DEFAULT_LETTER);
 	object->blockBoard = BLOCK_BOARD->create(x + 1, y + 1, width-2, height-2);	// 프레임 두께 1
+	
 	object->mainBlock = MAIN_BLOCK->create(object->blockBoard, BLOCK->createRandomBlock());
 	
 	mainScreenDrawFrame(object);
@@ -104,6 +108,10 @@ void mainScreenTurnRight(MainScreen* mainScreen) {
 void mainScreenTurnLeft(MainScreen* mainScreen) {
 	MAIN_BLOCK->turnLeft(mainScreen->mainBlock);
 }
+void mainScreenPullDown(MainScreen* mainScreen, Block* newBlock) {
+	MAIN_BLOCK->pullDown(mainScreen->mainBlock);
+	mainScreenPressMainBlock(mainScreen, newBlock);
+}
 
 Block* mainScreenChangeMainBlock(MainScreen* mainScreen, Block* block) {
 	return MAIN_BLOCK->changeBlock(mainScreen->mainBlock, block);
@@ -111,6 +119,7 @@ Block* mainScreenChangeMainBlock(MainScreen* mainScreen, Block* block) {
 void mainScreenPressMainBlock(MainScreen* mainScreen, Block * newBlock) {
 	BlockBoard* blockBoard = mainScreen->blockBoard;
 	MainBlock* mainBlock = mainScreen->mainBlock;
+	BLOCK_BOARD->pressBlock(blockBoard, mainBlock->bodyBlock);
 	Block* oldBlock = MAIN_BLOCK->changeBlock(mainBlock, newBlock);
 	BLOCK_BOARD->pressBlock(blockBoard, oldBlock);
 	free(oldBlock);

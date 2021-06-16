@@ -32,6 +32,7 @@ typedef struct MainScreenFunction {
 	void (*turnLeft)(MainScreen* mainScreen);
 	Block* (*changeMainBlock)(MainScreen* mainScreen, Block* block);
 	void (*pressMainBlock)(MainScreen* mainScreen, Block* newBlock);
+	void (*pullDown)(MainScreen* mainScreen, Block* newBlock);
 }MainScreenFunction;
 
 MainScreenFunction* mainScreenFunctionCreate();
