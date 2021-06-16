@@ -45,8 +45,22 @@ DWORD WINAPI printAll(void * data) {
 int main(int argc, char* argv[]) {
 	//Test();
 	//serverRun(5000, responseHandler);
-	GRAPHIC->setFullScreen();
-	MainScreen * mainScreen = mainScreenCreate(0, 0, 12, 22);
+	MainScreen* mainScreen = MAIN_SCREEN->create(0, 0, 12, 22);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->moveDown(mainScreen);
+	MAIN_SCREEN->pressMainBlock(mainScreen, BLOCK->createRandomBlock());
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
+	MAIN_SCREEN->moveRight(mainScreen);
 	while (1);
 }
 

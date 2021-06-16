@@ -6,9 +6,9 @@
 #include <string.h>
 
 static BlockBoard* blockBoardCreate(int x, int y, int width, int height);
-static BlockBoardFunction* blockBoardFunctionCreate();
+
 static void blockBoardMoveTo(BlockBoard* blockBoard, int x, int y);
-static Color** blockBoardCreateNewBoard(int width, int height);
+static Color** blockBoardCreateNewEmptyBoard(int width, int height);
 static void blockBoardChangeSize(BlockBoard* blockBoard, int newWidth, int newHeight);
 static void blockBoardDraw(BlockBoard* blockBoard);
 static void blockBoardErase(BlockBoard* blockBoard);
@@ -20,30 +20,28 @@ static int blockBoardBlockCrashCheck(BlockBoard* blockBoard, Block* block);
 static void blockBoardDelete(BlockBoard* blockBoard);
 static void blockBoardDeleteData(BlockBoard* blockBoard);
 
-
 static BlockBoard* blockBoardCreate(int x, int y, int width, int height) {
 	BlockBoard* object = (BlockBoard*)malloc(sizeof(BlockBoard));
-	object->data = NULL;
-
-	blockBoardChangeSize(object, width, height);
-
-	blockBoardMoveTo(object, x, y);
-
+	object->x = x;
+	object->y = y;
+	object->width = width;
+	object->height = height;
+	object->data = blockBoardCreateNewEmptyBoard(width, height);
+	strcpy(object->letter, BLOCK_DEFAULT_LETTER);
 	return object;
 }
-static BlockBoardFunction* blockBoardFunctionCreate() {
-	BlockBoardFunction* object = (BlockBoardFunction*)malloc(sizeof(BlockBoardFunction));
-	object->create = blockBoardCreate;
-	object->moveTo = blockBoardMoveTo;
-	object->pressBlock = blockBoardPressBlock;
-	object->changeSize = blockBoardChangeSize;
-	object->blockPositionPermitCheck = screenCurBlockPositionPermitCheck;
-	object->del = blockBoardDelete;
+BlockBoardFunction* blockBoardFunctionCreate() {
+	static BlockBoardFunction* object = NULL;
+	if (object == NULL) {
+		object = (BlockBoardFunction*)malloc(sizeof(BlockBoardFunction));
+		object->create = blockBoardCreate;
+		object->moveTo = blockBoardMoveTo;
+		object->pressBlock = blockBoardPressBlock;
+		object->changeSize = blockBoardChangeSize;
+		object->blockPositionPermitCheck = screenCurBlockPositionPermitCheck;
+		object->del = blockBoardDelete;
+	}
 	return object;
-}
-BlockBoardFunction* getBlockBoardFunction() {
-	static BlockBoardFunction* blockBoardFunction = blockBoardFunctionCreate();
-	return blockBoardFunction;
 }
 static void blockBoardMoveTo(BlockBoard* blockBoard, int x, int y) {
 	if (blockBoard == NULL) {
@@ -55,7 +53,7 @@ static void blockBoardMoveTo(BlockBoard* blockBoard, int x, int y) {
 	blockBoardDraw(blockBoard);		// draw agrin after moving
 
 }
-static Color** blockBoardCreateNewBoard(int width, int height) {
+static Color** blockBoardCreateNewEmptyBoard(int width, int height) {
 	Color** newBoard = (Color**)malloc(sizeof(Color*) * height);
 	for (int y = 0; y < height; y++) {
 		newBoard[y] = (int*)calloc(width, sizeof(int));
@@ -67,7 +65,7 @@ static void blockBoardChangeSize(BlockBoard* blockBoard, int newWidth, int newHe
 		errorPrint("blockBoard is NULL");
 	}
 	Color** oldBoard = blockBoard->data;
-	Color** newBoard = blockBoardCreateNewBoard(newWidth, newHeight);
+	Color** newBoard = blockBoardCreateNewEmptyBoard(newWidth, newHeight);
 	if (oldBoard == NULL) {	// when to be called first
 		blockBoard->data = newBoard;
 	}
@@ -102,6 +100,7 @@ static void blockBoardDraw(BlockBoard* blockBoard) {
 	if (blockBoard->data == NULL) {
 		errorPrint("blockBoard's data is NULL");
 	}
+
 	int X = blockBoard->x;
 	int Y = blockBoard->y;
 	int W = blockBoard->width;
@@ -117,6 +116,7 @@ static void blockBoardDraw(BlockBoard* blockBoard) {
 			
 		}
 	}
+
 }
 static void blockBoardErase(BlockBoard* blockBoard) {
 	if (blockBoard->data == NULL) {
@@ -155,6 +155,7 @@ static void blockBoardPressBlock(BlockBoard* blockBoard, Block* block) {
 
 	int X = block->x;
 	int Y = block->y;
+
 	for (int y = Y; y < Y+BLOCK_HEIGHT; y++) {
 		for (int x = X; x < X+BLOCK_HEIGHT; x++) {
 			if(blockBoardIsPointInRange(blockBoard, x, y)){
@@ -164,6 +165,7 @@ static void blockBoardPressBlock(BlockBoard* blockBoard, Block* block) {
 			}
 		}
 	}
+	blockBoardDraw(blockBoard);
 }
 static int blockBoardIsPointInRange(BlockBoard* blockBoard, int x, int y) {
 	int X = blockBoard->x;

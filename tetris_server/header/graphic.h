@@ -17,7 +17,7 @@
 #define LIGHT_YELLOW 14
 #define BRIGHT_WHITE 15
 
-#define GRAPHIC getGraphicManager()
+#define GRAPHIC createGraphicManager()
 
 #define EMPTY_LETTER (char*)"  "
 #define EMPTY_COLOR 0
@@ -28,7 +28,7 @@ typedef int Color;
 typedef struct GraphicManager {
 	void (*setFullScreen)();
 	void (*setScreenSize)(int width, int height);
-	void (*changeColor)(int color);
+	void (*changeColor)(Color color);
 	void (*moveCursor)(int x, int y);
 	void (*movePoint)(int x, int y);
 	void (*drawPoint)(int x, int y);
@@ -44,6 +44,4 @@ typedef struct GraphicManager {
 
 };
 
-GraphicManager* getGraphicManager();
-
-
+GraphicManager* createGraphicManager();

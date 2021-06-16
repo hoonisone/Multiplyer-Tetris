@@ -7,10 +7,10 @@
 
 #define LETTER_SIZE 4
 
-static GraphicManager* createGraphicManager();
+
 static void graphicSetFullScreen();
 static void graphicSetScreenSize(int width, int height);
-static void graphicChangeColor(int color);
+static void graphicChangeColor(Color color);
 static void graphicMoveCursor(int x, int y);
 static void graphicMovePoint(int x, int y);
 static void graphicDrawPoint(int x, int y);
@@ -25,29 +25,26 @@ static void graphicDrawFilledRectangle(int x, int y, int width, int height);
 
 static char letter[LETTER_SIZE];
 
-GraphicManager* getGraphicManager()
-{
-	static GraphicManager* graphicManager = createGraphicManager();
-	return graphicManager;
-}
-
 GraphicManager* createGraphicManager()
 {
-	GraphicManager* object = (GraphicManager*)malloc(sizeof(GraphicManager));
-	object->setFullScreen = graphicSetFullScreen;
-	object->setScreenSize = graphicSetScreenSize;
-	object->changeColor = graphicChangeColor;
-	object->moveCursor = graphicMoveCursor;
-	object->movePoint = graphicMovePoint;
-	object->drawPoint = graphicDrawPoint;
-	object->drawVertical = graphicDrawVertical;
-	object->drawHorizontal = graphicDrawHorizontal;
-	object->drawRectangle = graphicDrawRectangle;
-	object->drawFilledRectangle = graphicDrawFilledRectangle;
-	object->changeLetter = graphicChangeLetter;
-	object->drawLineRectangle = graphicDrawLineRectangle;
-	object->del = graphicDelete;
-	object->printText = graphicManagerPrintText;
+	static GraphicManager* object = NULL;
+	if (object == NULL) {
+		object = (GraphicManager*)malloc(sizeof(GraphicManager));
+		object->setFullScreen = graphicSetFullScreen;
+		object->setScreenSize = graphicSetScreenSize;
+		object->changeColor = graphicChangeColor;
+		object->moveCursor = graphicMoveCursor;
+		object->movePoint = graphicMovePoint;
+		object->drawPoint = graphicDrawPoint;
+		object->drawVertical = graphicDrawVertical;
+		object->drawHorizontal = graphicDrawHorizontal;
+		object->drawRectangle = graphicDrawRectangle;
+		object->drawFilledRectangle = graphicDrawFilledRectangle;
+		object->changeLetter = graphicChangeLetter;
+		object->drawLineRectangle = graphicDrawLineRectangle;
+		object->del = graphicDelete;
+		object->printText = graphicManagerPrintText;
+	}
 	return object;
 }
 
@@ -61,7 +58,7 @@ void graphicSetScreenSize(int width, int height) {
 	system(order);
 }
 
-void graphicChangeColor(int color) {
+void graphicChangeColor(Color color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 

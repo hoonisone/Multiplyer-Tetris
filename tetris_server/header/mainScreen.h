@@ -9,7 +9,7 @@
 
 #define SCREEN_DEFAULT_LETTER "бс"
 #define SCREEN_DEFAULT_COLOR WHITE
-#define SCREEN getScreenFunction()
+#define MAIN_SCREEN mainScreenFunctionCreate()
 
 typedef struct MainScreen {
 	// position, size
@@ -18,16 +18,20 @@ typedef struct MainScreen {
 
 	BlockBoard* blockBoard;
 	MainBlock* mainBlock;
-	SubScreen* subScreen;
-
 }MainScreen;
 
-//typedef struct MainScreenFunction {
-//
-//}ScreenFunction;
+typedef struct MainScreenFunction {
+	MainScreen* (*create)(int x, int y, int width, int height);
+	void (*moveTo)(MainScreen* mainScreen, int x, int y);
+	void (*setLetter)(MainScreen* mainScreen, char* letter);
+	void (*setColor)(MainScreen* mainScreen, Color color);
+	void (*moveDown)(MainScreen* mainScreen);
+	void (*moveRight)(MainScreen* mainScreen);
+	void (*moveLeft)(MainScreen* mainScreen);
+	void (*turnRight)(MainScreen* mainScreen);
+	void (*turnLeft)(MainScreen* mainScreen);
+	Block* (*changeMainBlock)(MainScreen* mainScreen, Block* block);
+	void (*pressMainBlock)(MainScreen* mainScreen, Block* newBlock);
+}MainScreenFunction;
 
-MainScreen* mainScreenCreate(int x, int y, int boardWidth, int boardHeight);
-//void screenMoveTo(MainScreen* screen, int x, int y);
-//MainScreenFunction* getScreenFunction();
-
-
+MainScreenFunction* mainScreenFunctionCreate();

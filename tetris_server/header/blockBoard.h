@@ -6,7 +6,7 @@
 #define BOARD_HEIGHT 20
 #define LETTER_SIZE
 
-#define BLOCK_BOARD getBlockBoardFunction()
+#define BLOCK_BOARD blockBoardFunctionCreate()
 
 typedef Color** BlockBoardData;
 
@@ -26,4 +26,4 @@ typedef struct BlockBoardFunction {
 	void (*del)(BlockBoard* blockBoard);
 };
 
-BlockBoardFunction* getBlockBoardFunction();
+BlockBoardFunction* blockBoardFunctionCreate();

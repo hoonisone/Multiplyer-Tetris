@@ -79,29 +79,29 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
   {1,1,0,0},
   {0,0,0,0}},
  {{0,0,0,0},
-  {1,0,0,0},
-  {1,1,0,0},
-  {0,1,0,0}},
+  {0,1,0,0},
+  {0,1,1,0},
+  {0,0,1,0}},
  {{0,0,0,0},
   {0,1,1,0},
   {1,1,0,0},
   {0,0,0,0}},
  {{0,0,0,0},
-  {1,0,0,0},
-  {1,1,0,0},
-  {0,1,0,0}}},
+  {0,1,0,0},
+  {0,1,1,0},
+  {0,0,1,0}}},
 {{{0,0,0,0}, //L
   {0,0,1,0},
   {1,1,1,0},
   {0,0,0,0}},
  {{0,0,0,0},
-  {1,1,0,0},
-  {0,1,0,0},
-  {0,1,0,0}},
+  {0,1,1,0},
+  {0,0,1,0},
+  {0,0,1,0}},
  {{0,0,0,0},
-  {0,0,0,0},
   {1,1,1,0},
-  {1,0,0,0}},
+  {1,0,0,0},
+  {0,0,0,0}},
  {{0,0,0,0},
   {0,1,0,0},
   {0,1,0,0},
@@ -111,9 +111,9 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
   {1,1,1,0},
   {0,0,0,0}},
  {{0,0,0,0},
-  {0,1,0,0},
-  {0,1,0,0},
-  {1,1,0,0}},
+  {0,0,1,0},
+  {0,0,1,0},
+  {0,1,1,0}},
  {{0,0,0,0},
   {0,0,0,0},
   {1,1,1,0},
@@ -131,13 +131,13 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
   {0,1,1,0},
   {0,1,0,0}},
  {{0,0,0,0},
-  {0,0,0,0},
   {1,1,1,0},
-  {0,1,0,0}},
- {{0,0,0,0},
   {0,1,0,0},
-  {1,1,0,0},
-  {0,1,0,0}}}
+  {0,0,0,0}},
+ {{0,0,0,0},
+  {0,0,1,0},
+  {0,1,1,0},
+  {0,0,1,0}}}
 };
 static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, BRIGHT_WHITE, LIGHT_AQUA };
 
@@ -178,7 +178,7 @@ static Block* blockCreate(int x, int y, int color, int shape, int angle)	// bloc
 	Block* object = (Block*)malloc(sizeof(Block));
 	object->x = x;
 	object->y = y;
-	object->color = color%BLOCK_COLOR_NUM;
+	blockSetColor(object, color);
 	object->shape = shape%BLOCK_SHAPE_NUM;
 	object->angle = angle%BLOCK_ANGLE_NUM;
 	strcpy(object->letter, BLOCK_DEFAULT_LETTER);
@@ -188,7 +188,7 @@ static Block* blockCreateRandomBlock() {
 	int shape = RANDOM->getValue() % BLOCK_SHAPE_NUM;
 	int angle = RANDOM->getValue() % BLOCK_ANGLE_NUM;
 	Color color = RANDOM->getValue() % BLOCK_COLOR_NUM;
-	return BLOCK->create(0, 0, shape, angle, color);
+	return BLOCK->create(0, 0, color, shape, angle);
 }
 static Block* blockCopy(Block* block) {
 	Block* copyBlock = blockCreate(0, 0, 0, 0, 0);
@@ -218,7 +218,7 @@ static void blockSetColor(Block* block, Color color) {
 	if (block == NULL) {
 		errorPrint("block is NULL");
 	}
-	block->color = color;
+	block->color = colors[color% BLOCK_COLOR_NUM];
 }
 static void blockSetLetter(Block* block, char* letter) {
 	strcpy(block->letter, letter);

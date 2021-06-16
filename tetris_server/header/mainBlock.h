@@ -3,7 +3,7 @@
 #include "blockBoard.h"
 #include "block.h"
 
-#define MAIN_BLOCK getMainBlockFunction()
+#define MAIN_BLOCK mainBlockFunctionCreate()
 /*
 * 객체 설명
 	- 테트리스에서 키보드로 조작 가능한 블록을 다루는 객체이다.
@@ -23,17 +23,18 @@
 */
 typedef struct MainBlock {
 	BlockBoard* blockBoard;	// mainBlock의 활동 공간 (해당 공간을 벗어날 수 없다.)
-	Block* mainBlock;	// blockBoard에서 활동하는 블록
+	Block* bodyBlock;	// blockBoard에서 활동하는 블록
 	Block* shadowBlock; // blockBoard의 목적지를 나타내는 블록
 };
 
 typedef struct MainBlockFunction {
 	MainBlock* (*create)(BlockBoard* blockBoard, Block* firstBlock);
-	Block* (*changeMainBlock)(MainBlock* mainBlockManager, Block* block);
-	int (*moveUp)(MainBlock* mainBlockManager);
-	int (*moveDown)(MainBlock* mainBlockManager);
-	int (*moveRight)(MainBlock* mainBlockManager);
-	int (*moveLeft)(MainBlock* mainBlockManager);
+	Block* (*changeBlock)(MainBlock* mainBlockManager, Block* block);
+	int (*moveDown)(MainBlock* mainBlock);
+	int (*moveRight)(MainBlock* mainBlock);
+	int (*moveLeft)(MainBlock* mainBlock);
+	int (*turnRight)(MainBlock* mainBlock);
+	int (*turnLeft)(MainBlock* mainBlock);
 };
 
-MainBlockFunction* getMainBlockFunction();
+MainBlockFunction* mainBlockFunctionCreate();
