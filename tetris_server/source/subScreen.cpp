@@ -8,8 +8,8 @@
 #define SUB_SCREEN_DEFAULT_COLOR WHITE
 
 // defaul function
-static SubScreenFunction* createSubScreenFunction();
-static SubScreen* subScreenCreate(int x, int y, int width, int height);
+static SubScreen* subScreenCreate(int x, int y, int width, int height, Block* nextBlock);
+static Block* subScreenChangeNextBlock(SubScreen* subScreen, Block* newBlock);
 
 // external application function (conduct many works for keep certain state)
 static Block* subScreenTakeNextBlock(SubScreen* subScreen);
@@ -35,21 +35,18 @@ static void subScreenDelete(SubScreen* subScreen);
 
 // defaul function
 SubScreenFunction* getSubScreenFunction() {
-	static SubScreenFunction* _subScreenFunction = createSubScreenFunction();
-	return _subScreenFunction;
-}
-SubScreenFunction* createSubScreenFunction() {
-	SubScreenFunction* object = (SubScreenFunction*)malloc(sizeof(SubScreenFunction));
-	object->create = subScreenCreate;
-	object->takeNextBlock = subScreenTakeNextBlock;
-	object->setNextBlock = subScreenSetNextBlock;
-	object->getHoldBlock = subScreenTakeHoldBlock;
-	object->setHoldBlock = subScreenSetHoldBlock;
-	object->moveTo = subScreenMoveTo;
-	object->del = subScreenDelete;
+	static SubScreenFunction* object = NULL;
+	if (object == NULL) {
+		object = (SubScreenFunction*)malloc(sizeof(SubScreenFunction));
+		object->create = subScreenCreate;
+		object->changeNextBlock = subScreenChangeNextBlock;
+		object->moveTo = subScreenMoveTo;
+		object->del = subScreenDelete;
+	}
 	return object;
 }
-SubScreen* subScreenCreate(int x, int y, int width, int height) {
+
+SubScreen* subScreenCreate(int x, int y, int width, int height, Block* nextBlock) {
 	SubScreen* object = (SubScreen*)malloc(sizeof(SubScreen));
 	memset(object, 0, sizeof(SubScreen));
 	subScreenMoveTo(object, x, y);
@@ -57,8 +54,19 @@ SubScreen* subScreenCreate(int x, int y, int width, int height) {
 	object->height = height;
 	subScreenSetColor(object, SUB_SCREEN_DEFAULT_COLOR);
 	subScreenSetLetter(object, (char*)SUB_SCREEN_DEFAULT_LETTER);
+	subScreenSetNextBlock(object, nextBlock);
+	subScreenDrawNextBlock(object);
 	return object;
 }
+
+static Block* subScreenChangeNextBlock(SubScreen* subScreen, Block* newBlock) {
+	subScreenEraseNextBlock(subScreen);
+	Block* block = subScreenTakeNextBlock(subScreen);
+	subScreenSetNextBlock(subScreen, newBlock);
+	subScreenDrawNextBlock(subScreen);
+	return block;
+}
+
 // external application function (conduct many works for keep certain state)
 static Block* subScreenTakeNextBlock(SubScreen* subScreen) {
 	if (subScreen == NULL) {
@@ -80,8 +88,6 @@ static void subScreenSetNextBlock(SubScreen* subScreen, Block* block) {
 	}
 	BLOCK->moveTo(block, subScreen->x + 1, subScreen->y + 2);
 	subScreen->nextBlock = block;
-	subScreenEraseNextBlock(subScreen);
-	subScreenDrawNextBlock(subScreen);
 }
 static Block* subScreenTakeHoldBlock(SubScreen* subScreen) {
 	if (subScreen == NULL) {
@@ -103,9 +109,8 @@ static void subScreenSetHoldBlock(SubScreen* subScreen, Block* block) {
 	}
 	BLOCK->moveTo(block, subScreen->x + 1, subScreen->y + 7);
 	subScreen->holdBlock = block;
-	subScreenEraseHoldBlock(subScreen);
-	subScreenDrawHoldBlock(subScreen);
 }
+
 static void subScreenMoveTo(SubScreen* subScreen, int x, int y) {
 	if (subScreen == NULL) {
 		errorPrint("subScreen is null");
@@ -192,7 +197,7 @@ static void subScreenEraseNextBlock(SubScreen* subScreen) {
 static void subScreenDrawNextBlock(SubScreen* subScreen) {
 	Block* block = subScreen->nextBlock;
 	if (block != NULL) {
-		BLOCK->drawBlock(block);
+		BLOCK->draw(block);
 	}
 }
 static void subScreenEraseHoldBlock(SubScreen* subScreen) {
@@ -204,7 +209,7 @@ static void subScreenEraseHoldBlock(SubScreen* subScreen) {
 static void subScreenDrawHoldBlock(SubScreen* subScreen) {
 	Block* block = subScreen->holdBlock;
 	if (block != NULL) {
-		BLOCK->drawBlock(block);
+		BLOCK->draw(block);
 	}
 }
 static void subScreenDelete(SubScreen* subScreen) {

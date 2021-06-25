@@ -13,11 +13,8 @@ typedef struct SubScreen {
 }SubScreen;
 
 typedef struct SubScreenFunction {
-	SubScreen* (*create)(int x, int y, int width, int height);
-	Block* (*takeNextBlock)(SubScreen* subScreen);
-	void (*setNextBlock)(SubScreen* subScreen, Block* block);
-	Block* (*getHoldBlock)(SubScreen* subScreen);
-	void (*setHoldBlock)(SubScreen* subScreen, Block* block);
+	SubScreen* (*create)(int x, int y, int width, int height, Block* nextBlock);
+	Block* (*changeNextBlock)(SubScreen* subScreen, Block* newBlock);
 	void (*moveTo)(SubScreen* subScreen, int x, int y);
 	void (*del)(SubScreen* subScreen);
 };

@@ -21,6 +21,7 @@
 #include "tetris.h"
 #include "graphic.h"
 #include "block.h"
+#include "tetris.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -46,26 +47,32 @@ int main(int argc, char* argv[]) {
 	//Test();
 	//serverRun(5000, responseHandler);
 	
-	MainScreen* mainScreen = MAIN_SCREEN->create(0, 0, 12, 22);
-	
-	MAIN_SCREEN->moveRight(mainScreen);
-	MAIN_SCREEN->moveRight(mainScreen);
-	MAIN_SCREEN->moveRight(mainScreen);
-	MAIN_SCREEN->moveRight(mainScreen);
-	MAIN_SCREEN->moveRight(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->moveDown(mainScreen);
-	MAIN_SCREEN->pressMainBlock(mainScreen, BLOCK->createRandomBlock());
-
-	MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
-	MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
-	MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
-	MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
-	while (1);
+	//MainScreen* mainScreen = MAIN_SCREEN->create(0, 0, 12, 22);
+	//
+	//MAIN_SCREEN->moveRight(mainScreen);
+	//MAIN_SCREEN->moveRight(mainScreen);
+	//MAIN_SCREEN->moveRight(mainScreen);
+	//MAIN_SCREEN->moveRight(mainScreen);
+	//MAIN_SCREEN->moveRight(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->moveDown(mainScreen);
+	//MAIN_SCREEN->pressMainBlock(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
+	//while (1);
+	Tetris* t1 = TETRIS->create();
+	TETRIS->mainHandler(t1);
 }
 
 

@@ -52,8 +52,10 @@ typedef struct BlockFunction {
 	void (*moveLeft)(Block* block);
 	
 	// draw
-	void (*drawBlock)(Block* block);
+	void (*draw)(Block* block);
 	void (*erase)(Block* block);
+
+	int (*rangeCheck)(Block* block, int x, int y);
 }BlockFunction;
 
 BlockFunction* getBlockFunction();

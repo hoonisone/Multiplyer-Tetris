@@ -5,7 +5,7 @@
 static MainBlock* mainBlockCreate(BlockBoard* blockBoard, Block* firstBlock);
 static Block* mainBlockChangeBlock(MainBlock* mainBlock, Block* block);
 static void mainBlockInitShadowBlock(MainBlock* mainBlock);
-static void mainBlockUpdateShawdowBlock(MainBlock* mainBlock);
+static void mainBlockUpdateShawdowBlockShape(MainBlock* mainBlock);
 static void mainBlockUpdateShawdowBlockPosition(MainBlock* mainBlock);
 static int mainBlockMoveUp(MainBlock* mainBlock);
 static int mainBlockMoveDown(MainBlock* mainBlock);
@@ -20,6 +20,8 @@ static void mainBlockDrawMainBlock(MainBlock* mainBlock);
 static void mainBlockEraseMainBlock(MainBlock* mainBlock);
 static void mainBlockDrawShadowBlock(MainBlock* mainBlock);
 static void mainBlockEraseShadowBlock(MainBlock* mainBlock);
+static int overlapCheck(MainBlock* mainBlock);
+static int shadowDrawCheck(MainBlock* mainBlock);
 
 MainBlockFunction* mainBlockFunctionCreate() {
 	static MainBlockFunction* object = NULL;
@@ -37,7 +39,6 @@ MainBlockFunction* mainBlockFunctionCreate() {
 	return object;
 }
 static MainBlock* mainBlockCreate(BlockBoard* blockBoard, Block* firstBlock) {
-
 	if (blockBoard == NULL) {
 		errorPrint("blockBoard is NULL");
 	}
@@ -49,16 +50,14 @@ static MainBlock* mainBlockCreate(BlockBoard* blockBoard, Block* firstBlock) {
 	if (object == NULL) {
 		errorPrint("memory allocation failed ");
 	}
-
 	object->blockBoard = blockBoard;
-
-
 	object->bodyBlock = firstBlock;
 	mainBlockMoveToOrigin(object);
 	mainBlockInitShadowBlock(object);
-	mainBlockUpdateShawdowBlock(object);
-	mainBlockDrawMainBlock(object);
+	mainBlockUpdateShawdowBlockShape(object);
+	mainBlockUpdateShawdowBlockPosition(object);
 	mainBlockDrawShadowBlock(object);
+	mainBlockDrawMainBlock(object);
 	return object;
 }
 
@@ -74,9 +73,10 @@ static Block* mainBlockChangeBlock(MainBlock* mainBlock, Block* block) {	// chan
 	mainBlockEraseShadowBlock(mainBlock);
 	mainBlock->bodyBlock = block;
 	mainBlockMoveToOrigin(mainBlock);
-	mainBlockUpdateShawdowBlock(mainBlock);
-	mainBlockDrawMainBlock(mainBlock);
+	mainBlockUpdateShawdowBlockShape(mainBlock);
+	mainBlockUpdateShawdowBlockPosition(mainBlock);
 	mainBlockDrawShadowBlock(mainBlock);
+	mainBlockDrawMainBlock(mainBlock);
 	return originBlock;
 }
 static void mainBlockInitShadowBlock(MainBlock* mainBlock) {	// 한 번만 수행
@@ -84,12 +84,11 @@ static void mainBlockInitShadowBlock(MainBlock* mainBlock) {	// 한 번만 수행
 	GRAPHIC->changeColor(WHITE);
 	mainBlock->shadowBlock = shadowBlock;
 }
-static void mainBlockUpdateShawdowBlock(MainBlock* mainBlock) {
+static void mainBlockUpdateShawdowBlockShape(MainBlock* mainBlock) {
 	Block* shadowBlock = mainBlock->shadowBlock;
 	Block* bodyBlock = mainBlock->bodyBlock;
 	memcpy(shadowBlock, bodyBlock, sizeof(Block));
 	BLOCK->setLetter(shadowBlock, (char*)"□");
-	mainBlockUpdateShawdowBlockPosition(mainBlock);
 }
 static void mainBlockUpdateShawdowBlockPosition(MainBlock* mainBlock) {
 	BlockBoard* blockBoard = mainBlock->blockBoard;
@@ -112,22 +111,10 @@ static int mainBlockMoveDown(MainBlock* mainBlock) {
 	return mainBlockMoveOneSpace(mainBlock, BLOCK->moveDown, BLOCK->moveUp);
 }
 static int mainBlockMoveRight(MainBlock* mainBlock) {
-	int success = mainBlockMoveOneSpace(mainBlock, BLOCK->moveRight, BLOCK->moveLeft);
-	if (success) {
-		mainBlockEraseShadowBlock(mainBlock);
-		mainBlockUpdateShawdowBlockPosition(mainBlock);
-		mainBlockDrawShadowBlock(mainBlock);
-	}
-	return success;
+	return mainBlockMoveOneSpace(mainBlock, BLOCK->moveRight, BLOCK->moveLeft);
 }
 static int mainBlockMoveLeft(MainBlock* mainBlock) {
-	int success = mainBlockMoveOneSpace(mainBlock, BLOCK->moveLeft, BLOCK->moveRight);
-	if (success) {
-		mainBlockEraseShadowBlock(mainBlock);
-		mainBlockUpdateShawdowBlockPosition(mainBlock);	
-		mainBlockDrawShadowBlock(mainBlock);
-	}
-	return success;
+	return mainBlockMoveOneSpace(mainBlock, BLOCK->moveLeft, BLOCK->moveRight);
 }
 static void mainBlockPullDown(MainBlock* mainBlock) {
 	int destY = mainBlock->shadowBlock->y;
@@ -146,22 +133,10 @@ static void mainBlockMoveToOrigin(MainBlock* mainBlock) {
 // mainBlock에 대해 move를 수행하고 범위를 벗어나면 back를 수행한다.
 // 이동 성공 여부 반환
 static int mainBlockTurnRight(MainBlock* mainBlock) {
-	int success = mainBlockMoveOneSpace(mainBlock, BLOCK->turnRight, BLOCK->turnLeft);
-	if (success) {
-		mainBlockEraseShadowBlock(mainBlock);
-		mainBlockUpdateShawdowBlock(mainBlock);
-		mainBlockDrawShadowBlock(mainBlock);
-	}
-	return success;
+	return mainBlockMoveOneSpace(mainBlock, BLOCK->turnRight, BLOCK->turnLeft);
 }
 static int mainBlockTurnLeft(MainBlock* mainBlock) {
-	int success = mainBlockMoveOneSpace(mainBlock, BLOCK->turnLeft, BLOCK->turnRight);
-	if (success) {
-		mainBlockEraseShadowBlock(mainBlock);
-		mainBlockUpdateShawdowBlock(mainBlock);
-		mainBlockDrawShadowBlock(mainBlock);
-	}
-	return success;
+	return mainBlockMoveOneSpace(mainBlock, BLOCK->turnLeft, BLOCK->turnRight);
 }
 static int mainBlockMoveOneSpace(MainBlock* mainBlock, void (*move)(Block* block), void (*back)(Block* block)) {
 	int flag = 1;
@@ -171,24 +146,59 @@ static int mainBlockMoveOneSpace(MainBlock* mainBlock, void (*move)(Block* block
 	BlockBoard* blockBoard = mainBlock->blockBoard;
 	Block* bodyBlock = mainBlock->bodyBlock;
 	mainBlockEraseMainBlock(mainBlock);
+	mainBlockEraseShadowBlock(mainBlock);
 	move(bodyBlock);
 	if (!BLOCK_BOARD->blockPositionPermitCheck(blockBoard, bodyBlock)) {
 		back(bodyBlock);
 		flag = 0;
 	}
+	mainBlockUpdateShawdowBlockShape(mainBlock);
+	mainBlockUpdateShawdowBlockPosition(mainBlock);
+	mainBlockDrawShadowBlock(mainBlock);
 	mainBlockDrawMainBlock(mainBlock);
 	return flag;
+
 }
 static void mainBlockDrawMainBlock(MainBlock* mainBlock) {
-	BLOCK->drawBlock(mainBlock->bodyBlock);
+	BLOCK->draw(mainBlock->bodyBlock);
 }
 static void mainBlockEraseMainBlock(MainBlock* mainBlock) {
-	
 	BLOCK->erase(mainBlock->bodyBlock);
 }
 static void mainBlockDrawShadowBlock(MainBlock* mainBlock) {
-	BLOCK->drawBlock(mainBlock->shadowBlock);
+	if (shadowDrawCheck(mainBlock)) {
+		BLOCK->draw(mainBlock->shadowBlock);
+	}
 }
 static void mainBlockEraseShadowBlock(MainBlock* mainBlock) {
-	BLOCK->erase(mainBlock->shadowBlock);
+	if (shadowDrawCheck(mainBlock)) {
+		BLOCK->erase(mainBlock->shadowBlock);
+	}
+}
+static int overlapCheck(MainBlock* mainBlock) {
+	Block* body = mainBlock->bodyBlock;
+	int(*bShape)[BLOCK_WIDTH] = BLOCK->getShape(body);
+	int bx = body->x;
+	int by = body->y;
+	Block* shadow = mainBlock->shadowBlock;
+	int(*sShape)[BLOCK_WIDTH] = BLOCK->getShape(shadow);
+	int sx = shadow->x;
+	int sy = shadow->y;
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (BLOCK->rangeCheck(body, sx + x, sy + y)) {
+				if (bShape[y+sy-by][x+sx-bx] == 1 && sShape[y][x] == 1) {
+					return 1;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+static int shadowDrawCheck(MainBlock* mainBlock) {
+	mainBlock->shadowBlock->y--;
+	int check = !overlapCheck(mainBlock);
+	mainBlock->shadowBlock->y++;
+	return check;
 }

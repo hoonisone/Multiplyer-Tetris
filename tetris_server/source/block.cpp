@@ -24,6 +24,7 @@ static void blockMoveRight(Block* block);
 static void blockMoveLeft(Block* block);
 static void blockDrawBlock(Block* block);
 static void blockErase(Block* block);
+static int blockRangeCheck(Block* block, int x, int y);
 
 static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
 {{{0,0,0,0}, //O
@@ -43,16 +44,16 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
   {0,1,1,0},
   {0,0,0,0}}},
 {{{0,0,0,0}, //I
-  {0,0,0,0},
   {1,1,1,1},
+  {0,0,0,0},
   {0,0,0,0}},
  {{0,1,0,0},
   {0,1,0,0},
   {0,1,0,0},
   {0,1,0,0}},
  {{0,0,0,0},
-  {0,0,0,0},
   {1,1,1,1},
+  {0,0,0,0},
   {0,0,0,0}},
  {{0,1,0,0},
   {0,1,0,0},
@@ -90,54 +91,54 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터
   {0,1,0,0},
   {0,1,1,0},
   {0,0,1,0}}},
-{{{0,0,0,0}, //L
-  {0,0,1,0},
-  {1,1,1,0},
+{{{0,1,0,0}, //L
+  {0,1,0,0},
+  {0,1,1,0},
+  {0,0,0,0}},
+ {{0,0,0,0},
+  {0,1,1,1},
+  {0,1,0,0},
   {0,0,0,0}},
  {{0,0,0,0},
   {0,1,1,0},
   {0,0,1,0},
   {0,0,1,0}},
  {{0,0,0,0},
+  {0,0,1,0},
   {1,1,1,0},
-  {1,0,0,0},
+  {0,0,0,0}}},
+{{{0,0,1,0}, //J
+  {0,0,1,0},
+  {0,1,1,0},
   {0,0,0,0}},
  {{0,0,0,0},
   {0,1,0,0},
-  {0,1,0,0},
-  {0,1,1,0}}},
-{{{0,0,0,0}, //J
-  {1,0,0,0},
-  {1,1,1,0},
+  {0,1,1,1},
   {0,0,0,0}},
- {{0,0,0,0},
-  {0,0,1,0},
-  {0,0,1,0},
-  {0,1,1,0}},
- {{0,0,0,0},
-  {0,0,0,0},
-  {1,1,1,0},
-  {0,0,1,0}},
  {{0,0,0,0},
   {0,1,1,0},
   {0,1,0,0},
-  {0,1,0,0}}},
-{{{0,0,0,0}, //T
-  {0,1,0,0},
-  {1,1,1,0},
-  {0,0,0,0}},
- {{0,0,0,0},
-  {0,1,0,0},
-  {0,1,1,0},
   {0,1,0,0}},
  {{0,0,0,0},
   {1,1,1,0},
+  {0,0,1,0},
+  {0,0,0,0}}},
+{{{0,1,0,0}, //T
+  {1,1,1,0},
+  {0,0,0,0},
+  {0,0,0,0}},
+ {{0,1,0,0},
+  {0,1,1,0},
   {0,1,0,0},
   {0,0,0,0}},
  {{0,0,0,0},
-  {0,0,1,0},
-  {0,1,1,0},
-  {0,0,1,0}}}
+  {1,1,1,0},
+  {0,1,0,0},
+  {0,0,0,0}},
+ {{0,1,0,0},
+  {1,1,0,0},
+  {0,1,0,0},
+  {0,0,0,0}}}
 };
 static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, BRIGHT_WHITE, LIGHT_AQUA };
 
@@ -167,8 +168,10 @@ static BlockFunction* createBlockFunction() {// block function object constructo
 	bf->moveRight = blockMoveRight;
 	bf->moveLeft = blockMoveLeft;
 	// draw
-	bf->drawBlock = blockDrawBlock;
+	bf->draw = blockDrawBlock;
 	bf->erase = blockErase;
+
+	bf->rangeCheck = blockRangeCheck;
 	return bf;
 }
 
@@ -276,4 +279,10 @@ static void blockErase(Block* block) {
 
 		}
 	}
+}
+
+static int blockRangeCheck(Block* block, int x, int y) {
+	int bx = block->x;
+	int by = block->y;
+	return (bx <= x && x < bx + BLOCK_WIDTH) && (by <= y && y < by + BLOCK_HEIGHT);
 }
