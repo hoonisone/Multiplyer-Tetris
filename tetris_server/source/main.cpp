@@ -43,6 +43,14 @@ DWORD WINAPI printAll(void * data) {
 	}
 	return 0;
 }
+int a(int b[100]) {
+
+	for (int i = 0; i < 100; i++) {
+		printf("%d\n", b[i]);
+	}
+	printf("%d", sizeof(b) / sizeof(int));
+	return 0;
+}
 int main(int argc, char* argv[]) {
 	//Test();
 	//serverRun(5000, responseHandler);
@@ -71,8 +79,15 @@ int main(int argc, char* argv[]) {
 	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
 	//MAIN_SCREEN->pullDown(mainScreen, BLOCK->createRandomBlock());
 	//while (1);
-	Tetris* t1 = TETRIS->create();
-	TETRIS->mainHandler(t1);
+	//Tetris* t1 = TETRIS->create();
+	//TETRIS->mainHandler(t1);
+	int arr[10];
+	printf("%d\n", sizeof(arr)/sizeof(int));
+
+	arr[0] = 999;
+	printf("%d\n", arr[0]);
+	a(arr);
+
 }
 
 
