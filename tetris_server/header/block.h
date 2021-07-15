@@ -22,14 +22,14 @@
 
 typedef Color (*BlockShape)[BLOCK_HEIGHT];
 
-typedef struct Block
+typedef struct Block	//구조체 Block 정의
 {
 	int x, y;
 	int shape, angle, color;
 	char letter[4]; // unicode(3bype) + null(1byte)
 }Block;
 
-typedef struct BlockFunction {
+typedef struct BlockFunction {	//구조체 BlockFunction 정의
 	Block* (*create)(int x, int y, int color, int shape, int angle);
 	Block* (*createRandomBlock)();
 	Block* (*copy)(Block* block);
