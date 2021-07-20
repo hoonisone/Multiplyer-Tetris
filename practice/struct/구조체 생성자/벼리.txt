@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+typedef struct{
+	char name[10];
+	int age;
+}Person;
+
+int main(){
+	Person p = {"벼리", 21};	
+	printf("이름: %s\n나이: %d", p.name, p.age);
+	
+	return 0;
+}

@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+typedef struct{
+	char name[10];
+	int age;
+}Person;
+
+int main(){
+	Person p[5] = {{"한명훈", 24}, {"김이현", 22}, {"김벼리", 21}, {"양래은", 20}, {"조윤상", 20}};
+	
+	for(int i=0; i<5; i++)
+		printf("이름: %s\n나이: %d세\n\n", p[i].name, p[i].age);
+	
+	return 0;
+}
