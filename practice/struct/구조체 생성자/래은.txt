@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+typedef struct{
+	char name[10];
+	int age;
+}Person;
+
+void f(Person*, char[], int);
+
+int main(void){
+	Person person;
+	char n[10];	int a;
+	printf("이름을 입력하세요.\n");
+	scanf("%s", n); 
+	printf("나이를 입력하세요.\n");
+	scanf("%d", &a);
+	f(&person, &n, a);
+	
+	printf("이름:%s\n나이:%d\n", person.name, person.age);
+}
+
+void f(Person* p, char c[], int d){
+	strcpy(p->name, c);
+	p->age = d;
+}

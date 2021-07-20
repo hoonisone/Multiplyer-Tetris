@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <windows.h>
+
+int main(void)
+{
+	for(int i = 0; i < 10; i++)
+	{
+		sleep(1000);
+		printf("%d초가 지났습니다.\n", i);
+	}
+	return 0;
+}

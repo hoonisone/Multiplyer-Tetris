@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <time.h>
+int main(void){
+	clock_t start = clock();
+	while(1){
+		char c;
+		scanf("%c", &c);
+		clock_t end = clock();
+		printf("%c를 입력했습니다. (%.3lf초 경과)\n", c, (double)(end-start)/CLOCKS_PER_SEC);
+		if(c=='q'){
+			printf("프로그램을 종료합니다.\n"); return 0;
+		}
+	}
+}
