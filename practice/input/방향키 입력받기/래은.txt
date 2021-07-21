@@ -1,0 +1,28 @@
+방향키를 입력받고 입력에 따라 UP, RIGHT, LEFT, DOWN을 출력하는 프로그램을 작성하자.
+무한반복이며 q를 입력받으면 종료한다.
+
+#include <stdio.h>
+#include <conio.h>
+int getkey(){
+	int c = getch();
+	if(c==0||c==0xE0) c = 128 + getch();
+	return c;
+}
+int main(void){
+	int key;
+	while(1){
+		key = getkey();
+		if(key==0||key==0xE0) key+=128;
+		if(key==200) printf("UP\n");
+		else if(key==208) printf("DOWN\n");
+		else if(key==203) printf("LEFT\n");
+		else if(key==205) printf("RIGHT\n");
+		else if(key==113) return 0;
+		else printf("방향키를 입력하세요.\n");
+	}	
+}
+
+참고
+https://kin.naver.com/qna/detail.nhn?d1id=1&dirId=1040101&docId=281197293&qb=Y+yWuOyWtCDrsKntlqXtgqQg7J6F66Cl67Cb6riw&enc=utf8&section=kin.ext&rank=1&search_sort=0&spq=0
+https://coding-factory.tistory.com/665
+https://mollangpiu.tistory.com/43
