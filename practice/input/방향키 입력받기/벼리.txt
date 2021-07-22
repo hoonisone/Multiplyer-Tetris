@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <conio.h>
+
+#define LEFT 75
+#define RIGHT 77
+#define UP 72
+#define DOWN 80
+
+int main(void) {
+    char c;
+    while(1) {
+        if(_kbhit()) {
+            c = _getch();
+            if(c == -32) {
+                c = _getch();
+                switch(c) {
+                case LEFT:
+                    printf("LEFT\n");
+                    break;
+                case RIGHT:
+                    printf("RIGHT\n");
+                    break;
+                case UP:
+                    printf("UP\n");
+                    break;
+                case DOWN:
+                    printf("DOWN\n");
+                    break;
+                }
+            }
+            else if(c == 'q'){
+            	printf("종료");
+            	return 0;
+        	}
+        }
+    }
+    
+    return 0;
+}

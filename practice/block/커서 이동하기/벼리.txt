@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <windows.h>
+
+void move(int x, int y){
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD pos;
+	pos.X = x;
+	pos.Y = y;
+	SetConsoleCursorPosition(handle, pos);
+}
+
+int main(void) {
+	int x, y;
+	
+	while(1){
+		printf("x좌표와 y좌표를 입력하세요\n");
+		scanf("%d %d", &x, &y);
+		
+		if(0<=x && x<=10 && 0<=y && y<=10){
+			move(x, y);
+			printf("*");
+			return 0;
+		}	
+	}
+}
