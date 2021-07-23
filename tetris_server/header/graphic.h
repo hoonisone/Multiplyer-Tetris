@@ -2,7 +2,7 @@
 
 #define BLACK		0
 #define BLUE		1
-#define GERRN		2
+#define GREEN		2
 #define AQUA		3
 #define RED			4
 #define PURPLE		5
@@ -42,6 +42,6 @@ typedef struct GraphicManager {
 	void (*erase)();
 	void (*printText)(int x, int y, char* text);
 
-};
+} GraphicManager;
 
 GraphicManager* createGraphicManager();

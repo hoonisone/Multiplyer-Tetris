@@ -43,6 +43,9 @@
     <Filter Include="헤더 파일\list\listTool">
       <UniqueIdentifier>{d7b53c71-eb7b-463c-953c-23ccdc039c82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\ui">
+      <UniqueIdentifier>{b1c2760e-4798-4d49-bb5d-1df7befa6543}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="header\random.h">
       <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

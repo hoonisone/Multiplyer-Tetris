@@ -81,13 +81,20 @@ int main(int argc, char* argv[]) {
 	//while (1);
 	//Tetris* t1 = TETRIS->create();
 	//TETRIS->mainHandler(t1);
-	int arr[10];
-	printf("%d\n", sizeof(arr)/sizeof(int));
+	//int arr[10];
+	//printf("%d\n", sizeof(arr)/sizeof(int));
 
-	arr[0] = 999;
-	printf("%d\n", arr[0]);
-	a(arr);
-
+	//arr[0] = 999;
+	//printf("%d\n", arr[0]);
+	//a(arr);
+	char s[] = "hello apple ant";
+	List* list = split(s, (char*)" ");
+	for (int i = 0; i < list->getSize(list); i++) {
+		printf("%c\n", ((char*)(list->getElement(list, i)))[0]);
+		printf("address: %p\n", (char*)list->getElement(list, i));
+		printf("len: %d\n", strlen((char*)list->getElement(list, i)));
+	}
+	//textPrintLeft(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
 }
 
 
