@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <windows.h>
+void gotoxy(int x, int y){
+	COORD Pos;
+	Pos.X = x;
+	Pos.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
+}
+
+int main(void){
+	int x=-1, y=-1;
+	while(x<0||x>10||y<0||y>10){
+		printf("x, y좌표 입력\n>>> ");
+		scanf("%d %d", &x, &y);
+		if(x>=0&&x<=10&&y>=0&&y<=10){
+			gotoxy(x, y);
+			printf("*"); 
+			break;
+		}
+		printf("\n\n다시 ");
+	}
+}
+
+참고 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sharonichoya&logNo=220873844942
