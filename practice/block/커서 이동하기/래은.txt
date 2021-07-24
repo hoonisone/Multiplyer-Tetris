@@ -21,4 +21,4 @@ int main(void){
 	}
 }
 
-참고 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sharonichoya&logNo=220873844942
+참고 https://m.blog.naver.com/PostVi ew.naver?isHttpsRedirect=true&blogId=sharonichoya&logNo=220873844942
