@@ -46,6 +46,9 @@
     <Filter Include="헤더 파일\ui">
       <UniqueIdentifier>{b1c2760e-4798-4d49-bb5d-1df7befa6543}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ui">
+      <UniqueIdentifier>{33c7457c-3420-49e1-9b30-6789222d0585}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="source\random.cpp">
       <Filter>소스 파일\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="source\button.cpp">
+      <Filter>소스 파일\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

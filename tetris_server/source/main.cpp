@@ -22,6 +22,7 @@
 #include "graphic.h"
 #include "block.h"
 #include "tetris.h"
+#include "button.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -41,14 +42,6 @@ DWORD WINAPI printAll(void * data) {
 			free(text);
 		}
 	}
-	return 0;
-}
-int a(int b[100]) {
-
-	for (int i = 0; i < 100; i++) {
-		printf("%d\n", b[i]);
-	}
-	printf("%d", sizeof(b) / sizeof(int));
 	return 0;
 }
 int main(int argc, char* argv[]) {
@@ -87,15 +80,7 @@ int main(int argc, char* argv[]) {
 	//arr[0] = 999;
 	//printf("%d\n", arr[0]);
 	//a(arr);
-	char s[] = "hello apple ant";
-	List* list = split(s, (char*)" ");
-	for (int i = 0; i < list->getSize(list); i++) {
-		printf("%c\n", ((char*)(list->getElement(list, i)))[0]);
-		printf("address: %p\n", (char*)list->getElement(list, i));
-		printf("len: %d\n", strlen((char*)list->getElement(list, i)));
-	}
-	//textPrintLeft(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
+	//textPrintMiddle(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
+	Button* but= buttonCreate(10, 10, 20, 5, (char*)"Hello", ALIGN_LEFT, NULL);
+	draw(but);
 }
-
-
-

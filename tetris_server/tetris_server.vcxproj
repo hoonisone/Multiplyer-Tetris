@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\blockBoard.cpp" />
+    <ClCompile Include="source\button.cpp" />
     <ClCompile Include="source\charList.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\error.cpp" />
