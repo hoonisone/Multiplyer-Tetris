@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <windows.h>
+
+int main(void)
+{
+	int x, y;
+	do
+	{
+	scanf("%d %d", &x, &y);
+	}while(x > 10 || x < 0 || y > 10 || y < 0);
+	COORD pos = { x, y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+	printf("*");
+	return 0;
+}

@@ -4,13 +4,13 @@
 int main(void)
 {
 	char c;
-	clock_t t1 = clock();;
+	clock_t t1 = clock();
 	double t3;
 	while(1)
 	{
 		c = getchar();
-		clock t2 = clock();
-		t3 = (double)(end-start)/CLOCKS_PER_SEC
+		clock_t t2 = clock();
+		t3 = (double)(t2 - t1)/CLOCKS_PER_SEC;
 		printf("%c를 입력했습니다.(%.3lf초 경과)\n", c, t3);
 		if(c == 'q')
 		{
