@@ -22,6 +22,7 @@
 #include "graphic.h"
 #include "block.h"
 #include "tetris.h"
+#include "button.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -41,14 +42,6 @@ DWORD WINAPI printAll(void * data) {
 			free(text);
 		}
 	}
-	return 0;
-}
-int a(int b[100]) {
-
-	for (int i = 0; i < 100; i++) {
-		printf("%d\n", b[i]);
-	}
-	printf("%d", sizeof(b) / sizeof(int));
 	return 0;
 }
 int main(int argc, char* argv[]) {
@@ -81,14 +74,13 @@ int main(int argc, char* argv[]) {
 	//while (1);
 	//Tetris* t1 = TETRIS->create();
 	//TETRIS->mainHandler(t1);
-	int arr[10];
-	printf("%d\n", sizeof(arr)/sizeof(int));
+	//int arr[10];
+	//printf("%d\n", sizeof(arr)/sizeof(int));
 
-	arr[0] = 999;
-	printf("%d\n", arr[0]);
-	a(arr);
-
+	//arr[0] = 999;
+	//printf("%d\n", arr[0]);
+	//a(arr);
+	//textPrintMiddle(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
+	Button* but= buttonCreate(10, 10, 20, 5, (char*)"Hello", ALIGN_LEFT, NULL);
+	draw(but);
 }
-
-
-

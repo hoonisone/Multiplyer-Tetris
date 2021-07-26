@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\blockBoard.cpp" />
+    <ClCompile Include="source\button.cpp" />
     <ClCompile Include="source\charList.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\error.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="button.h" />
     <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\doubleList.h" />

@@ -82,25 +82,25 @@ void graphicDrawVertical(int x, int y, int len) {
 		
 	}
 }
+
 void graphicDrawHorizontal(int x, int y, int len) {
 	for (int i = 0; i < len; i++) {
 		graphicDrawPoint(x + i, y);
 	}
 }
+
 void graphicDrawRectangle(int x, int y, int width, int height) {
 		graphicDrawVertical(x, y, height);
 		graphicDrawVertical(x + width - 1, y, height);
 		graphicDrawHorizontal(x, y, width);
 		graphicDrawHorizontal(x, y + height - 1, width);
 }
+
 void graphicDrawFilledRectangle(int x, int y, int width, int height) {
 	for (int i = y; i < y + height; i++) {
 		graphicDrawHorizontal(x, y, width);
 	}
 }
-
-
-
 
 void graphicChangeLetter(char *_letter) {
 	strcpy(letter, _letter);
@@ -115,8 +115,8 @@ void graphicDrawLineRectangle(int x, int y, int width, int height) {
 
 	graphicDrawVertical(x + width - 1, y, height);
 	graphicChangeLetter((char*)"¤Ñ");
-	graphicDrawHorizontal(x, y, width);
-	graphicDrawHorizontal(x, y + height - 1, width);
+	graphicDrawHorizontal(x, y, width-1);
+	graphicDrawHorizontal(x, y + height - 1, width-1);
 	graphicChangeLetter((char*)"¦®");
 	graphicDrawPoint(x, y);
 	graphicChangeLetter((char*)"¦¯");
@@ -133,6 +133,6 @@ void graphicDelete(GraphicManager * gm) {
 }
 
 void graphicManagerPrintText(int x, int y, char* text) {
-	graphicMovePoint(x, y);
+	graphicMoveCursor(x, y);
 	printf("%s", text);
 }
