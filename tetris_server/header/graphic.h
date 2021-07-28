@@ -17,6 +17,8 @@
 #define LIGHT_YELLOW 14
 #define BRIGHT_WHITE 15
 
+#define LETTER_SIZE 4
+
 #define GRAPHIC createGraphicManager()
 
 #define EMPTY_LETTER (char*)"  "

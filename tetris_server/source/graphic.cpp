@@ -5,9 +5,6 @@
 #include "stringList.h"
 #include <string.h>
 
-#define LETTER_SIZE 4
-
-
 static void graphicSetFullScreen();
 static void graphicSetScreenSize(int width, int height);
 static void graphicChangeColor(Color color);

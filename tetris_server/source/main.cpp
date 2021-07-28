@@ -81,6 +81,6 @@ int main(int argc, char* argv[]) {
 	//printf("%d\n", arr[0]);
 	//a(arr);
 	//textPrintMiddle(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
-	Button* but= buttonCreate(10, 10, 20, 7, (char*)"Hello", ALIGN_RIGHT, NULL);
+	Button* but= buttonCreate(20, 10, 20, 5, (char*)"Hello", NULL, ALIGN_RIGHT, 1, (char*)"?", GREEN, YELLOW);
 	draw(but);
 }

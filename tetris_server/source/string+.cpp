@@ -42,7 +42,7 @@ void textPrintMiddle(int x, int y, int w, int h, char* text) {
 	int lineNum = list->getSize(list);
 	y += (h - lineNum) / 2;
 	for (int i = 0; i < lineNum; i++) {
-		int lineX = x + w - strlen((char*)list->getElement(list, i))/2;
+		int lineX = x + (w*2 - strlen((char*)list->getElement(list, i)))/2;
 		int lineY = y + i;
 		GRAPHIC->printText(lineX, lineY, (char*)list->getElement(list, i));
 	}
@@ -55,8 +55,9 @@ void textPrintRight(int x, int y, int w, int h, char* text) {
 	int lineNum = list->getSize(list);
 	y += (h - lineNum) / 2;
 	for (int i = 0; i < lineNum; i++) {
-		int lineX = x + w - strlen((char*)list->getElement(list, i));
+		int lineX = x + w*2 - 1 - strlen((char*)list->getElement(list, i));
 		int lineY = y + i;
+		
 		GRAPHIC->printText(lineX, lineY, (char*)list->getElement(list, i));
 	}
 	list->deleteList(list);

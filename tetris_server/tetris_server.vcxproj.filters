@@ -251,7 +251,7 @@
     <ClInclude Include="header\random.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="button.h">
+    <ClInclude Include="header\button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>
