@@ -136,6 +136,23 @@ void graphicManagerPrintText(int x, int y, char* text) {
 	graphicMoveCursor(x, y);
 	printf("%s", text);
 }
+//void graphicPrintPicture(int x, int y, const char** picture, int len) {
+//	for (int i = 0; i < len; i++) {
+//		GRAPHIC->moveCursor(x, y + i);
+//		printf("%s", picture[i]);
+//	}
+//}
+//const char* T[10] = { "¡á¡á¡á¡á¡á¡á¡á¡á",
+//					"¡á¡á¡á¡á¡á¡á¡á¡á",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      ",
+//					"      ¡á¡á      " };
+//graphicPrintPicture(5, 5, T, sizeof(T) / sizeof(const char*))
 
 void graphicPrintT(int x, int y, Color color)
 {
@@ -161,6 +178,8 @@ void graphicPrintT(int x, int y, Color color)
 	graphicMoveCursor(x, y + 9);
 	printf("      ¡á¡á      ");
 }
+
+
 
 void graphicPrintE(int x, int y, Color color)
 {
