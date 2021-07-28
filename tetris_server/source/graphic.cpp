@@ -136,3 +136,128 @@ void graphicManagerPrintText(int x, int y, char* text) {
 	graphicMoveCursor(x, y);
 	printf("%s", text);
 }
+
+void graphicPrintT(int x, int y, Color color)
+{
+	graphicChangeColor(color);
+	graphicMoveCursor(x, y);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 1);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 2);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 3);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 4);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 5);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 6);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 7);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 8);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 9);
+	printf("      ¡á¡á      ");
+}
+
+void graphicPrintE(int x, int y, Color color)
+{
+	graphicChangeColor(color);
+	graphicMoveCursor(x, y);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 1);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 2);
+	printf("¡á¡á            ");
+	graphicMoveCursor(x, y + 3);
+	printf("¡á¡á            ");
+	graphicMoveCursor(x, y + 4);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 5);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 6);
+	printf("¡á¡á            ");
+	graphicMoveCursor(x, y + 7);
+	printf("¡á¡á            ");
+	graphicMoveCursor(x, y + 8);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 9);
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
+}
+
+void graphicPrintR(int x, int y, Color color)
+{
+	graphicChangeColor(color);
+	graphicMoveCursor(x, y);
+	printf("¡á¡á¡á¡á¡á¡á    ");
+	graphicMoveCursor(x, y + 1);
+	printf("¡á¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 2);
+	printf("¡á¡á      ¡á¡á¡á");
+	graphicMoveCursor(x, y + 3);
+	printf("¡á¡á      ¡á¡á¡á");
+	graphicMoveCursor(x, y + 4);
+	printf("¡á¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 5);
+	printf("¡á¡á¡á¡á¡á¡á    ");
+	graphicMoveCursor(x, y + 6);
+	printf("¡á¡á    ¡á¡á¡á   ");
+	graphicMoveCursor(x, y + 7);
+	printf("¡á¡á      ¡á¡á¡á");
+	graphicMoveCursor(x, y + 8);
+	printf("¡á¡á        ¡á¡á");
+	graphicMoveCursor(x, y + 9);
+	printf("¡á¡á        ¡á¡á");
+}
+
+void graphicPrintI(int x, int y, Color color)
+{
+	graphicChangeColor(color);
+	graphicMoveCursor(x, y);
+	printf("  ¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 1);
+	printf("  ¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 2);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 3);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 4);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 5);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 6);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 7);
+	printf("      ¡á¡á      ");
+	graphicMoveCursor(x, y + 8);
+	printf("  ¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 9);
+	printf("  ¡á¡á¡á¡á¡á¡á  ");
+}
+
+void graphicPrintS(int x, int y, Color color)
+{
+	graphicChangeColor(color);
+	graphicMoveCursor(x, y);
+	printf("    ¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 1);
+	printf("  ¡á¡á¡á¡á¡á¡á¡á");
+	graphicMoveCursor(x, y + 2);
+	printf("¡á¡á¡á          ");
+	graphicMoveCursor(x, y + 3);
+	printf("¡á¡á¡á          ");
+	graphicMoveCursor(x, y + 4);
+	printf("  ¡á¡á¡á¡á¡á    ");
+	graphicMoveCursor(x, y + 5);
+	printf("    ¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 6);
+	printf("          ¡á¡á¡á");
+	graphicMoveCursor(x, y + 7);
+	printf("          ¡á¡á¡á");
+	graphicMoveCursor(x, y + 8);
+	printf("¡á¡á¡á¡á¡á¡á¡á  ");
+	graphicMoveCursor(x, y + 9);
+	printf("¡á¡á¡á¡á¡á¡á    ");
+}
