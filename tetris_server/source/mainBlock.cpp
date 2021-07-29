@@ -81,7 +81,7 @@ static Block* mainBlockChangeBlock(MainBlock* mainBlock, Block* block) {	// chan
 }
 static void mainBlockInitShadowBlock(MainBlock* mainBlock) {	// 한 번만 수행
 	Block* shadowBlock = BLOCK->create(0, 0, 0, 0, 0);
-	GRAPHIC->changeColor(WHITE);
+	GRAPHIC->setColor(WHITE);
 	mainBlock->shadowBlock = shadowBlock;
 }
 static void mainBlockUpdateShawdowBlockShape(MainBlock* mainBlock) {

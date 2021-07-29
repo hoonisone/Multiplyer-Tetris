@@ -109,8 +109,8 @@ static void blockBoardDraw(BlockBoard* blockBoard) {
 		for (int x = X; x < X+W; x++) {
 			Color color = blockBoard->data[y-Y][x-X];
 			if (color != 0) {
-				GRAPHIC->changeLetter(blockBoard->letter);
-				GRAPHIC->changeColor(color);
+				GRAPHIC->setLetter(blockBoard->letter);
+				GRAPHIC->setColor(color);
 				GRAPHIC->drawPoint(x, y);
 			}
 			
@@ -126,8 +126,8 @@ static void blockBoardErase(BlockBoard* blockBoard) {
 	int Y = blockBoard->y;
 	int W = blockBoard->width;
 	int H = blockBoard->height;
-	GRAPHIC->changeLetter(EMPTY_LETTER);
-	GRAPHIC->changeColor(EMPTY_COLOR);
+	GRAPHIC->setLetter(EMPTY_LETTER);
+	GRAPHIC->setColor(EMPTY_COLOR);
 	for (int y = Y; y < Y + H; y++) {
 		for (int x = X; x < X + W; x++) {
 			Color color = blockBoard->data[y-Y][x-X];

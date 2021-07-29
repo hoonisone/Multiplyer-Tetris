@@ -11,4 +11,4 @@ List* split(char* string, char* key);
 void textPrintLeft(int x, int y, int w, int h, char* text);
 void textPrintMiddle(int x, int y, int w, int h, char* text);
 void textPrintRight(int x, int y, int w, int h, char* text);
-void textPrintAlign(int x, int y, int w, int h, char* text, int align);
+void textPrintAlign(int x, int y, int w, int h, char* text, int align = ALIGN_MIDDLE);

@@ -23,6 +23,7 @@ void buttonSetWidth(Button* button, int width);
 void buttonSetHeight(Button* button, int height);
 void buttonSetName(Button* button, char* name);
 void buttonSetTextAlgin(Button* button, int textAlgin);
+void buttonSetAction(Button* button, void(*action)());
 void buttonSetBorderFlag(Button* button, int flag);
 void buttonSetBorderChar(Button* button, char *ch);
 void buttonSetBorderColor(Button* button, int color);

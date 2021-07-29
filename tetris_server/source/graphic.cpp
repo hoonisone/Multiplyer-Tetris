@@ -4,22 +4,24 @@
 #include <windows.h>
 #include "stringList.h"
 #include <string.h>
+#include "string+.h"
 
+static void graphicInit();
 static void graphicSetFullScreen();
 static void graphicSetScreenSize(int width, int height);
-static void graphicChangeColor(Color color);
+static void graphicSetColor(Color color);
 static void graphicMoveCursor(int x, int y);
 static void graphicMovePoint(int x, int y);
 static void graphicDrawPoint(int x, int y);
 static void graphicDrawVertical(int x, int y, int len);
 static void graphicDrawHorizontal(int x, int y, int len);
 static void graphicDrawRectangle(int x, int y, int width, int height);
-static void graphicChangeLetter(char* letter);
+static void graphicSetLetter(char* letter);
 static void graphicDrawLineRectangle(int x, int y, int width, int height);
 void graphicDelete(GraphicManager* gm);
 void graphicManagerPrintText(int x, int y, char* text);
 static void graphicDrawFilledRectangle(int x, int y, int width, int height);
-
+static void graphicSetBackgroundColor(int color);
 static char letter[LETTER_SIZE];
 
 GraphicManager* createGraphicManager()
@@ -27,9 +29,10 @@ GraphicManager* createGraphicManager()
 	static GraphicManager* object = NULL;
 	if (object == NULL) {
 		object = (GraphicManager*)malloc(sizeof(GraphicManager));
+		object->init = graphicInit;
 		object->setFullScreen = graphicSetFullScreen;
 		object->setScreenSize = graphicSetScreenSize;
-		object->changeColor = graphicChangeColor;
+		object->setColor = graphicSetColor;
 		object->moveCursor = graphicMoveCursor;
 		object->movePoint = graphicMovePoint;
 		object->drawPoint = graphicDrawPoint;
@@ -37,12 +40,19 @@ GraphicManager* createGraphicManager()
 		object->drawHorizontal = graphicDrawHorizontal;
 		object->drawRectangle = graphicDrawRectangle;
 		object->drawFilledRectangle = graphicDrawFilledRectangle;
-		object->changeLetter = graphicChangeLetter;
+		object->setLetter = graphicSetLetter;
 		object->drawLineRectangle = graphicDrawLineRectangle;
+		object->setBackgroundColor = graphicSetBackgroundColor;
 		object->del = graphicDelete;
 		object->printText = graphicManagerPrintText;
 	}
 	return object;
+}
+
+void graphicInit() {
+	graphicSetLetter(DEFAULT_LETTER_LETTER);
+	graphicSetColor(DEFAULT_LETTER_COLOR);
+	graphicSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 }
 
 void graphicSetFullScreen() {
@@ -50,12 +60,13 @@ void graphicSetFullScreen() {
 }
 
 void graphicSetScreenSize(int width, int height) {
+	;
 	char order[100];
 	sprintf(order, "mode con cols=%d lines=%d", width, height, 100);
 	system(order);
 }
 
-void graphicChangeColor(Color color) {
+void graphicSetColor(Color color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
@@ -94,35 +105,47 @@ void graphicDrawRectangle(int x, int y, int width, int height) {
 }
 
 void graphicDrawFilledRectangle(int x, int y, int width, int height) {
-	for (int i = y; i < y + height; i++) {
-		graphicDrawHorizontal(x, y, width);
+	for (int i = 0; i < height; i++) {
+		graphicDrawHorizontal(x, y+i, width);
 	}
 }
 
-void graphicChangeLetter(char *_letter) {
+void graphicSetLetter(char *_letter) {
 	strcpy(letter, _letter);
 }
 
 void graphicDrawLineRectangle(int x, int y, int width, int height) {
 
-	graphicChangeLetter((char*)"¦­");
+	graphicSetLetter((char*)"¦­");
 	
 	graphicDrawVertical(x, y, height);
 	
 
 	graphicDrawVertical(x + width - 1, y, height);
-	graphicChangeLetter((char*)"¤Ñ");
+	graphicSetLetter((char*)"¤Ñ");
 	graphicDrawHorizontal(x, y, width-1);
 	graphicDrawHorizontal(x, y + height - 1, width-1);
-	graphicChangeLetter((char*)"¦®");
+	graphicSetLetter((char*)"¦®");
 	graphicDrawPoint(x, y);
-	graphicChangeLetter((char*)"¦¯");
+	graphicSetLetter((char*)"¦¯");
 	graphicDrawPoint(x+width-1, y);
-	graphicChangeLetter((char*)"¦°");
+	graphicSetLetter((char*)"¦°");
 	graphicDrawPoint(x+width-1, y+height-1);
-	graphicChangeLetter((char*)"¦±");
+	graphicSetLetter((char*)"¦±");
 	graphicDrawPoint(x, y+height-1);
 	
+}
+
+void graphicSetBackgroundColor(int color) {
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ((color & 0xf) << 4) | (info.wAttributes & 0xf));
+}
+
+void graphicDrawRect(int x, int y, int w, int h) {
+	for (int i = 0; i <= w; i++) {
+		graphicDrawVertical(x+i, y, h);
+	}
 }
 
 void graphicDelete(GraphicManager * gm) {
@@ -153,7 +176,7 @@ void graphicManagerPrintText(int x, int y, char* text) {
 
 void graphicPrintT(int x, int y, Color color)
 {
-	graphicChangeColor(color);
+	graphicSetColor(color);
 	graphicMoveCursor(x, y);
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
 	graphicMoveCursor(x, y + 1);
@@ -180,7 +203,7 @@ void graphicPrintT(int x, int y, Color color)
 
 void graphicPrintE(int x, int y, Color color)
 {
-	graphicChangeColor(color);
+	graphicSetColor(color);
 	graphicMoveCursor(x, y);
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á");
 	graphicMoveCursor(x, y + 1);
@@ -205,7 +228,7 @@ void graphicPrintE(int x, int y, Color color)
 
 void graphicPrintR(int x, int y, Color color)
 {
-	graphicChangeColor(color);
+	graphicSetColor(color);
 	graphicMoveCursor(x, y);
 	printf("¡á¡á¡á¡á¡á¡á    ");
 	graphicMoveCursor(x, y + 1);
@@ -230,7 +253,7 @@ void graphicPrintR(int x, int y, Color color)
 
 void graphicPrintI(int x, int y, Color color)
 {
-	graphicChangeColor(color);
+	graphicSetColor(color);
 	graphicMoveCursor(x, y);
 	printf("  ¡á¡á¡á¡á¡á¡á  ");
 	graphicMoveCursor(x, y + 1);
@@ -255,7 +278,7 @@ void graphicPrintI(int x, int y, Color color)
 
 void graphicPrintS(int x, int y, Color color)
 {
-	graphicChangeColor(color);
+	graphicSetColor(color);
 	graphicMoveCursor(x, y);
 	printf("    ¡á¡á¡á¡á¡á¡á");
 	graphicMoveCursor(x, y + 1);

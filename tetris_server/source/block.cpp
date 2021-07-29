@@ -257,8 +257,8 @@ static void blockMoveLeft(Block* block) {				//한 칸 왼쪽으로
 }
 
 static void blockDrawBlock(Block * block) {				//블록을 그려주는 함수
-	GRAPHIC->changeColor(block->color);					//색 바꾸기
-	GRAPHIC->changeLetter(block->letter);				//문자 바꾸기
+	GRAPHIC->setColor(block->color);					//색 바꾸기
+	GRAPHIC->setLetter(block->letter);				//문자 바꾸기
 	
 	BlockShape shape = blockGetShape(block);			//블록의 모양+각도 반환
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
@@ -270,8 +270,8 @@ static void blockDrawBlock(Block * block) {				//블록을 그려주는 함수
 	}
 }
 static void blockErase(Block* block) {					//블록을 지우는 함수
-	GRAPHIC->changeColor(EMPTY_COLOR);					//블록 색깔을 없앰
-	GRAPHIC->changeLetter((char*)EMPTY_LETTER);			//블록 문자를 없앰
+	GRAPHIC->setColor(EMPTY_COLOR);					//블록 색깔을 없앰
+	GRAPHIC->setLetter((char*)EMPTY_LETTER);			//블록 문자를 없앰
 	BlockShape shape = blockGetShape(block);			//블록 모양+각도 반환
 	int X = block->x;
 	int Y = block->y;

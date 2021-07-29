@@ -16,7 +16,7 @@ Button* buttonCreate(int x, int y, int width, int height, char* name, void(*acti
 	buttonSetHeight(object, height);
 	buttonSetName(object, name);
 	buttonSetTextAlgin(object, textAlign);
-	object->action = action;
+	buttonSetAction(object, action);
 	buttonSetBorderFlag(object, borderFlag);
 	buttonSetBorderChar(object, (char*)borderChar);
 	buttonSetBorderColor(object, borderColor);
@@ -62,6 +62,10 @@ void buttonSetTextAlgin(Button* button, int textAlgin) {
 	button->textAlign = textAlgin;
 }
 
+void buttonSetAction(Button* button, void(*action)()) {
+	button->action = action;
+}
+
 void buttonSetBorderFlag(Button* button, int flag) {
 	button->borderFlag = flag;
 }
@@ -84,11 +88,15 @@ void buttonSetBgColor(Button* button, int color) {
 
 void draw(Button* button) {
 	if (button->borderFlag == 1) {
-		GRAPHIC->changeLetter((char*)button->borderChar);
-		GRAPHIC->changeColor(button->borderColor);
+		GRAPHIC->setLetter((char*)button->borderChar);
+		GRAPHIC->setColor(button->borderColor);
 		GRAPHIC->drawRectangle(button->x, button->y, button->width, button->height);
 	}
-	GRAPHIC->changeColor(button->nameColor);
-	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), button->bgColor);
-	textPrintAlign((button->x+1)*2, button->y+1, button->width-2, button->height-2, button->name, button->textAlign);
+	GRAPHIC->setColor(button->nameColor);
+	GRAPHIC->setBackgroundColor(button->backgroundColor);
+	GRAPHIC->setLetter((char*)"  ");
+	GRAPHIC->drawFilledRectangle(button->x + 1, button->y + 1, button->width - 2, button->height - 2);
+	textPrintAlign((button->x + 1) * 2, button->y + 1, button->width - 2, button->height - 2, button->name, button->textAlign);
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 100, 100 });
+	GRAPHIC->init();
 }

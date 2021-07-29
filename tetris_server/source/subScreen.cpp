@@ -153,11 +153,11 @@ static void subScreenEraseFrame(SubScreen* subScreen) {
 	if (subScreen == NULL) {
 		errorPrint("subScreen is null");
 	}
-	GRAPHIC->changeLetter(EMPTY_LETTER);
-	GRAPHIC->changeColor(EMPTY_COLOR);
+	GRAPHIC->setLetter(EMPTY_LETTER);
+	GRAPHIC->setColor(EMPTY_COLOR);
 	GRAPHIC->drawRectangle(subScreen->x, subScreen->y, BLOCK_WIDTH + 2, SCREEN_DEFAULT_HEIGHT + 2);
 
-	GRAPHIC->changeColor(WHITE);
+	GRAPHIC->setColor(WHITE);
 	GRAPHIC->printText(subScreen->x + 1, subScreen->y + 1, (char*)"        ");
 	GRAPHIC->printText(subScreen->x + 1, subScreen->y + BLOCK_HEIGHT + 2, (char*)"        ");
 }
@@ -165,11 +165,11 @@ static void subScreenDrawFrame(SubScreen* subScreen) {
 	if (subScreen == NULL) {
 		errorPrint("subScreen is null");
 	}
-	GRAPHIC->changeLetter(subScreen->letter);
-	GRAPHIC->changeColor(subScreen->color);
+	GRAPHIC->setLetter(subScreen->letter);
+	GRAPHIC->setColor(subScreen->color);
 	GRAPHIC->drawRectangle(subScreen->x, subScreen->y, subScreen->width, subScreen->height);
 
-	GRAPHIC->changeColor(WHITE);
+	GRAPHIC->setColor(WHITE);
 	GRAPHIC->printText(subScreen->x + 1, subScreen->y + 1, (char*)"，NEXT，");
 	GRAPHIC->printText(subScreen->x + 1, subScreen->y + 1 + BLOCK_HEIGHT+1, (char*)"，HOLD，");
 }
