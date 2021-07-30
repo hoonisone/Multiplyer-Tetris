@@ -128,15 +128,15 @@ static void mainScreenEraseFrame(MainScreen* mainScreen) {
 	if (mainScreen == NULL) {
 		errorPrint("mainScreen is NULL");
 	}
-	GRAPHIC->changeLetter(EMPTY_LETTER);
-	GRAPHIC->changeColor(EMPTY_COLOR);
+	GRAPHIC->setLetter(EMPTY_LETTER);
+	GRAPHIC->setColor(EMPTY_COLOR);
 	GRAPHIC->drawRectangle(mainScreen->x, mainScreen->y, mainScreen->width, mainScreen->height);
 }
 static void mainScreenDrawFrame(MainScreen* mainScreen) {
 	if (mainScreen == NULL) {
 		errorPrint("mainScreen is NULL");
 	}
-	GRAPHIC->changeLetter(mainScreen->letter);
-	GRAPHIC->changeColor(mainScreen->color);
+	GRAPHIC->setLetter(mainScreen->letter);
+	GRAPHIC->setColor(mainScreen->color);
 	GRAPHIC->drawRectangle(mainScreen->x, mainScreen->y, mainScreen->width, mainScreen->height);
 }

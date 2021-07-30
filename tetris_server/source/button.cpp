@@ -5,8 +5,10 @@
 #include "string+.h"
 #include "button.h"
 #include <stdio.h>
+#include <windows.h>
 
-Button* buttonCreate(int x, int y, int width, int height, char* name, int textAlign, void(*action)()) {
+Button* buttonCreate(int x, int y, int width, int height, char* name, void(*action)(), int textAlign,
+					 int borderFlag, char *borderChar, int borderColor, int nameColor, int bgColor) {
 	Button* object = (Button*)malloc(sizeof(Button));
 	buttonSetX(object, x);
 	buttonSetY(object, y);
@@ -14,8 +16,12 @@ Button* buttonCreate(int x, int y, int width, int height, char* name, int textAl
 	buttonSetHeight(object, height);
 	buttonSetName(object, name);
 	buttonSetTextAlgin(object, textAlign);
-	object->action = action;
-
+	buttonSetAction(object, action);
+	buttonSetBorderFlag(object, borderFlag);
+	buttonSetBorderChar(object, (char*)borderChar);
+	buttonSetBorderColor(object, borderColor);
+	buttonSetNameColor(object, nameColor);
+	buttonSetBgColor(object, bgColor);
 	return object;
 }
 
@@ -43,14 +49,6 @@ void buttonSetHeight(Button* button, int height) {
 	button->height = height;
 }
 
-void buttonSelect(Button* button) {
-	button->selectFlag = 1;
-}
-
-void buttonUnselect(Button* button) {
-	button->selectFlag = 0;
-}
-
 void buttonSetName(Button* button, char* name) {
 	if (strlen(name) > 100) {
 		errorPrint("The length of name is over buffer");
@@ -64,14 +62,41 @@ void buttonSetTextAlgin(Button* button, int textAlgin) {
 	button->textAlign = textAlgin;
 }
 
+void buttonSetAction(Button* button, void(*action)()) {
+	button->action = action;
+}
+
+void buttonSetBorderFlag(Button* button, int flag) {
+	button->borderFlag = flag;
+}
+
+void buttonSetBorderChar(Button* button, char* ch) {
+	strcpy(button->borderChar, ch);
+}
+
+void buttonSetBorderColor(Button* button, int color) {
+	button->borderColor = color;
+}
+
+void buttonSetNameColor(Button* button, int color) {
+	button->nameColor = color;
+}
+
+void buttonSetBgColor(Button* button, int color) {
+	button->backgroundColor = color;
+}
+
 void draw(Button* button) {
-	if (button->selectFlag == 0) {
-		GRAPHIC->changeColor(WHITE);
+	if (button->borderFlag == 1) {
+		GRAPHIC->setLetter((char*)button->borderChar);
+		GRAPHIC->setColor(button->borderColor);
+		GRAPHIC->drawRectangle(button->x, button->y, button->width, button->height);
 	}
-	else if (button->selectFlag == 1) {
-		GRAPHIC->changeColor(GREEN);
-	}
-	GRAPHIC->changeLetter((char*)"*");
-	GRAPHIC->drawRectangle(button->x, button->y, button->width, button->height);
-	textPrintAlign((button->x+1)*2, button->y+1, button->width-2, button->height-2, button->name, button->textAlign);
+	GRAPHIC->setColor(button->nameColor);
+	GRAPHIC->setBackgroundColor(button->backgroundColor);
+	GRAPHIC->setLetter((char*)"  ");
+	GRAPHIC->drawFilledRectangle(button->x + 1, button->y + 1, button->width - 2, button->height - 2);
+	textPrintAlign((button->x + 1) * 2, button->y + 1, button->width - 2, button->height - 2, button->name, button->textAlign);
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 100, 100 });
+	GRAPHIC->init();
 }

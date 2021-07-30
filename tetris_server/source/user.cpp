@@ -54,25 +54,25 @@ void userDrawUserInfor(User* user, int X, int Y) {
 	GRAPHIC->drawLineRectangle(X + 15, Y + 4, 5, 3);
 	
 
-	GRAPHIC->changeLetter((char*)"¦²");
+	GRAPHIC->setLetter((char*)"¦²");
 	GRAPHIC->drawPoint(X + 0, Y + 2);
 	GRAPHIC->drawPoint(X + 0, Y + 4);
 
-	GRAPHIC->changeLetter((char*)"¦´");
+	GRAPHIC->setLetter((char*)"¦´");
 	GRAPHIC->drawPoint(X + 20, Y + 2);
 	GRAPHIC->drawPoint(X + 20, Y + 4);
 
-	GRAPHIC->changeLetter((char*)"¦³");
+	GRAPHIC->setLetter((char*)"¦³");
 	GRAPHIC->drawPoint(X + 5, Y + 2);
 	GRAPHIC->drawPoint(X + 10, Y + 2);
 	GRAPHIC->drawPoint(X + 15, Y + 2);
 
-	GRAPHIC->changeLetter((char*)"¦¶");
+	GRAPHIC->setLetter((char*)"¦¶");
 	GRAPHIC->drawPoint(X + 5, Y + 4);
 	GRAPHIC->drawPoint(X + 10, Y + 4);
 	GRAPHIC->drawPoint(X + 15, Y + 4);
 
-	GRAPHIC->changeLetter((char*)"¦µ");
+	GRAPHIC->setLetter((char*)"¦µ");
 	GRAPHIC->drawPoint(X + 5, Y + 6);
 	GRAPHIC->drawPoint(X + 10, Y + 6);
 	GRAPHIC->drawPoint(X + 15, Y + 6);

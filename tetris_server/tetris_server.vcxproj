@@ -182,8 +182,8 @@
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="button.h" />
     <ClInclude Include="header\blockBoard.h" />
+    <ClInclude Include="header\button.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\error.h" />
