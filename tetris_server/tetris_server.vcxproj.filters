@@ -49,6 +49,12 @@
     <Filter Include="소스 파일\ui">
       <UniqueIdentifier>{33c7457c-3420-49e1-9b30-6789222d0585}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\graphic">
+      <UniqueIdentifier>{0c1ee7ea-e753-4e91-a0ef-d7f5fd4029fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\graphic">
+      <UniqueIdentifier>{bc79559e-ad8d-498f-abb3-ce3d5f3cfd69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -88,9 +94,6 @@
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\error.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\graphic.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\math+.cpp">
@@ -156,17 +159,20 @@
     <ClCompile Include="source\button.cpp">
       <Filter>소스 파일\ui</Filter>
     </ClCompile>
-    <ClCompile Include="source\cursorGraphic.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\coordinate.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\pen.cpp">
-      <Filter>소스 파일\utill</Filter>
+    <ClCompile Include="source\graphic.cpp">
+      <Filter>소스 파일\graphic</Filter>
     </ClCompile>
     <ClCompile Include="source\draw.cpp">
-      <Filter>소스 파일\utill</Filter>
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\coordinate.cpp">
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\pen.cpp">
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\pen2D.cpp">
+      <Filter>소스 파일\graphic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +219,6 @@
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\file.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\graphic.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\list.h">
@@ -266,17 +269,20 @@
     <ClInclude Include="header\button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\cursorGraphic.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
     <ClInclude Include="header\coordinate.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\pen.h">
-      <Filter>헤더 파일\utill</Filter>
+      <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\draw.h">
-      <Filter>헤더 파일\utill</Filter>
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\graphic.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\pen.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\pen2D.h">
+      <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

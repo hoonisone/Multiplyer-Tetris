@@ -24,6 +24,7 @@
 #include "tetris.h"
 #include "button.h"
 #include "draw.h"
+#include "pen2D.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -85,6 +86,11 @@ int main(int argc, char* argv[]) {
 	//Button* but= buttonCreate(20, 10, 7, 3, (char*)"Hello", NULL, ALIGN_MIDDLE, 1, (char*)"*", LIGHT_BLUE, WHITE, BLACK);
 	//draw(but);
 	
-	Draw* draw = DRAW(POINT, PEN(YELLOW, BLACK, (char*)"."));
-	draw->filledRect(draw, 5, 5, 12, 22);
+	//Draw* draw = DRAW(POINT, PEN(YELLOW, BLACK, (char*)"."));
+	//draw->filledRect(draw, 5, 5, 12, 22);
+	char image[10][10] = { "бр" };
+	Pen* pen = PEN(BLUE, BLACK, image, 2, 1);
+	pen->press(pen);
+	Draw * draw = DRAW(COORDINATE(2, 1), pen);
+	draw->rect(draw, 3, 3, 10, 22);
 }

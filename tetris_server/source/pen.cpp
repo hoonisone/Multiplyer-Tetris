@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "pen.h"
 #include <string.h>
+#include "coordinate.h"
 
 static Shape textShape;
 static Pen* usingPen = NULL;
@@ -11,18 +12,20 @@ static void setTextShape(Shape _textShape);
 static void setTextColor(Color textColor);
 static void setBackgroundColor(Color backgroundColor);
 
-Pen* createPen(Color textColor, Color backgroundColor, Shape textShape) {
+Pen* createPen(Color textColor, Color backgroundColor, Shape textShape, int width, int height) {
 	Pen* object = (Pen*)malloc(sizeof(Pen));
 	object->textColor = textColor;
 	object->backgroundColor = backgroundColor;
-	strcpy(object->textShape, textShape);
+	memcpy(object->textShape, textShape, sizeof(object->textShape));
 	object->settingFlag = 0;
 	object->press = press;
+	object->width = width;
+	object->height = height;
 	return object;
 };
 
 static void setTextShape(Shape _textShape) {
-	strcpy(textShape, _textShape);
+	memcpy(textShape, _textShape, sizeof(textShape));
 }
 
 static void setTextColor(Color textColor) {
@@ -46,5 +49,11 @@ static void press(Pen* pen) {
 			usingPen = pen;
 		}
 	}
-	printf("%s", textShape);
+	COORD coord = getXY();
+	int X = coord.X;
+	int Y = coord.Y;
+	for (int y = 0; y < pen->height; y++) {
+		CURSOR->move(CURSOR, X, Y + y);
+		printf("%s", pen->textShape[y]);
+	}
 }

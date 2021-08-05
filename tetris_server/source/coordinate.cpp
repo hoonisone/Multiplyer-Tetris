@@ -3,35 +3,42 @@
 #include <stdlib.h>
 #include "coordinate.h"
 
-static Coordinate* create(void (*move)(int x, int y));
-static void cursorMove(int x, int y);
-static void pointMove(int x, int y);
+static Coordinate* createCoordinate(void (*move)(int x, int y));
+static void move(Coordinate* coordinate, int x, int y);
 
-static Coordinate* create(void (*move)(int x, int y)) {
+Coordinate* createCoordinate(int x, int y) {
 	Coordinate* object = (Coordinate*)malloc(sizeof(Coordinate));
 	object->move = move;
+	object->x = x;
+	object->y = y;
 	return object;
 }
 Coordinate* createCursor() {
 	static Coordinate* object = NULL;
 	if (object == NULL) {
-		object = create(cursorMove);
+		object = createCoordinate(1, 1);
 	}
 	return object;
 };
 Coordinate* createPoint() {
 	static Coordinate* object = NULL;
 	if (object == NULL) {
-		object = create(pointMove);
+		object = createCoordinate(2, 1);
 	}
 	return object;
 };
 
-static void cursorMove(int x, int y) {
-	COORD pos = { x, y };
+static void move(Coordinate* coordinate, int x, int y) {
+	COORD pos = { coordinate->x*x, coordinate->y*y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
-static void pointMove(int x, int y) {
-	COORD pos = { 2*x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+COORD getXY() {
+	COORD Cur;
+	CONSOLE_SCREEN_BUFFER_INFO a;
+
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &a);
+	Cur.X = a.dwCursorPosition.X;
+	Cur.Y = a.dwCursorPosition.Y;
+	return Cur;
 }

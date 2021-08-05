@@ -18,19 +18,19 @@ Draw* createDraw(Coordinate* coordinate, Pen* pen) {
 }
 
 static void horizontal(Draw* draw, int x, int y, int width) {
-	void (*move)(int x, int y) = draw->coordinate->move;
+	Coordinate* coordinate = draw->coordinate;
 	Pen* pen = draw->pen;
 	for (int i = 0; i < width; i++) {
-		move(x+i, y);
+		coordinate->move(coordinate, x+i, y);
 		pen->press(pen);
 	}
 }
 
 static void vertical(Draw* draw, int x, int y, int height) {
-	void (*move)(int x, int y) = draw->coordinate->move;
+	Coordinate* coordinate = draw->coordinate;
 	Pen* pen = draw->pen;
 	for (int i = 0; i < height; i++) {
-		move(x, y + i);
+		coordinate->move(coordinate, x, y + i);
 		pen->press(pen);
 	}
 }

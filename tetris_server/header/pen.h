@@ -28,15 +28,16 @@
 
 #define PEN createPen
 
-typedef char Shape[4];
+typedef char Shape[10][10];
 typedef int Color;
 
 
 typedef struct Pen {
+	int width, height;
 	Color textColor, backgroundColor;
 	Shape textShape;
 	int settingFlag;
 	void (*press)(Pen* pen);
 } Pen;
 
-Pen* createPen(Color textColor, Color backgroundColor, Shape textShape);
+Pen* createPen(Color textColor, Color backgroundColor, Shape textShape, int width, int height);
