@@ -23,6 +23,7 @@
 #include "block.h"
 #include "tetris.h"
 #include "button.h"
+#include "draw.h"
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -47,7 +48,7 @@ DWORD WINAPI printAll(void * data) {
 int main(int argc, char* argv[]) {
 	//Test();
 	//serverRun(5000, responseHandler);
-	
+
 	//MainScreen* mainScreen = MAIN_SCREEN->create(0, 0, 12, 22);
 	//
 	//MAIN_SCREEN->moveRight(mainScreen);
@@ -81,6 +82,9 @@ int main(int argc, char* argv[]) {
 	//printf("%d\n", arr[0]);
 	//a(arr);
 	//textPrintMiddle(3, 5, 10, 10, (char*)"hello\nhellohello\nhellohello");
-	Button* but= buttonCreate(20, 10, 7, 3, (char*)"Hello", NULL, ALIGN_MIDDLE, 1, (char*)"*", LIGHT_BLUE, WHITE, BLACK);
-	draw(but);
+	//Button* but= buttonCreate(20, 10, 7, 3, (char*)"Hello", NULL, ALIGN_MIDDLE, 1, (char*)"*", LIGHT_BLUE, WHITE, BLACK);
+	//draw(but);
+	
+	Draw* draw = DRAW(POINT, PEN(YELLOW, BLACK, (char*)"."));
+	draw->filledRect(draw, 5, 5, 12, 22);
 }

@@ -148,11 +148,14 @@
     <ClCompile Include="source\blockBoard.cpp" />
     <ClCompile Include="source\button.cpp" />
     <ClCompile Include="source\charList.cpp" />
+    <ClCompile Include="source\coordinate.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
+    <ClCompile Include="source\draw.cpp" />
     <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\file.cpp" />
     <ClCompile Include="source\floatList.cpp" />
     <ClCompile Include="source\graphic.cpp" />
+    <ClCompile Include="source\cursorGraphic.cpp" />
     <ClCompile Include="source\intList.cpp" />
     <ClCompile Include="source\list.cpp" />
     <ClCompile Include="source\listener.cpp" />
@@ -163,6 +166,7 @@
     <ClCompile Include="source\mathPlusTest.cpp" />
     <ClCompile Include="source\node.cpp" />
     <ClCompile Include="source\objectList.cpp" />
+    <ClCompile Include="source\pen.cpp" />
     <ClCompile Include="source\random.cpp" />
     <ClCompile Include="source\scoreManager.cpp" />
     <ClCompile Include="source\scoreBoard.cpp" />
@@ -185,11 +189,14 @@
     <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\button.h" />
     <ClInclude Include="header\charList.h" />
+    <ClInclude Include="header\coordinate.h" />
     <ClInclude Include="header\doubleList.h" />
+    <ClInclude Include="header\draw.h" />
     <ClInclude Include="header\error.h" />
     <ClInclude Include="header\file.h" />
     <ClInclude Include="header\floatList.h" />
     <ClInclude Include="header\graphic.h" />
+    <ClInclude Include="header\cursorGraphic.h" />
     <ClInclude Include="header\intList.h" />
     <ClInclude Include="header\list.h" />
     <ClInclude Include="header\listener.h" />
@@ -198,6 +205,7 @@
     <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
     <ClInclude Include="header\node.h" />
+    <ClInclude Include="header\pen.h" />
     <ClInclude Include="header\random.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />
