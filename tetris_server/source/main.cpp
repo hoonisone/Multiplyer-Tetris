@@ -23,8 +23,13 @@
 #include "block.h"
 #include "tetris.h"
 #include "button.h"
-#include "draw.h"
-#include "pen2D.h"
+//#include "draw.h"
+#include "coordinateSystem.h"
+#include "pencil.h"
+#include <vector>
+#include <string>
+
+using namespace std;
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -88,9 +93,11 @@ int main(int argc, char* argv[]) {
 	
 	//Draw* draw = DRAW(POINT, PEN(YELLOW, BLACK, (char*)"."));
 	//draw->filledRect(draw, 5, 5, 12, 22);
-	char image[10][10] = { "бр" };
-	Pen* pen = PEN(BLUE, BLACK, image, 2, 1);
-	pen->press(pen);
-	Draw * draw = DRAW(COORDINATE(2, 1), pen);
-	draw->rect(draw, 3, 3, 10, 22);
+	//char image[10][10] = { "бр" };
+	//Pen* pen = PEN(BLUE, BLACK, image, 3, 1);
+	//Draw * draw = DRAW(COORDINATE(3, 1), pen);
+	//draw->rect(draw, 3, 3, 10, 22);
+	Pencil pen = Pencil(RED, BLACK, { "^ ^" });
+	CoordinateSystem(3, 3).move(3, 3);
+	pen.press();
 }

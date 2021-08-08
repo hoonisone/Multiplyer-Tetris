@@ -148,7 +148,7 @@
     <ClCompile Include="source\blockBoard.cpp" />
     <ClCompile Include="source\button.cpp" />
     <ClCompile Include="source\charList.cpp" />
-    <ClCompile Include="source\coordinate.cpp" />
+    <ClCompile Include="source\CoordinateSystem.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\draw.cpp" />
     <ClCompile Include="source\error.cpp" />
@@ -165,8 +165,7 @@
     <ClCompile Include="source\mathPlusTest.cpp" />
     <ClCompile Include="source\node.cpp" />
     <ClCompile Include="source\objectList.cpp" />
-    <ClCompile Include="source\pen.cpp" />
-    <ClCompile Include="source\pen2D.cpp" />
+    <ClCompile Include="source\pencil.cpp" />
     <ClCompile Include="source\random.cpp" />
     <ClCompile Include="source\scoreManager.cpp" />
     <ClCompile Include="source\scoreBoard.cpp" />
@@ -189,7 +188,7 @@
     <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\button.h" />
     <ClInclude Include="header\charList.h" />
-    <ClInclude Include="header\coordinate.h" />
+    <ClInclude Include="header\CoordinateSystem.h" />
     <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\draw.h" />
     <ClInclude Include="header\error.h" />
@@ -204,8 +203,7 @@
     <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
     <ClInclude Include="header\node.h" />
-    <ClInclude Include="header\pen.h" />
-    <ClInclude Include="header\pen2D.h" />
+    <ClInclude Include="header\Pencil.h" />
     <ClInclude Include="header\random.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />

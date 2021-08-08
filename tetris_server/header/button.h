@@ -1,5 +1,4 @@
 #pragma once
-
 #include "graphic.h"
 
 #define NAME_LENGTH 100

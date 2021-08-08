@@ -165,13 +165,10 @@
     <ClCompile Include="source\draw.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
-    <ClCompile Include="source\coordinate.cpp">
+    <ClCompile Include="source\CoordinateSystem.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
-    <ClCompile Include="source\pen.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\pen2D.cpp">
+    <ClCompile Include="source\pencil.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,19 +266,16 @@
     <ClInclude Include="header\button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\coordinate.h">
-      <Filter>헤더 파일\graphic</Filter>
-    </ClInclude>
     <ClInclude Include="header\draw.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\graphic.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
-    <ClInclude Include="header\pen.h">
+    <ClInclude Include="header\CoordinateSystem.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
-    <ClInclude Include="header\pen2D.h">
+    <ClInclude Include="header\Pencil.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
   </ItemGroup>

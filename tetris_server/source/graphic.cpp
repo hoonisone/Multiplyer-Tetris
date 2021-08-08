@@ -87,7 +87,6 @@ void graphicDrawPoint(int x, int y) {
 void graphicDrawVertical(int x, int y, int len) {
 	for (int i = 0; i < len; i++) {
 		graphicDrawPoint(x, y + i);
-		
 	}
 }
 
