@@ -2,8 +2,8 @@
 #include <iostream>
 #include <windows.h>
 
-#define CURSOR CoordinateSystem(1, 1)
-#define POINT CoordinateSystem(2, 1)
+#define CURSOR createCuusor()
+#define POINT createPoint()
 
 using namespace std;
 
@@ -15,3 +15,5 @@ public:
 	void move(int x, int y);
 	static pair<int, int> getCoordinate();
 };
+CoordinateSystem& createCuusor();
+CoordinateSystem& createPoint();

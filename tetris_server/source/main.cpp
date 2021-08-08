@@ -28,6 +28,7 @@
 #include "pencil.h"
 #include <vector>
 #include <string>
+#include "Painter.h"
 
 using namespace std;
 
@@ -97,7 +98,5 @@ int main(int argc, char* argv[]) {
 	//Pen* pen = PEN(BLUE, BLACK, image, 3, 1);
 	//Draw * draw = DRAW(COORDINATE(3, 1), pen);
 	//draw->rect(draw, 3, 3, 10, 22);
-	Pencil pen = Pencil(RED, BLACK, { "^ ^" });
-	CoordinateSystem(3, 3).move(3, 3);
-	pen.press();
+	Painter().rect(10, 10, 5, 5);
 }

@@ -162,13 +162,19 @@
     <ClCompile Include="source\graphic.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
-    <ClCompile Include="source\draw.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
     <ClCompile Include="source\CoordinateSystem.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
-    <ClCompile Include="source\pencil.cpp">
+    <ClCompile Include="source\Painter.cpp">
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="header\Pencil.cpp">
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Printer.cpp">
+      <Filter>소스 파일\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Consol.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -266,9 +272,6 @@
     <ClInclude Include="header\button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\draw.h">
-      <Filter>헤더 파일\graphic</Filter>
-    </ClInclude>
     <ClInclude Include="header\graphic.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
@@ -276,6 +279,15 @@
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\Pencil.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Painter.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Printer.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Consol.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
   </ItemGroup>
