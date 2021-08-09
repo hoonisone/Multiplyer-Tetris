@@ -21,10 +21,7 @@
 #define LIGHT_YELLOW 14
 #define BRIGHT_WHITE 15
 
-#define CONSOL createConsol();
 typedef int Color;
-
-#define CONSOL 
 
 class Consol {
 	Consol() {};

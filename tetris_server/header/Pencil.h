@@ -10,18 +10,16 @@ using Shape = vector<string>;
 //LIGHT_BLUE ,LIGHT_GREEN ,LIGHT_AQUA ,LIGHT_RED ,LIGHT_PURPLE ,LIGHT_YELLOW ,BRIGHT_WHITE
 //};
 
-
 class Pencil;
 static Pencil* usingPencil;
 
 class Pencil {
 private:
-	Color textColor, backgroundColor;
 	Shape textShape;
-	int settingFlag;
+	Color textColor, backgroundColor;
 	void setting();
 public: 
-	Pencil(Color textColor, Color backgroundColor, Shape textShape);
+	Pencil(Shape textShape, Color textColor, Color backgroundColor);
 	void press();
 };
 

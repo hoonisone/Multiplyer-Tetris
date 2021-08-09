@@ -1,8 +1,7 @@
 #include "Pencil.h"
 #include "Consol.h"
+Pencil::Pencil(Shape textShape, Color textColor, Color backgroundColor) :textShape(textShape), textColor(textColor), backgroundColor(backgroundColor) {};
 
-Pencil::Pencil(Color textColor, Color backgroundColor, Shape textShape) :
-	textColor(textColor), backgroundColor(backgroundColor), textShape(textShape) {};
 void Pencil::press() {
 	setting();
 	pair<int, int> curPosition = CoordinateSystem::getCoordinate();
@@ -16,9 +15,7 @@ void Pencil::press() {
 void Pencil::setting() {
 	if (usingPencil == nullptr || usingPencil != this) {
 		usingPencil = this;
-		// set text color
 		Consol::changeTextColor(textColor);
-		// set background color
 		Consol::changeBackgroundColor(backgroundColor);
 	}
 }

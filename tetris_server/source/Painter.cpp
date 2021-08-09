@@ -1,7 +1,9 @@
 #include "Painter.h"
-Painter::Painter() : coordinateSystem(CURSOR), pencil(Pencil(WHITE, BLACK, { "*" })) {}
+
+Painter::Painter() : coordinateSystem(CURSOR), pencil(Pencil({ "*" }, WHITE, BLACK)) {}
 Painter::Painter(Pencil p) : coordinateSystem(CURSOR), pencil(p) {}
 Painter::Painter(CoordinateSystem cs, Pencil p) : coordinateSystem(cs), pencil(p) {}
+
 void Painter::point(int x, int y) {
 	coordinateSystem.move(x, y);
 	pencil.press();
