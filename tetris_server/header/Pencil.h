@@ -17,9 +17,27 @@ class Pencil {
 private:
 	Shape textShape;
 	Color textColor, backgroundColor;
-	void setting();
+	void setting() {
+		if (usingPencil == nullptr || usingPencil != this) {
+			usingPencil = this;
+			Consol::changeTextColor(textColor);
+			Consol::changeBackgroundColor(backgroundColor);
+		}
+	}
 public: 
-	Pencil(Shape textShape, Color textColor, Color backgroundColor);
-	void press();
+
+	Pencil(Shape textShape, Color textColor, Color backgroundColor) :textShape(textShape), textColor(textColor), backgroundColor(backgroundColor) {};
+
+	void press() {
+		setting();
+		pair<int, int> curPosition = CoordinateSystem::getCoordinate();
+		int X = curPosition.first;
+		int Y = curPosition.second;
+		for (int i = 0; i < textShape.size(); i++) {
+			CURSOR.move(X, Y + i);
+			cout << textShape[i];
+		}
+	}
+
 };
 

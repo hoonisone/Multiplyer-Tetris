@@ -156,25 +156,10 @@
     <ClCompile Include="source\random.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
-    <ClCompile Include="source\button.cpp">
-      <Filter>소스 파일\ui</Filter>
-    </ClCompile>
     <ClCompile Include="source\graphic.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
     <ClCompile Include="source\CoordinateSystem.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Painter.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="header\Pencil.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Printer.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Consol.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,7 +254,7 @@
     <ClInclude Include="header\random.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\button.h">
+    <ClInclude Include="header\Button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\graphic.h">
@@ -289,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="header\Consol.h">
       <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ButtonAction.h">
+      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

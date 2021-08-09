@@ -1,31 +1,70 @@
 #pragma once
-#include "graphic.h"
+#include <string>
+#include "Consol.h"
+#include "Printer.h"
+#include "ButtonAction.h"
+#include "Painter.h"
+#include "string+.h"
 
-#define NAME_LENGTH 100
+class Button {
+private:
+	int x, y, w, h;
+	string text;
+	AlignX alignX;
+	AlignY alignY;
+	bool borderFlag;
+	Color textColor, textBackgroundColor;
+	Color borderColor, borderBackgroundColor;
+	ButtonAction *buttonAction;
 
-typedef struct Button {
-	int x, y, width, height;
-	char name[NAME_LENGTH];
-	void(*action)();
-	int textAlign;
-	int borderFlag;
-	char borderChar[4];
-	int borderColor, nameColor, backgroundColor;
-} Button;
-
-Button* buttonCreate(int x, int y, int width, int height, char* name, void(*action)(), int textAlign = ALIGN_MIDDLE,
-					 int borderFlag = 1, char* borderChar = (char*)"*", int borderColor = WHITE, 
-					 int nameColor = WHITE, int bgColor = BLACK);
-void buttonSetX(Button* button, int x);
-void buttonSetY(Button* button, int y);
-void buttonSetWidth(Button* button, int width);
-void buttonSetHeight(Button* button, int height);
-void buttonSetName(Button* button, char* name);
-void buttonSetTextAlgin(Button* button, int textAlgin);
-void buttonSetAction(Button* button, void(*action)());
-void buttonSetBorderFlag(Button* button, int flag);
-void buttonSetBorderChar(Button* button, char *ch);
-void buttonSetBorderColor(Button* button, int color);
-void buttonSetNameColor(Button* button, int color);
-void buttonSetBgColor(Button* button, int color);
-void draw(Button* button);
+public:
+	Button(int x, int y, int w, int h, string text = "",
+		Color textColor = WHITE, Color backgroundColor = BLACK, 
+		bool borderFlag = true, Color borderColor = WHITE, Color borderBackgroundColor = BLACK,
+		AlignX alignX = CENTER, AlignY alignY = MIDDLE,
+		ButtonAction *buttonAction = new DefaultButtonAction()) {
+		setPos(x, y);
+		setSize(w, h);
+		setText(text);
+		setAlign(alignX, alignY);
+		setBorder(borderFlag, borderColor, borderBackgroundColor);
+		setTextColor(textColor, backgroundColor);
+		setAction(buttonAction);
+	};
+	void setPos(int x, int y) {
+		this->x = x;
+		this->y = y;
+	}
+	void setSize(int w, int h) {
+		this->w = w;
+		this->h = h;
+	}
+	void setText(string text) {
+		this->text = text;
+	}
+	void setAlign(AlignX alignX, AlignY alignY) {
+		this->alignX = alignX;
+		this->alignY = alignY;
+	}
+	void setBorder(bool borderFlag, Color borderColor = WHITE, Color borderBackgroundColor = BLACK) {
+		this->borderFlag = borderFlag;
+		this->borderColor = borderColor;
+		this->borderBackgroundColor = borderBackgroundColor;
+	}
+	void setTextColor(Color textColor = WHITE, Color backgroundColor = BLACK) {
+		this->textColor = textColor;
+		this->textBackgroundColor = backgroundColor;
+		this->borderColor = borderColor;
+	}
+	void setAction(ButtonAction *buttonAction) {
+		this->buttonAction = buttonAction;
+	}
+	void draw() {
+		if (borderFlag) {
+			Painter painter = Painter(Pencil({ "*" }, borderColor, borderBackgroundColor));
+			painter.rect(x, y, w, h);
+		}
+		vector<string>tokens = split(text, "\n");
+		Printer::printText(x + 1, y + 1, w - 2, h - 2, tokens, textColor, textBackgroundColor, alignX, alignY);
+	}
+};

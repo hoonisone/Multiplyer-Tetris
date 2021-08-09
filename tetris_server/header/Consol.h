@@ -1,5 +1,5 @@
 #pragma once
-
+#include <Windows.h>
 /*
 콘솔창의 텍스트 색 등 관리
 */
@@ -24,8 +24,16 @@
 typedef int Color;
 
 class Consol {
+private:
 	Consol() {};
+
 public:
-	static void changeTextColor(Color color);
-	static void changeBackgroundColor(Color color);
+	static void changeTextColor(Color color) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+	}
+	static void changeBackgroundColor(Color color) {
+		CONSOLE_SCREEN_BUFFER_INFO info;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ((color & 0xf) << 4) | (info.wAttributes & 0xf));
+	}
 };

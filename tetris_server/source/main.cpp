@@ -22,13 +22,15 @@
 #include "graphic.h"
 #include "block.h"
 #include "tetris.h"
-#include "button.h"
+#include "Button.h"
 //#include "draw.h"
 #include "coordinateSystem.h"
 #include "pencil.h"
 #include <vector>
 #include <string>
 #include "Painter.h"
+#include "Printer.h"
+#include <iostream>
 
 using namespace std;
 
@@ -98,5 +100,5 @@ int main(int argc, char* argv[]) {
 	//Pen* pen = PEN(BLUE, BLACK, image, 3, 1);
 	//Draw * draw = DRAW(COORDINATE(3, 1), pen);
 	//draw->rect(draw, 3, 3, 10, 22);
-	Painter().rect(10, 10, 5, 5);
+	Button(5, 5, 100, 10, "hello", BLUE, BLACK, true, RED, BLACK, CENTER, BOTTOM).draw();
 }

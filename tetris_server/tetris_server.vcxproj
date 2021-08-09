@@ -145,14 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="header\Pencil.cpp" />
     <ClCompile Include="source\blockBoard.cpp" />
-    <ClCompile Include="source\button.cpp" />
     <ClCompile Include="source\charList.cpp" />
-    <ClCompile Include="source\Consol.cpp" />
     <ClCompile Include="source\CoordinateSystem.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
-    <ClCompile Include="source\Painter.cpp" />
     <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\file.cpp" />
     <ClCompile Include="source\floatList.cpp" />
@@ -167,7 +163,6 @@
     <ClCompile Include="source\mathPlusTest.cpp" />
     <ClCompile Include="source\node.cpp" />
     <ClCompile Include="source\objectList.cpp" />
-    <ClCompile Include="source\Printer.cpp" />
     <ClCompile Include="source\random.cpp" />
     <ClCompile Include="source\scoreManager.cpp" />
     <ClCompile Include="source\scoreBoard.cpp" />
@@ -188,7 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\blockBoard.h" />
-    <ClInclude Include="header\button.h" />
+    <ClInclude Include="header\Button.h" />
+    <ClInclude Include="header\ButtonAction.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\Consol.h" />
     <ClInclude Include="header\CoordinateSystem.h" />
