@@ -2,18 +2,22 @@
 #include <vector>
 #include <string>
 #include "Consol.h"
-#include "CoordinateSystem.h"
 
 enum AlignX { LEFT, CENTER, RIGHT };
 enum AlignY { TOP, MIDDLE, BOTTOM };
 
-class Printer{
+using namespace std;
+
+class Printer {
+	Color textColor, backgroundColor;
+	AlignX alignX;
+	AlignY alignY;
 private:
-	static void printText(int x, int y, string text) {
-		CURSOR.move(x, y);
+	void printText(int x, int y, string text) {
+		Consol::move(x, y);
 		cout << text;
 	}
-	static int getPrintPosX(int x, int w, int len, AlignX align) {
+	int getPrintPosX(int x, int w, int len, AlignX align) {
 		switch (align) {
 		case LEFT:
 			return x;
@@ -23,23 +27,30 @@ private:
 			return x + (w - len);
 		}
 	}
-	static int getPrintPosY(int y, int h, int n, AlignY align) {
+	int getPrintPosY(int y, int h, int n, AlignY align) {
 		return getPrintPosX(y, h, n, (AlignX)align);
 	}
-public:
-	static void printText(int x, int y, int w, int h, string text,
-		Color textColor = WHITE, Color backgroundColor = BLACK, AlignX alignX = LEFT, AlignY alignY = MIDDLE) {
-		vector<string> tokens = { text };
-		printText(x, y, w, h, tokens, textColor, backgroundColor, alignX, alignY);
-	}
-
-	static void printText(int x, int y, int w, int h, vector<string> tokens,
-		Color textColor = WHITE, Color backgroundColor = BLACK, AlignX alignX = LEFT, AlignY alignY = MIDDLE) {
+	void setting(Color textColor, Color backgroundColor) {
 		Consol::changeTextColor(textColor);
-		
+		Consol::changeBackgroundColor(backgroundColor);
+	}
+public:
+	Printer(Color textColor = WHITE, Color backgroundColor = BLACK, AlignX alignX = LEFT, AlignY alignY = MIDDLE) :
+		textColor(textColor), backgroundColor(backgroundColor), alignX(alignX), alignY(alignY) {
+	}
+	void setAlign(AlignX alignX, AlignY alignY) {
+		this->alignX = alignX;
+		this->alignY = alignY;
+	}
+	void setColor(Color textColor, Color backgroundColor) {
+		this->textColor = textColor;
+		this->backgroundColor = backgroundColor;
+	}
+	void printText(int x, int y, int w, int h, vector<string> tokens) {
+		setting(textColor, backgroundColor);
+		Consol::changeTextColor(textColor);
 		Consol::changeBackgroundColor(backgroundColor);
 		int Y = getPrintPosY(y, h, tokens.size(), alignY);
-		
 		int X;
 		for (int i = 0; i < tokens.size(); i++) {
 			X = getPrintPosX(x, w, tokens[i].size(), alignX);

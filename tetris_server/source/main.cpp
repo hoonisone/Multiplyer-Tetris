@@ -5,6 +5,8 @@
 #include <wchar.h>
 #include <conio.h>
 #include <time.h>
+#include <vector>
+#include <string>
 #include "server.h"
 #include "error.h"
 #include "stringList.h"
@@ -23,13 +25,9 @@
 #include "block.h"
 #include "tetris.h"
 #include "Button.h"
-//#include "draw.h"
-#include "coordinateSystem.h"
-#include "pencil.h"
-#include <vector>
-#include <string>
 #include "Painter.h"
 #include "Printer.h"
+
 #include <iostream>
 
 using namespace std;
@@ -100,5 +98,13 @@ int main(int argc, char* argv[]) {
 	//Pen* pen = PEN(BLUE, BLACK, image, 3, 1);
 	//Draw * draw = DRAW(COORDINATE(3, 1), pen);
 	//draw->rect(draw, 3, 3, 10, 22);
-	Button(5, 5, 100, 10, "hello", BLUE, BLACK, true, RED, BLACK, CENTER, BOTTOM).draw();
+	//Button(5, 5, 100, 10, "hello", BLUE, BLACK, true, RED, BLACK, CENTER, BOTTOM).draw();
+	Printer printer = Printer(WHITE, BLACK, CENTER, MIDDLE);
+	Painter painter = Painter({ "¡Ú" }, WHITE, BLACK);
+	Printer clickedPrinter = printer;
+	Painter clickedPainter = Painter({ "¡Ú" }, RED, BLACK);
+	Button button(5, 5, 30, 10, "click", painter, printer, clickedPainter, clickedPrinter, true);
+	button.unclickPainter.rect(1, 1, 3, 3);
+	//button.click();
+	button.draw();
 }

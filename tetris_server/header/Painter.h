@@ -1,41 +1,81 @@
 #pragma once
-#include "CoordinateSystem.h"
-#include "Pencil.h"
+#include <vector>
+#include <string>
+#include "Consol.h"
 
-/*
-콘솔창을 원하는 관점에서 바라보고 그림을 그릴 수 있다.
-좌표계(CoordinateSystem)는 콘솔창의 x, y축을 원하는 만큼 확대 축소 해준다.
-펜(Pencil)은 도형의 색, 배경색, 점 모양을 설정한다.
+using namespace std;
+using PointShape = vector<string>;
+//enum Color { BLACK, BLUE ,GREEN ,AQUA ,RED ,PURPLE ,YELLOW ,WHITE ,GRAY,
+//LIGHT_BLUE ,LIGHT_GREEN ,LIGHT_AQUA ,LIGHT_RED ,LIGHT_PURPLE ,LIGHT_YELLOW ,BRIGHT_WHITE
+//};
 
-한번 생성하면 특정한 좌표와 색, 모양으로 그림을 그릴 수 있다.
-*/
+class Painter;
 
 class Painter {
 private:
-	CoordinateSystem coordinateSystem;
-	Pencil pencil;
+	PointShape pointShape;
+	Color pointColor, backgroundColor;
+	void setting(Color textColor, Color backgroundColor) {
+		Consol::changeTextColor(textColor);
+		Consol::changeBackgroundColor(backgroundColor);
+	}
+	void adjustPointSize() {
+		ph = pointShape.size();
+		int max = 0;
+		for (int i = 0; i < ph; i++) {
+			max = max > pointShape[i].size() ? max : pointShape[i].size();
+		}
+		pw = max;
+	}
+	void setShape(PointShape pointShape) {
+		this->pointShape = pointShape;
+		adjustPointSize();
+	}
+	void press(int x, int y, Color pointColor, Color backgroundColor) {
+		setting(pointColor, backgroundColor);
+		for (int i = 0; i < pointShape.size(); i++) {
+			Consol::move(x, y + i);
+			cout << pointShape[i];
+		}
+	}
 public:
-	Painter() : coordinateSystem(CURSOR), pencil(Pencil({ "*" }, WHITE, BLACK)) {}
-	Painter(Pencil p) : coordinateSystem(CURSOR), pencil(p) {}
-	Painter(CoordinateSystem cs, Pencil p) : coordinateSystem(cs), pencil(p) {}
+	int pw, ph;
+	Painter(PointShape pointShape = {"*"}, Color pointColor = WHITE, Color backgroundColor = BLACK) :pointShape(pointShape), pointColor(pointColor), backgroundColor(backgroundColor) {
+		adjustPointSize();
+	};
+	void setColor(Color pointColor, Color bacgroundColor) {
+		this->pointColor = pointColor;
+		this->backgroundColor = backgroundColor;
+	}	// pencil의 컬러를 설정하는 것으로 콜솔의 색을 설정하는 것과는 별개
 	void point(int x, int y) {
-		coordinateSystem.move(x, y);
-		pencil.press();
+		point(x, y, pointColor, backgroundColor);
+	}
+	void point(int x, int y, Color pointColor, Color backgroundColor) {
+		press(x, y, pointColor, backgroundColor);
 	}
 	void horizontal(int x, int y, int w) {
+		horizontal(x, y, w, pointColor, backgroundColor);
+	}
+	void horizontal(int x, int y, int w, Color pointColor, Color backgroundColor) {
 		for (int i = 0; i < w; i++) {
-			point(x + i, y);
+			press(x + i * pw, y, pointColor, backgroundColor);
 		}
 	}
 	void vertical(int x, int y, int h) {
+		vertical(x, y, h, pointColor, backgroundColor);
+	}
+	void vertical(int x, int y, int h, Color pointColor, Color backgroundColor) {
 		for (int i = 0; i < h; i++) {
-			point(x, y + i);
+			point(x, y + i * ph, pointColor, backgroundColor);
 		}
 	}
 	void rect(int x, int y, int w, int h) {
-		horizontal(x, y, w);
-		vertical(x, y, h);
-		horizontal(x, y + h - 1, w);
-		vertical(x + w - 1, y, h);
+		rect(x, y, w, h, pointColor, backgroundColor);
+	}
+	void rect(int x, int y, int w, int h, Color pointColor, Color backgroundColor) {
+		horizontal(x, y, w, pointColor, backgroundColor);
+		vertical(x, y, h, pointColor, backgroundColor);
+		horizontal(x, y + (h - 1) * ph, w, pointColor, backgroundColor);
+		vertical(x + (w - 1) * pw, y, h, pointColor, backgroundColor);
 	}
 };

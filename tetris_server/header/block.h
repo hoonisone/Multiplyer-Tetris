@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <windows.h>
-#include "Pencil.h"
+#include "Painter.h"
 
 #define BLOCK_SHAPE_O 0
 #define BLOCK_SHAPE_I 1

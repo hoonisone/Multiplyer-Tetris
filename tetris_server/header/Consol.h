@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <iostream>
 /*
 콘솔창의 텍스트 색 등 관리
 */
@@ -19,14 +20,15 @@
 #define LIGHT_RED	12
 #define LIGHT_PURPLE 13
 #define LIGHT_YELLOW 14
-#define BRIGHT_WHITE 15
+#define LIGHT_WHITE 15
 
 typedef int Color;
+
+using namespace std;
 
 class Consol {
 private:
 	Consol() {};
-
 public:
 	static void changeTextColor(Color color) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -35,5 +37,14 @@ public:
 		CONSOLE_SCREEN_BUFFER_INFO info;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ((color & 0xf) << 4) | (info.wAttributes & 0xf));
+	}
+	static void move(int x, int y) {
+		COORD pos = { x, y };
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+	}
+	static pair<int, int> getCoordinate(){
+		CONSOLE_SCREEN_BUFFER_INFO a;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &a);
+		return make_pair(a.dwCursorPosition.X, a.dwCursorPosition.Y);
 	}
 };

@@ -141,7 +141,7 @@ static Color BLOCK_SHAPE[7][4][4][4] = {// 블록 데이터, [7모양][4각도][세로크기]
   {0,1,0,0},
   {0,0,0,0}}}
 };
-static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, BRIGHT_WHITE, LIGHT_AQUA };
+static int colors[BLOCK_COLOR_NUM] = { LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, LIGHT_WHITE, LIGHT_AQUA };
 //색 값들을 저장하는 int형 colors배열 생성 각 색들은 graphic.h에서 정수형으로 정의되어있음
 // block function object	블록 함수 객체
 BlockFunction* getBlockFunction() {// return singleton block function object	싱글턴 블록 함수 객체 반환

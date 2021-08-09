@@ -3,32 +3,30 @@
 #include "Consol.h"
 #include "Printer.h"
 #include "ButtonAction.h"
-#include "Painter.h"
 #include "string+.h"
 
 class Button {
 private:
-	int x, y, w, h;
-	string text;
-	AlignX alignX;
-	AlignY alignY;
-	bool borderFlag;
-	Color textColor, textBackgroundColor;
-	Color borderColor, borderBackgroundColor;
-	ButtonAction *buttonAction;
+
 
 public:
-	Button(int x, int y, int w, int h, string text = "",
-		Color textColor = WHITE, Color backgroundColor = BLACK, 
-		bool borderFlag = true, Color borderColor = WHITE, Color borderBackgroundColor = BLACK,
-		AlignX alignX = CENTER, AlignY alignY = MIDDLE,
-		ButtonAction *buttonAction = new DefaultButtonAction()) {
+	int x, y, w, h;
+	string text;
+	Printer unclickPrinter, clickPrinter;
+	Painter unclickPainter, clickPainter;
+	bool borderFlag;
+	ButtonAction* buttonAction;
+	bool clickFlag;
+	Button(int x, int y, int w, int h, string text, Painter unclickPainter, Printer unclickPprinter, Painter clickPainter, Printer clickPrinter,
+		bool borderFlag = true, ButtonAction* buttonAction = new DefaultButtonAction()) : clickFlag(false) {
 		setPos(x, y);
 		setSize(w, h);
 		setText(text);
-		setAlign(alignX, alignY);
-		setBorder(borderFlag, borderColor, borderBackgroundColor);
-		setTextColor(textColor, backgroundColor);
+		setUnclickPrinter(unclickPrinter);
+		setUnclickPainter(unclickPainter);
+		setClickPrinter(clickPrinter);
+		setClickPainter(clickPainter);
+		setBorderFlag(borderFlag);
 		setAction(buttonAction);
 	};
 	void setPos(int x, int y) {
@@ -42,29 +40,45 @@ public:
 	void setText(string text) {
 		this->text = text;
 	}
-	void setAlign(AlignX alignX, AlignY alignY) {
-		this->alignX = alignX;
-		this->alignY = alignY;
+	void setUnclickPrinter(Printer printer) {
+		this->unclickPrinter = printer;
 	}
-	void setBorder(bool borderFlag, Color borderColor = WHITE, Color borderBackgroundColor = BLACK) {
+	void setUnclickPainter(Painter painter) {
+		this->unclickPainter = painter;
+	}
+	void setClickPrinter(Printer printer) {
+		this->unclickPrinter = printer;
+	}
+	void setClickPainter(Painter painter) {
+		this->unclickPainter = painter;
+	}
+	void setBorderFlag(bool borderFlag) {
 		this->borderFlag = borderFlag;
-		this->borderColor = borderColor;
-		this->borderBackgroundColor = borderBackgroundColor;
-	}
-	void setTextColor(Color textColor = WHITE, Color backgroundColor = BLACK) {
-		this->textColor = textColor;
-		this->textBackgroundColor = backgroundColor;
-		this->borderColor = borderColor;
 	}
 	void setAction(ButtonAction *buttonAction) {
 		this->buttonAction = buttonAction;
 	}
 	void draw() {
 		if (borderFlag) {
-			Painter painter = Painter(Pencil({ "*" }, borderColor, borderBackgroundColor));
-			painter.rect(x, y, w, h);
+			if (clickFlag) {
+				clickPainter.rect(x, y, w, h);
+			}
+			else {
+				unclickPainter.rect(x, y, w, h);
+			}
 		}
 		vector<string>tokens = split(text, "\n");
-		Printer::printText(x + 1, y + 1, w - 2, h - 2, tokens, textColor, textBackgroundColor, alignX, alignY);
+		if (clickFlag) {
+			clickPrinter.printText(x + unclickPainter.pw, y + unclickPainter.ph, w - 2 * unclickPainter.pw, h - 2 * unclickPainter.ph, tokens);
+		}
+		else {
+			unclickPrinter.printText(x + unclickPainter.pw, y + unclickPainter.ph, (w - 2) * unclickPainter.pw, (h - 2) * unclickPainter.ph, tokens);
+		}
+	}
+	void click() {
+		this->clickFlag = true;
+	}
+	void unclick() {
+		this->clickFlag = false;
 	}
 };
