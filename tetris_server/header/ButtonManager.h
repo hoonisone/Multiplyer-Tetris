@@ -74,4 +74,9 @@ public:
 			}
 		}
 	}
+	~ButtonManager() {
+		for (int i = 0; i < buttons.size(); i++) {
+			delete buttons[i];
+		}
+	}
 };

@@ -4,6 +4,8 @@
 /*
 콘솔창의 텍스트 색 등 관리
 */
+#define WIDTH 200
+#define HEIGHT 50
 
 #define BLACK		0
 #define BLUE		1
@@ -42,7 +44,7 @@ public:
 		COORD pos = { x, y };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 	}
-	static pair<int, int> getCoordinate(){
+	static pair<int, int> getCurPos(){
 		CONSOLE_SCREEN_BUFFER_INFO a;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &a);
 		return make_pair(a.dwCursorPosition.X, a.dwCursorPosition.Y);

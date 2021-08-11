@@ -281,5 +281,8 @@
     <ClInclude Include="header\ButtonManager.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="header\Canvas.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

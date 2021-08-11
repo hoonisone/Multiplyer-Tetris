@@ -64,6 +64,7 @@ public:
 		this->action = action;
 	}
 	void draw()const {
+		erase();
 		if (borderFlag) {
 			if (selectFlag) {
 				selectPainter->borderRect(x, y, w, h);
@@ -74,13 +75,13 @@ public:
 		}
 		vector<string>tokens = split(text, "\n");
 		if (selectFlag) {
-			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 1) * unselectPainter->getWidth(), (h - 1) * unselectPainter->getHeight(), tokens);
+			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 2) * unselectPainter->getWidth(), (h - 2) * unselectPainter->getHeight(), tokens);
 		}
 		else {
-			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 1) * unselectPainter->getWidth(), (h - 1) * unselectPainter->getHeight(), tokens);
+			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 2) * unselectPainter->getWidth(), (h - 2) * unselectPainter->getHeight(), tokens);
 		}
 	}
-	void erase() {
+	void erase() const{
 		Painter({ " " }).rect(x, y, w * selectPainter->getWidth(), h * selectPainter->getHeight());
 	}
 	void select() {

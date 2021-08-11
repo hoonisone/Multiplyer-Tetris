@@ -23,7 +23,7 @@ static void mainBlockEraseShadowBlock(MainBlock* mainBlock);
 static int overlapCheck(MainBlock* mainBlock);
 static int shadowDrawCheck(MainBlock* mainBlock);
 
-MainBlockFunction* mainBlockFunctionCreate() {
+MainBlockFunction* mainBlockFunctionCreate() { 
 	static MainBlockFunction* object = NULL;
 	if (object == NULL) {
 		object = (MainBlockFunction*)malloc(sizeof(MainBlockFunction));

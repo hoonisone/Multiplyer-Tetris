@@ -186,6 +186,7 @@
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\ButtonAction.h" />
     <ClInclude Include="header\ButtonManager.h" />
+    <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\ColorPainter.h" />
     <ClInclude Include="header\ColorPrinter.h" />
