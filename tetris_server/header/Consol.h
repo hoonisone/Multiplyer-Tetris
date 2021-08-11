@@ -30,7 +30,7 @@ class Consol {
 private:
 	Consol() {};
 public:
-	static void changeTextColor(Color color) {
+	static void changeTextColor(Color color){
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 	}
 	static void changeBackgroundColor(Color color) {
@@ -46,5 +46,16 @@ public:
 		CONSOLE_SCREEN_BUFFER_INFO a;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &a);
 		return make_pair(a.dwCursorPosition.X, a.dwCursorPosition.Y);
+	}
+	static void clear() {
+		system("cls");
+	}
+	static void changeScreenSize(int width, int height) {
+		char order[100];
+		sprintf(order, "mode con cols=%d lines=%d", width, height, 100);
+		system(order);
+	}
+	static void fullScreen() {
+		SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
 	}
 };

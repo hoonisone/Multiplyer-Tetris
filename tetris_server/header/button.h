@@ -4,30 +4,31 @@
 #include "Printer.h"
 #include "ButtonAction.h"
 #include "string+.h"
+#include "system.h"
 
 class Button {
 private:
 
-
 public:
 	int x, y, w, h;
 	string text;
-	Printer unclickPrinter, clickPrinter;
-	Painter unclickPainter, clickPainter;
+	Printer* unselectPrinter = NULL, * selectPrinter = NULL;
+	Painter* unselectPainter = NULL, * selectPainter = NULL;
 	bool borderFlag;
-	ButtonAction* buttonAction;
-	bool clickFlag;
-	Button(int x, int y, int w, int h, string text, Painter unclickPainter, Printer unclickPprinter, Painter clickPainter, Printer clickPrinter,
-		bool borderFlag = true, ButtonAction* buttonAction = new DefaultButtonAction()) : clickFlag(false) {
+	void (*action)(Button* button) = NULL;
+	bool selectFlag;
+	Button(const int x, const int y, const int w, const int h, const string& text,
+		Painter* unselectPainter, Printer *unselectPrinter, Painter* selectPainter, Printer* selectPrinter,
+		const bool borderFlag = true) : selectFlag(false) {
 		setPos(x, y);
 		setSize(w, h);
 		setText(text);
-		setUnclickPrinter(unclickPrinter);
-		setUnclickPainter(unclickPainter);
-		setClickPrinter(clickPrinter);
-		setClickPainter(clickPainter);
+		setUnselectPrinter(unselectPrinter);
+		setUnselectPainter(unselectPainter);
+		setSelectPrinter(selectPrinter);
+		setSelectPainter(selectPainter);
 		setBorderFlag(borderFlag);
-		setAction(buttonAction);
+		this->selectFlag = selectFlag;
 	};
 	void setPos(int x, int y) {
 		this->x = x;
@@ -40,45 +41,62 @@ public:
 	void setText(string text) {
 		this->text = text;
 	}
-	void setUnclickPrinter(Printer printer) {
-		this->unclickPrinter = printer;
+	void setUnselectPrinter(Printer* printer) {
+		if (unselectPrinter != NULL) delete unselectPrinter;
+		this->unselectPrinter = printer;
 	}
-	void setUnclickPainter(Painter painter) {
-		this->unclickPainter = painter;
+	void setUnselectPainter(Painter* painter) {
+		if (unselectPainter != NULL) delete unselectPainter;
+		this->unselectPainter = painter;
 	}
-	void setClickPrinter(Printer printer) {
-		this->unclickPrinter = printer;
+	void setSelectPrinter(Printer* printer) {
+		if (selectPrinter != NULL) delete selectPrinter;
+		this->selectPrinter = printer;
 	}
-	void setClickPainter(Painter painter) {
-		this->unclickPainter = painter;
+	void setSelectPainter(Painter* painter) {
+		if (selectPainter != NULL) delete selectPainter;
+		this->selectPainter = painter;
 	}
 	void setBorderFlag(bool borderFlag) {
 		this->borderFlag = borderFlag;
 	}
-	void setAction(ButtonAction *buttonAction) {
-		this->buttonAction = buttonAction;
+	void setAction(void (*_action)(Button* button)) {
+		this->action = action;
 	}
-	void draw() {
+	void draw()const {
 		if (borderFlag) {
-			if (clickFlag) {
-				clickPainter.rect(x, y, w, h);
+			if (selectFlag) {
+				selectPainter->borderRect(x, y, w, h);
 			}
 			else {
-				unclickPainter.rect(x, y, w, h);
+				unselectPainter->borderRect(x, y, w, h);
 			}
 		}
 		vector<string>tokens = split(text, "\n");
-		if (clickFlag) {
-			clickPrinter.printText(x + unclickPainter.pw, y + unclickPainter.ph, w - 2 * unclickPainter.pw, h - 2 * unclickPainter.ph, tokens);
+		if (selectFlag) {
+			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 1) * unselectPainter->getWidth(), (h - 1) * unselectPainter->getHeight(), tokens);
 		}
 		else {
-			unclickPrinter.printText(x + unclickPainter.pw, y + unclickPainter.ph, (w - 2) * unclickPainter.pw, (h - 2) * unclickPainter.ph, tokens);
+			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 1) * unselectPainter->getWidth(), (h - 1) * unselectPainter->getHeight(), tokens);
 		}
 	}
-	void click() {
-		this->clickFlag = true;
+	void erase() {
+		Painter({ " " }).rect(x, y, w * selectPainter->getWidth(), h * selectPainter->getHeight());
 	}
-	void unclick() {
-		this->clickFlag = false;
+	void select() {
+		this->selectFlag = true;
+	}
+	void unselect() {
+		this->selectFlag = false;
+	}
+	void click() {
+		if (action != NULL) { action(this); }
+		else { cout << "button(" << text << ") is clicked"; }
+	}
+	~Button() {
+		if (unselectPainter != NULL) FREE(unselectPainter);
+		if (unselectPrinter != NULL) FREE(unselectPrinter);
+		if (selectPainter != NULL) FREE(selectPainter);
+		if (selectPrinter != NULL) FREE(selectPrinter);
 	}
 };

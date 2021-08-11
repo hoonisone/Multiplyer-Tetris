@@ -12,70 +12,82 @@ using PointShape = vector<string>;
 class Painter;
 
 class Painter {
+protected:
+	int pointWidth, pointHeight;
 private:
-	PointShape pointShape;
-	Color pointColor, backgroundColor;
-	void setting(Color textColor, Color backgroundColor) {
-		Consol::changeTextColor(textColor);
-		Consol::changeBackgroundColor(backgroundColor);
-	}
 	void adjustPointSize() {
-		ph = pointShape.size();
+		pointHeight = pointShape.size();
 		int max = 0;
-		for (int i = 0; i < ph; i++) {
+		for (int i = 0; i < pointHeight; i++) {
 			max = max > pointShape[i].size() ? max : pointShape[i].size();
 		}
-		pw = max;
+		pointWidth = max;
 	}
 	void setShape(PointShape pointShape) {
 		this->pointShape = pointShape;
 		adjustPointSize();
 	}
-	void press(int x, int y, Color pointColor, Color backgroundColor) {
-		setting(pointColor, backgroundColor);
+	void press(const int x, const int y)const {
 		for (int i = 0; i < pointShape.size(); i++) {
 			Consol::move(x, y + i);
 			cout << pointShape[i];
 		}
 	}
-public:
-	int pw, ph;
-	Painter(PointShape pointShape = {"*"}, Color pointColor = WHITE, Color backgroundColor = BLACK) :pointShape(pointShape), pointColor(pointColor), backgroundColor(backgroundColor) {
-		adjustPointSize();
-	};
-	void setColor(Color pointColor, Color bacgroundColor) {
-		this->pointColor = pointColor;
-		this->backgroundColor = backgroundColor;
-	}	// pencil의 컬러를 설정하는 것으로 콜솔의 색을 설정하는 것과는 별개
-	void point(int x, int y) {
-		point(x, y, pointColor, backgroundColor);
+	void _point(const int x, const int y)const {
+		press(x, y);
 	}
-	void point(int x, int y, Color pointColor, Color backgroundColor) {
-		press(x, y, pointColor, backgroundColor);
-	}
-	void horizontal(int x, int y, int w) {
-		horizontal(x, y, w, pointColor, backgroundColor);
-	}
-	void horizontal(int x, int y, int w, Color pointColor, Color backgroundColor) {
+	void _horizontal(const int x, const int y, const int w)const {
 		for (int i = 0; i < w; i++) {
-			press(x + i * pw, y, pointColor, backgroundColor);
+			press(x + i * pointWidth, y);
 		}
 	}
-	void vertical(int x, int y, int h) {
-		vertical(x, y, h, pointColor, backgroundColor);
-	}
-	void vertical(int x, int y, int h, Color pointColor, Color backgroundColor) {
+	void _vertical(const int x, const int y, const int h)const {
 		for (int i = 0; i < h; i++) {
-			point(x, y + i * ph, pointColor, backgroundColor);
+			_point(x, y + i * pointHeight);
 		}
 	}
-	void rect(int x, int y, int w, int h) {
-		rect(x, y, w, h, pointColor, backgroundColor);
+	void _borderRect(const int x, const int y, const int w, const int h)const {
+		_horizontal(x, y, w);
+		_vertical(x, y, h);
+		_horizontal(x, y + (h - 1) * pointHeight, w);
+		_vertical(x + (w - 1) * pointWidth, y, h);
 	}
-	void rect(int x, int y, int w, int h, Color pointColor, Color backgroundColor) {
-		horizontal(x, y, w, pointColor, backgroundColor);
-		vertical(x, y, h, pointColor, backgroundColor);
-		horizontal(x, y + (h - 1) * ph, w, pointColor, backgroundColor);
-		vertical(x + (w - 1) * pw, y, h, pointColor, backgroundColor);
+	void _rect(const int x, const int y, const int w, const int h)const {
+		for (int i = 0; i < h; i++) {
+			_horizontal(x, y + i, w);
+		}
+	}
+protected:
+	PointShape pointShape;
+public:
+	int getWidth() {
+		return pointWidth;
+	}
+	int getHeight() {
+		return pointHeight;
+	}
+	Painter(const Painter& painter) : Painter(painter.pointShape) {};
+	Painter(const Painter* painter) : Painter(*painter) {};
+	Painter(PointShape pointShape = {"*"}){
+		setShape(pointShape);
+	};
+	virtual Painter* newObject() const {
+		cout << "hello#";
+		return new Painter(this);
+	}
+	virtual void point(int x, int y)const {
+		_point(x, y);
+	}
+	virtual void horizontal(int x, int y, int w)const {
+		_horizontal(x, y, w);
+	}
+	virtual void vertical(int x, int y, int h)const {
+		_vertical(x, y, h);
+	}
+	virtual void borderRect(int x, int y, int w, int h)const {
+		_borderRect(x, y, w, h);
+	}
+	void rect(const int x, const int y, const int w, const int h)const {
+		_rect(x, y, w, h);
 	}
 };

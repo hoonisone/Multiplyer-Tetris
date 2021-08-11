@@ -121,6 +121,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>header</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -184,7 +185,10 @@
     <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\ButtonAction.h" />
+    <ClInclude Include="header\ButtonManager.h" />
     <ClInclude Include="header\charList.h" />
+    <ClInclude Include="header\ColorPainter.h" />
+    <ClInclude Include="header\ColorPrinter.h" />
     <ClInclude Include="header\Consol.h" />
     <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\error.h" />
@@ -206,6 +210,7 @@
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
     <ClInclude Include="header\subScreen.h" />
+    <ClInclude Include="header\system.h" />
     <ClInclude Include="header\tetris.h" />
     <ClInclude Include="header\server.h" />
     <ClInclude Include="header\string+.h" />

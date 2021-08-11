@@ -23,12 +23,12 @@ void serverRun(int port, void (*responseHandler)(char* request, char* response))
 
     // 소켓 라이브러리 초기화
     if (WSAStartup(MAKEWORD(2, 2), &(wsaData)) != 0)
-        ErrorHandling((char*)"WSAStartup() error!");
+        errorPrint((char*)"WSAStartup() error!");
 
     // 서버 소켓 생성
     serverSocket = socket(PF_INET, SOCK_STREAM, 0);
     if (serverSocket == INVALID_SOCKET)
-        ErrorHandling((char*)"socket() error");
+        errorPrint((char*)"socket() error");
 
     // 서버 정보(ip, port) 생성
     memset(&serverAddress, 0, sizeof(serverAddress));   // 서버 정보 비우기    
@@ -38,11 +38,11 @@ void serverRun(int port, void (*responseHandler)(char* request, char* response))
 
     // 서버 소켓에 서버 정보 등록
     if (bind(serverSocket, (SOCKADDR*)&serverAddress, sizeof(serverAddress)) == SOCKET_ERROR) //소켓에 IP주소와 PORT 번호 할당
-        ErrorHandling((char*)"bind() error");
+        errorPrint((char*)"bind() error");
 
     // 서버 소켓 작동(메시지 리스닝 모드)
     if (listen(serverSocket, MAX_USER_NUM) == SOCKET_ERROR) //listen 함수호출을 통해서 생성한 소켓을 서버 소켓으로 완성
-        ErrorHandling((char*)"listen() error");
+        errorPrint((char*)"listen() error");
 
     HANDLE thread1 = CreateThread(NULL, 0, serverConnectHandler, NULL, 0, NULL);  // 소켓 연결 요청을 받고 연결된 소켓을 communicateHandler에 넘긴다.
 
@@ -58,7 +58,7 @@ DWORD WINAPI serverConnectHandler(void* data) {
         clientSocket->addressSize = sizeof(clientSocket->address);
         clientSocket->socket = accept(serverSocket, (SOCKADDR*)&(clientSocket->address), &(clientSocket->addressSize)); //클라이언트 연결요청 수락하기 위해 accept함수 호출
         if (clientSocket->socket == INVALID_SOCKET) {
-            ErrorHandling((char*)"accept() error");
+            errorPrint((char*)"accept() error");
             free(clientSocket);
         }
         else {

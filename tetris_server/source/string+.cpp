@@ -86,3 +86,12 @@ void textPrintAlign(int x, int y, int w, int h, char* text, int align) {
 	else if (align == ALIGN_RIGHT)
 		textPrintRight(x, y, w, h, text);
 }
+
+template<typename ... Args>
+string string_f(const string& format, Args ... args) {
+	size_t size = snprintf(nullptr, 0, format.c_str(), args ...) + 1; // Extra space for '\0' 
+	if (size <= 0) { throw std::runtime_error("Error during formatting."); }
+	std::unique_ptr<char[]> buf(new char[size]);
+	snprintf(buf.get(), size, format.c_str(), args ...);
+	return string(buf.get(), buf.get() + size - 1);
+}

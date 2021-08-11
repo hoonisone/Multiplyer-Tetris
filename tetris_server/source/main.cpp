@@ -1,4 +1,5 @@
 #pragma warning(disable:4996)
+#define _HAS_STD_BYTE 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,12 +26,20 @@
 #include "block.h"
 #include "tetris.h"
 #include "Button.h"
-#include "Painter.h"
-#include "Printer.h"
-
+#include "ColorPainter.h"
+#include "ColorPrinter.h"
+#include "system.h"
+#include "ButtonManager.h"
+#include "string+.h"
+#include <format>
 #include <iostream>
+#define LEFT 75
+#define RIGHT 77
+#define UP 72
+#define DOWN 80
 
 using namespace std;
+void action(Button* button);
 
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -99,12 +108,58 @@ int main(int argc, char* argv[]) {
 	//Draw * draw = DRAW(COORDINATE(3, 1), pen);
 	//draw->rect(draw, 3, 3, 10, 22);
 	//Button(5, 5, 100, 10, "hello", BLUE, BLACK, true, RED, BLACK, CENTER, BOTTOM).draw();
-	Printer printer = Printer(WHITE, BLACK, CENTER, MIDDLE);
-	Painter painter = Painter({ "¡Ú" }, WHITE, BLACK);
-	Printer clickedPrinter = printer;
-	Painter clickedPainter = Painter({ "¡Ú" }, RED, BLACK);
-	Button button(5, 5, 30, 10, "click", painter, printer, clickedPainter, clickedPrinter, true);
-	button.unclickPainter.rect(1, 1, 3, 3);
-	//button.click();
-	button.draw();
+	ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
+	ColorPainter painter({ "¡à" }, WHITE, BLACK);
+	ColorPrinter selectPrinter(CENTER, MIDDLE, RED, BLACK);
+	ColorPainter selectPainter({ "¡à" }, RED, BLACK);
+	ButtonManager bm = ButtonManager(5, 5);
+	int x = 30;
+	int y = 0;
+	int w = 15;
+	int h = 5;
+	bm.enroll(new Button(x, y+5, w, h, "start", painter.newObject(), printer.newObject(), selectPainter.newObject(), selectPrinter.newObject(), true), 3, 0);
+	bm.enroll(new Button(x, y + 9, w, h, "»ç¶ûÇØ¿ä ±èº­¸®", &painter, &printer, &selectPainter, &selectPrinter, true), 3, 1);
+	bm.enroll(new Button(x, y + 13, w, h, "mh", &painter, &printer, &selectPainter, &selectPrinter, true), 3, 2);
+	bm.enroll(new Button(x, y + 17, w, h, "hello", &painter, &printer, &selectPainter, &selectPrinter, true), 3, 3);
+	bm.enroll(new Button(x, y + 21, w, h, "exit", &painter, &printer, &selectPainter, &selectPrinter, true), 3, 4);
+	bm.draw();
+	bm.setAction(action);
+	char c;
+	while (1) {
+		if (_kbhit()) {
+			c = _getch();
+			if (c == -32) {
+				c = _getch();
+				switch (c) {
+				case LEFT:
+					
+					break;
+				case RIGHT:
+
+					break;
+				case UP:
+					bm.up();
+					bm.draw();
+					break;
+				case DOWN:
+					bm.down();
+					bm.draw();
+					break;
+				}
+			}
+			else if (c == ' ') {
+				bm.click();
+			}
+			else if (c == 'q') {
+				printf("Á¾·á");
+				return 0;
+			}
+		}
+	}
+
+}
+
+void action(Button* button) {
+	Consol::move(0, 0);
+	cout << button->text;
 }

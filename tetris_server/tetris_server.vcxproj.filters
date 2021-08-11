@@ -269,5 +269,17 @@
     <ClInclude Include="header\ButtonAction.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="header\ColorPainter.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ColorPrinter.h">
+      <Filter>헤더 파일\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\system.h">
+      <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ButtonManager.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

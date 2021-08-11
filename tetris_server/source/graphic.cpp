@@ -60,7 +60,6 @@ void graphicSetFullScreen() {
 }
 
 void graphicSetScreenSize(int width, int height) {
-	;
 	char order[100];
 	sprintf(order, "mode con cols=%d lines=%d", width, height, 100);
 	system(order);
