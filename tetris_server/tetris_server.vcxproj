@@ -122,6 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>header</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\bean.cpp" />
     <ClCompile Include="source\blockBoard.cpp" />
     <ClCompile Include="source\charList.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\bean.h" />
     <ClInclude Include="header\blockBoard.h" />
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\ButtonAction.h" />
@@ -196,6 +199,7 @@
     <ClInclude Include="header\file.h" />
     <ClInclude Include="header\floatList.h" />
     <ClInclude Include="header\graphic.h" />
+    <ClInclude Include="header\Input.h" />
     <ClInclude Include="header\intList.h" />
     <ClInclude Include="header\list.h" />
     <ClInclude Include="header\listener.h" />
@@ -207,9 +211,11 @@
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
     <ClInclude Include="header\random.h" />
+    <ClInclude Include="header\Scene.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
+    <ClInclude Include="header\SelectScene.h" />
     <ClInclude Include="header\subScreen.h" />
     <ClInclude Include="header\system.h" />
     <ClInclude Include="header\tetris.h" />

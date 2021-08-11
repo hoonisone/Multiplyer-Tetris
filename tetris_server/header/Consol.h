@@ -60,4 +60,10 @@ public:
 	static void fullScreen() {
 		SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
 	}
+	static void setCursorFlag(bool flag){
+		CONSOLE_CURSOR_INFO cursorInfo = { 0, };
+		cursorInfo.dwSize = 1; //Ä¿¼­ ±½±â (1 ~ 100)
+		cursorInfo.bVisible = flag; //Ä¿¼­ Visible TRUE(º¸ÀÓ) FALSE(¼û±è)
+		SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+	}
 };

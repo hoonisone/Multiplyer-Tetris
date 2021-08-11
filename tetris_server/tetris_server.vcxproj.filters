@@ -55,6 +55,9 @@
     <Filter Include="소스 파일\graphic">
       <UniqueIdentifier>{bc79559e-ad8d-498f-abb3-ce3d5f3cfd69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Scene">
+      <UniqueIdentifier>{0d44be84-0c66-404f-82b1-b936eb3895d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -159,6 +162,9 @@
     <ClCompile Include="source\graphic.cpp">
       <Filter>소스 파일\graphic</Filter>
     </ClCompile>
+    <ClCompile Include="source\bean.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">
@@ -251,9 +257,6 @@
     <ClInclude Include="header\random.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\Button.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\graphic.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
@@ -282,6 +285,21 @@
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\Canvas.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Input.h">
+      <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Scene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\bean.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SelectScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Button.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <string>
 #include "Consol.h"
 #include "Printer.h"
+#include "Painter.h"
 #include "ButtonAction.h"
 #include "string+.h"
 #include "system.h"
@@ -18,7 +19,7 @@ public:
 	void (*action)(Button* button) = NULL;
 	bool selectFlag;
 	Button(const int x, const int y, const int w, const int h, const string& text,
-		Painter* unselectPainter, Printer *unselectPrinter, Painter* selectPainter, Printer* selectPrinter,
+		Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter,
 		const bool borderFlag = true) : selectFlag(false) {
 		setPos(x, y);
 		setSize(w, h);
@@ -81,7 +82,7 @@ public:
 			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 2) * unselectPainter->getWidth(), (h - 2) * unselectPainter->getHeight(), tokens);
 		}
 	}
-	void erase() const{
+	void erase() const {
 		Painter({ " " }).rect(x, y, w * selectPainter->getWidth(), h * selectPainter->getHeight());
 	}
 	void select() {

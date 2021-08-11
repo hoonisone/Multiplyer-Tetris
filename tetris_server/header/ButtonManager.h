@@ -11,7 +11,7 @@ private:
 	int x = 0, y = 0;
 	vector<vector<Button*>> map;
 	vector<Button*> buttons;
-	bool rangeCheck(int x, int y) {return 0 <= x < width && 0 <= y && y < height;}
+	bool rangeCheck(int x, int y) {return 0 <= x && x < width && 0 <= y && y < height;}
 	bool existCheck(int x, int y) { return map[y][x] != NULL; }
 	void select(int x, int y) {
 		if (existCheck(this->x, this->y)) {
@@ -74,9 +74,22 @@ public:
 			}
 		}
 	}
+	string getSelectedButtonText() {
+		if (!rangeCheck(x, y) || !existCheck(x, y)) {
+			char errorBuffer[100];
+			sprintf(errorBuffer, "can not get button text in (%d, %d)", x, y);
+			errorPrint(errorBuffer);
+		}
+		return map[this->y][this->x]->text;
+	}
 	~ButtonManager() {
 		for (int i = 0; i < buttons.size(); i++) {
 			delete buttons[i];
+		}
+	}
+	void erase() {
+		for (int i = 0; i < buttons.size(); i++) {
+			buttons[i]->erase();
 		}
 	}
 };
