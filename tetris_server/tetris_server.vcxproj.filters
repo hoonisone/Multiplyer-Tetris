@@ -299,13 +299,7 @@
     <ClInclude Include="header\Block.h">
       <Filter>헤더 파일\tetris\Block</Filter>
     </ClInclude>
-    <ClInclude Include="header\PaintBlock.h">
-      <Filter>헤더 파일\tetris\Block</Filter>
-    </ClInclude>
     <ClInclude Include="header\BlockBoard.h">
-      <Filter>헤더 파일\tetris\BlockBoard</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PaintBlockBoard.h">
       <Filter>헤더 파일\tetris\BlockBoard</Filter>
     </ClInclude>
     <ClInclude Include="header\BlockCreator.h">

@@ -207,8 +207,6 @@
     <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
     <ClInclude Include="header\node.h" />
-    <ClInclude Include="header\PaintBlock.h" />
-    <ClInclude Include="header\PaintBlockBoard.h" />
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
     <ClInclude Include="header\Random.h" />

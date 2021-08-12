@@ -49,14 +49,7 @@ int main(int argc, char* argv[]) {
 	//serverRun(5000, responseHandler);
 	//string result1 = ModeSelectScene()->start();
 	//string result2 = SingleModeMeneSelectScene()->start();
-
-	BlockBoard* board = Bean::getBlockBoard();
-	Block* block = Bean::getDefaultBlockCreator()->createBlock();
-	board->press(block);
-	block->moveRight();
-	block->moveRight();
-	block->moveRight();
-	board->draw(0, 0);
-	block->draw(0, 0);
+	MainScreen* ms = Bean::getMainScreen();
+	ms->draw(0, 0);
 }
 

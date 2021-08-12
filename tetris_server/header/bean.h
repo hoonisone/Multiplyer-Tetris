@@ -6,7 +6,6 @@
 #include "SelectScene.h"
 #include "BlockBoard.h"
 #include "BlockCreator.h"
-#include "PaintBlockBoard.h"
 
 class Bean {
 public:
@@ -82,9 +81,15 @@ public:
 		return canvas;
 	}
 	static BlockBoard* getBlockBoard() {
-		return new BlockBoard(2, 1);
+		return new BlockBoard(4, 2);
 	}
-	static BlockCreator* getDefaultBlockCreator() {
+	static BlockCreator* getRandomBlockCreator() {
 		return new SamePointBlockCreator({ "¢Ë¢Ë", "¢Ë¢Ë" });
+	}
+	static MainScreen* getMainScreen() {
+		return new MainScreen(getRandomBlockCreator(), getBlockBoard(), getMainScreenPainter());
+	}
+	static ColorPainter* getMainScreenPainter() {
+		return new ColorPainter({ "¡Ý" });
 	}
 };
