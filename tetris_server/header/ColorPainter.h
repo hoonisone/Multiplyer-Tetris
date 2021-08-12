@@ -20,6 +20,9 @@ public:
 		this->pointColor = pointColor;
 		this->backgroundColor = backgroundColor;
 	}	// pencil의 컬러를 설정하는 것으로 콜솔의 색을 설정하는 것과는 별개
+	Color getPointColor() const{
+		return pointColor;
+	}
 	virtual void point(int x, int y) const {
 		setting(pointColor, backgroundColor);
 		Painter::point(x, y);

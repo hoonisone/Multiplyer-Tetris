@@ -185,7 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\bean.h" />
-    <ClInclude Include="header\blockBoard.h" />
+    <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\ButtonAction.h" />
     <ClInclude Include="header\ButtonManager.h" />

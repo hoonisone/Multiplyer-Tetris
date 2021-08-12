@@ -35,6 +35,7 @@
 #include "Canvas.h"
 #include "Scene.h"
 #include "bean.h"
+#include "BlockBoard.h"
 using namespace std;
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
@@ -48,7 +49,16 @@ int main(int argc, char* argv[]) {
 	Consol::setCursorFlag(false);
 	//Test();
 	//serverRun(5000, responseHandler);
-	string result1 = ModeSelectScene()->start();
-	string result2 = SingleModeMeneSelectScene()->start();
+	//string result1 = ModeSelectScene()->start();
+	//string result2 = SingleModeMeneSelectScene()->start();
+	PaintBlockBoard* board = new PaintBlockBoard(2, 2);
+	PaintBlock *block = new PaintBlock(0, 0, L, 0, new ColorPainter({ "¢Ë¢Ë", "¢Ë¢Ë" }, RED));
+	board->press(block);
+	block->moveRight();
+	block->moveRight();
+	block->moveRight();
+	block->turnRight();
+	board->draw(0, 0);
+	block->draw(0, 0);
 }
 

@@ -248,7 +248,7 @@
     <ClInclude Include="header\subScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\blockBoard.h">
+    <ClInclude Include="header\BlockBoard.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\mainBlock.h">
