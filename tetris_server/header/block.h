@@ -3,14 +3,18 @@
 #include <windows.h>
 #include "Painter.h"
 #include "ColorPainter.h"
+#include "Random.h"
 #define BLOCK_WIDTH 4
 #define BLOCK_HEIGHT 4
+#define BLOCK_SHAPE_NUM 7
+#define BLOCK_ANGLE_NUM 4
 
-enum BlockShapeName { O, I, Z, S, L, J, T };
+
+enum BlockName { o, i, z, s, l, j, t };
 using BlockShape = vector<vector<bool>>;
-using Angle = int;
-static const vector<vector<BlockShape>> blockShapes = {
-		{{{0,0,0,0}, //O
+using BlockAngle = int;
+static const vector<vector<BlockShape>> blockShapeData = {
+		{{{0,0,0,0}, //o
 		  {0,1,1,0},
 		  {0,1,1,0},
 		  {0,0,0,0}},
@@ -26,7 +30,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {0,1,1,0},
 		  {0,1,1,0},
 		  {0,0,0,0}}},
-		{{{0,0,0,0}, //I
+		{{{0,0,0,0}, //i
 		  {1,1,1,1},
 		  {0,0,0,0},
 		  {0,0,0,0}},
@@ -42,7 +46,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {0,1,0,0},
 		  {0,1,0,0},
 		  {0,1,0,0}}},
-		{{{0,0,0,0}, //Z
+		{{{0,0,0,0}, //z
 		  {1,1,0,0},
 		  {0,1,1,0},
 		  {0,0,0,0}},
@@ -58,7 +62,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {0,0,1,0},
 		  {0,1,1,0},
 		  {0,1,0,0}} },
-		{{{0,0,0,0}, //S
+		{{{0,0,0,0}, //s
 		  {0,1,1,0},
 		  {1,1,0,0},
 		  {0,0,0,0}},
@@ -74,7 +78,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {0,1,0,0},
 		  {0,1,1,0},
 		  {0,0,1,0}} },
-		{{{0,1,0,0}, //L
+		{{{0,1,0,0}, //l
 		  {0,1,0,0},
 		  {0,1,1,0},
 		  {0,0,0,0}},
@@ -90,7 +94,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {0,0,1,0},
 		  {1,1,1,0},
 		  {0,0,0,0}} },
-		{{{0,0,1,0}, //J
+		{{{0,0,1,0}, //j
 		  {0,0,1,0},
 		  {0,1,1,0},
 		  {0,0,0,0}},
@@ -106,7 +110,7 @@ static const vector<vector<BlockShape>> blockShapes = {
 		  {1,1,1,0},
 		  {0,0,1,0},
 		  {0,0,0,0}}},
-		{{{0,1,0,0}, //T
+		{{{0,1,0,0}, //t
 		  {1,1,1,0},
 		  {0,0,0,0},
 		  {0,0,0,0}},
@@ -125,11 +129,18 @@ static const vector<vector<BlockShape>> blockShapes = {
 
 class Block {
 protected:
-	BlockShapeName shape;
-	Angle angle;
-public:
 	int x, y;
-	Block(int x, int y, BlockShapeName shape, Angle angle) :x(x), y(y), shape(shape), angle(angle) {};
+	ColorPainter* painter;	// 블록의 출력형태를 결정(점의 모양, 색)
+	BlockName name;
+	BlockAngle angle;
+public:
+	Block(int x, int y, BlockName name, BlockAngle angle, ColorPainter* painter) :x(x), y(y), name((BlockName)((int)name% BLOCK_SHAPE_NUM)), angle(angle% BLOCK_ANGLE_NUM), painter(painter) {};
+	int getX() const {
+		return x;
+	}
+	int getY() const {
+		return y;
+	}
 	virtual void moveTo(int x, int y) {
 		this->x = x;
 		this->y = y;
@@ -152,49 +163,27 @@ public:
 	virtual void turnLeft() {
 		angle = (angle + 3) % 4;
 	}
-	virtual void draw(int X, int Y) {
-		BlockShape const &blockShape = blockShapes[shape][angle];
+	virtual void draw(int X, int Y) const{
+		BlockShape const& blockshape = blockShapeData[name][angle];
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
-				if (blockShape[yi][xi]) {
-					Painter({ "■" }).point(X+x+2*xi,Y+y+yi);
+				if (blockshape[yi][xi]) {
+					painter->point(X + (x + xi) * painter->getWidth(), Y + (y + yi) * painter->getHeight());
 				}
 			}
 		}
 	}
-	virtual void erase() {
-		Painter({ "        ", "        ", "        ", "        " }).point(x, y);
+	virtual void erase(int x, int y) {
+		ColorPainter({" "}).rect(x+x, y+y, BLOCK_WIDTH*painter->getWidth(), BLOCK_HEIGHT*painter->getHeight());
 	}
-	const BlockShape& getBlockShape() const{
-		return blockShapes[shape][angle];
-	}
-};
-
-class PaintBlock : public Block {
-private:
-	ColorPainter* painter;
-public:
-	PaintBlock(int x, int y, BlockShapeName shape, Angle angle, ColorPainter* painter): Block(x, y, shape, angle), painter(painter) {};
-	virtual void draw(int X, int Y) override {
-		BlockShape const& blockShape = blockShapes[shape][angle];
-		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
-			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
-				if (blockShape[yi][xi]) {
-					painter->point(X+(x + xi)*painter->getWidth(), Y+(y + yi)*painter->getHeight());
-				}
-			}
-		}
-	}
-	Color getColor() const{
-		return painter->getPointColor();
-	}
-	Painter* getPainter() const {
+	const ColorPainter* getPainter() const {
 		return painter;
 	}
-	virtual void erase() {
-		Painter({ "  " }).rect(x * painter->getWidth(), y * painter->getHeight(), BLOCK_WIDTH * painter->getWidth(), BLOCK_HEIGHT * painter->getHeight());
+	const BlockShape& getShape() const {
+		return blockShapeData[name][angle];
 	}
-	~PaintBlock() {
+	~Block() {
 		delete painter;
 	}
+
 };

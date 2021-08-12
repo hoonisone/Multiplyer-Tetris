@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Scene.h"
 
 class SelectScene : public Scene {	// 선택 될 때 까지 장면을 연출하다가 버튼이 선택되면 text를 반환하고 장렬히 전사

@@ -60,10 +60,10 @@ private:
 protected:
 	PointShape pointShape;
 public:
-	int getWidth() {
+	int getWidth() const {
 		return pointWidth;
 	}
-	int getHeight() {
+	int getHeight() const {
 		return pointHeight;
 	}
 	Painter(const Painter& painter) : Painter(painter.pointShape) {};

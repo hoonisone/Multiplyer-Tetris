@@ -7,24 +7,7 @@
 #define WIDTH 200
 #define HEIGHT 50
 
-#define BLACK		0
-#define BLUE		1
-#define GREEN		2
-#define AQUA		3
-#define RED			4
-#define PURPLE		5
-#define YELLOW		6
-#define WHITE		7
-#define GRAY		8
-#define LIGHT_BLUE	9
-#define LIGHT_GREEN	10
-#define LIGHT_AQUA  11
-#define LIGHT_RED	12
-#define LIGHT_PURPLE 13
-#define LIGHT_YELLOW 14
-#define LIGHT_WHITE 15
-
-typedef int Color;
+enum Color { BLACK, BLUE, GREEN, AQUA, RED, PURPLE, YELLOW, WHITE, GRAY, LIGHT_BLUE, LIGHT_GREEN, LIGHT_AQUA, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, LIGHT_WHITE };
 
 using namespace std;
 

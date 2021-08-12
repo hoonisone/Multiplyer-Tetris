@@ -21,8 +21,7 @@
 #include "math+.h"
 #include <windows.h>
 #include "timer.h"
-#include "tetris.h"
-#include "graphic.h"
+#include "tetris.h"4
 #include "block.h"
 #include "tetris.h"
 #include "Button.h"
@@ -34,14 +33,13 @@
 #include <iostream>
 #include "Canvas.h"
 #include "Scene.h"
-#include "bean.h"
+#include "Bean.h"
 #include "BlockBoard.h"
 using namespace std;
 void responseHandler(char* request, char* response) {
 	strcpy(response, request);
 	return;
 }
-GraphicManager* gm;
 
 
 int main(int argc, char* argv[]) {
@@ -51,13 +49,13 @@ int main(int argc, char* argv[]) {
 	//serverRun(5000, responseHandler);
 	//string result1 = ModeSelectScene()->start();
 	//string result2 = SingleModeMeneSelectScene()->start();
-	PaintBlockBoard* board = new PaintBlockBoard(2, 2);
-	PaintBlock *block = new PaintBlock(0, 0, L, 0, new ColorPainter({ "¢Ë¢Ë", "¢Ë¢Ë" }, RED));
+
+	BlockBoard* board = Bean::getBlockBoard();
+	Block* block = Bean::getDefaultBlockCreator()->createBlock();
 	board->press(block);
 	block->moveRight();
 	block->moveRight();
 	block->moveRight();
-	block->turnRight();
 	board->draw(0, 0);
 	block->draw(0, 0);
 }

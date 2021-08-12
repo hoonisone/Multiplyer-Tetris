@@ -1,20 +1,24 @@
 #pragma once
-#include "graphic.h"
-#include "block.h"
+#include "Block.h"
 #include "Painter.h"
 #include "ColorPainter.h"
 
 class BlockBoard {
 protected:
 	int boardWidth, boardHeight;
-	vector<vector<bool>> data;	// 음수 = 투명한 색
+	int pointWidth, pointHeight;	// 블록 한 칸의 크기이며 페인터 하나가 블록 한 칸에 해당한다.
+	vector<vector<Painter*>> data;	// 블록의 색과 모양을 Painter로 저장
+
+	bool pointSizeCheck(const Painter* painter)const {	// 페인터와 보드의 블록 한 칸의 크기가 동일한지 체크  true => size 동일
+		return painter->getWidth() == pointWidth && painter->getHeight() == pointHeight;
+	}	
 	bool rangeCheck(const Block* block) const {
-		const BlockShape& blockShape = block->getBlockShape();
+		const BlockShape& blockShape = block->getShape();
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
 				if (blockShape[yi][xi]) {
-					int nx = block->x + xi;
-					int ny = block->y + yi;
+					int nx = block->getX() + xi;
+					int ny = block->getY() + yi;
 					if (!rangeCheck(nx, ny))
 						return false;
 				}
@@ -22,16 +26,16 @@ protected:
 		}
 		return true;
 	}
-	bool rangeCheck(int x, int y) const {	// block이 board안에 있는가?
+	bool rangeCheck(const int x, const int y) const {	// block이 board안에 있는가?
 		return 0 <= x && x < boardWidth && 0 <= y && y < boardHeight;
 	}
-	bool crashCheck(const Block* block) const {	// block이 board와 충돌하는가?
-		const BlockShape& blockShape = block->getBlockShape();
+	bool crashCheck(const Block* block) const {	// block이 board와 충돌하는가?	
+		const BlockShape& blockShape = block->getShape();
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
 				if (blockShape[yi][xi]) {
-					int nx = block->x + xi;
-					int ny = block->y + yi;
+					int nx = block->getX() + xi;
+					int ny = block->getY() + yi;
 					if (rangeCheck(nx, ny)) {
 						if (data[ny][nx])
 							return true;
@@ -45,68 +49,37 @@ protected:
 		return rangeCheck(block) && !crashCheck(block);	// 범위 안에 있으면서 충돌이 없어야 한다.
 	}
 public:
-	BlockBoard(int boardWidth = 10, int boardHeight = 20) :boardWidth(boardWidth), boardHeight(boardHeight) {
-		data = vector<vector<bool>>(boardHeight, vector<bool>(boardWidth, false));
+	BlockBoard(int pointWidth = 2, int pointHeight = 1, int boardWidth = 10, int boardHeight = 20) :pointWidth(pointWidth), pointHeight(pointHeight), boardWidth(boardWidth), boardHeight(boardHeight) {
+		data = vector<vector<Painter*>>(boardHeight, vector<Painter*>(boardWidth, NULL));
 	};
-	virtual void draw(int X, int Y) {
+	virtual void draw(const int X, const int Y)const {
 		for (int yi = 0; yi < boardHeight; yi++) {
 			for (int xi = 0; xi < boardWidth; xi++) {
-				if (data[yi][xi]) {
-					Painter({ "■" }).point(X+2*(X + xi),Y+ (Y + yi));
+				if (data[yi][xi] != NULL) {
+					Painter* painter = data[yi][xi];
+					painter->point(X + painter->getWidth() * xi, Y + painter->getHeight() * yi);
 				}
 			}
 		}
 	}
-	virtual void erase(int x, int y) {
+	virtual void erase(const int x, const int y)const {
 		Painter({ "  " }).rect(x, y, boardWidth, boardHeight);
 	}
 	virtual void press(const Block *block) {
-		const BlockShape& blockShape = block->getBlockShape();
+		if (!pointSizeCheck(block->getPainter())) {
+			
+		}
+		const BlockShape& blockShape = block->getShape();
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
 				if (blockShape[yi][xi]) {
-					int nx = block->x + xi;
-					int ny = block->y + yi;
-					data[ny][nx] = true;
-				}
-			}
-		}
-	}
-};
-
-
-class PaintBlockBoard : public BlockBoard {
-private:
-	int blockWidth, blockHeight;
-	vector<vector<Painter*>> data;
-	bool sizeCheck(Painter* painter) {
-		return painter->getWidth() == blockWidth && painter->getHeight() == blockHeight;
-	}
-public:
-	PaintBlockBoard(int blockWidth = 1, int blockHeight = 1, int boardWidth = 10, int boardHeight = 20) :blockWidth(blockWidth), blockHeight(blockHeight), BlockBoard(boardWidth, boardHeight) {
-		data = vector<vector<Painter*>>(boardHeight, vector<Painter*>(boardWidth, NULL));
-	}
-	virtual void draw(int X, int Y) {
-		for (int yi = 0; yi < boardHeight; yi++) {
-			for (int xi = 0; xi < boardWidth; xi++) {         
-				if (data[yi][xi] != NULL) {
-					Painter* painter = data[yi][xi];
-					painter->point(X + painter->getWidth()*xi, Y + painter->getHeight()*yi);
-				}
-			}
-		}
-	}
-	virtual void press(const PaintBlock* block) {
-		const BlockShape& blockShape = block->getBlockShape();
-		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
-			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
-				if (blockShape[yi][xi]) {
-					int nx = block->x + xi;
-					int ny = block->y + yi;
+					int nx = block->getX() + xi;
+					int ny = block->getY() + yi;
 					Painter* painter = block->getPainter()->newObject();// painter를 복사하여 저장
-					if (!sizeCheck(painter)) {
+					if (!pointSizeCheck(painter)) {
 						data[ny][nx] = painter;
-					}else {
+					}
+					else {
 						errorPrint("painter size is worng");
 					}
 
@@ -114,7 +87,25 @@ public:
 			}
 		}
 	}
-	~PaintBlockBoard() {
+	pair<int, int> getBlockSize()const {
+		return make_pair(pointWidth, pointHeight);
+	}
+	pair<int, int> getBoardSize()const {
+		return make_pair(boardWidth, boardHeight);
+	}
+	int getBoardWidth()const {
+		return boardWidth;
+	}
+	int getBoardHeight()const {
+		return boardHeight;
+	}
+	int getPointWidth()const {
+		return pointWidth;
+	}
+	int getPointHeight()const {
+		return pointHeight;
+	}
+	~BlockBoard() {
 		for (int yi = 0; yi < boardHeight; yi++) {
 			for (int xi = 0; xi < boardWidth; xi++) {
 				if (data[yi][xi] != NULL) {

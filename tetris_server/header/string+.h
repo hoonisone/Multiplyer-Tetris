@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include "list.h"
-#include "graphic.h"
 
 #define ALIGN_LEFT		0
 #define ALIGN_MIDDLE	1

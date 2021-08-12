@@ -58,6 +58,15 @@
     <Filter Include="헤더 파일\Scene">
       <UniqueIdentifier>{0d44be84-0c66-404f-82b1-b936eb3895d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\tetris\Block">
+      <UniqueIdentifier>{92a0d01c-0682-452c-b82b-0f2beb8618c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\tetris\BlockBoard">
+      <UniqueIdentifier>{79bded7f-b187-4f2a-bcd3-5f0fab369dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\tetris\MainScreen">
+      <UniqueIdentifier>{9c54a333-cf2a-4185-a075-8a445de0c407}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -159,9 +168,6 @@
     <ClCompile Include="source\random.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphic.cpp">
-      <Filter>소스 파일\graphic</Filter>
-    </ClCompile>
     <ClCompile Include="source\bean.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -192,12 +198,6 @@
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\scoreManager.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\block.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\mainScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\userManager.h">
@@ -248,17 +248,11 @@
     <ClInclude Include="header\subScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\BlockBoard.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
     <ClInclude Include="header\mainBlock.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\random.h">
+    <ClInclude Include="header\Random.h">
       <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\graphic.h">
-      <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\Painter.h">
       <Filter>헤더 파일\graphic</Filter>
@@ -293,7 +287,7 @@
     <ClInclude Include="header\Scene.h">
       <Filter>헤더 파일\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="header\bean.h">
+    <ClInclude Include="header\Bean.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="header\SelectScene.h">
@@ -301,6 +295,24 @@
     </ClInclude>
     <ClInclude Include="header\Button.h">
       <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Block.h">
+      <Filter>헤더 파일\tetris\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PaintBlock.h">
+      <Filter>헤더 파일\tetris\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BlockBoard.h">
+      <Filter>헤더 파일\tetris\BlockBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PaintBlockBoard.h">
+      <Filter>헤더 파일\tetris\BlockBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BlockCreator.h">
+      <Filter>헤더 파일\tetris\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MainScreen.h">
+      <Filter>헤더 파일\tetris\MainScreen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
