@@ -90,6 +90,6 @@ public:
 		return new MainScreen(getRandomBlockCreator(), getBlockBoard(), getMainScreenPainter());
 	}
 	static ColorPainter* getMainScreenPainter() {
-		return new ColorPainter({ "¡Ý" });
+		return new ColorPainter({ "¡¤"});
 	}
 };

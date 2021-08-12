@@ -51,5 +51,31 @@ int main(int argc, char* argv[]) {
 	//string result2 = SingleModeMeneSelectScene()->start();
 	MainScreen* ms = Bean::getMainScreen();
 	ms->draw(0, 0);
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveRight();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+	ms->moveDown();
+
 }
 

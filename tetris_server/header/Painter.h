@@ -87,6 +87,10 @@ public:
 	virtual void borderRect(int x, int y, int w, int h)const {
 		_borderRect(x, y, w, h);
 	}
+	virtual Painter* getEraser() {
+		PointShape shape = PointShape(pointHeight, string(pointWidth, ' '));
+		return new Painter(shape);
+	}
 	void rect(const int x, const int y, const int w, const int h)const {
 		_rect(x, y, w, h);
 	}

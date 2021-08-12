@@ -9,7 +9,8 @@
 #define BLOCK_SHAPE_NUM 7
 #define BLOCK_ANGLE_NUM 4
 
-
+enum BlockMove {BLOCK_MOVE_UP, BLOCK_MOVE_DOWN, BLOCK_MOVE_LEFT, BLOCK_MOVE_RIGHT};
+enum BlockTurn {BLOCK_TURN_RIGHT, BLOCK_TURN_LEFT};
 enum BlockName { o, i, z, s, l, j, t };
 using BlockShape = vector<vector<bool>>;
 using BlockAngle = int;
@@ -130,6 +131,7 @@ static const vector<vector<BlockShape>> blockShapeData = {
 class Block {
 protected:
 	int x, y;
+	int drawX, drawY;	// 그리기 요청을 받은 위치	block은 (drawX, drawY)로 부터 (x, y)만큼 떨어져 있는 것
 	ColorPainter* painter;	// 블록의 출력형태를 결정(점의 모양, 색)
 	BlockName name;
 	BlockAngle angle;
@@ -145,6 +147,32 @@ public:
 		this->x = x;
 		this->y = y;
 	}
+	virtual void move(BlockMove sign) {
+		switch (sign) {
+		case BLOCK_MOVE_UP:
+			moveUp();
+			break;
+		case BLOCK_MOVE_DOWN:
+			moveDown();
+			break;
+		case BLOCK_MOVE_LEFT:
+			moveLeft();
+			break;
+		case BLOCK_MOVE_RIGHT:
+			moveRight();
+			break;
+		}
+	}
+	virtual void turn(BlockTurn sign) {
+		switch (sign) {
+		case BLOCK_TURN_LEFT:
+			moveLeft();
+			break;
+		case BLOCK_TURN_RIGHT:
+			moveRight();
+			break;
+		}
+	}
 	virtual void moveUp() {
 		y--;
 	}
@@ -154,7 +182,7 @@ public:
 	virtual void moveRight() {
 		x++;
 	}
-	virtual void moveLefe() {
+	virtual void moveLeft() {
 		x--;
 	}
 	virtual void turnRight() {
@@ -163,7 +191,9 @@ public:
 	virtual void turnLeft() {
 		angle = (angle + 3) % 4;
 	}
-	virtual void draw(int X, int Y) const{
+	virtual void draw(int X, int Y) {
+		drawX = X;
+		drawY = Y;
 		BlockShape const& blockshape = blockShapeData[name][angle];
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
@@ -173,8 +203,22 @@ public:
 			}
 		}
 	}
-	virtual void erase(int x, int y) {
-		ColorPainter({" "}).rect(x+x, y+y, BLOCK_WIDTH*painter->getWidth(), BLOCK_HEIGHT*painter->getHeight());
+	virtual void erase() {
+		erase(drawX, drawY);
+	}
+	virtual void erase(int X, int Y) {
+		drawX = X;
+		drawY = Y;
+		Painter* eraser = painter->getEraser();
+		BlockShape const& blockshape = blockShapeData[name][angle];
+		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
+			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
+				if (blockshape[yi][xi]) {
+					eraser->point(X + (x + xi) * painter->getWidth(), Y + (y + yi) * painter->getHeight());
+				}
+			}
+		}
+		delete eraser;
 	}
 	const ColorPainter* getPainter() const {
 		return painter;
