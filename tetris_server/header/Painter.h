@@ -4,15 +4,23 @@
 #include "Consol.h"
 
 using namespace std;
+using PointElement = string;
 using PointShape = vector<string>;
 //enum Color { BLACK, BLUE ,GREEN ,AQUA ,RED ,PURPLE ,YELLOW ,WHITE ,GRAY,
 //LIGHT_BLUE ,LIGHT_GREEN ,LIGHT_AQUA ,LIGHT_RED ,LIGHT_PURPLE ,LIGHT_YELLOW ,BRIGHT_WHITE
 //};
-
+std::string operator*(std::string str, int n) {
+	string s;
+	for (int i = 0; i < n; i++) {
+		s += str;
+	}
+	return s;
+}
 class Painter;
 
 class Painter {
 protected:
+	PointShape pointShape;
 	int pointWidth, pointHeight;
 private:
 	void adjustPointSize() {
@@ -57,21 +65,22 @@ private:
 			_horizontal(x, y + i, w);
 		}
 	}
-protected:
-	PointShape pointShape;
 public:
+	bool checkPointSize(Painter* painter)const {	//point 사이즈가 동일한가?
+		return this->pointWidth == painter->pointWidth && this->pointHeight == painter->pointHeight;
+	}
+	Painter(const Painter& painter) : Painter(painter.pointShape) {};
+	Painter(const Painter* painter) : Painter(*painter) {};
+	Painter(PointShape pointShape = { "*" }) {
+		setShape(pointShape);
+	};
 	int getWidth() const {
 		return pointWidth;
 	}
 	int getHeight() const {
 		return pointHeight;
 	}
-	Painter(const Painter& painter) : Painter(painter.pointShape) {};
-	Painter(const Painter* painter) : Painter(*painter) {};
-	Painter(PointShape pointShape = {"*"}){
-		setShape(pointShape);
-	};
-	virtual Painter* newObject() const {
+	virtual Painter* getCopy() const {
 		cout << "hello#";
 		return new Painter(this);
 	}
@@ -93,5 +102,12 @@ public:
 	}
 	void rect(const int x, const int y, const int w, const int h)const {
 		_rect(x, y, w, h);
+	}
+	void changeAllPointShapeElementInto(PointElement element) {
+		PointShape newShape;
+		for (int i = 0; i < pointShape.size(); i++) {
+			newShape.push_back(element*(pointShape[i].size()/element.size()));
+		} 
+		pointShape = newShape;
 	}
 };

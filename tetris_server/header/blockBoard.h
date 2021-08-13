@@ -75,7 +75,7 @@ public:
 				if (blockShape[yi][xi]) {
 					int nx = block->getX() + xi;
 					int ny = block->getY() + yi;
-					Painter* painter = block->getPainter()->newObject();// painter를 복사하여 저장
+					Painter* painter = block->getPainter()->getCopy();// painter를 복사하여 저장
 					if (!pointSizeCheck(painter)) {
 						data[ny][nx] = painter;
 					}

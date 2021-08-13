@@ -36,7 +36,7 @@ public:
 	Printer(AlignX alignX = LEFT, AlignY alignY = MIDDLE) :
 		alignX(alignX), alignY(alignY) {
 	}
-	virtual Printer* newObject() const {
+	virtual Printer* getCopy() const {
 		return new Printer(this);
 	}
 	void setAlign(AlignX alignX, AlignY alignY) {

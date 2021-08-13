@@ -49,33 +49,34 @@ int main(int argc, char* argv[]) {
 	//serverRun(5000, responseHandler);
 	//string result1 = ModeSelectScene()->start();
 	//string result2 = SingleModeMeneSelectScene()->start();
+	//Bean::getRandomBlockCreator()->createBlock()->draw(0, 0);
 	MainScreen* ms = Bean::getMainScreen();
 	ms->draw(0, 0);
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveRight();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveRight();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
 
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
-	ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
+	//ms->moveDown();
 
 }
 

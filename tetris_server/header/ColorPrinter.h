@@ -14,7 +14,7 @@ public:
 	ColorPrinter(AlignX alignX = LEFT, AlignY alignY = MIDDLE, Color textColor = WHITE, Color backgroundColor = BLACK) :Printer(alignX, alignY),
 		textColor(textColor), backgroundColor(backgroundColor){
 	}
-	virtual Printer* newObject() const{
+	virtual Printer* getCopy() const{
 		return new ColorPrinter(this);
 	}
 	void setColor(Color textColor, Color backgroundColor) {

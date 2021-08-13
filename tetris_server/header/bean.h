@@ -26,7 +26,7 @@ public:
 		int w = 15;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
-			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.newObject(), printer.newObject(), selectPainter.newObject(), selectPrinter.newObject(), true), 0, i);
+			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.getCopy(), selectPainter.getCopy(), selectPrinter.getCopy(), true), 0, i);
 		}
 		return bm;
 	}
@@ -76,7 +76,7 @@ public:
 		int width = 100;
 		int num = colorPainters.size();
 		for (int i = 0; i < num; i++) {
-			canvas->enrollFigure(colorPainters[i].newObject(), WIDTH / 2 - 30 + 10 * i, HEIGHT / 10 * 2);
+			canvas->enrollFigure(colorPainters[i].getCopy(), WIDTH / 2 - 30 + 10 * i, HEIGHT / 10 * 2);
 		}
 		return canvas;
 	}
@@ -87,7 +87,7 @@ public:
 		return new SamePointBlockCreator({ "¢Ë¢Ë", "¢Ë¢Ë" });
 	}
 	static MainScreen* getMainScreen() {
-		return new MainScreen(getRandomBlockCreator(), getBlockBoard(), getMainScreenPainter());
+		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
 	}
 	static ColorPainter* getMainScreenPainter() {
 		return new ColorPainter({ "¡¤"});

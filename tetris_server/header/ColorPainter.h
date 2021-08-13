@@ -13,7 +13,7 @@ public:
 	ColorPainter(const ColorPainter &painter) : ColorPainter(painter.pointShape, painter.pointColor, painter.backgroundColor){}
 	ColorPainter(PointShape pointShape = { "*" }, Color pointColor = WHITE, Color backgroundColor = BLACK) :Painter(pointShape), pointColor(pointColor), backgroundColor(backgroundColor) {
 	};
-	virtual ColorPainter* newObject() const override {
+	virtual ColorPainter* getCopy() const override {
 		return new ColorPainter(this);
 	}
 	void setColor(Color pointColor, Color bacgroundColor)  {

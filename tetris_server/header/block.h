@@ -137,6 +137,11 @@ protected:
 	BlockAngle angle;
 public:
 	Block(int x, int y, BlockName name, BlockAngle angle, ColorPainter* painter) :x(x), y(y), name((BlockName)((int)name% BLOCK_SHAPE_NUM)), angle(angle% BLOCK_ANGLE_NUM), painter(painter) {};
+	Block(const Block &block): x(block.x), y(block.y), name(block.name), angle(block.angle), painter(block.painter->getCopy()) {}
+	Block(const Block* block) :Block(*block) {}
+	Block* getCopy()const {
+		return new Block(this);
+	}
 	int getX() const {
 		return x;
 	}
@@ -194,21 +199,19 @@ public:
 	virtual void draw(int X, int Y) {
 		drawX = X;
 		drawY = Y;
-		BlockShape const& blockshape = blockShapeData[name][angle];
+		BlockShape const& blockShape = blockShapeData[name][angle];
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {
-				if (blockshape[yi][xi]) {
-					painter->point(X + (x + xi) * painter->getWidth(), Y + (y + yi) * painter->getHeight());
+				if (blockShape[yi][xi]) {
+					painter->point(drawX + (x + xi) * painter->getWidth(), drawY + (y + yi) * painter->getHeight());
 				}
 			}
 		}
 	}
-	virtual void erase() {
+	virtual void erase()const {
 		erase(drawX, drawY);
 	}
-	virtual void erase(int X, int Y) {
-		drawX = X;
-		drawY = Y;
+	virtual void erase(int X, int Y) const {
 		Painter* eraser = painter->getEraser();
 		BlockShape const& blockshape = blockShapeData[name][angle];
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
@@ -223,11 +226,19 @@ public:
 	const ColorPainter* getPainter() const {
 		return painter;
 	}
+	const void setPainter(ColorPainter* painter) {
+		if (this->painter->checkPointSize(painter)) {
+			delete this->painter;
+			this->painter = painter;
+		}
+		else {
+			errorPrint("painter size error");
+		}
+	}
 	const BlockShape& getShape() const {
 		return blockShapeData[name][angle];
 	}
 	~Block() {
 		delete painter;
 	}
-
 };
