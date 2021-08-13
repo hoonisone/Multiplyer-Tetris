@@ -47,36 +47,36 @@ int main(int argc, char* argv[]) {
 	Consol::setCursorFlag(false);
 	//Test();
 	//serverRun(5000, responseHandler);
-	//string result1 = ModeSelectScene()->start();
-	//string result2 = SingleModeMeneSelectScene()->start();
-	//Bean::getRandomBlockCreator()->createBlock()->draw(0, 0);
-	MainScreen* ms = Bean::getMainScreen();
-	ms->draw(0, 0);
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveRight();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
+	Tetris* tetris = Bean::getTetris();
+	tetris->draw(150, 0);
+	tetris->draw(100, 0);
+	tetris->draw(50, 0);
+	tetris->draw(0, 0);
+	while (true) {
+		switch (Input::getKey()) {
+		case KEY_UP:
+			tetris->turnRight();
+			break;
+		case KEY_DOWN:
+			tetris->moveDown();
+			break;
+		case KEY_RIGHT:
+			tetris->moveRight();
+			break;
+		case KEY_LEFT:
+			tetris->moveLeft();
+			break;
+		case KEY_SPACE:
+			tetris->dragDown();
+			break;
+		case 'c':
+			tetris->hold();
+			break;
+		}
 
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
-	//ms->moveDown();
+	}
+	
 
 }
 
+  

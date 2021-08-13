@@ -6,6 +6,7 @@
 #include "SelectScene.h"
 #include "BlockBoard.h"
 #include "BlockCreator.h"
+#include "SubScreen.h"
 
 class Bean {
 public:
@@ -26,7 +27,7 @@ public:
 		int w = 15;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
-			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.getCopy(), selectPainter.getCopy(), selectPrinter.getCopy(), true), 0, i);
+			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 		}
 		return bm;
 	}
@@ -81,15 +82,23 @@ public:
 		return canvas;
 	}
 	static BlockBoard* getBlockBoard() {
-		return new BlockBoard(4, 2);
+		return new BlockBoard(2, 1, 10, 20);
 	}
 	static BlockCreator* getRandomBlockCreator() {
-		return new SamePointBlockCreator({ "¢Ë¢Ë", "¢Ë¢Ë" });
+		return new SamePointBlockCreator({ "¡á" });
 	}
 	static MainScreen* getMainScreen() {
 		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
 	}
 	static ColorPainter* getMainScreenPainter() {
-		return new ColorPainter({ "¡¤"});
+		return new ColorPainter({ "¡¤" }, AQUA);
+	}
+	static SubScreen* getSubScreen() {
+		Block* block = getRandomBlockCreator()->createBlock();
+		ColorPainter* painter = new ColorPainter({ "¡¤"}, AQUA);
+		return new SubScreen(2*painter->getWidth()+BLOCK_WIDTH*block->getPainter()->getWidth(), 2 * painter->getHeight()+ 20*block->getPainter()->getHeight(), block, painter);
+	}
+	static Tetris* getTetris(){
+		return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator());
 	}
 };

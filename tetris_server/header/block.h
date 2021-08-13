@@ -148,6 +148,18 @@ public:
 	int getY() const {
 		return y;
 	}
+	int getPointWidth() {
+		return painter->getWidth();
+	}
+	int getPointHeight() {
+		return painter->getHeight();
+	}
+	int getWidth() {
+		return getPointWidth() * BLOCK_WIDTH;
+	}
+	int getHeight() {
+		return getPointHeight() * BLOCK_HEIGHT;
+	}
 	virtual void moveTo(int x, int y) {
 		this->x = x;
 		this->y = y;
@@ -171,10 +183,10 @@ public:
 	virtual void turn(BlockTurn sign) {
 		switch (sign) {
 		case BLOCK_TURN_LEFT:
-			moveLeft();
+			turnLeft();
 			break;
 		case BLOCK_TURN_RIGHT:
-			moveRight();
+			turnRight();
 			break;
 		}
 	}

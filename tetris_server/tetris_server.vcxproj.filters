@@ -52,9 +52,6 @@
     <Filter Include="헤더 파일\graphic">
       <UniqueIdentifier>{0c1ee7ea-e753-4e91-a0ef-d7f5fd4029fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\graphic">
-      <UniqueIdentifier>{bc79559e-ad8d-498f-abb3-ce3d5f3cfd69}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Scene">
       <UniqueIdentifier>{0d44be84-0c66-404f-82b1-b936eb3895d7}</UniqueIdentifier>
     </Filter>
@@ -77,12 +74,6 @@
     </ClCompile>
     <ClCompile Include="source\node.cpp">
       <Filter>소스 파일\list</Filter>
-    </ClCompile>
-    <ClCompile Include="source\mainScreen.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\block.cpp">
-      <Filter>소스 파일\tetris</Filter>
     </ClCompile>
     <ClCompile Include="source\user.cpp">
       <Filter>소스 파일\tetris</Filter>
@@ -159,17 +150,8 @@
     <ClCompile Include="source\subScreen.cpp">
       <Filter>소스 파일\tetris</Filter>
     </ClCompile>
-    <ClCompile Include="source\blockBoard.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\mainBlock.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
     <ClCompile Include="source\random.cpp">
       <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\bean.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,13 +224,10 @@
     <ClInclude Include="header\mathPlusTest.h">
       <Filter>헤더 파일\test</Filter>
     </ClInclude>
-    <ClInclude Include="header\tetris.h">
+    <ClInclude Include="header\Tetris.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\subScreen.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\mainBlock.h">
+    <ClInclude Include="header\SubScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\Random.h">
