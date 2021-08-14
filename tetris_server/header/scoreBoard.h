@@ -1,39 +1,31 @@
-//#pragma once
-//
-//typedef struct ScoreBoard {
-//	int score;
-//	int level;
-//	int line;
-//	int block;
-//	int combo;
-//	int comboCheck; // for checking continuous lineClear
-//}ScoreBoard;
-//
-//ScoreBoard* scoreBoardCreate();
-//
-//void scoreBoardAddScore(ScoreBoard* scoreBoard, int score);
-//
-//void scoreBoardSubScore(ScoreBoard* scoreBoard, int score);
-//
-//void scoreBoardAddLevel(ScoreBoard* scoreBoard, int level);
-//
-//void scoreBoardSubLevel(ScoreBoard* scoreBoard, int level);
-//
-//void scoreBoardAddBlock(ScoreBoard* scoreBoard, int block);
-//
-//void scoreBoardSubBlock(ScoreBoard* scoreBoard, int block);
-//
-//void scoreBoardAddLine(ScoreBoard* scoreBoard, int line);
-//
-//void scoreBoardSubLine(ScoreBoard* scoreBoard, int line);
-//
-//void scoreBoardInitCombo(ScoreBoard* scoreBoard);
-//
-//void scoreBoardAddCombo(ScoreBoard* scoreBoard, int combo);
-//
-//void scoreBoardSubCombo(ScoreBoard* scoreBoard, int combo);
-//
-//void scoreBoardComboCheckOn(ScoreBoard* scoreBoard);
-//
-//void scoreBoardComboCheckOff(ScoreBoard* scoreBoard);
-//
+#pragma once
+#include "ColorPainter.h"
+#include "ColorPrinter.h"
+typedef struct ScoreBoard {
+	int width;
+	int height = 3;
+public:
+	ScoreBoard(int width): width(width) {};
+	virtual void draw(int drawX, int drawY, int level, int score, int line, int block) {
+		Painter painter({ "¡¤" });
+		Printer keyPrinter(LEFT);
+		Printer valuePrinter(RIGHT);
+		vector<int> values = { level, score, line, block };
+		vector<string> keys = { "Level", "Score", "Line ", "Block" };
+
+		for (int i = 0; i < values.size(); i++) {
+			int x = drawX;
+			int y = drawY + (height - 1) * i;
+			painter.rectBorder(x, y, width/painter.getWidth(), height / painter.getHeight());
+			Consol::move(x+2, y+1);
+			keyPrinter.printText(x + 2, y + 1, width*2-4, height - 2, { keys[i] });
+			valuePrinter.printText(x + 2, y + 1, width -4, height - 2, { to_string(values[i]) });
+		}
+	}
+	virtual int getWidth() {
+		return width;
+	}
+	virtual int getHeight() {
+		return height;
+	}
+};

@@ -2,12 +2,14 @@
 #include "MainScreen.h"
 #include "SubScreen.h"
 #include "BlockCreator.h"
+#include "scoreManager.h"
 class Tetris {
 private:
 	int drawX, drawY;
 	MainScreen* mainScreen;
 	SubScreen* subScreen;
 	BlockCreator* creator;
+	ScoreManager* scoreManager;
 	bool endFlag;
 	bool holdFlag = true;
 	void press() {
@@ -16,12 +18,13 @@ private:
 		holdFlag = true;
 	}
 public:
-	Tetris(MainScreen* mainScreen, SubScreen* subScreen, BlockCreator* creator) : mainScreen(mainScreen), subScreen(subScreen), creator(creator){};
+	Tetris(MainScreen* mainScreen, SubScreen* subScreen, BlockCreator* creator, ScoreManager * scoreManager) : mainScreen(mainScreen), subScreen(subScreen), creator(creator), scoreManager(scoreManager){};
 	void draw(int x, int y) {
 		drawX = x;
 		drawY = y;
 		mainScreen->draw(drawX, drawY);
 		subScreen->draw(drawX+mainScreen->getWidth()-mainScreen->getPointWidthSize(), drawY);
+		scoreManager->draw(drawX, drawY + mainScreen->getHeight()-1);
 	}
 	int moveDown() {	// 이동 성공여부 반환
 		mainScreen->eraseBlock();
@@ -34,11 +37,15 @@ public:
 		}
 		else{
 			press();
-			if(mainScreen->clearLine()>0)
-				mainScreen->erase();
+			scoreManager->addBlock(1);
+			int lineClearNum = mainScreen->clearLine();
+			if(lineClearNum>0){
+				scoreManager->addLine(lineClearNum);
+			}
+			mainScreen->erase();
 			mainScreen->updateShadow();
-			draw(drawX, drawY);
 		}
+		draw(drawX, drawY);
 		return succesFlag;
 	}
 	void moveRight() {
@@ -74,7 +81,7 @@ public:
 		mainScreen->drawBlock();
 	}
 	void dragDown() {
-		while (moveDown()) Sleep(10);
+		while (moveDown()) Sleep(3);
 	}
 	void hold() {
 		if (holdFlag) {
@@ -94,5 +101,6 @@ public:
 	~Tetris() {
 		delete mainScreen;
 		delete subScreen;
+		delete scoreManager;
 	}
 };

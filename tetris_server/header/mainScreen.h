@@ -114,9 +114,8 @@ public:
 		if (this->block != NULL) {
 			delete this->block;
 		}
-		block->moveTo(pointWidthNum/2-BLOCK_WIDTH/2, 0);
+		block->moveTo(board->getWidhtNum()/2-BLOCK_WIDTH/2, 0);
 		this->block = block;
-		while (moveUp());
 	}
 	virtual Block* getBlock() {
 		Block* block = this->block;

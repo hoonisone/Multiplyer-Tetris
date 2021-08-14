@@ -40,17 +40,13 @@ void responseHandler(char* request, char* response) {
 	strcpy(response, request);
 	return;
 }
-
-
 int main(int argc, char* argv[]) {
 	Consol::changeScreenSize(WIDTH, HEIGHT);
 	Consol::setCursorFlag(false);
 	//Test();
 	//serverRun(5000, responseHandler);
 	Tetris* tetris = Bean::getTetris();
-	tetris->draw(150, 0);
 	tetris->draw(100, 0);
-	tetris->draw(50, 0);
 	tetris->draw(0, 0);
 	while (true) {
 		switch (Input::getKey()) {
@@ -73,10 +69,7 @@ int main(int argc, char* argv[]) {
 			tetris->hold();
 			break;
 		}
-
 	}
-	
-
 }
 
   

@@ -68,10 +68,10 @@ public:
 		erase();
 		if (borderFlag) {
 			if (selectFlag) {
-				selectPainter->borderRect(x, y, w, h);
+				selectPainter->rectBorder(x, y, w, h);
 			}
 			else {
-				unselectPainter->borderRect(x, y, w, h);
+				unselectPainter->rectBorder(x, y, w, h);
 			}
 		}
 		vector<string>tokens = split(text, "\n");

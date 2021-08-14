@@ -37,7 +37,7 @@ public:
 	}
 	virtual void rectBorder(int x, int y, int w, int h) const {
 		setting(pointColor, backgroundColor);
-		Painter::borderRect(x, y, w, h);
+		Painter::rectBorder(x, y, w, h);
 	}
 	virtual void rect(int x, int y, int w, int h) const {
 		setting(pointColor, backgroundColor);

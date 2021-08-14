@@ -7,6 +7,8 @@
 #include "BlockBoard.h"
 #include "BlockCreator.h"
 #include "SubScreen.h"
+#include "scoreBoard.h"
+#include "scoreManager.h"
 
 class Bean {
 public:
@@ -85,20 +87,26 @@ public:
 		return new BlockBoard(2, 1, 10, 20);
 	}
 	static BlockCreator* getRandomBlockCreator() {
-		return new SamePointBlockCreator({ "бс" });
+		return new SamePointBlockCreator({ "бс"});
 	}
 	static MainScreen* getMainScreen() {
 		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
 	}
 	static ColorPainter* getMainScreenPainter() {
-		return new ColorPainter({ "бд" }, AQUA);
+		return new ColorPainter({ "вк" }, AQUA);
 	}
 	static SubScreen* getSubScreen() {
 		Block* block = getRandomBlockCreator()->createBlock();
-		ColorPainter* painter = new ColorPainter({ "бд"}, AQUA);
+		ColorPainter* painter = new ColorPainter({ "вк"}, AQUA);
 		return new SubScreen(2*painter->getWidth()+BLOCK_WIDTH*block->getPainter()->getWidth(), 2 * painter->getHeight()+ 20*block->getPainter()->getHeight(), block, painter);
 	}
 	static Tetris* getTetris(){
-		return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator());
+		return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
+	}
+	static ScoreBoard* getScoreBoard() {
+		return new ScoreBoard(34);
+	}
+	static ScoreManager* getScoreManager() {
+		return new ScoreManager(getScoreBoard());
 	}
 };

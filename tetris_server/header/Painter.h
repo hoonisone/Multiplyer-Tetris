@@ -93,7 +93,7 @@ public:
 	virtual void vertical(int x, int y, int h)const {
 		_vertical(x, y, h);
 	}
-	virtual void borderRect(int x, int y, int w, int h)const {
+	virtual void rectBorder(int x, int y, int w, int h)const {
 		_borderRect(x, y, w, h);
 	}
 	virtual Painter* getEraser() {
