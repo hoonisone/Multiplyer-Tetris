@@ -104,7 +104,7 @@ public:
 		return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
 	}
 	static ScoreBoard* getScoreBoard() {
-		return new ScoreBoard(34);
+		return new ScoreBoard(34, new ColorPainter({ "¡¤" }));
 	}
 	static ScoreManager* getScoreManager() {
 		return new ScoreManager(getScoreBoard());

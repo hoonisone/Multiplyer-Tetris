@@ -46,7 +46,6 @@ int main(int argc, char* argv[]) {
 	//Test();
 	//serverRun(5000, responseHandler);
 	Tetris* tetris = Bean::getTetris();
-	tetris->draw(100, 0);
 	tetris->draw(0, 0);
 	while (true) {
 		switch (Input::getKey()) {

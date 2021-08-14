@@ -58,10 +58,10 @@
     <Filter Include="헤더 파일\tetris\Block">
       <UniqueIdentifier>{92a0d01c-0682-452c-b82b-0f2beb8618c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\tetris\BlockBoard">
-      <UniqueIdentifier>{79bded7f-b187-4f2a-bcd3-5f0fab369dda}</UniqueIdentifier>
+    <Filter Include="헤더 파일\tetris\score">
+      <UniqueIdentifier>{5b321c94-576a-4b6f-898a-e5c504d8fd2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\tetris\MainScreen">
+    <Filter Include="헤더 파일\tetris\Screen">
       <UniqueIdentifier>{9c54a333-cf2a-4185-a075-8a445de0c407}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -176,12 +176,6 @@
     <ClInclude Include="header\utill.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\scoreBoard.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\scoreManager.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
     <ClInclude Include="header\userManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
@@ -225,9 +219,6 @@
       <Filter>헤더 파일\test</Filter>
     </ClInclude>
     <ClInclude Include="header\Tetris.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\SubScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\Random.h">
@@ -278,14 +269,23 @@
     <ClInclude Include="header\Block.h">
       <Filter>헤더 파일\tetris\Block</Filter>
     </ClInclude>
-    <ClInclude Include="header\BlockBoard.h">
-      <Filter>헤더 파일\tetris\BlockBoard</Filter>
-    </ClInclude>
     <ClInclude Include="header\BlockCreator.h">
       <Filter>헤더 파일\tetris\Block</Filter>
     </ClInclude>
     <ClInclude Include="header\MainScreen.h">
-      <Filter>헤더 파일\tetris\MainScreen</Filter>
+      <Filter>헤더 파일\tetris\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="header\scoreManager.h">
+      <Filter>헤더 파일\tetris\score</Filter>
+    </ClInclude>
+    <ClInclude Include="header\scoreBoard.h">
+      <Filter>헤더 파일\tetris\score</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SubScreen.h">
+      <Filter>헤더 파일\tetris\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BlockBoard.h">
+      <Filter>헤더 파일\tetris\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

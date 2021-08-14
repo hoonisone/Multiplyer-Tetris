@@ -32,8 +32,10 @@ public:
 };
 class BlockBoard {
 protected:
-	int widthNum, heightNum;	// 가로 세로 블록 개수
+	int drawX, drawY;
+	int pointWithNum, pointHeightNum;	// 가로 세로 블록 개수
 	int pointWidth, pointHeight;	// 블록 한 칸의 크기이며 페인터 하나가 블록 한 칸에 해당한다.
+	int width, height;	// 커서 기준 가로세로 길이
 	vector<vector<Painter*>> data;	// 블록의 색과 모양을 Painter로 저장
 	LineCounter *lineCounter;
 
@@ -41,7 +43,7 @@ protected:
 		return painter->getWidth() == pointWidth && painter->getHeight() == pointHeight;
 	}	
 	bool rangeCheck(const int x, const int y) const {	// block이 board안에 있는가?
-		return 0 <= x && x < widthNum && 0 <= y && y < heightNum;
+		return 0 <= x && x < pointWithNum && 0 <= y && y < pointHeightNum;
 	}
 	bool crashCheck(const Block* block) const {	// block이 board와 충돌하는가?	
 		const BlockShape& blockShape = block->getShape();
@@ -61,11 +63,15 @@ protected:
 	}
 	void eraseLine(int y) {
 		data.erase(data.begin() + y);
-		data.insert(data.begin(), vector<Painter*>(widthNum, NULL));
+		data.insert(data.begin(), vector<Painter*>(pointWithNum, NULL));
 	}
 	virtual void press(int x, int y, Painter* painter) {
 		data[y][x] = painter;
 		lineCounter->check(y);
+	}
+	virtual void drawPointSetting(const int drawX, const int drawY){
+		this->drawX = drawX;
+		this->drawY = drawY;
 	}
 public:
 	bool permitCheck(const Block* block) const { // block의 현재 위치가 board안에서 유효한가?
@@ -85,22 +91,28 @@ public:
 		}
 		return true;
 	}
-	BlockBoard(int pointWidth = 2, int pointHeight = 1, int widhtNum = 10, int heightNum = 20) :pointWidth(pointWidth), pointHeight(pointHeight), widthNum(widhtNum), heightNum(heightNum) {
-		data = vector<vector<Painter*>>(heightNum, vector<Painter*>(widhtNum, NULL));
-		lineCounter = new LineCounter(heightNum, widhtNum);
+	BlockBoard(int pointWidth = 2, int pointHeight = 1, int pointWithNum = 10, int pointHeightNum = 20) :pointWidth(pointWidth), pointHeight(pointHeight), pointWithNum(pointWithNum), pointHeightNum(pointHeightNum) {
+		data = vector<vector<Painter*>>(pointHeightNum, vector<Painter*>(pointWithNum, NULL));
+		lineCounter = new LineCounter(pointHeightNum, pointWithNum);
+		width = pointWithNum * pointWidth;
+		height = pointHeightNum * pointHeight;
 	};
-	virtual void draw(const int X, const int Y)const {
-		for (int yi = 0; yi < heightNum; yi++) {
-			for (int xi = 0; xi < widthNum; xi++) {
+	virtual void draw(const int drawX, const int drawY) {
+		drawPointSetting(drawX, drawY);
+		redraw();
+	}
+	virtual void redraw() {
+		for (int yi = 0; yi < pointHeightNum; yi++) {
+			for (int xi = 0; xi < pointWithNum; xi++) {
 				if (data[yi][xi] != NULL) {
 					Painter* painter = data[yi][xi];
-					painter->point(X + painter->getWidth() * xi, Y + painter->getHeight() * yi);
+					painter->point(drawX + painter->getWidth() * xi, drawY + painter->getHeight() * yi);
 				}
 			}
 		}
 	}
-	virtual void erase(const int x, const int y)const {
-		Painter({ "  " }).rect(x, y, widthNum, heightNum);
+	virtual void erase()const {
+		Painter({ "  " }).rect(drawX, drawY, pointWithNum, pointHeightNum);
 	}
 	virtual void press(const Block *block) {
 		if (!pointSizeCheck(block->getPainter())) {
@@ -123,17 +135,23 @@ public:
 		return make_pair(pointWidth, pointHeight);
 	}
 	pair<int, int> getBoardSize()const {
-		return make_pair(widthNum, heightNum);
+		return make_pair(pointWithNum, pointHeightNum);
 	}
-	int getWidhtNum()const {
-		return widthNum;
+	int getWidth()const {// 커서 기준 board의 가로 길이
+		return width;
 	}
-	int getHeightNum()const {
-		return heightNum;
+	int getHeight()const {
+		return height;
 	}
-	int getPointWidth()const {
-		return pointWidth;
+	int getPointWidhtNum()const {
+		return pointWithNum;
+	}   // point기준 board의 가로 길이
+	int getPointHeightNum()const {
+		return pointHeightNum;
 	}
+	//int getPointWidth()const {
+	//	return pointWidth;
+	//}	// board에서 다루는 블록 포인터 하나에 대한 가로 길이
 	int getPointHeight()const {
 		return pointHeight;
 	}
@@ -145,8 +163,8 @@ public:
 		return target.size();
 	}
 	~BlockBoard() {
-		for (int yi = 0; yi < heightNum; yi++) {
-			for (int xi = 0; xi < widthNum; xi++) {
+		for (int yi = 0; yi < pointHeightNum; yi++) {
+			for (int xi = 0; xi < pointWithNum; xi++) {
 				if (data[yi][xi] != NULL) {
 					delete data[yi][xi];
 				}

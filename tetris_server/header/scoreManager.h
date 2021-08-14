@@ -20,12 +20,21 @@ private:
 	void levelUpdate() {	// 라인 수에 따른 레벨 조정
 		level = 1+line/10;
 	}
+	virtual void drawPointSetting(int drawX, int drawY) {
+		this->drawX = drawX;
+		this->drawY = drawY;
+	}
 public:
 	ScoreManager(ScoreBoard* scoreBoard) : scoreBoard(scoreBoard), level(1), score(0), line(0), block(0) {};
 	void draw(int drawX, int drawY) {
-		this->drawX = drawX;
-		this->drawY = drawY;
+		drawPointSetting(drawX, drawY);
+		redraw();
+	}
+	void redraw() {
 		scoreBoard->draw(drawX, drawY, level, score, line, block);
+	}
+	void redrawContent() {
+		scoreBoard->redrawContent(level, score, line, block);
 	}
 	void addBlock(int blockNum) {
 		block += blockNum;

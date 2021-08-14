@@ -5,15 +5,15 @@
 class SubScreen {
 private:
 	int drawX, drawY;
-	int pointWidthNum, pointHeightNum;
+	int width, height;
 	Block* next;
 	Block* hold= NULL;
 	ColorPainter* painter;
 	void drawBorder() {
-		painter->rectBorder(drawX, drawY, pointWidthNum / painter->getWidth(), pointHeightNum / painter->getHeight());
+		painter->rectBorder(drawX, drawY, width, height, CURSOR_STD);
 	}
 	void drawNextName() {
-		ColorPrinter(CENTER, MIDDLE).printText(drawX, drawY + painter->getHeight(), pointWidthNum, 1, { "N E X T" });
+		ColorPrinter(CENTER, MIDDLE).printText(drawX, drawY + painter->getHeight(), width, 1, { "N E X T" });
 	}
 	void drawNext() {
 		next->draw(drawX + painter->getWidth(), drawY + painter->getHeight() + 1);
@@ -22,7 +22,7 @@ private:
 		next->erase();
 	}
 	void drawHoldName() {
-		ColorPrinter(CENTER, MIDDLE).printText(drawX, drawY + painter->getHeight() + 1 + next->getHeight(), pointWidthNum, 1, { "H O L D" });
+		ColorPrinter(CENTER, MIDDLE).printText(drawX, drawY + painter->getHeight() + 1 + next->getHeight(), width, 1, { "H O L D" });
 	}
 	void drawHold() {
 		if(hold != NULL)
@@ -33,7 +33,7 @@ private:
 			hold->erase(drawX + painter->getWidth(), drawY + painter->getHeight() + 1 + next->getHeight() + 1);
 	}
 public:
-	SubScreen(int pointWidthNum, int pointHeightNum, Block* next, ColorPainter *painter) : pointWidthNum(pointWidthNum), pointHeightNum(pointHeightNum), next(next), painter(painter){};
+	SubScreen(int width, int height, Block* next, ColorPainter *painter) : width(width), height(height), next(next), painter(painter){};
 	void draw(int x, int y) {
 		drawX = x;
 		drawY = y;
