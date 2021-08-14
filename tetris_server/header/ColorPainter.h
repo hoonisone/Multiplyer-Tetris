@@ -27,20 +27,20 @@ public:
 		setting(pointColor, backgroundColor);
 		Painter::point(x, y);
 	}
-	virtual void horizontal(int x, int y, int w) const {
+	virtual void horizontal(int x, int y, int w, PaintStd std = POINT_STD) const {
 		setting(pointColor, backgroundColor);
-		Painter::horizontal(x, y, w);
+		Painter::horizontal(x, y, w, std);
 	}
-	virtual void vertical(int x, int y, int h) const {
+	virtual void vertical(int x, int y, int h, PaintStd std = POINT_STD) const {
 		setting(pointColor, backgroundColor);
-		Painter::vertical(x, y, h);
+		Painter::vertical(x, y, h, std);
 	}
-	virtual void rectBorder(int x, int y, int w, int h) const {
+	virtual void rectBorder(int x, int y, int w, int h, PaintStd std = POINT_STD) const {
 		setting(pointColor, backgroundColor);
-		Painter::rectBorder(x, y, w, h);
+		Painter::rectBorder(x, y, w, h, std);
 	}
-	virtual void rect(int x, int y, int w, int h) const {
+	virtual void rect(int x, int y, int w, int h, PaintStd std = POINT_STD) const {
 		setting(pointColor, backgroundColor);
-		Painter::rect(x, y, w, h);
+		Painter::rect(x, y, w, h, std);
 	}
 };

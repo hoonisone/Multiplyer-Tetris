@@ -4,6 +4,7 @@
 #include "Consol.h"
 
 using namespace std;
+enum PaintStd {POINT_STD=0, CURSOR_STD=1};	// 입력된 매개변수의 크기를 포인터의 개수 또는 커서의 개수로 본다.
 using PointElement = string;
 using PointShape = vector<string>;
 //enum Color { BLACK, BLUE ,GREEN ,AQUA ,RED ,PURPLE ,YELLOW ,WHITE ,GRAY,
@@ -54,7 +55,7 @@ private:
 			_point(x, y + i * pointHeight);
 		}
 	}
-	void _borderRect(const int x, const int y, const int w, const int h)const {
+	void _rectBorder(const int x, const int y, const int w, const int h)const {
 		_horizontal(x, y, w);
 		_vertical(x, y, h);
 		_horizontal(x, y + (h - 1) * pointHeight, w);
@@ -64,6 +65,12 @@ private:
 		for (int i = 0; i < h; i++) {
 			_horizontal(x, y + i, w);
 		}
+	}
+	int toPointWidthNum(int cursorWidthNum) const{
+		return cursorWidthNum / pointWidth;
+	}
+	int toPointHeightNum(int cursorHeightNum) const{
+		return cursorHeightNum / pointHeight;
 	}
 public:
 	bool checkPointSize(Painter* painter)const {	//point 사이즈가 동일한가?
@@ -87,22 +94,51 @@ public:
 	virtual void point(int x, int y)const {
 		_point(x, y);
 	}
-	virtual void horizontal(int x, int y, int w)const {
-		_horizontal(x, y, w);
+	virtual void horizontal(int x, int y, int w, PaintStd std = POINT_STD)const {
+		switch ((int)std) {
+		case POINT_STD:
+			_horizontal(x, y, w);
+			break;
+		case CURSOR_STD:
+			_horizontal(x, y, toPointWidthNum(w));
+			break;
+		}
 	}
-	virtual void vertical(int x, int y, int h)const {
-		_vertical(x, y, h);
+	virtual void vertical(int x, int y, int h, PaintStd std = POINT_STD)const {
+		switch ((int)std) {
+		case POINT_STD:
+			_vertical(x, y, h);
+			break;
+		case CURSOR_STD:
+			_vertical(x, y, toPointHeightNum(h));
+			break;
+		}
 	}
-	virtual void rectBorder(int x, int y, int w, int h)const {
-		_borderRect(x, y, w, h);
+	virtual void rectBorder(int x, int y, int w, int h, PaintStd std = POINT_STD)const {
+		switch ((int)std) {
+		case POINT_STD:
+			_rectBorder(x, y, w, h);
+			break;
+		case CURSOR_STD:
+			_rectBorder(x, y, toPointWidthNum(w), toPointHeightNum(h));
+			break;
+		}
+	}
+	void rect(const int x, const int y, const int w, const int h, PaintStd std = POINT_STD)const {
+		switch ((int)std) {
+		case POINT_STD:
+			_rect(x, y, w, h);
+			break;
+		case CURSOR_STD:
+			_rect(x, y, toPointWidthNum(w), toPointHeightNum(h));
+			break;
+		}
 	}
 	virtual Painter* getEraser() {
 		PointShape shape = PointShape(pointHeight, string(pointWidth, ' '));
 		return new Painter(shape);
 	}
-	void rect(const int x, const int y, const int w, const int h)const {
-		_rect(x, y, w, h);
-	}
+
 	void changeAllPointShapeElementInto(PointElement element) {
 		PointShape newShape;
 		for (int i = 0; i < pointShape.size(); i++) {
