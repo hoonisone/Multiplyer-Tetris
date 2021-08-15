@@ -11,6 +11,7 @@
 #include "scoreManager.h"
 #include "Tetris.h"
 #include "SingleModeGameManger.h"
+#include "Scanner.h"
 
 class Bean {
 public:
@@ -22,9 +23,9 @@ public:
 	}
 	static ButtonManager* getModeSelectSceneButtonManager(vector<string> names) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
-		ColorPainter painter({ "¡¤" }, WHITE, BLACK);
+		ColorPainter painter({ "¢ª" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
-		ColorPainter selectPainter({ "¡¤" }, AQUA, BLACK);
+		ColorPainter selectPainter({ "¢ª" }, AQUA, BLACK);
 		ButtonManager* bm = new ButtonManager(1, names.size());
 		int x = WIDTH / 2;
 		int y = 20;
@@ -113,5 +114,8 @@ public:
 	}
 	static SingleModeGameManger* getSingleModeGameManager(){
 		return new SingleModeGameManger(getTetris());
+	}
+	static Scanner* getScanner(int width, int height) {
+		return new Scanner(width, height, new ColorPrinter(CENTER));
 	}
 };

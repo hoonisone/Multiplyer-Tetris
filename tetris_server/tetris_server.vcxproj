@@ -195,9 +195,12 @@
     <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
     <ClInclude Include="header\node.h" />
+    <ClInclude Include="header\Object.h" />
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
     <ClInclude Include="header\Random.h" />
+    <ClInclude Include="header\Scanner.h" />
+    <ClInclude Include="header\ScannerButton.h" />
     <ClInclude Include="header\Scene.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />

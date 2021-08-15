@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h> // rand() 함수 포함 라이브러리
+#include <time.h>
 #define RANDOM getRandom()
 
 class Random {

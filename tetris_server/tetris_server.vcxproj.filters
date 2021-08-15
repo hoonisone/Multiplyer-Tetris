@@ -272,5 +272,14 @@
     <ClInclude Include="header\SingleModeGameManger.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
+    <ClInclude Include="header\Scanner.h">
+      <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Object.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ScannerButton.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,15 +23,14 @@ unordered_map<string, string(*)()> sceneInfor;
 int main(int argc, char* argv[]) {
 	Consol::changeScreenSize(WIDTH, HEIGHT);
 	Consol::setCursorFlag(false);
-
-	sceneInfor["main menu scene"] = modeSelectHandler;
-	sceneInfor["single mode menu scene"] = singleModeMenuHandler;
-	sceneInfor["single mode game scene"] = singleModeGametHandler;
-	sceneInfor["game exit scene"] = gameExitHandler;
-	string sceneName = "main menu scene";
-	while (true) {
-		sceneName = sceneInfor[sceneName]();
-	}
+	//sceneInfor["main menu scene"] = modeSelectHandler;
+	//sceneInfor["single mode menu scene"] = singleModeMenuHandler;
+	//sceneInfor["single mode game scene"] = singleModeGametHandler;
+	//sceneInfor["game exit scene"] = gameExitHandler;
+	//string sceneName = "main menu scene";
+	//while (true) {
+	//	sceneName = sceneInfor[sceneName]();
+	//}
 	
 }
 
