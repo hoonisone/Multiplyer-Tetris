@@ -9,11 +9,13 @@
 #include "SubScreen.h"
 #include "scoreBoard.h"
 #include "scoreManager.h"
+#include "Tetris.h"
+#include "SingleModeGameManger.h"
 
 class Bean {
 public:
 	static SelectScene* getModeSelectScene() {
-		return new SelectScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer" }), getMainSceneCanvas());
+		return new SelectScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer", "Exit"}), getMainSceneCanvas());
 	}
 	static SelectScene* getSingleModeMeneSelectScene() {
 		return new SelectScene(getModeSelectSceneButtonManager({ "Start", "Rank" }), getMainSceneCanvas());
@@ -23,7 +25,7 @@ public:
 		ColorPainter painter({ "¡¤" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "¡¤" }, AQUA, BLACK);
-		ButtonManager* bm = new ButtonManager(1, 3);
+		ButtonManager* bm = new ButtonManager(1, names.size());
 		int x = WIDTH / 2;
 		int y = 20;
 		int w = 15;
@@ -108,5 +110,8 @@ public:
 	}
 	static ScoreManager* getScoreManager() {
 		return new ScoreManager(getScoreBoard());
+	}
+	static SingleModeGameManger* getSingleModeGameManager(){
+		return new SingleModeGameManger(getTetris());
 	}
 };

@@ -4,6 +4,7 @@
 #include "Painter.h"
 #include "ColorPainter.h"
 #include "Random.h"
+#include "error.h"
 #define BLOCK_WIDTH 4
 #define BLOCK_HEIGHT 4
 #define BLOCK_SHAPE_NUM 7
@@ -135,6 +136,11 @@ protected:
 	ColorPainter* painter;	// 블록의 출력형태를 결정(점의 모양, 색)
 	BlockName name;
 	BlockAngle angle;
+private:
+	virtual void drawPointSetting(int drawX, int drawY) {
+		this->drawX = drawX;
+		this->drawY = drawY;
+	}
 public:
 	Block(int x, int y, BlockName name, BlockAngle angle, ColorPainter* painter) :x(x), y(y), name((BlockName)((int)name% BLOCK_SHAPE_NUM)), angle(angle% BLOCK_ANGLE_NUM), painter(painter) {};
 	Block(const Block &block): x(block.x), y(block.y), name(block.name), angle(block.angle), painter(block.painter->getCopy()) {}
@@ -208,9 +214,8 @@ public:
 	virtual void turnLeft() {
 		angle = (angle + 3) % 4;
 	}
-	virtual void draw(int X, int Y) {
-		drawX = X;
-		drawY = Y;
+	virtual void draw(int drawX, int drawY) {
+		drawPointSetting(drawX, drawY);
 		BlockShape const& blockShape = blockShapeData[name][angle];
 		for (int yi = 0; yi < BLOCK_HEIGHT; yi++) {
 			for (int xi = 0; xi < BLOCK_WIDTH; xi++) {

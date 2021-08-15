@@ -102,12 +102,6 @@
     <ClCompile Include="source\math+.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
-    <ClCompile Include="source\scoreManager.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\scoreBoard.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
     <ClCompile Include="source\server.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
@@ -135,20 +129,8 @@
     <ClCompile Include="source\mathPlusTest.cpp">
       <Filter>소스 파일\test</Filter>
     </ClCompile>
-    <ClCompile Include="source\timer.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
     <ClCompile Include="source\objectList.cpp">
       <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\userInterface.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\tetris.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\subScreen.cpp">
-      <Filter>소스 파일\tetris</Filter>
     </ClCompile>
     <ClCompile Include="source\random.cpp">
       <Filter>소스 파일\utill</Filter>
@@ -170,7 +152,7 @@
     <ClInclude Include="header\test.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\timer.h">
+    <ClInclude Include="header\Timer.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\utill.h">
@@ -286,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="header\BlockBoard.h">
       <Filter>헤더 파일\tetris\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SingleModeGameManger.h">
+      <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

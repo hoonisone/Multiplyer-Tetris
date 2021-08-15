@@ -162,18 +162,12 @@
     <ClCompile Include="source\node.cpp" />
     <ClCompile Include="source\objectList.cpp" />
     <ClCompile Include="source\random.cpp" />
-    <ClCompile Include="source\scoreManager.cpp" />
-    <ClCompile Include="source\scoreBoard.cpp" />
     <ClCompile Include="source\scoreManagerTest.cpp" />
-    <ClCompile Include="source\subScreen.cpp" />
-    <ClCompile Include="source\tetris.cpp" />
     <ClCompile Include="source\server.cpp" />
     <ClCompile Include="source\string+.cpp" />
     <ClCompile Include="source\stringList.cpp" />
     <ClCompile Include="source\test.cpp" />
-    <ClCompile Include="source\timer.cpp" />
     <ClCompile Include="source\user.cpp" />
-    <ClCompile Include="source\userInterface.cpp" />
     <ClCompile Include="source\userManager.cpp" />
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
@@ -209,6 +203,7 @@
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
     <ClInclude Include="header\SelectScene.h" />
+    <ClInclude Include="header\SingleModeGameManger.h" />
     <ClInclude Include="header\SubScreen.h" />
     <ClInclude Include="header\system.h" />
     <ClInclude Include="header\Tetris.h" />
@@ -218,7 +213,7 @@
     <ClInclude Include="header\test.h" />
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\MainScreen.h" />
-    <ClInclude Include="header\timer.h" />
+    <ClInclude Include="header\Timer.h" />
     <ClInclude Include="header\user.h" />
     <ClInclude Include="header\userManager.h" />
     <ClInclude Include="header\utill.h" />

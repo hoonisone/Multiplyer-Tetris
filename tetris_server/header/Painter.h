@@ -17,7 +17,6 @@ std::string operator*(std::string str, int n) {
 	}
 	return s;
 }
-class Painter;
 
 class Painter {
 protected:
@@ -88,7 +87,6 @@ public:
 		return pointHeight;
 	}
 	virtual Painter* getCopy() const {
-		cout << "hello#";
 		return new Painter(this);
 	}
 	virtual void point(int x, int y)const {

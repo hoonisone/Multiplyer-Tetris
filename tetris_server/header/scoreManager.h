@@ -18,7 +18,7 @@ private:
 		return level * 10;
 	}
 	void levelUpdate() {	// 라인 수에 따른 레벨 조정
-		level = 1+line/10;
+		level = 1+line/5;
 	}
 	virtual void drawPointSetting(int drawX, int drawY) {
 		this->drawX = drawX;
@@ -44,6 +44,9 @@ public:
 		this->line += lineNum;
 		score += lineScore() * lineNum + lineBonus()*(lineNum-1);
 		levelUpdate();
+	}
+	int getLevel() {
+		return level;
 	}
 	~ScoreManager() {
 		delete scoreBoard;

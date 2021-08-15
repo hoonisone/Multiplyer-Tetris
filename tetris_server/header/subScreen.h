@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "ColorPainter.h"
 #include "ColorPrinter.h"
+#include "error.h"
 class SubScreen {
 private:
 	int drawX, drawY;
@@ -60,5 +61,10 @@ public:
 		this->hold = block;
 		drawHold();
 		return hold;
+	}
+	~SubScreen() {
+		delete next;
+		delete hold;	// null일 수 있지만 null은 delete 해도 문제 없음
+		delete painter;
 	}
 };

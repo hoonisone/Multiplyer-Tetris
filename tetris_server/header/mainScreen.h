@@ -80,6 +80,9 @@ public:
 		board->press(this->block);
 		setBlock(block);
 	}
+	virtual bool checkPermit() {
+		return board->permitCheck(block);
+	}
 	virtual void updateShadow() {	//그림자 블록을 새로 만들고 위치 초기화 // 블록이 교체되었을 때 호출돼야 한다.
 		delete shadow;
 		shadow = createShadow();

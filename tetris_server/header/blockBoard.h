@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Painter.h"
 #include "ColorPainter.h"
+#include "error.h"
 class LineCounter {// 라인의 크기(원소의 개수) 만큼 체크 되었는지 확인한다.
 private:
 	int lineNum, elementNum;

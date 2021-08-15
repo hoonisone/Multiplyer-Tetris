@@ -1,18 +1,21 @@
 #pragma once
 #include <time.h>
 #include <windows.h>
-/*time.h 라이브러리 참고*/
 
-typedef struct Timer {
-	clock_t accTime;
+class Timer {
+private:
+	int accTime;
+public:
+	Timer() {
+		init();
+	}
+	void init(){
+		accTime = clock();
+	}
+	clock_t getAccTime(){
+		return clock() - accTime;
+	}
+	~Timer(){
 
-	void (*init)(Timer* timer);
-	clock_t (*getTime)(Timer* timer);
-	void (*del)(Timer* timer);
-}Timer;
-
-
-Timer * createTimer();
-
-
-
+	}
+};
