@@ -24,11 +24,11 @@ int main(int argc, char* argv[]) {
 	Consol::changeScreenSize(WIDTH, HEIGHT);
 	Consol::setCursorFlag(false);
 
-	sceneInfor["mode select scene"] = modeSelectHandler;
+	sceneInfor["main menu scene"] = modeSelectHandler;
 	sceneInfor["single mode menu scene"] = singleModeMenuHandler;
 	sceneInfor["single mode game scene"] = singleModeGametHandler;
 	sceneInfor["game exit scene"] = gameExitHandler;
-	string sceneName = "mode select scene";
+	string sceneName = "main menu scene";
 	while (true) {
 		sceneName = sceneInfor[sceneName]();
 	}
@@ -39,7 +39,7 @@ string singleModeGametHandler() {
 	Consol::clear();
 	Bean::getSingleModeGameManager()->run();
 	//return "single score scene";
-	return "mode select scene";
+	return "main menu scene";
 }
 string modeSelectHandler() {
 	Consol::clear();
@@ -54,8 +54,8 @@ string modeSelectHandler() {
 }
 string singleModeMenuHandler() {
 	Consol::clear();
-	const vector<string> key = { "Start", "Rank" };
-	const vector<string> value = { "single mode game scene", "single mode rank scene"};
+	const vector<string> key = { "Start", "Rank", "Back"};
+	const vector<string> value = { "single mode game scene", "single mode rank scene", "main menu scene"};
 	string mode = Bean::getSingleModeMeneSelectScene()->start();
 	for (int i = 0; i < key.size(); i++) {
 		if (mode == key[i])

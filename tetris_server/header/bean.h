@@ -18,7 +18,7 @@ public:
 		return new SelectScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer", "Exit"}), getMainSceneCanvas());
 	}
 	static SelectScene* getSingleModeMeneSelectScene() {
-		return new SelectScene(getModeSelectSceneButtonManager({ "Start", "Rank" }), getMainSceneCanvas());
+		return new SelectScene(getModeSelectSceneButtonManager({ "Start", "Rank", "Back"}), getMainSceneCanvas());
 	}
 	static ButtonManager* getModeSelectSceneButtonManager(vector<string> names) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
