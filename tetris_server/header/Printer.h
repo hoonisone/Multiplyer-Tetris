@@ -50,6 +50,5 @@ public:
 			X = getPrintPosX(x, w, tokens[i].size(), alignX);
 			printText(X, Y + i, tokens[i]);
 		}
-
 	}
 };

@@ -150,7 +150,6 @@
     <ClCompile Include="source\charList.cpp" />
     <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\error.cpp" />
-    <ClCompile Include="source\file.cpp" />
     <ClCompile Include="source\floatList.cpp" />
     <ClCompile Include="source\intList.cpp" />
     <ClCompile Include="source\list.cpp" />
@@ -167,8 +166,6 @@
     <ClCompile Include="source\string+.cpp" />
     <ClCompile Include="source\stringList.cpp" />
     <ClCompile Include="source\test.cpp" />
-    <ClCompile Include="source\user.cpp" />
-    <ClCompile Include="source\userManager.cpp" />
     <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +182,7 @@
     <ClInclude Include="header\Consol.h" />
     <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\error.h" />
-    <ClInclude Include="header\file.h" />
+    <ClInclude Include="header\FileManager.h" />
     <ClInclude Include="header\floatList.h" />
     <ClInclude Include="header\Input.h" />
     <ClInclude Include="header\intList.h" />
@@ -217,9 +214,13 @@
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\MainScreen.h" />
     <ClInclude Include="header\Timer.h" />
-    <ClInclude Include="header\user.h" />
-    <ClInclude Include="header\userManager.h" />
+    <ClInclude Include="header\User.h" />
+    <ClInclude Include="header\UserDAO.h" />
+    <ClInclude Include="header\UserManager.h" />
     <ClInclude Include="header\utill.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="user.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

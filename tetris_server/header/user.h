@@ -1,20 +1,28 @@
 #pragma once
-#include "list.h"
-#define NAME_SIZE 100
+#include <string>
 
-typedef struct User {
-	char name[NAME_SIZE];
-	int win, draw, lose;
-	int login;
-}User;
+using namespace std;
 
-User* userCreateUser(char* name);
-void userLogin(User* user);
-void userLogout(User* user);
-void userWin(User* user);
-void userDraw(User* user);
-void userLose(User* user);
-void userDeleteUser(User* user);
-void userPrintState(User* user);
-
-void userDrawUserInfor(User* user, int X, int Y);
+class User {
+private:
+	string name;	// id
+	int win, draw, lose;	// multi
+	int maxScore;	// single
+public:
+	User(string name, int win, int draw, int lose, int maxScore) :name(name), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
+	string getName() {
+		return name;
+	}
+	int getWin() {
+		return win;
+	}
+	int getDraw() {
+		return draw;
+	}
+	int getLose() {
+		return lose;
+	}
+	int getMaxScore() {
+		return maxScore;
+	}
+};

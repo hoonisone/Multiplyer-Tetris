@@ -1,7 +1,7 @@
 #pragma once
 
 class Object {
-private:
+protected:
 	int drawX, drawY;
 public:
 	virtual void setDrawPosition(int drawX, int drawY) {

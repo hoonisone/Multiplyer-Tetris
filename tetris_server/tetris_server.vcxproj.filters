@@ -64,6 +64,12 @@
     <Filter Include="헤더 파일\tetris\Screen">
       <UniqueIdentifier>{9c54a333-cf2a-4185-a075-8a445de0c407}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\tetris\Game">
+      <UniqueIdentifier>{0bf14281-d36e-4ea5-b7b7-99a31c7d8372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\tetris\User">
+      <UniqueIdentifier>{e91e5d8f-7b5c-445b-97d4-f7527a9cd661}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -75,12 +81,6 @@
     <ClCompile Include="source\node.cpp">
       <Filter>소스 파일\list</Filter>
     </ClCompile>
-    <ClCompile Include="source\user.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
-    <ClCompile Include="source\userManager.cpp">
-      <Filter>소스 파일\tetris</Filter>
-    </ClCompile>
     <ClCompile Include="source\utill.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
@@ -91,9 +91,6 @@
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\listener.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\file.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\error.cpp">
@@ -158,16 +155,7 @@
     <ClInclude Include="header\utill.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\userManager.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\user.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
     <ClInclude Include="header\error.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\file.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\list.h">
@@ -199,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="header\mathPlusTest.h">
       <Filter>헤더 파일\test</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Tetris.h">
-      <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\Random.h">
       <Filter>헤더 파일\utill</Filter>
@@ -269,9 +254,6 @@
     <ClInclude Include="header\BlockBoard.h">
       <Filter>헤더 파일\tetris\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="header\SingleModeGameManger.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
     <ClInclude Include="header\Scanner.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
@@ -281,5 +263,28 @@
     <ClInclude Include="header\ScannerButton.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="header\Tetris.h">
+      <Filter>헤더 파일\tetris\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SingleModeGameManger.h">
+      <Filter>헤더 파일\tetris\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="header\User.h">
+      <Filter>헤더 파일\tetris\User</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserDAO.h">
+      <Filter>헤더 파일\tetris\User</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserManager.h">
+      <Filter>헤더 파일\tetris\User</Filter>
+    </ClInclude>
+    <ClInclude Include="header\FileManager.h">
+      <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="user.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

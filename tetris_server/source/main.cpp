@@ -23,6 +23,28 @@ unordered_map<string, string(*)()> sceneInfor;
 int main(int argc, char* argv[]) {
 	Consol::changeScreenSize(WIDTH, HEIGHT);
 	Consol::setCursorFlag(false);
+	UserDAO* dao = Bean::getUserDAO();
+	vector<User> userList;
+	//userList.push_back(User("hoonisone", 1, 2, 3, 100));
+	//userList.push_back(User("hoon", 11, 12, 13, 200));
+	//userList.push_back(User("isone", 21, 22, 23, 300));
+	//dao->setAllUsers(userList);
+	userList = dao->getAllUsers();
+	cout << userList.size();
+	for (int i = 0; i < userList.size(); i++) {
+		cout << userList[i].getName() << endl;
+	}
+	/*ScannerButton* button = Bean::getScannerButton(5, 5, 10, 3);
+	button->draw();
+	while (true) {
+		char c = Input::getKey();
+		if(c != -1){
+			if (c == 8)
+				button->backspace();
+			else
+				button->enter(c);
+		}
+	}*/
 	//sceneInfor["main menu scene"] = modeSelectHandler;
 	//sceneInfor["single mode menu scene"] = singleModeMenuHandler;
 	//sceneInfor["single mode game scene"] = singleModeGametHandler;

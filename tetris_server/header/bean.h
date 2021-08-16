@@ -12,6 +12,9 @@
 #include "Tetris.h"
 #include "SingleModeGameManger.h"
 #include "Scanner.h"
+#include "ScannerButton.h"
+#include "FileManager.h"
+#include "UserDAO.h"
 
 class Bean {
 public:
@@ -116,6 +119,16 @@ public:
 		return new SingleModeGameManger(getTetris());
 	}
 	static Scanner* getScanner(int width, int height) {
-		return new Scanner(width, height, new ColorPrinter(CENTER));
+		return new Scanner(width, height, new ColorPrinter(CENTER, MIDDLE, AQUA));
 	}
+	static ScannerButton* getScannerButton(int x, int y, int w, int h) {
+		return new ScannerButton(x, y, getScanner(w, h), new Painter(), new Printer(), new Painter(), new Printer());
+	}
+	static FileManager* getUserFileManager() {
+		return new FileManager("user.txt");
+	}
+	static UserDAO* getUserDAO() {
+		return new UserDAO(getUserFileManager());
+	}
+
 };
