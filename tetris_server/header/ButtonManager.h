@@ -4,7 +4,12 @@
 #include "string+.h"
 #include <vector>
 using namespace std;
-
+/*
+키 입력을 받아 버튼을 선택 동작 시킨다.
+방향키는 버튼 이동(선택)
+스페이스는 버튼 클릭(선택된 버튼 정보를 반환한다.)
+나머지 키는 버튼에게 넘겨 핸들링한다.
+*/
 class ButtonManager {
 private:
 	int width, height;
@@ -24,13 +29,17 @@ private:
 	void move(int x, int y) {
 		if (rangeCheck(x, y) && existCheck(x, y)) {
 			select(x, y);
-		}
+		}   
 	}
-	void (*action)(Button* button) = NULL;
+	string (*action)(ButtonManager* button) = NULL;
 public:
+	vector<Button*> getButtons() {
+		return buttons;
+	}
 	ButtonManager(int width, int height):width(width), height(height) {
 		map = vector<vector<Button*>>(height, vector<Button*>(width, NULL));
 	}
+
 	void enroll(Button* button, int x, int y, bool selectFlag = false) {
 		if (!rangeCheck(x, y) || existCheck(x, y)) {
 			char errorBuffer[100];
@@ -49,7 +58,7 @@ public:
 		}
 		map[this->y][this->x]->draw();	// 선택된 버튼을 맨 위로 올리기 위해 다시 한번 그리기
 	}
-	void setAction(void (*action)(Button* button)) {
+	void setAction(string (*action)(ButtonManager* button)) {
 		this->action = action;
 	}
 	void up() {
@@ -64,23 +73,26 @@ public:
 	void left() {
 		move(x-1, y);
 	}
-	void click() {
+	string click() {// 버튼 기능을 활성화 하고 정보를 반환
 		if (existCheck(this->x, this->y)) {
 			if (action != NULL) {
-				action(map[this->y][this->x]);	// buttonManager에 action이 등록되어있다면 이를 우선으로 수행
+				return action(this);	// buttonManager에 action이 등록되어있다면 이를 우선으로 수행
 			}
 			else {
-				map[this->y][this->x]->click();	// buttonManager에 action이 없다면 button의 action을 수행
+				return map[this->y][this->x]->click();	// buttonManager에 action이 없다면 button의 action을 수행
 			}
 		}
 	}
-	string getSelectedButtonText() {
+	string getSelectedButtonText() {	// 현재 선택된 버튼의 텍스트 반환
 		if (!rangeCheck(x, y) || !existCheck(x, y)) {
 			char errorBuffer[100];
 			sprintf(errorBuffer, "can not get button text in (%d, %d)", x, y);
 			errorPrint(errorBuffer);
 		}
-		return map[this->y][this->x]->text;
+		return map[this->y][this->x]->getText();
+	}
+	void enter(char data) {
+		map[this->y][this->x]->update(data);
 	}
 	~ButtonManager() {
 		for (int i = 0; i < buttons.size(); i++) {

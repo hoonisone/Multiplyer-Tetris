@@ -4,41 +4,42 @@
 #include "Object.h"
 #include "Painter.h"
 using namespace std;
-class Scanner : Object{
+class Scanner : public Object{
 private:
-	int width, height;
-	string content;
+	string text;
 	Printer* printer;
 public:
-	Scanner(int width, int height, Printer* printer): width(width), height(height), printer(printer) {};
+	Scanner(int x, int y, int w, int h, Printer* printer): Object(x, y, w, h), printer(printer) {};
 	void draw(int drawX, int drawY) override{
 		Object::setDrawPosition(drawX, drawY);
-		redraw();
+		draw();
 	}
-	void redraw() override {
-		printer->printText(drawX, drawY, width, height, { content });
+	void draw() override {
+		printer->printText(x, y, w, h, { text });
+	}
+	void erase() override {
+		Painter({ " " }).rect(x, y, w, h);
 	}
 	void enter(char c) {
-		if(content.size() < width) // 버퍼가 차지 않았다면.
-			content.push_back(c);
+		if (c == 8) {	// backspace인 경우 맨 뒷 글자 제거
+			if (!text.empty()) {
+				erase();
+				text.pop_back();
+				draw();
+			}
+		}
+		else {
+			if (text.size() < w) { // 버퍼가 차지 않았다면.
+				text.push_back(c);	// 입력된 글자 추가
+				draw();
+			}
+		}
+
 	}
-	void backspace() {	// backspcae
-		if (!content.empty())
-			content.pop_back();
+	void emptyOut() {
+		text = "";
 	}
-	void erase() {
-		Painter({ " " }).rect(drawX, drawY, width, height);
-	}
-	void empty() {
-		content = "";
-	}
-	int getWidth() {
-		return width;
-	}
-	int getHeight() {
-		return height;
-	}
-	string getContent() {
-		return content;
+	string getText() {
+		return text;
 	}
 };

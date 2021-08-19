@@ -175,6 +175,7 @@
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\ButtonAction.h" />
     <ClInclude Include="header\ButtonManager.h" />
+    <ClInclude Include="header\ButtonScene.h" />
     <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\ColorPainter.h" />
@@ -202,7 +203,6 @@
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
-    <ClInclude Include="header\SelectScene.h" />
     <ClInclude Include="header\SingleModeGameManger.h" />
     <ClInclude Include="header\SubScreen.h" />
     <ClInclude Include="header\system.h" />
@@ -215,7 +215,7 @@
     <ClInclude Include="header\MainScreen.h" />
     <ClInclude Include="header\Timer.h" />
     <ClInclude Include="header\User.h" />
-    <ClInclude Include="header\UserDAO.h" />
+    <ClInclude Include="header\UserDao.h" />
     <ClInclude Include="header\UserManager.h" />
     <ClInclude Include="header\utill.h" />
   </ItemGroup>

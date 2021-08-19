@@ -92,8 +92,8 @@ public:
 	virtual void point(int x, int y)const {
 		_point(x, y);
 	}
-	virtual void horizontal(int x, int y, int w, PaintStd std = POINT_STD)const {
-		switch ((int)std) {
+	virtual void horizontal(int x, int y, int w, PaintStd standard = POINT_STD)const {
+		switch ((int)standard) {
 		case POINT_STD:
 			_horizontal(x, y, w);
 			break;
@@ -102,8 +102,8 @@ public:
 			break;
 		}
 	}
-	virtual void vertical(int x, int y, int h, PaintStd std = POINT_STD)const {
-		switch ((int)std) {
+	virtual void vertical(int x, int y, int h, PaintStd standard = POINT_STD)const {
+		switch ((int)standard) {
 		case POINT_STD:
 			_vertical(x, y, h);
 			break;
@@ -112,8 +112,8 @@ public:
 			break;
 		}
 	}
-	virtual void rectBorder(int x, int y, int w, int h, PaintStd std = POINT_STD)const {
-		switch ((int)std) {
+	virtual void rectBorder(int x, int y, int w, int h, PaintStd standard = POINT_STD)const {
+		switch ((int)standard) {
 		case POINT_STD:
 			_rectBorder(x, y, w, h);
 			break;
@@ -122,8 +122,8 @@ public:
 			break;
 		}
 	}
-	void rect(const int x, const int y, const int w, const int h, PaintStd std = POINT_STD)const {
-		switch ((int)std) {
+	void rect(const int x, const int y, const int w, const int h, PaintStd standard = POINT_STD)const {
+		switch ((int)standard) {
 		case POINT_STD:
 			_rect(x, y, w, h);
 			break;

@@ -1,23 +1,26 @@
-//#pragma once
-//
-//#define FILE_NAME_SIZE 100
-//#define FILE_LINE_SIZE 1024
-//
-//typedef struct UserManager {
-//	char fileName[FILE_NAME_SIZE];
-//	List* users; // User List
-//};
-//
-//UserManager* umCreateUserManager(char* fileName);
-//void umReadUserInfor(UserManager* um);
-//void umWriteUserInfor(UserManager* um);
-//int umUserExistenceCheck(UserManager* um, User* user);
-//void umEnrollUser(UserManager* um, User* user);
-//void umRemoveUser(UserManager* um, User* user);
-//void umRemoveUser(UserManager* um, User* user);
-//
-//
-//int userEqual(const Data data1, const Data data2);
-//int userCompare(const Data data1, const Data data2);
-//void userPrint(const Data data);
-//void userDelete(Data data);
+#pragma once
+#include "UserDao.h"
+#include <string>
+#include <vector>
+
+using namespace std;
+/*
+항상 모든 유저의 최신 정보를 userList에 담고 있다.
+매번 userDao를 통해 파일에 기록한다.
+*/
+class UserManager {
+private:
+	UserDao* userDao;
+	vector<User> userList;
+public:
+	UserManager(UserDao* userDao) : userDao(userDao) {
+		userList = userDao->getAllUsers();
+	}
+	vector<string> getAllUserNames() {
+		vector<string> names;
+		for (int i = 0; i < userList.size(); i++) {
+			names.push_back(userList[i].getName());
+		}
+		return names;
+	}
+};

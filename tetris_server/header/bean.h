@@ -3,10 +3,10 @@
 #include "ButtonManager.h"
 #include "Canvas.h"
 #include "Scene.h"
-#include "SelectScene.h"
 #include "BlockBoard.h"
 #include "BlockCreator.h"
 #include "SubScreen.h"
+#include "ButtonScene.h"
 #include "scoreBoard.h"
 #include "scoreManager.h"
 #include "Tetris.h"
@@ -14,15 +14,40 @@
 #include "Scanner.h"
 #include "ScannerButton.h"
 #include "FileManager.h"
-#include "UserDAO.h"
+#include "UserDao.h"
+#include "UserManager.h"
 
+string ServerSelectButtonManagerAction(ButtonManager* bm) {
+	string text = bm->getSelectedButtonText();
+	if(text  == "Connect") {
+		vector<Button*> buttons = bm->getButtons();
+		string ip = buttons[0]->getText();
+		string port = buttons[2]->getText();
+		/*return ip + "/" + port;*/
+		// 연결 하기 작성해야 함
+		bool connectedFlag = false;
+		if (connectedFlag) {
+			return "Success";
+		}
+		else {
+			return "Fail";
+		}
+	}
+	else if (text == "Back") {
+		return text;
+	}
+	return "Fail";
+}
+string ReturnSelectedButtonTextAction(ButtonManager * bm) {
+	return bm->getSelectedButtonText();
+}
 class Bean {
 public:
-	static SelectScene* getModeSelectScene() {
-		return new SelectScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer", "Exit"}), getMainSceneCanvas());
+	static ButtonScene* getModeSelectScene() {
+		return new ButtonScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer", "Exit"}), getMainSceneCanvas());
 	}
-	static SelectScene* getSingleModeMeneSelectScene() {
-		return new SelectScene(getModeSelectSceneButtonManager({ "Start", "Rank", "Back"}), getMainSceneCanvas());
+	static ButtonScene* getSingleModeMeneSelectScene() {
+		return new ButtonScene(getModeSelectSceneButtonManager({ "Start", "Rank", "Back"}), getMainSceneCanvas());
 	}
 	static ButtonManager* getModeSelectSceneButtonManager(vector<string> names) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
@@ -32,12 +57,36 @@ public:
 		ButtonManager* bm = new ButtonManager(1, names.size());
 		int x = WIDTH / 2;
 		int y = 20;
-		int w = 15;
+		int w = 20;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
 			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 		}
+		bm->setAction(ReturnSelectedButtonTextAction);
 		return bm;
+	}
+	static ButtonManager* getServerSelectButtonManager() {
+		vector<string> names = { "IP", "PORT" };
+		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
+		ColorPainter painter({ "˚" }, WHITE, BLACK);
+		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPainter selectPainter({ "˚" }, AQUA, BLACK);
+		ButtonManager* bm = new ButtonManager(3, names.size()+2);
+		int x = WIDTH / 2;
+		int y = 20;
+		int w = 20;
+		int h = 5;
+		for (int i = 0; i < names.size(); i++) {
+			bm->enroll(getScannerButton(x - w * painter.getWidth()/2, y + (h - 1) * painter.getHeight() * i, w, h), 2, i);
+			bm->enroll(new Button(x - w * painter.getWidth()/2-8, y + (h - 1) * painter.getHeight() * i, 4, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), false), 0, i);
+		}
+		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * names.size(), w, h, "Connect", true), 2, names.size());
+		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size()+1), w, h, "Back", true), 2, names.size()+1);
+		bm->setAction(ServerSelectButtonManagerAction);
+		return bm;
+	}
+	static Scene* getServerSelectScene() {
+		return new ButtonScene(getServerSelectButtonManager(), getMainSceneCanvas());
 	}
 	static Canvas* getMainSceneCanvas() {
 		vector<PointShape> letters = {
@@ -118,17 +167,31 @@ public:
 	static SingleModeGameManger* getSingleModeGameManager(){
 		return new SingleModeGameManger(getTetris());
 	}
-	static Scanner* getScanner(int width, int height) {
-		return new Scanner(width, height, new ColorPrinter(CENTER, MIDDLE, AQUA));
+	static Scanner* getScanner(int x, int y, int width, int height) {
+		return new Scanner(x, y, width, height, new ColorPrinter(CENTER, MIDDLE, WHITE));
 	}
-	static ScannerButton* getScannerButton(int x, int y, int w, int h) {
-		return new ScannerButton(x, y, getScanner(w, h), new Painter(), new Printer(), new Painter(), new Printer());
+	static Button* getScannerButton(int x, int y, int w, int h) {
+		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
+		ColorPainter painter({ "˚" }, WHITE, BLACK);
+		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPainter selectPainter({ "˚" }, AQUA, BLACK);
+		return new ScannerButton(x, y, getScanner(x + 1, y + 1, w - 2 * painter.getWidth(), h - 2 * painter.getHeight()), painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true);
+	}
+	static Button* getButton(int x, int y, int w, int h, string text, bool borderFlag) {
+		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
+		ColorPainter painter({ "˚" }, WHITE, BLACK);
+		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPainter selectPainter({ "˚" }, AQUA, BLACK);
+		return new Button(x, y, w, h, text, painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), borderFlag);
 	}
 	static FileManager* getUserFileManager() {
 		return new FileManager("user.txt");
 	}
-	static UserDAO* getUserDAO() {
-		return new UserDAO(getUserFileManager());
+	static UserDao* getUserDao() {
+		return new UserDao(getUserFileManager());
 	}
-
+	static UserManager* getUserManager() {
+		return new UserManager(getUserDao());
+	}
 };
+

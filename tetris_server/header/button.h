@@ -3,42 +3,21 @@
 #include "Consol.h"
 #include "Printer.h"
 #include "Painter.h"
+#include "ColorPrinter.h"
+#include "ColorPainter.h"
 #include "ButtonAction.h"
 #include "string+.h"
 #include "system.h"
+#include "Object.h"
 
-class Button {
-private:
-
-public:
-	int x, y, w, h;
+class Button : public Object{
+protected:
 	string text;
+	bool borderFlag;
+	bool selectFlag;
+	string (*action)(Button* button) = NULL;
 	Printer* unselectPrinter = NULL, * selectPrinter = NULL;
 	Painter* unselectPainter = NULL, * selectPainter = NULL;
-	bool borderFlag;
-	void (*action)(Button* button) = NULL;
-	bool selectFlag;
-	Button(const int x, const int y, const int w, const int h, const string& text,
-		Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter,
-		const bool borderFlag = true) : selectFlag(false) {
-		setPos(x, y);
-		setSize(w, h);
-		setText(text);
-		setUnselectPrinter(unselectPrinter);
-		setUnselectPainter(unselectPainter);
-		setSelectPrinter(selectPrinter);
-		setSelectPainter(selectPainter);
-		setBorderFlag(borderFlag);
-		this->selectFlag = selectFlag;
-	};
-	void setPos(int x, int y) {
-		this->x = x;
-		this->y = y;
-	}
-	void setSize(int w, int h) {
-		this->w = w;
-		this->h = h;
-	}
 	void setText(string text) {
 		this->text = text;
 	}
@@ -64,25 +43,40 @@ public:
 	void setAction(void (*_action)(Button* button)) {
 		this->action = action;
 	}
-	void draw()const {
+public:
+	Button(int x, int y, int w, int h, string text,
+		Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter, bool borderFlag = true) : Object(x, y, w, h), selectFlag(false) {
+		setText(text);
+		setUnselectPrinter(unselectPrinter);
+		setUnselectPainter(unselectPainter);
+		setSelectPrinter(selectPrinter);
+		setSelectPainter(selectPainter);
+		setBorderFlag(borderFlag);
+		this->selectFlag = selectFlag;
+	};
+	void draw(int x, int y) override{
+		Object::setDrawPosition(x, y);
+		draw();
+	}
+	void draw() override {
 		erase();
 		if (borderFlag) {
 			if (selectFlag) {
-				selectPainter->rectBorder(x, y, w, h);
+				selectPainter->rectBorder(x, y, w, h, CURSOR_STD);
 			}
 			else {
-				unselectPainter->rectBorder(x, y, w, h);
+				unselectPainter->rectBorder(x, y, w, h, CURSOR_STD);
 			}
 		}
 		vector<string>tokens = split(text, "\n");
 		if (selectFlag) {
-			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 2) * unselectPainter->getWidth(), (h - 2) * unselectPainter->getHeight(), tokens);
+			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), w - 2 * unselectPainter->getWidth(), h - 2 * unselectPainter->getHeight(), tokens);
 		}
 		else {
-			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), (w - 2) * unselectPainter->getWidth(), (h - 2) * unselectPainter->getHeight(), tokens);
+			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), w - 2 * unselectPainter->getWidth(), h - 2 * unselectPainter->getHeight(), tokens);
 		}
 	}
-	void erase() const {
+	void erase() override {
 		Painter({ " " }).rect(x, y, w * selectPainter->getWidth(), h * selectPainter->getHeight());
 	}
 	void select() {
@@ -91,10 +85,18 @@ public:
 	void unselect() {
 		this->selectFlag = false;
 	}
-	void click() {
-		if (action != NULL) { action(this); }
-		else { cout << "button(" << text << ") is clicked"; }
+	string click() {
+		if (action != NULL) { 
+			return action(this); 
+		}
 	}
+	virtual void update(char key) {
+		return;
+	}
+	virtual string getText() {
+		return text;
+	}
+
 	~Button() {
 		if (unselectPainter != NULL) FREE(unselectPainter);
 		if (unselectPrinter != NULL) FREE(unselectPrinter);

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class UserDAO {
+class UserDao {
 private:
 	FileManager* userFileManager;
 	User parse(string userInforString) {
@@ -29,7 +29,7 @@ private:
 		return string(arr);
 	}
 public:
-	UserDAO(FileManager* userFileManager) : userFileManager(userFileManager) {}
+	UserDao(FileManager* userFileManager) : userFileManager(userFileManager) {}
 
 	vector<User> getAllUsers() {
 		vector<User> userList;
@@ -46,7 +46,7 @@ public:
 		}
 		userFileManager->writeLines(lines);
 	}
-	~UserDAO() {
+	~UserDao() {
 		delete userFileManager;
 	}
 };

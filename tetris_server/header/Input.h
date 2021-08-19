@@ -10,7 +10,7 @@ public:
 		Key c;
 		if (_kbhit()) {
 			c = (Key)_getch();
-			if (c == -32)	return (Key)_getch();
+			if ((char)c == -32)	return (Key)_getch();
 			else			return c;
 		}
 		return (Key)-1;
