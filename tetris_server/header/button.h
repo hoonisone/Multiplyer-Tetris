@@ -15,92 +15,69 @@ protected:
 	string text;
 	bool borderFlag;
 	bool selectFlag;
-	string (*action)(Button* button) = NULL;
-	Printer* unselectPrinter = NULL, * selectPrinter = NULL;
-	Painter* unselectPainter = NULL, * selectPainter = NULL;
-	void setText(string text) {
-		this->text = text;
-	}
-	void setUnselectPrinter(Printer* printer) {
-		if (unselectPrinter != NULL) delete unselectPrinter;
-		this->unselectPrinter = printer;
-	}
-	void setUnselectPainter(Painter* painter) {
-		if (unselectPainter != NULL) delete unselectPainter;
-		this->unselectPainter = painter;
-	}
-	void setSelectPrinter(Printer* printer) {
-		if (selectPrinter != NULL) delete selectPrinter;
-		this->selectPrinter = printer;
-	}
-	void setSelectPainter(Painter* painter) {
-		if (selectPainter != NULL) delete selectPainter;
-		this->selectPainter = painter;
-	}
-	void setBorderFlag(bool borderFlag) {
-		this->borderFlag = borderFlag;
-	}
+	string (*action)(Button* button) = NULL;	// 버튼 클릭시 수행 될 함수
+	Printer* unselectedPrinter = NULL, * selectedPrinter = NULL, * printer = NULL;
+	Painter* unselectedPainter = NULL, * selectedPainter = NULL, * painter = NULL;
 	void setAction(void (*_action)(Button* button)) {
 		this->action = action;
 	}
+	void drawBorder() {
+		if (borderFlag)	painter->rectBorder(x, y, w, h, CURSOR_STD);
+	}
+	void drawText() {
+		vector<string>tokens = split(text, "\n");
+		printer->printText(x + painter->getWidth(), y + painter->getHeight(), w - 2 * painter->getWidth(), h - 2 * painter->getHeight(), tokens);
+	}
 public:
-	Button(int x, int y, int w, int h, string text,
-		Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter, bool borderFlag = true) : Object(x, y, w, h), selectFlag(false) {
-		setText(text);
-		setUnselectPrinter(unselectPrinter);
-		setUnselectPainter(unselectPainter);
-		setSelectPrinter(selectPrinter);
-		setSelectPainter(selectPainter);
-		setBorderFlag(borderFlag);
-		this->selectFlag = selectFlag;
+	Button(int x, int y, int w, int h, string text, Painter* unselectedPainter, Printer* unselectedPrinter, 
+		Painter* selectedPainter, Printer* selectedPrinter, bool borderFlag = true) : 
+		Object(x, y, w, h), text(text), unselectedPainter(unselectedPainter), unselectedPrinter(unselectedPrinter),
+		selectedPainter(selectedPainter), selectedPrinter(selectedPrinter), borderFlag(borderFlag){
+		unselect();	// unselecte 상태로 초기화
 	};
 	void draw(int x, int y) override{
 		Object::setDrawPosition(x, y);
 		draw();
 	}
-	void draw() override {
-		erase();
-		if (borderFlag) {
-			if (selectFlag) {
-				selectPainter->rectBorder(x, y, w, h, CURSOR_STD);
-			}
-			else {
-				unselectPainter->rectBorder(x, y, w, h, CURSOR_STD);
-			}
-		}
-		vector<string>tokens = split(text, "\n");
-		if (selectFlag) {
-			selectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), w - 2 * unselectPainter->getWidth(), h - 2 * unselectPainter->getHeight(), tokens);
-		}
-		else {
-			unselectPrinter->printText(x + unselectPainter->getWidth(), y + unselectPainter->getHeight(), w - 2 * unselectPainter->getWidth(), h - 2 * unselectPainter->getHeight(), tokens);
-		}
+	void draw() override  {
+		drawBorder();
+		drawText();
 	}
 	void erase() override {
-		Painter({ " " }).rect(x, y, w * selectPainter->getWidth(), h * selectPainter->getHeight());
+		Painter({ " " }).rect(x, y, w * selectedPainter->getWidth(), h * selectedPainter->getHeight());
 	}
-	void select() {
-		this->selectFlag = true;
+	void select(bool redraw = true) {
+		selectFlag = true;
+		if (redraw) erase();
+		printer = selectedPrinter;
+		painter = selectedPainter;
+		if (redraw) draw();
 	}
-	void unselect() {
-		this->selectFlag = false;
+	void unselect(bool redraw = true) {
+		selectFlag = false;
+		if (redraw) erase();
+		printer = unselectedPrinter;
+		painter = unselectedPainter;
+		if (redraw) draw();
 	}
 	string click() {
 		if (action != NULL) { 
 			return action(this); 
 		}
 	}
-	virtual void update(char key) {
-		return;
+	virtual void update(char key, bool redraw = true) {
+		if (redraw) erase();
+		// 수정 내용
+		if (redraw) draw();
 	}
 	virtual string getText() {
 		return text;
 	}
 
 	~Button() {
-		if (unselectPainter != NULL) FREE(unselectPainter);
-		if (unselectPrinter != NULL) FREE(unselectPrinter);
-		if (selectPainter != NULL) FREE(selectPainter);
-		if (selectPrinter != NULL) FREE(selectPrinter);
+		if (unselectedPainter != NULL) FREE(unselectedPainter);
+		if (unselectedPrinter != NULL) FREE(unselectedPrinter);
+		if (selectedPainter != NULL) FREE(selectedPainter);
+		if (selectedPrinter != NULL) FREE(selectedPrinter);
 	}
 };

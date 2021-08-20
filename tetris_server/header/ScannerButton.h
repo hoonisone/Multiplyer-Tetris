@@ -9,7 +9,7 @@ private:
 		Button::draw();
 	}
 	void drawScanner() {
-		scanner->draw(x + selectPainter->getWidth(), y + selectPainter->getHeight());
+		scanner->draw(x + selectedPainter->getWidth(), y + selectedPainter->getHeight());
 	}
 public:
 	ScannerButton(int x, int y, Scanner* scanner, Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter, const bool borderFlag = true):
@@ -24,8 +24,7 @@ public:
 	string getText() {
 		return scanner->getText();
 	}
-	void update(char input) override{
-		scanner->enter(input);
-		drawScanner();
+	void update(char input, bool redraw) override{
+		scanner->enter(input, redraw);
 	}
 };

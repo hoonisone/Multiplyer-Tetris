@@ -18,17 +18,17 @@ private:
 	vector<Button*> buttons;
 	bool rangeCheck(int x, int y) {return 0 <= x && x < width && 0 <= y && y < height;}
 	bool existCheck(int x, int y) { return map[y][x] != NULL; }
-	void select(int x, int y) {
+	void select(int x, int y, bool redraw = true) {
 		if (existCheck(this->x, this->y)) {
-			map[this->y][this->x]->unselect();
+			map[this->y][this->x]->unselect(redraw);
 		}
 		this->x = x;
 		this->y = y;
-		map[this->y][this->x]->select();
+		map[this->y][this->x]->select(redraw);
 	}
-	void move(int x, int y) {
+	void move(int x, int y, bool redraw = true) {
 		if (rangeCheck(x, y) && existCheck(x, y)) {
-			select(x, y);
+			select(x, y, redraw);
 		}   
 	}
 	string (*action)(ButtonManager* button) = NULL;
@@ -61,17 +61,17 @@ public:
 	void setAction(string (*action)(ButtonManager* button)) {
 		this->action = action;
 	}
-	void up() {
-		move(x, y - 1);
+	void up(bool redraw = true) {
+		move(x, y - 1, redraw);
 	}
-	void down() {
-		move(x, y + 1);
+	void down(bool redraw = true) {
+		move(x, y + 1, redraw);
 	}
-	void right() {
-		move(x+1, y);
+	void right(bool redraw = true) {
+		move(x+1, y, redraw);
 	}
-	void left() {
-		move(x-1, y);
+	void left(bool redraw = true) {
+		move(x-1, y, redraw);
 	}
 	string click() {// 버튼 기능을 활성화 하고 정보를 반환
 		if (existCheck(this->x, this->y)) {
@@ -91,8 +91,8 @@ public:
 		}
 		return map[this->y][this->x]->getText();
 	}
-	void enter(char data) {
-		map[this->y][this->x]->update(data);
+	void enter(char data, bool redraw = true) {
+		map[this->y][this->x]->update(data, redraw);
 	}
 	~ButtonManager() {
 		for (int i = 0; i < buttons.size(); i++) {

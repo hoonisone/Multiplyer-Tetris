@@ -63,6 +63,7 @@ public:
 			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 		}
 		bm->setAction(ReturnSelectedButtonTextAction);
+		
 		return bm;
 	}
 	static ButtonManager* getServerSelectButtonManager() {
