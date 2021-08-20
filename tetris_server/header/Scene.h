@@ -7,10 +7,12 @@
 #include "ButtonManager.h"
 #include "ColorPrinter.h"
 
+/*
+- Director 객체에 의해 관리된다.
+*/
 class Scene {
 private:
-	virtual void erase() = 0;
 public:
-	virtual string start() = 0;	// 장면을 수행하고 장면 정보를 text로 전달
+	virtual string action() = 0;	// 장면 하나를 수행하고 반드시 다음 장면의 이름을 반환해야 한다. 공백은 종료를 뜻한다.
 };
 

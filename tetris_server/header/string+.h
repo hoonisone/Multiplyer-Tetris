@@ -9,12 +9,4 @@
 
 using namespace std;
 
-char* createString(char* string);
-List* split(char* text, char* key);
 vector<string> split(string s, string key);
-void textPrintLeft(int x, int y, int w, int h, char* text);
-void textPrintMiddle(int x, int y, int w, int h, char* text);
-void textPrintRight(int x, int y, int w, int h, char* text);
-void textPrintAlign(int x, int y, int w, int h, char* text, int align = ALIGN_MIDDLE);
-
-template<typename ... Args> string string_f(const string& format, Args ... args);

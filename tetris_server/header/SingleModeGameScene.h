@@ -1,12 +1,14 @@
 #pragma once
 #include "tetris.h"
 #include "Input.h"
+#include "Scene.h"
 
-class SingleModeGameManger {
+class SingleModeGameScene:public Scene {
 	Tetris* tetris;
+	string nextSceneName;
 public:
-	SingleModeGameManger(Tetris* tetris) :tetris(tetris) {};
-	void run() {
+	SingleModeGameScene(Tetris* tetris, string nextSceneName) :tetris(tetris), nextSceneName(nextSceneName) {};
+	string action() {
 		tetris->draw(0, 0);
 		while (!tetris->checkEnd()) {
 			tetris->update();
@@ -31,8 +33,9 @@ public:
 				break;
 			}
 		}
+		return nextSceneName;
 	}
-	~SingleModeGameManger() {
+	~SingleModeGameScene() {
 		delete tetris;
 	}
 };

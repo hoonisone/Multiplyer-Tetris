@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="헤더 파일\list">
-      <UniqueIdentifier>{509353e9-b08d-4983-8643-dbf40fc77f71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\list">
-      <UniqueIdentifier>{bd874dd0-feed-4f32-b486-68d289e9561d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\tetris">
-      <UniqueIdentifier>{ce356c8b-7aec-413c-99aa-c0ebc8a57e50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\utill">
       <UniqueIdentifier>{f6056653-ee5d-4383-b984-851f0e398f8c}</UniqueIdentifier>
     </Filter>
@@ -31,29 +22,14 @@
     <Filter Include="헤더 파일\tetris">
       <UniqueIdentifier>{44e6c690-017b-40c0-9921-6eccd80345f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\test">
-      <UniqueIdentifier>{72a0c20b-49de-479e-93bf-154e5f1010e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\test">
       <UniqueIdentifier>{895885af-67a8-4063-bc27-105e2acf0e7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\list\listTool">
-      <UniqueIdentifier>{aa419350-13c1-4794-a6fa-2257b41c4108}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\list\listTool">
-      <UniqueIdentifier>{d7b53c71-eb7b-463c-953c-23ccdc039c82}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\ui">
       <UniqueIdentifier>{b1c2760e-4798-4d49-bb5d-1df7befa6543}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ui">
-      <UniqueIdentifier>{33c7457c-3420-49e1-9b30-6789222d0585}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\graphic">
       <UniqueIdentifier>{0c1ee7ea-e753-4e91-a0ef-d7f5fd4029fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Scene">
-      <UniqueIdentifier>{0d44be84-0c66-404f-82b1-b936eb3895d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\tetris\Block">
       <UniqueIdentifier>{92a0d01c-0682-452c-b82b-0f2beb8618c9}</UniqueIdentifier>
@@ -64,80 +40,41 @@
     <Filter Include="헤더 파일\tetris\Screen">
       <UniqueIdentifier>{9c54a333-cf2a-4185-a075-8a445de0c407}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\tetris\Game">
-      <UniqueIdentifier>{0bf14281-d36e-4ea5-b7b7-99a31c7d8372}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\tetris\User">
       <UniqueIdentifier>{e91e5d8f-7b5c-445b-97d4-f7527a9cd661}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\ui\button">
+      <UniqueIdentifier>{667fc0b5-a0b0-4803-b791-7b0a58df3e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\canvas">
+      <UniqueIdentifier>{69395d71-8dd4-47c5-87e2-2da2a599e2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\Scene">
+      <UniqueIdentifier>{0d44be84-0c66-404f-82b1-b936eb3895d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\director">
+      <UniqueIdentifier>{e018180c-12e0-4f24-bef0-2ecdebfec65b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="source\list.cpp">
-      <Filter>소스 파일\list</Filter>
-    </ClCompile>
-    <ClCompile Include="source\node.cpp">
-      <Filter>소스 파일\list</Filter>
-    </ClCompile>
-    <ClCompile Include="source\utill.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
     <ClCompile Include="source\test.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\string+.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
-    <ClCompile Include="source\listener.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
     <ClCompile Include="source\error.cpp">
-      <Filter>소스 파일\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="source\math+.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
     <ClCompile Include="source\server.cpp">
       <Filter>소스 파일\utill</Filter>
     </ClCompile>
-    <ClCompile Include="source\listTest.cpp">
-      <Filter>소스 파일\test</Filter>
-    </ClCompile>
-    <ClCompile Include="source\stringList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\intList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\floatList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\doubleList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\charList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\scoreManagerTest.cpp">
-      <Filter>소스 파일\test</Filter>
-    </ClCompile>
-    <ClCompile Include="source\mathPlusTest.cpp">
-      <Filter>소스 파일\test</Filter>
-    </ClCompile>
-    <ClCompile Include="source\objectList.cpp">
-      <Filter>소스 파일\list\listTool</Filter>
-    </ClCompile>
-    <ClCompile Include="source\random.cpp">
-      <Filter>소스 파일\utill</Filter>
+    <ClCompile Include="source\main.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\listener.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\math+.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\server.h">
@@ -152,35 +89,8 @@
     <ClInclude Include="header\Timer.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\utill.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
     <ClInclude Include="header\error.h">
       <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\list.h">
-      <Filter>헤더 파일\list</Filter>
-    </ClInclude>
-    <ClInclude Include="header\node.h">
-      <Filter>헤더 파일\list</Filter>
-    </ClInclude>
-    <ClInclude Include="header\listTest.h">
-      <Filter>헤더 파일\test</Filter>
-    </ClInclude>
-    <ClInclude Include="header\stringList.h">
-      <Filter>헤더 파일\list\listTool</Filter>
-    </ClInclude>
-    <ClInclude Include="header\intList.h">
-      <Filter>헤더 파일\list\listTool</Filter>
-    </ClInclude>
-    <ClInclude Include="header\doubleList.h">
-      <Filter>헤더 파일\list\listTool</Filter>
-    </ClInclude>
-    <ClInclude Include="header\floatList.h">
-      <Filter>헤더 파일\list\listTool</Filter>
-    </ClInclude>
-    <ClInclude Include="header\charList.h">
-      <Filter>헤더 파일\list\listTool</Filter>
     </ClInclude>
     <ClInclude Include="header\scoreManagerTest.h">
       <Filter>헤더 파일\test</Filter>
@@ -200,9 +110,6 @@
     <ClInclude Include="header\Consol.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
-    <ClInclude Include="header\ButtonAction.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\ColorPainter.h">
       <Filter>헤더 파일\graphic</Filter>
     </ClInclude>
@@ -212,23 +119,14 @@
     <ClInclude Include="header\system.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\ButtonManager.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Canvas.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\Input.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\Scene.h">
-      <Filter>헤더 파일\Scene</Filter>
+      <Filter>헤더 파일\ui\Scene</Filter>
     </ClInclude>
     <ClInclude Include="header\Bean.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Button.h">
-      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\Block.h">
       <Filter>헤더 파일\tetris\Block</Filter>
@@ -257,15 +155,6 @@
     <ClInclude Include="header\Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="header\ScannerButton.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Tetris.h">
-      <Filter>헤더 파일\tetris\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="header\SingleModeGameManger.h">
-      <Filter>헤더 파일\tetris\Game</Filter>
-    </ClInclude>
     <ClInclude Include="header\User.h">
       <Filter>헤더 파일\tetris\User</Filter>
     </ClInclude>
@@ -278,8 +167,32 @@
     <ClInclude Include="header\FileManager.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\ButtonScene.h">
-      <Filter>헤더 파일\Scene</Filter>
+    <ClInclude Include="header\ButtonSelectScene.h">
+      <Filter>헤더 파일\ui\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\TextInputScene.h">
+      <Filter>헤더 파일\ui\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SingleModeGameScene.h">
+      <Filter>헤더 파일\ui\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Button.h">
+      <Filter>헤더 파일\ui\button</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ButtonManager.h">
+      <Filter>헤더 파일\ui\button</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ScannerButton.h">
+      <Filter>헤더 파일\ui\button</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Canvas.h">
+      <Filter>헤더 파일\ui\canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Director.h">
+      <Filter>헤더 파일\ui\director</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Tetris.h">
+      <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

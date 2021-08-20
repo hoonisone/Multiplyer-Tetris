@@ -6,16 +6,18 @@
 #include "BlockBoard.h"
 #include "BlockCreator.h"
 #include "SubScreen.h"
-#include "ButtonScene.h"
+#include "ButtonSelectScene.h"
+#include "TextInputScene.h"
 #include "scoreBoard.h"
 #include "scoreManager.h"
 #include "Tetris.h"
-#include "SingleModeGameManger.h"
+#include "SingleModeGameScene.h"
 #include "Scanner.h"
 #include "ScannerButton.h"
 #include "FileManager.h"
 #include "UserDao.h"
 #include "UserManager.h"
+#include "Director.h"
 
 string ServerSelectButtonManagerAction(ButtonManager* bm) {
 	string text = bm->getSelectedButtonText();
@@ -43,12 +45,42 @@ string ReturnSelectedButtonTextAction(ButtonManager * bm) {
 }
 class Bean {
 public:
-	static ButtonScene* getModeSelectScene() {
-		return new ButtonScene(getModeSelectSceneButtonManager({ "Single Mode", "Multi Mode", "Developer", "Exit"}), getMainSceneCanvas());
+	// Director
+	static Director* getDirector() {
+		Director* director = new Director();
+		director->enrollScene("main menu", getMainMenuScene);
+		director->enrollScene("single menu", getSingleMenuScene);
+		director->enrollScene("server connect", getServerSelectScene);
+		director->enrollScene("single game", getSingleGameScene);
+		return director;
 	}
-	static ButtonScene* getSingleModeMeneSelectScene() {
-		return new ButtonScene(getModeSelectSceneButtonManager({ "Start", "Rank", "Back"}), getMainSceneCanvas());
+	// Scene
+	static Scene* getButtonSelectScene(vector<string> buttonNames, vector<string> nextSceneNames) {
+		ButtonManager* buttonManager = getModeSelectSceneButtonManager(buttonNames);
+		Canvas* canvas = getMainSceneCanvas();
+		return new ButtonSelectScene(buttonManager, canvas, buttonNames, nextSceneNames);
 	}
+	static Scene* getTextInputScene(ButtonManager* buttonManager, Canvas* canvas) {
+		return new TextInputScene(buttonManager, canvas, "main mune");
+	}
+
+	static Scene* getSingleMenuScene() {
+		const vector<string> buttonNames = { "Start", "Rank", "Back" };
+		const vector<string> nextSceneNames = { "single game", "single rank", "main menu" };
+		return getButtonSelectScene(buttonNames, nextSceneNames);
+	}
+	static Scene* getMainMenuScene() {
+		vector<string> buttonNames = { "Single Mode", "Multi Mode", "Developer", "Exit" };
+		vector<string> nextSceneNames = { "single menu", "server connect", "developer", "game exit" };
+		return getButtonSelectScene(buttonNames, nextSceneNames);
+	}
+	static Scene* getServerSelectScene() {
+		return getTextInputScene(getServerSelectButtonManager(), getMainSceneCanvas());
+	}
+	static Scene* getSingleGameScene() {
+		return new SingleModeGameScene(getTetris(), "main menu");
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	static ButtonManager* getModeSelectSceneButtonManager(vector<string> names) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
@@ -63,7 +95,7 @@ public:
 			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 		}
 		bm->setAction(ReturnSelectedButtonTextAction);
-		
+
 		return bm;
 	}
 	static ButtonManager* getServerSelectButtonManager() {
@@ -72,22 +104,19 @@ public:
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "вк" }, AQUA, BLACK);
-		ButtonManager* bm = new ButtonManager(3, names.size()+2);
+		ButtonManager* bm = new ButtonManager(3, names.size() + 2);
 		int x = WIDTH / 2;
 		int y = 20;
 		int w = 20;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
-			bm->enroll(getScannerButton(x - w * painter.getWidth()/2, y + (h - 1) * painter.getHeight() * i, w, h), 2, i);
-			bm->enroll(new Button(x - w * painter.getWidth()/2-8, y + (h - 1) * painter.getHeight() * i, 4, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), false), 0, i);
+			bm->enroll(getScannerButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h), 2, i);
+			bm->enroll(new Button(x - w * painter.getWidth() / 2 - 8, y + (h - 1) * painter.getHeight() * i, 4, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), false), 0, i);
 		}
 		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * names.size(), w, h, "Connect", true), 2, names.size());
-		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size()+1), w, h, "Back", true), 2, names.size()+1);
+		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size() + 1), w, h, "Back", true), 2, names.size() + 1);
 		bm->setAction(ServerSelectButtonManagerAction);
 		return bm;
-	}
-	static Scene* getServerSelectScene() {
-		return new ButtonScene(getServerSelectButtonManager(), getMainSceneCanvas());
 	}
 	static Canvas* getMainSceneCanvas() {
 		vector<PointShape> letters = {
@@ -165,9 +194,7 @@ public:
 	static ScoreManager* getScoreManager() {
 		return new ScoreManager(getScoreBoard());
 	}
-	static SingleModeGameManger* getSingleModeGameManager(){
-		return new SingleModeGameManger(getTetris());
-	}
+
 	static Scanner* getScanner(int x, int y, int width, int height) {
 		return new Scanner(x, y, width, height, new ColorPrinter(CENTER, MIDDLE, WHITE));
 	}

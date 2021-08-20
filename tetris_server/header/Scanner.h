@@ -4,15 +4,15 @@
 #include "Object.h"
 #include "Painter.h"
 using namespace std;
-class Scanner : public Object{
+class Scanner : public ConsolObject{
 private:
 	string text;
 	Printer* printer;
 public:
-	Scanner(int x, int y, int w, int h, Printer* printer): Object(x, y, w, h), printer(printer) {};
-	void draw(int drawX, int drawY) override{
-		Object::setDrawPosition(drawX, drawY);
-		draw();
+	Scanner(int x, int y, int w, int h, Printer* printer): ConsolObject(x, y, w, h), printer(printer) {};
+	void move(int drawX, int drawY, bool redraw = true) override {
+		ConsolObject::move(drawX, drawY);
+		if(redraw)draw();
 	}
 	void draw() override {
 		printer->printText(x, y, w, h, { text });

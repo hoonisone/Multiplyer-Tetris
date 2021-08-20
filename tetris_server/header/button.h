@@ -5,12 +5,11 @@
 #include "Painter.h"
 #include "ColorPrinter.h"
 #include "ColorPainter.h"
-#include "ButtonAction.h"
 #include "string+.h"
 #include "system.h"
 #include "Object.h"
 
-class Button : public Object{
+class Button : public ConsolObject{
 protected:
 	string text;
 	bool borderFlag;
@@ -31,13 +30,14 @@ protected:
 public:
 	Button(int x, int y, int w, int h, string text, Painter* unselectedPainter, Printer* unselectedPrinter, 
 		Painter* selectedPainter, Printer* selectedPrinter, bool borderFlag = true) : 
-		Object(x, y, w, h), text(text), unselectedPainter(unselectedPainter), unselectedPrinter(unselectedPrinter),
+		ConsolObject(x, y, w, h), text(text), unselectedPainter(unselectedPainter), unselectedPrinter(unselectedPrinter),
 		selectedPainter(selectedPainter), selectedPrinter(selectedPrinter), borderFlag(borderFlag){
 		unselect();	// unselecte 상태로 초기화
 	};
-	void draw(int x, int y) override{
-		Object::setDrawPosition(x, y);
-		draw();
+	void move(int x, int y, bool redraw = true) override{
+		if (redraw)erase();
+		ConsolObject::move(x, y);
+		if(redraw)draw();
 	}
 	void draw() override  {
 		drawBorder();

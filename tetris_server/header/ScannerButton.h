@@ -9,7 +9,7 @@ private:
 		Button::draw();
 	}
 	void drawScanner() {
-		scanner->draw(x + selectedPainter->getWidth(), y + selectedPainter->getHeight());
+		scanner->move(x + selectedPainter->getWidth(), y + selectedPainter->getHeight());
 	}
 public:
 	ScannerButton(int x, int y, Scanner* scanner, Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter, const bool borderFlag = true):

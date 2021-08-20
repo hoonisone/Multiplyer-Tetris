@@ -26,7 +26,7 @@ private:
 		this->y = y;
 		map[this->y][this->x]->select(redraw);
 	}
-	void move(int x, int y, bool redraw = true) {
+	void moveCursor(int x, int y, bool redraw = true) {
 		if (rangeCheck(x, y) && existCheck(x, y)) {
 			select(x, y, redraw);
 		}   
@@ -62,16 +62,16 @@ public:
 		this->action = action;
 	}
 	void up(bool redraw = true) {
-		move(x, y - 1, redraw);
+		moveCursor(x, y - 1, redraw);
 	}
 	void down(bool redraw = true) {
-		move(x, y + 1, redraw);
+		moveCursor(x, y + 1, redraw);
 	}
 	void right(bool redraw = true) {
-		move(x+1, y, redraw);
+		moveCursor(x+1, y, redraw);
 	}
 	void left(bool redraw = true) {
-		move(x-1, y, redraw);
+		moveCursor(x-1, y, redraw);
 	}
 	string click() {// 버튼 기능을 활성화 하고 정보를 반환
 		if (existCheck(this->x, this->y)) {
@@ -91,8 +91,8 @@ public:
 		}
 		return map[this->y][this->x]->getText();
 	}
-	void enter(char data, bool redraw = true) {
-		map[this->y][this->x]->update(data, redraw);
+	void update(char input, bool redraw = true) {
+		map[this->y][this->x]->update(input, redraw);
 	}
 	~ButtonManager() {
 		for (int i = 0; i < buttons.size(); i++) {

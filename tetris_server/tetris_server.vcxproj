@@ -147,52 +147,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\charList.cpp" />
-    <ClCompile Include="source\doubleList.cpp" />
     <ClCompile Include="source\error.cpp" />
-    <ClCompile Include="source\floatList.cpp" />
-    <ClCompile Include="source\intList.cpp" />
-    <ClCompile Include="source\list.cpp" />
-    <ClCompile Include="source\listener.cpp" />
-    <ClCompile Include="source\listTest.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\math+.cpp" />
-    <ClCompile Include="source\mathPlusTest.cpp" />
-    <ClCompile Include="source\node.cpp" />
-    <ClCompile Include="source\objectList.cpp" />
-    <ClCompile Include="source\random.cpp" />
-    <ClCompile Include="source\scoreManagerTest.cpp" />
     <ClCompile Include="source\server.cpp" />
     <ClCompile Include="source\string+.cpp" />
-    <ClCompile Include="source\stringList.cpp" />
     <ClCompile Include="source\test.cpp" />
-    <ClCompile Include="source\utill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Bean.h" />
     <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\BlockCreator.h" />
     <ClInclude Include="header\Button.h" />
-    <ClInclude Include="header\ButtonAction.h" />
     <ClInclude Include="header\ButtonManager.h" />
-    <ClInclude Include="header\ButtonScene.h" />
+    <ClInclude Include="header\ButtonSelectScene.h" />
     <ClInclude Include="header\Canvas.h" />
-    <ClInclude Include="header\charList.h" />
     <ClInclude Include="header\ColorPainter.h" />
     <ClInclude Include="header\ColorPrinter.h" />
     <ClInclude Include="header\Consol.h" />
-    <ClInclude Include="header\doubleList.h" />
     <ClInclude Include="header\error.h" />
     <ClInclude Include="header\FileManager.h" />
-    <ClInclude Include="header\floatList.h" />
     <ClInclude Include="header\Input.h" />
-    <ClInclude Include="header\intList.h" />
-    <ClInclude Include="header\list.h" />
     <ClInclude Include="header\listener.h" />
-    <ClInclude Include="header\listTest.h" />
-    <ClInclude Include="header\math+.h" />
     <ClInclude Include="header\mathPlusTest.h" />
-    <ClInclude Include="header\node.h" />
     <ClInclude Include="header\Object.h" />
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
@@ -203,21 +179,21 @@
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />
     <ClInclude Include="header\scoreManagerTest.h" />
-    <ClInclude Include="header\SingleModeGameManger.h" />
+    <ClInclude Include="header\SingleModeGameScene.h" />
     <ClInclude Include="header\SubScreen.h" />
     <ClInclude Include="header\system.h" />
     <ClInclude Include="header\Tetris.h" />
     <ClInclude Include="header\server.h" />
     <ClInclude Include="header\string+.h" />
-    <ClInclude Include="header\stringList.h" />
     <ClInclude Include="header\test.h" />
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\MainScreen.h" />
+    <ClInclude Include="header\TextInputScene.h" />
     <ClInclude Include="header\Timer.h" />
     <ClInclude Include="header\User.h" />
     <ClInclude Include="header\UserDao.h" />
     <ClInclude Include="header\UserManager.h" />
-    <ClInclude Include="header\utill.h" />
+    <ClInclude Include="header\Director.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="user.txt" />
