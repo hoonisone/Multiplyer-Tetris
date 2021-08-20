@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "UserManager.h"
 
 /*
 	화면에 버튼을 출력하고 원하는 버튼만 선택받는 Scene이다.

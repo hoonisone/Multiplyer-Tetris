@@ -6,7 +6,7 @@
 #include <WinSock2.h>
 #include "error.h"
 #include "server.h"
-#include "list.h"
+
 
 #define MAX_USER_NUM 100
 #define BUFFER_SIZE 1024

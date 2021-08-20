@@ -1,6 +1,5 @@
 #pragma once
 #include "tetris.h"
-#include "Input.h"
 #include "Scene.h"
 
 class SingleModeGameScene:public Scene {

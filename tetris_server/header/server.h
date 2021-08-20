@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <WinSock2.h>
-#include "list.h"
+#include <WinSock.h>
 
 typedef struct ClientSocket {
 	SOCKET socket;

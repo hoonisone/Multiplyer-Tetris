@@ -3,6 +3,8 @@
 #include "error.h"
 #include "string+.h"
 #include <vector>
+#pragma warning(disable : 4996)
+
 using namespace std;
 /*
 키 입력을 받아 버튼을 선택 동작 시킨다.
@@ -93,6 +95,9 @@ public:
 	}
 	void update(char input, bool redraw = true) {
 		map[this->y][this->x]->update(input, redraw);
+	}
+	vector<pair<string, string>> getState() {// buttonManager에 상태를 반환한다. scanner Button들에 대해 key value로 반환해준다.
+
 	}
 	~ButtonManager() {
 		for (int i = 0; i < buttons.size(); i++) {

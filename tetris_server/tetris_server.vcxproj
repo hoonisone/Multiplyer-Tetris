@@ -24,6 +24,7 @@
     <ProjectGuid>{d0a14fc9-044e-4dc6-843f-4a2692696660}</ProjectGuid>
     <RootNamespace>tetrisserver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>tetris_server</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -151,52 +152,16 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\server.cpp" />
     <ClCompile Include="source\string+.cpp" />
-    <ClCompile Include="source\test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="header\Bean.h" />
-    <ClInclude Include="header\BlockBoard.h" />
-    <ClInclude Include="header\BlockCreator.h" />
-    <ClInclude Include="header\Button.h" />
-    <ClInclude Include="header\ButtonManager.h" />
-    <ClInclude Include="header\ButtonSelectScene.h" />
-    <ClInclude Include="header\Canvas.h" />
-    <ClInclude Include="header\ColorPainter.h" />
-    <ClInclude Include="header\ColorPrinter.h" />
-    <ClInclude Include="header\Consol.h" />
-    <ClInclude Include="header\error.h" />
-    <ClInclude Include="header\FileManager.h" />
-    <ClInclude Include="header\Input.h" />
-    <ClInclude Include="header\listener.h" />
-    <ClInclude Include="header\mathPlusTest.h" />
-    <ClInclude Include="header\Object.h" />
-    <ClInclude Include="header\Painter.h" />
-    <ClInclude Include="header\Printer.h" />
-    <ClInclude Include="header\Random.h" />
-    <ClInclude Include="header\Scanner.h" />
-    <ClInclude Include="header\ScannerButton.h" />
-    <ClInclude Include="header\Scene.h" />
-    <ClInclude Include="header\scoreBoard.h" />
-    <ClInclude Include="header\scoreManager.h" />
-    <ClInclude Include="header\scoreManagerTest.h" />
-    <ClInclude Include="header\SingleModeGameScene.h" />
-    <ClInclude Include="header\SubScreen.h" />
-    <ClInclude Include="header\system.h" />
-    <ClInclude Include="header\Tetris.h" />
-    <ClInclude Include="header\server.h" />
-    <ClInclude Include="header\string+.h" />
-    <ClInclude Include="header\test.h" />
-    <ClInclude Include="header\Block.h" />
-    <ClInclude Include="header\MainScreen.h" />
-    <ClInclude Include="header\TextInputScene.h" />
-    <ClInclude Include="header\Timer.h" />
-    <ClInclude Include="header\User.h" />
-    <ClInclude Include="header\UserDao.h" />
-    <ClInclude Include="header\UserManager.h" />
-    <ClInclude Include="header\Director.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="user.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\error.h" />
+    <ClInclude Include="header\server.h" />
+    <ClInclude Include="header\User.h" />
+    <ClInclude Include="header\UserDao.h" />
+    <ClInclude Include="header\UserManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

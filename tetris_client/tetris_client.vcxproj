@@ -116,10 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>header</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,14 +141,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="header\bean.h" />
+    <ClInclude Include="header\Block.h" />
+    <ClInclude Include="header\BlockBoard.h" />
+    <ClInclude Include="header\BlockCreator.h" />
+    <ClInclude Include="header\Button.h" />
+    <ClInclude Include="header\ButtonManager.h" />
+    <ClInclude Include="header\ButtonSelectScene.h" />
+    <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\client.h" />
+    <ClInclude Include="header\ColorPainter.h" />
+    <ClInclude Include="header\ColorPrinter.h" />
+    <ClInclude Include="header\Consol.h" />
+    <ClInclude Include="header\Director.h" />
     <ClInclude Include="header\error.h" />
+    <ClInclude Include="header\FileManager.h" />
+    <ClInclude Include="header\KeyInput.h" />
+    <ClInclude Include="header\MainScreen.h" />
+    <ClInclude Include="header\Object.h" />
+    <ClInclude Include="header\Painter.h" />
+    <ClInclude Include="header\Printer.h" />
+    <ClInclude Include="header\random.h" />
+    <ClInclude Include="header\Scanner.h" />
+    <ClInclude Include="header\ScannerButton.h" />
+    <ClInclude Include="header\Scene.h" />
+    <ClInclude Include="header\scoreBoard.h" />
+    <ClInclude Include="header\scoreManager.h" />
+    <ClInclude Include="header\scoreManagerTest.h" />
+    <ClInclude Include="header\SingleModeGameScene.h" />
+    <ClInclude Include="header\string+.h" />
+    <ClInclude Include="header\SubScreen.h" />
+    <ClInclude Include="header\system.h" />
+    <ClInclude Include="header\test.h" />
+    <ClInclude Include="header\Tetris.h" />
+    <ClInclude Include="header\TextInputScene.h" />
+    <ClInclude Include="header\Timer.h" />
+    <ClInclude Include="header\User.h" />
+    <ClInclude Include="header\UserDao.h" />
+    <ClInclude Include="header\UserManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\client.cpp" />
     <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="소스.cpp" />
+    <ClCompile Include="source\string+.cpp" />
+    <ClCompile Include="source\test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

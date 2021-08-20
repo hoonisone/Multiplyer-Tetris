@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <WinSock2.h>
 #include "client.h"
-
+#include "bean.h"
 #define SCENE_LOGIN 0
 #define COMMAND_SIZE 1024
 
@@ -27,4 +27,9 @@ int main(int argc, char* argv[])
 
     }
     clientSocketTerminate(cs);
+ 
+
+    //Consol::changeScreenSize(WIDTH, HEIGHT);
+    //Consol::setCursorFlag(false);
+    //Bean::getDirector()->run("main menu");
 }

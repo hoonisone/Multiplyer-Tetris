@@ -1,6 +1,5 @@
 #pragma once
-#pragma once
-#include "Input.h"
+#include "KeyInput.h"
 #include "ColorPainter.h"
 #include "Canvas.h"
 #include <windows.h>

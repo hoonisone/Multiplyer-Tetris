@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "list.h"
 
 #define ALIGN_LEFT		0
 #define ALIGN_MIDDLE	1

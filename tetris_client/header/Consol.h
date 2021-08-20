@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <iostream>
+#pragma warning(disable : 4996)
 /*
 콘솔창의 텍스트 색 등 관리
 */
