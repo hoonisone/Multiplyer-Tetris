@@ -179,6 +179,7 @@
     <ClInclude Include="header\User.h" />
     <ClInclude Include="header\UserDao.h" />
     <ClInclude Include="header\UserManager.h" />
+    <ClInclude Include="header\Uuid.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\client.cpp" />

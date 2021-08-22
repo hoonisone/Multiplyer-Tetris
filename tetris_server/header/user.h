@@ -9,20 +9,33 @@ private:
 	int win, draw, lose;	// multi
 	int maxScore;	// single
 public:
+	User(string name) :User(name, 0, 0, 0, 0) {};
 	User(string name, int win, int draw, int lose, int maxScore) :name(name), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
-	string getName() {
+	string getName() const {
 		return name;
 	}
-	int getWin() {
+	int getWin() const {
 		return win;
 	}
-	int getDraw() {
+	int getDraw() const {
 		return draw;
 	}
-	int getLose() {
+	int getLose() const {
 		return lose;
 	}
-	int getMaxScore() {
+	int getMaxScore() const {
 		return maxScore;
+	}
+	int addWin() {
+		win++;
+	}
+	int addDraw() {
+		draw++;
+	}
+	int addLose() {
+		lose++;
+	}
+	int setMaxScore(int maxScore) {
+		this->maxScore = maxScore;
 	}
 };

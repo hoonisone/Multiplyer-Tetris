@@ -21,9 +21,6 @@
     <ClCompile Include="source\string+.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="source\server.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="source\error.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -47,6 +44,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="header\error.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\string+.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Bean.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\FileManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
