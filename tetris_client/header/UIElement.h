@@ -9,15 +9,15 @@
 #include "system.h"
 #include "Object.h"
 
-class Button : public ConsolObject{
+class UIElement : public ConsolObject{
 protected:
 	string text;
 	bool borderFlag;
 	bool selectFlag;
-	string (*action)(Button* button) = NULL;	// 버튼 클릭시 수행 될 함수
+	string (*action)(UIElement* button) = NULL;	// 버튼 클릭시 수행 될 함수
 	Printer* unselectedPrinter = NULL, * selectedPrinter = NULL, * printer = NULL;
 	Painter* unselectedPainter = NULL, * selectedPainter = NULL, * painter = NULL;
-	void setAction(void (*_action)(Button* button)) {
+	void setAction(void (*_action)(UIElement* element)) {
 		this->action = action;
 	}
 	void drawBorder() {
@@ -28,7 +28,7 @@ protected:
 		printer->printText(x + painter->getWidth(), y + painter->getHeight(), w - 2 * painter->getWidth(), h - 2 * painter->getHeight(), tokens);
 	}
 public:
-	Button(int x, int y, int w, int h, string text, Painter* unselectedPainter, Printer* unselectedPrinter, 
+	UIElement(int x, int y, int w, int h, string text, Painter* unselectedPainter, Printer* unselectedPrinter, 
 		Painter* selectedPainter, Printer* selectedPrinter, bool borderFlag = true) : 
 		ConsolObject(x, y, w, h), text(text), unselectedPainter(unselectedPainter), unselectedPrinter(unselectedPrinter),
 		selectedPainter(selectedPainter), selectedPrinter(selectedPrinter), borderFlag(borderFlag){
@@ -74,7 +74,7 @@ public:
 		return text;
 	}
 
-	~Button() {
+	~UIElement() {
 		if (unselectedPainter != NULL) FREE(unselectedPainter);
 		if (unselectedPrinter != NULL) FREE(unselectedPrinter);
 		if (selectedPainter != NULL) FREE(selectedPainter);

@@ -1,19 +1,19 @@
 #pragma once
 #include "Scanner.h"
-#include "Button.h"
+#include "UIElement.h"
 
-class ScannerButton : public Button{
+class ScannerButton : public UIElement{
 private:
 	Scanner* scanner;
 	void drawButton() {
-		Button::draw();
+		UIElement::draw();
 	}
 	void drawScanner() {
 		scanner->move(x + selectedPainter->getWidth(), y + selectedPainter->getHeight());
 	}
 public:
 	ScannerButton(int x, int y, Scanner* scanner, Painter* unselectPainter, Printer* unselectPrinter, Painter* selectPainter, Printer* selectPrinter, const bool borderFlag = true):
-		Button(x, y, scanner->getWidth()+2*selectPainter->getWidth(), scanner->getHeight()+2*selectPainter->getHeight(), "", unselectPainter, unselectPrinter, selectPainter, selectPrinter, borderFlag) {
+		UIElement(x, y, scanner->getWidth()+2*selectPainter->getWidth(), scanner->getHeight()+2*selectPainter->getHeight(), "", unselectPainter, unselectPrinter, selectPainter, selectPrinter, borderFlag) {
 
 		this->scanner = scanner;
 	}

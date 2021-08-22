@@ -145,8 +145,8 @@
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\BlockCreator.h" />
-    <ClInclude Include="header\Button.h" />
-    <ClInclude Include="header\ButtonManager.h" />
+    <ClInclude Include="header\UIElement.h" />
+    <ClInclude Include="header\UIElementManager.h" />
     <ClInclude Include="header\ButtonSelectScene.h" />
     <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\client.h" />

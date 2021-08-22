@@ -1,5 +1,5 @@
 #pragma once
-#include "Button.h"
+#include "UIElement.h"
 #include "error.h"
 #include "string+.h"
 #include <vector>
@@ -12,12 +12,12 @@ using namespace std;
 스페이스는 버튼 클릭(선택된 버튼 정보를 반환한다.)
 나머지 키는 버튼에게 넘겨 핸들링한다.
 */
-class ButtonManager {
+class UIElementManager{
 private:
 	int width, height;
 	int x = 0, y = 0;
-	vector<vector<Button*>> map;
-	vector<Button*> buttons;
+	vector<vector<UIElement*>> map;
+	vector<UIElement*> buttons;
 	bool rangeCheck(int x, int y) {return 0 <= x && x < width && 0 <= y && y < height;}
 	bool existCheck(int x, int y) { return map[y][x] != NULL; }
 	void select(int x, int y, bool redraw = true) {
@@ -33,23 +33,23 @@ private:
 			select(x, y, redraw);
 		}   
 	}
-	string (*action)(ButtonManager* button) = NULL;
+	string (*action)(UIElementManager* button) = NULL;
 public:
-	vector<Button*> getButtons() {
+	vector<UIElement*> getButtons() {
 		return buttons;
 	}
-	ButtonManager(int width, int height):width(width), height(height) {
-		map = vector<vector<Button*>>(height, vector<Button*>(width, NULL));
+	UIElementManager(int width, int height):width(width), height(height) {
+		map = vector<vector<UIElement*>>(height, vector<UIElement*>(width, NULL));
 	}
 
-	void enroll(Button* button, int x, int y, bool selectFlag = false) {
+	void enroll(UIElement* element, int x, int y, bool selectFlag = false) {
 		if (!rangeCheck(x, y) || existCheck(x, y)) {
 			char errorBuffer[100];
 			sprintf(errorBuffer, "can not enroll button in (%d, %d)", x, y);
 			errorPrint(errorBuffer);
 		}
-		buttons.push_back(button);
-		map[y][x] = button;
+		buttons.push_back(element);
+		map[y][x] = element;
 		if (buttons.size() == 1 || selectFlag) {	// 처음으로 등록한 버튼이 클린 된 것으로 간주
 			select(x, y);
 		}
@@ -60,7 +60,7 @@ public:
 		}
 		map[this->y][this->x]->draw();	// 선택된 버튼을 맨 위로 올리기 위해 다시 한번 그리기
 	}
-	void setAction(string (*action)(ButtonManager* button)) {
+	void setAction(string (*action)(UIElementManager* button)) {
 		this->action = action;
 	}
 	void up(bool redraw = true) {
@@ -99,7 +99,7 @@ public:
 	vector<pair<string, string>> getState() {// buttonManager에 상태를 반환한다. scanner Button들에 대해 key value로 반환해준다.
 
 	}
-	~ButtonManager() {
+	~UIElementManager() {
 		for (int i = 0; i < buttons.size(); i++) {
 			delete buttons[i];
 		}

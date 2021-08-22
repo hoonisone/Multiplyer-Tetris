@@ -90,10 +90,10 @@
     <ClInclude Include="header\UserManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\Button.h">
+    <ClInclude Include="header\UIElement.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\ButtonManager.h">
+    <ClInclude Include="header\UIElementManager.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\ButtonSelectScene.h">

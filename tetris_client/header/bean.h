@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "ButtonManager.h"
+#include "UIElementManager.h"
 #include "Canvas.h"
 #include "Scene.h"
 #include "BlockBoard.h"
@@ -19,10 +19,10 @@
 #include "UserManager.h"
 #include "Director.h"
 
-string ServerSelectButtonManagerAction(ButtonManager* bm) {
+string ServerSelectButtonManagerAction(UIElementManager* bm) {
 	string text = bm->getSelectedButtonText();
 	if(text  == "Connect") {
-		vector<Button*> buttons = bm->getButtons();
+		vector<UIElement*> buttons = bm->getButtons();
 		string ip = buttons[0]->getText();
 		string port = buttons[2]->getText();
 		/*return ip + "/" + port;*/
@@ -40,7 +40,7 @@ string ServerSelectButtonManagerAction(ButtonManager* bm) {
 	}
 	return "Fail";
 }
-string ReturnSelectedButtonTextAction(ButtonManager * bm) {
+string ReturnSelectedButtonTextAction(UIElementManager* bm) {
 	return bm->getSelectedButtonText();
 }
 class Bean {
@@ -56,11 +56,11 @@ public:
 	}
 	// Scene
 	static Scene* getButtonSelectScene(vector<string> buttonNames, vector<string> nextSceneNames) {
-		ButtonManager* buttonManager = getModeSelectSceneButtonManager(buttonNames);
+		UIElementManager* buttonManager = getModeSelectSceneButtonManager(buttonNames);
 		Canvas* canvas = getMainSceneCanvas();
 		return new ButtonSelectScene(buttonManager, canvas, buttonNames, nextSceneNames);
 	}
-	static Scene* getTextInputScene(ButtonManager* buttonManager, Canvas* canvas) {
+	static Scene* getTextInputScene(UIElementManager* buttonManager, Canvas* canvas) {
 		return new TextInputScene(buttonManager, canvas, "main mune");
 	}
 
@@ -81,37 +81,37 @@ public:
 		return new SingleModeGameScene(getTetris(), "main menu");
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	static ButtonManager* getModeSelectSceneButtonManager(vector<string> names) {
+	static UIElementManager* getModeSelectSceneButtonManager(vector<string> names) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "вк" }, AQUA, BLACK);
-		ButtonManager* bm = new ButtonManager(1, names.size());
+		UIElementManager* bm = new UIElementManager(1, names.size());
 		int x = WIDTH / 2;
 		int y = 20;
 		int w = 20;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
-			bm->enroll(new Button(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
+			bm->enroll(new UIElement(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 		}
 		bm->setAction(ReturnSelectedButtonTextAction);
 
 		return bm;
 	}
-	static ButtonManager* getServerSelectButtonManager() {
+	static UIElementManager* getServerSelectButtonManager() {
 		vector<string> names = { "IP", "PORT" };
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "вк" }, AQUA, BLACK);
-		ButtonManager* bm = new ButtonManager(3, names.size() + 2);
+		UIElementManager* bm = new UIElementManager(3, names.size() + 2);
 		int x = WIDTH / 2;
 		int y = 20;
 		int w = 20;
 		int h = 5;
 		for (int i = 0; i < names.size(); i++) {
 			bm->enroll(getScannerButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h), 2, i);
-			bm->enroll(new Button(x - w * painter.getWidth() / 2 - 8, y + (h - 1) * painter.getHeight() * i, 4, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), false), 0, i);
+			bm->enroll(new UIElement(x - w * painter.getWidth() / 2 - 8, y + (h - 1) * painter.getHeight() * i, 4, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), false), 0, i);
 		}
 		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * names.size(), w, h, "Connect", true), 2, names.size());
 		bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size() + 1), w, h, "Back", true), 2, names.size() + 1);
@@ -198,19 +198,19 @@ public:
 	static Scanner* getScanner(int x, int y, int width, int height) {
 		return new Scanner(x, y, width, height, new ColorPrinter(CENTER, MIDDLE, WHITE));
 	}
-	static Button* getScannerButton(int x, int y, int w, int h) {
+	static UIElement* getScannerButton(int x, int y, int w, int h) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "вк" }, AQUA, BLACK);
 		return new ScannerButton(x, y, getScanner(x + 1, y + 1, w - 2 * painter.getWidth(), h - 2 * painter.getHeight()), painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true);
 	}
-	static Button* getButton(int x, int y, int w, int h, string text, bool borderFlag) {
+	static UIElement* getButton(int x, int y, int w, int h, string text, bool borderFlag) {
 		ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
 		ColorPainter painter({ "вк" }, WHITE, BLACK);
 		ColorPrinter selectPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPainter selectPainter({ "вк" }, AQUA, BLACK);
-		return new Button(x, y, w, h, text, painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), borderFlag);
+		return new UIElement(x, y, w, h, text, painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), borderFlag);
 	}
 	static FileManager* getUserFileManager() {
 		return new FileManager("user.txt");

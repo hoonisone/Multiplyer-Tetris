@@ -7,12 +7,12 @@
 */
 class ButtonSelectScene : public Scene {	// 선택 될 때 까지 장면을 연출하다가 버튼이 선택되면 text를 반환하고 장렬히 전사
 private:
-	ButtonManager* bm;
+	UIElementManager* bm;
 	Canvas* canvas;
 	vector<string> buttonTexts;	// 해당 장면에서 선택될 수 있는 버튼의 모든 이름을 담는다.
 	vector<string> sceneNames;	// 인덱스로 짝지어지는 버튼에 해당하는 다음 장면의 이름을 담는다.
 public:
-	ButtonSelectScene(ButtonManager* bm, Canvas* canvas, vector<string> buttonTexts, vector<string> sceneNames) :
+	ButtonSelectScene(UIElementManager* bm, Canvas* canvas, vector<string> buttonTexts, vector<string> sceneNames) :
 		bm(bm), canvas(canvas), buttonTexts(buttonTexts), sceneNames(sceneNames) {}
 	virtual string action() override {
 		bm->draw();
