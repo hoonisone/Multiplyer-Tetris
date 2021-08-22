@@ -72,6 +72,14 @@ private:
 		return cursorHeightNum / pointHeight;
 	}
 public:
+	static Painter GetEraser(int w, int h) {
+		string line = (w, " ");
+		vector<string> point;
+		for (int i = 0; i < h; i++) {
+			point.push_back(line);
+		}
+		return Painter(point);
+	}
 	bool checkPointSize(Painter* painter)const {	//point 사이즈가 동일한가?
 		return this->pointWidth == painter->pointWidth && this->pointHeight == painter->pointHeight;
 	}

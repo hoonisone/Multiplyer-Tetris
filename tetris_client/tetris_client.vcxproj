@@ -145,8 +145,10 @@
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\BlockCreator.h" />
-    <ClInclude Include="header\UIElement.h" />
-    <ClInclude Include="header\UIElementManager.h" />
+    <ClInclude Include="header\ListUI.h" />
+    <ClInclude Include="header\ScannerCreator.h" />
+    <ClInclude Include="header\UITextBlock.h" />
+    <ClInclude Include="header\UIManager.h" />
     <ClInclude Include="header\ButtonSelectScene.h" />
     <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\client.h" />
@@ -158,12 +160,12 @@
     <ClInclude Include="header\FileManager.h" />
     <ClInclude Include="header\KeyInput.h" />
     <ClInclude Include="header\MainScreen.h" />
-    <ClInclude Include="header\Object.h" />
+    <ClInclude Include="header\UIElement.h" />
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
     <ClInclude Include="header\random.h" />
     <ClInclude Include="header\Scanner.h" />
-    <ClInclude Include="header\ScannerButton.h" />
+    <ClInclude Include="header\ScannerBlock.h" />
     <ClInclude Include="header\Scene.h" />
     <ClInclude Include="header\scoreBoard.h" />
     <ClInclude Include="header\scoreManager.h" />

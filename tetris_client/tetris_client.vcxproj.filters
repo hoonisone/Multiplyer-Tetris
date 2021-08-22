@@ -33,9 +33,6 @@
     <ClInclude Include="header\bean.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="header\Object.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="header\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -90,19 +87,10 @@
     <ClInclude Include="header\UserManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\UIElement.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UIElementManager.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\ButtonSelectScene.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\Scanner.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\ScannerButton.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\Scene.h">
@@ -146,6 +134,24 @@
     </ClInclude>
     <ClInclude Include="header\Uuid.h">
       <Filter>헤더 파일\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ListUI.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIManager.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UITextBlock.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIElement.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ScannerCreator.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ScannerBlock.h">
+      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
