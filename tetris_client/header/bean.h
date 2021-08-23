@@ -26,6 +26,30 @@
 #include "TextInputScene.h"
 #include "ButtonSelectScene.h"
 #include "SingleModeGameScene.h"
+#include "UIScene.h"
+
+string mainMenuSceneNextNameHandler(UIElement* element, State state) {
+	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
+	static vector<string> value = { "single menu scene", "multi menu scene", "developer scene", "end scene" };
+	string name = element->getName();
+	for (int i = 0; i < key.size(); i++) {
+		if (name == key[i]) {
+			return value[i];
+		}
+	}
+	return "";
+}
+string singleMenuSceneNextNameHandler(UIElement* element, State state) {
+	static vector<string> key = { "Start", "Rank", "Back"};
+	static vector<string> value = { "single game scene", "single rank scene", "main menu scene"};
+	string name = element->getName();
+	for (int i = 0; i < key.size(); i++) {
+		if (name == key[i]) {
+			return value[i];
+		}
+	}
+	return "";
+}
 class Bean {
 public:
 	//// Director
@@ -99,56 +123,7 @@ public:
 	//	bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size() + 1), w, h, "Back", true), 2, names.size() + 1);
 	//	return bm;
 	//}
-	//static Canvas* getMainSceneCanvas() {
-	//	vector<PointShape> letters = {
-	//		{"▦▦▦",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "  ▦  "},
-
-	//		{"▦▦▦",
-	//		 "▦    ",
-	//		 "▦▦▦",
-	//		 "▦    ",
-	//		 "▦▦▦"},
-
-	//		{"▦▦▦",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "  ▦  "},
-
-	//		{"▦▦  ",
-	//		 "▦  ▦",
-	//		 "▦▦▦",
-	//		 "▦  ▦",
-	//		 "▦  ▦"},
-
-	//		{"▦▦▦",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "  ▦  ",
-	//		 "▦▦▦"},
-
-	//		{"▦▦▦",
-	//		 "▦    ",
-	//		 "▦▦▦",
-	//		 "    ▦",
-	//		 "▦▦▦"} };
-	//	vector<ColorPainter> colorPainters;
-	//	vector<Color> colors = { RED, YELLOW, GREEN, AQUA, BLUE, PURPLE };
-	//	for (int i = 0; i < letters.size(); i++) {
-	//		colorPainters.push_back(new ColorPainter(letters[i], colors[i], BLACK));
-	//	}
-	//	Canvas* canvas = new Canvas();
-	//	int width = 100;
-	//	int num = colorPainters.size();
-	//	for (int i = 0; i < num; i++) {
-	//		canvas->enrollFigure(colorPainters[i].getCopy(), WIDTH / 2 - 30 + 10 * i, HEIGHT / 10 * 2);
-	//	}
-	//	return canvas;
-	//}
+	
 	//static BlockBoard* getBlockBoard() {
 	//	return new BlockBoard(2, 1, 10, 20);
 	//}
@@ -216,12 +191,92 @@ public:
 		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
 	}
 	static UIElement* getUIVerticalTextListElement(int x, int y, int ew, int eh, vector<string> names) {
-		UIElement* parent = getUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, "", 1, names.size()+1);
+		UIElement* parent = getUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, "", 1, names.size());
 		for (int i = 0; i < names.size(); i++) {
 			parent->enroll(getUIElement(0, (eh - 1) * i, ew, eh, names[i], 0, 0), 0, i);
 		}
-		parent->enroll(Bean::getUIScannerBlock(20, 0, 10, 5, "text"), 0, 4);
 		return parent;
+	}
+	static UIElement* getMainMenuUI() {	// UI for 메인 메뉴 화면
+		int x = WIDTH / 2;
+		int y = 20;
+		int ew = 20;
+		int eh = 5;
+		return getUIVerticalTextListElement(x, y, ew, eh, { "Single Mode", "Multi Mode", "Developer", "Exit" });
+	}
+	static UIElement* getSingleMenuUI() {	// UI for 메인 메뉴 화면
+		int x = WIDTH / 2;
+		int y = 20;
+		int ew = 20;
+		int eh = 5;
+		return getUIVerticalTextListElement(x, y, ew, eh, { "Start", "Rank", "Back" });
+	}
+
+	static Canvas* getMainSceneCanvas() {
+		vector<PointShape> letters = {
+			{"▦▦▦",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "  ▦  "},
+
+			{"▦▦▦",
+			 "▦    ",
+			 "▦▦▦",
+			 "▦    ",
+			 "▦▦▦"},
+
+			{"▦▦▦",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "  ▦  "},
+
+			{"▦▦  ",
+			 "▦  ▦",
+			 "▦▦▦",
+			 "▦  ▦",
+			 "▦  ▦"},
+
+			{"▦▦▦",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "  ▦  ",
+			 "▦▦▦"},
+
+			{"▦▦▦",
+			 "▦    ",
+			 "▦▦▦",
+			 "    ▦",
+			 "▦▦▦"} };
+		vector<ColorPainter> colorPainters;
+		vector<Color> colors = { RED, YELLOW, GREEN, AQUA, BLUE, PURPLE };
+		for (int i = 0; i < letters.size(); i++) {
+			colorPainters.push_back(new ColorPainter(letters[i], colors[i], BLACK));
+		}
+		Canvas* canvas = new Canvas();
+		int width = 100;
+		int num = colorPainters.size();
+		for (int i = 0; i < num; i++) {
+			canvas->enrollFigure(colorPainters[i].getCopy(), WIDTH / 2 - 30 + 10 * i, HEIGHT / 10 * 2);
+		}
+		return canvas;
+	}
+	static Director* getDirector() {
+		Director* director = new Director();
+		director->enrollScene("main menu scene", getMainMenuUIScene);
+		director->enrollScene("single menu scene", getSingleMenuUIScene);
+		return director;
+	}
+	static Scene* getMainMenuUIScene() {
+		return getUIScene(getMainMenuUI(), mainMenuSceneNextNameHandler);
+	}
+	static Scene* getUIScene(UIElement* element, string(*nextSceneNameHandler)(UIElement* element, State state)) {
+		Canvas* canvas = getMainSceneCanvas();
+		return new UIScene(canvas, element, nextSceneNameHandler);
+	}
+	static Scene* getSingleMenuUIScene() {
+		return getUIScene(getSingleMenuUI(), singleMenuSceneNextNameHandler);
 	}
 };
 

@@ -36,7 +36,7 @@ public:
 		UIElement::move(dx, dy);
 		scanner->move(dx, dy);
 	}
-	vector<pair<string, string>> getState() {
+	State getState() {
 		return {make_pair(name, scanner->getText())};
 	}
 

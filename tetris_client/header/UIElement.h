@@ -15,6 +15,7 @@
 - 출력과 지우기, 업데이트 등의 메소드를 갖는다.
 - 상태를 변화시키는 모든 함수는 redraw매개변수를 통해 변경과 동시에 재출력할 수 있다.
 */
+using State = vector<pair<string, string>>;
 class UIElement {
 protected:
 	int x, y, w, h;
@@ -195,8 +196,8 @@ public:
 			this->endFlag = endFlag;
 		}
 	}
-	virtual vector<pair<string, string>> getState() {
-		vector<pair<string, string>> state;
+	virtual State getState() {
+		State state;
 		for (int i = 0; i < children.size(); i++) {
 			vector<pair<string, string>> childState = children[i]->getState();
 			state.insert(state.end(), childState.begin(), childState.end());
