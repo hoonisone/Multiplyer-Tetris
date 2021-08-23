@@ -153,6 +153,9 @@
     <ClInclude Include="header\ScannerBlock.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="header\UIScene.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\client.cpp">

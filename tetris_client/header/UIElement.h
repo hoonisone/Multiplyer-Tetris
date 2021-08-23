@@ -16,10 +16,9 @@
 - 상태를 변화시키는 모든 함수는 redraw매개변수를 통해 변경과 동시에 재출력할 수 있다.
 */
 class UIElement {
-
 protected:
 	int x, y, w, h;
-	string text;
+	string name;
 	bool borderFlag;
 	Printer* unselectedPrinter = NULL, * selectedPrinter = NULL, * printer = NULL;
 	Painter* unselectedPainter = NULL, * selectedPainter = NULL, * painter = NULL;
@@ -29,6 +28,7 @@ protected:
 	vector<vector<UIElement*>> map;	// 모든 UIElement는 내부적으로 UIElement  자식들을 matrix 형태로 지닌다.
 	vector<UIElement*> children;
 
+	bool endFlag = false;
 
 	bool rangeCheck(int x, int y) { return 0 <= x && x < mapW && 0 <= y && y < mapH; }
 	bool existCheck(int x, int y) { return map[y][x] != NULL; }
@@ -49,7 +49,7 @@ protected:
 			return map[selectY][selectX];
 		else
 			return NULL;
-	}
+	}	 // 선택되어있는 자식 반환
 	int getChildrenNum() {
 		return children.size();
 	}
@@ -57,10 +57,37 @@ protected:
 		if (borderFlag)	painter->rectBorder(x, y, w, h, CURSOR_STD);
 	}
 	void drawText() {
-		vector<string>tokens = split(text, "\n");
+		vector<string>tokens = split(name, "\n");
 		printer->printText(x + painter->getWidth(), y + painter->getHeight(), w - 2 * painter->getWidth(), h - 2 * painter->getHeight(), tokens);
 	}
 	bool selectFlag;// UIManager에 의해 선택되어있는지 여부
+	bool selectUpChild(bool redraw = true) {
+		return selectChild(selectX, selectY - 1, redraw);
+	}
+	bool selectDownChild(bool redraw = true) {
+		return selectChild(selectX, selectY + 1, redraw);
+	}
+	bool selectRightChild(bool redraw = true) {
+		return selectChild(selectX + 1, selectY, redraw);
+	}
+	bool selectLeftChild(bool redraw = true) {
+		return selectChild(selectX - 1, selectY, redraw);
+	}
+	virtual void select(bool redraw = true) {
+		if (getChildrenNum() > 0)
+			return;	// 자식이 있으면 자신은 선택될 수 없다. -> 선택은 말단 노드에서 이루어진다.
+		selectFlag = true;
+		printer = selectedPrinter;
+		painter = selectedPainter;
+		if (redraw)draw();
+	}
+	virtual void unselect(bool redraw = true) {
+		selectFlag = false;
+		printer = unselectedPrinter;
+		painter = unselectedPainter;
+		if (redraw)draw();
+	}
+
 public:
 	UIElement(int x, int y, int w, int h, string text) :
 		UIElement(x, y, w, h, text, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true, 0, 0) {};
@@ -72,15 +99,13 @@ public:
 		Painter* selectedPainter, Painter* unselectedPainter, 
 		Printer* selectedPrinter, Printer* unselectedPrinter,
 		bool borderFlag, int mapW, int mapH) :
-		x(x), y(y), w(w), h(h), text(text), 
+		x(x), y(y), w(w), h(h), name(text), 
 		selectedPainter(selectedPainter), unselectedPainter(unselectedPainter),
 		selectedPrinter(selectedPrinter), unselectedPrinter(unselectedPrinter),
 		borderFlag(borderFlag), mapW(mapW), mapH(mapH) {
 		map = vector<vector<UIElement*>>(mapH, vector<UIElement*>(mapW, NULL));
 		unselect(false);
 	};
-
-
 
 	int getWidth() {
 		return w;
@@ -92,46 +117,25 @@ public:
 		this->parent = parent;
 	}
 	void enroll(UIElement* element, int x, int y, bool selectFlag = false) {
-		if (!rangeCheck(x, y) || existCheck(x, y)) {
+		// 등록 불가능 예외 처리
+		if (!rangeCheck(x, y) || existCheck(x, y)) {	
 			char errorBuffer[100];
 			sprintf(errorBuffer, "can not enroll button in (%d, %d)", x, y);
 			errorPrint(errorBuffer);
 		}
+
+		// 자식 등록
 		element->setParent(this);	// 자식 노드에 자신을 부모를 등록한다.
 		children.push_back(element);	// 자식 노드 등록
 		element->move(this->x, this->y, false);	// 부모의 좌표를 기준으로 위치 재조정
 		map[y][x] = element;
-		unselect(false);
-		if (children.size() == 1 || selectFlag) {	// 처음으로 등록한 버튼이 클린 된 것으로 간주
+		
+		unselect(false);	// 자식이 있는 노드는 select될 수 없기에  select를 취소
+		if (children.size() == 1 || selectFlag) {	// 처음으로 등록되거나 외부에서 설정한 경우 select 처리
 			selectChild(x, y, false);
 		}
-		if (selectFlag) {
-			selectChild(x, y, false);
-		}
+		// 처음 등록된 것을 select처리하는 것은 외부 사용자가 따로 지정하지 않는 경우 고려
 	}
-
-
-	void selectUpChild(bool redraw = true) {
-		if (!selectChild(selectX, selectY - 1, redraw)){
-			if (parent != NULL) parent->selectUpChild();
-		}
-	}   // 현재 선택 중인 자식 위에 있는 자식을 선택한다. 벽에 닿았다면 부모레벨에서 up을 수행한다.
-	void selectDownChild(bool redraw = true) {
-		if (!selectChild(selectX, selectY + 1, redraw)) {
-			if (parent != NULL) parent->selectDownChild();
-		}
-	}
-	void selectRightChild(bool redraw = true) {
-		if (!selectChild(selectX+1, selectY, redraw)) {
-			if(parent != NULL)	parent->selectRightChild();
-		}
-	}
-	void selectLeftChild(bool redraw = true) {
-		if (!selectChild(selectX-1, selectY, redraw)) {
-			if (parent != NULL) parent->selectLeftChild();
-		}
-	}
-
 
 	virtual void move(int dx, int dy, bool redraw = true) {
 		if (redraw)erase();
@@ -158,32 +162,57 @@ public:
 		}
 		Painter::GetEraser(w, h).point(x, y);	// 객체의 크기와 같은 공백의 점을 다루는 Painter로 해당 위치에 점을 찍는다.
 	};	// 기존 위치에 객체를 지운다.
-	virtual void select(bool redraw = true) {
-		if (getChildrenNum() > 0)
-			return;	// 자식이 있으면 자신은 선택될 수 없다. -> 선택은 말단 노드에서 이루어진다.
-		selectFlag = true;
-		printer = selectedPrinter;
-		painter = selectedPainter;
-		if (redraw)draw();
+	
+	virtual bool keyInputHandler(char key) {
+	/*	key 입력에 대해 handling(처리)한 뒤 성공 여부 반환
+		자식 -> 자신 -> 부모 순으로 성공할 때 까지 재귀로 이어진다.
+	*/
+		// child key input handling
+		UIElement* selectedChild = getSelectedChild();	// 선택된 자식을 찾는다.
+		if (selectedChild != NULL && selectedChild->keyInputHandler(key)){ // 선택된 자식 노드가 존재하며 핸들링에 성공하면 true반환
+				return true;
+		}
+		
+		// self key input handing
+		int flag;
+		switch ((Key)key) {
+			case KEY_UP:    if(selectUpChild())		return true; break;	// key에 해당하는 handling 후 성공 시 true반환
+			case KEY_DOWN:  if(selectDownChild())	return true; break;
+			case KEY_LEFT:  if(selectLeftChild())	return true; break;
+			case KEY_RIGHT: if(selectRightChild())	return true; break;
+			case KEY_SPACE: end(true); return true; break;
+		}
+		return false; // 부모가 반환값을 체크하고 직접 핸들링 한다.
 	}
-	virtual void unselect(bool redraw = true){
-		selectFlag = false;
-		printer = unselectedPrinter;
-		painter = unselectedPainter;
-		if(redraw)draw();
+	bool endCheck() {
+		return endFlag;
 	}
-	virtual void keyInputHandler(char key) {	// 특정 키에 대해 um에 어떤 동작이 일어날 지 결정 가능
-		UIElement* selectedChild = getSelectedChild();
-		if (selectedChild == NULL) {
-			switch ((Key)key) {
-			case KEY_UP:    selectUpChild();    break;
-			case KEY_DOWN:  selectDownChild();  break;
-			case KEY_LEFT:  selectLeftChild();  break;
-			case KEY_RIGHT: selectRightChild(); break;
-			}
+	void end(bool endFlag) {
+		if (parent != NULL) {
+			parent->end(endFlag);
 		}
 		else {
-			selectedChild->keyInputHandler(key);
+			this->endFlag = endFlag;
 		}
+	}
+	virtual vector<pair<string, string>> getState() {
+		vector<pair<string, string>> state;
+		for (int i = 0; i < children.size(); i++) {
+			vector<pair<string, string>> childState = children[i]->getState();
+			state.insert(state.end(), childState.begin(), childState.end());
+		}
+		return state;
+	}
+	UIElement* getSelectedElement() {	// element에서 최종적으로 선택되어있는 말단 자식노드 반환
+		UIElement* selectedChild = getSelectedChild();
+		if (selectedChild == NULL) {
+			return this;
+		}
+		else {
+			return selectedChild->getSelectedElement();
+		}
+	}
+	string getName() {
+		return name;
 	}
 };

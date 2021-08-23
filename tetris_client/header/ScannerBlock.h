@@ -6,7 +6,7 @@
 #include "UIManager.h"
 
 class UIScannerBlock : public UIElement{
-private:
+protected:
 	Scanner* scanner;
 	void drawBorder() {
 		painter->rectBorder(x, y, w, h);
@@ -15,33 +15,38 @@ private:
 		scanner->draw();
 	}
 public:
-	UIScannerBlock(int x, int y, int w, int h, ScannerCreator* scannerCreator) :UIScannerBlock(x, y, w, h, scannerCreator, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true) {};
-	UIScannerBlock(int x, int y, int w, int h, ScannerCreator * scannerCreator, Painter* selectedPainter, Painter* unselectedPainter,
+	UIScannerBlock(int x, int y, int w, int h, string name, ScannerCreator* scannerCreator) :UIScannerBlock(x, y, w, h, name, scannerCreator, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true) {};
+	UIScannerBlock(int x, int y, int w, int h, string name, ScannerCreator * scannerCreator, Painter* selectedPainter, Painter* unselectedPainter,
 		Printer* selectedPrinter, Printer* unselectedPrinter, const bool borderFlag = true):
-		UIElement(x, y, w, h, "", selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, borderFlag, 0, 0){
+		UIElement(x, y, w, h, name, selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, borderFlag, 0, 0){
 		if(!unselectedPainter->checkPointSize(selectedPainter))	// 두 Painter의 point shape가 동일해야 한다.
 			errorPrint("selectedPainter's piont shape is not same to unselectedPainter's");
 		int pw = unselectedPainter->getWidth();
 		int ph = unselectedPainter->getHeight();
-		this->scanner = scannerCreator->createScanner(x+pw, y+ph, w-2*pw, h-2*ph, new Printer());
+		this->scanner = scannerCreator->createScanner(x+pw, y+ph, w-2*pw, h-2*ph, new Printer());	// Element 크기에 테두리를 제외한 내부크기에 맞게 Scanner생성
 		delete scannerCreator;
-		unselect();
+		unselect(false);
 	}
-
 	void draw() {
 		drawBorder();
 		drawScanner();
-		// Scanner는 자식을 가지는 경우가 없으므로 출력 코드 없어도 됨
+		// Scanner는 자식이 없으므로 자식을 그리지 않는다.
 	}
-	string getText() {
-		return scanner->getText();
+	void move(int dx, int dy, bool redraw = true) override{
+		UIElement::move(dx, dy);
+		scanner->move(dx, dy);
 	}
-	void keyInputHandler(char key) override{
+	vector<pair<string, string>> getState() {
+		return {make_pair(name, scanner->getText())};
+	}
+
+	bool  keyInputHandler(char key) override{
 		switch (key) {
-		case KEY_UP:    selectUpChild();    break;
-		case KEY_DOWN:  selectDownChild();  break;
-		case KEY_LEFT:  selectLeftChild();  break;
-		case KEY_RIGHT: selectRightChild(); break;
+		case KEY_UP:
+		case KEY_DOWN:
+		case KEY_LEFT:
+		case KEY_RIGHT:
+			return false;	// 방향키는 실패 처리하여 부모에게 점긴다.
 		default: scanner->enter(key); break;	// 방향키 이외의 입력은 scanner에게 넘긴다.
 		}
 	}

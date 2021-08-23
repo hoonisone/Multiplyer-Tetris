@@ -10,6 +10,12 @@ private:
 	string text;
 	Printer* printer;
 public:
+	void move(int dx, int dy, bool redraw = true) {
+		if (redraw) erase();
+		x += dx;
+		y += dy;
+		if (redraw) draw();
+	}
 	Scanner(int x, int y, int w, int h, Printer* printer): x(x), y(y), w(w), h(h), printer(printer) {};
 	void draw() {
 		printer->printText(x, y, w, h, { text });
@@ -18,6 +24,8 @@ public:
 		Painter({ " " }).rect(x, y, w, h);
 	}
 	void enter(char c, bool redraw = true) {
+		if (c == 10 || c == 13)
+			return;
 		if (c == 8) {	// backspace인 경우 맨 뒷 글자 제거
 			if (!text.empty()) {
 				if(redraw) erase();	// 글자 수가 줄어들면 이 전 글자가 남아있을 수 있으므로 먼저 깔끔하게 지워줌

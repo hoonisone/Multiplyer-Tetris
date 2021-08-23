@@ -205,8 +205,8 @@ public:
 	static ScannerCreator* getScannerCreator() {
 		return new ScannerCreator();
 	}
-	static UIScannerBlock* getUIScannerBlock(int x, int y, int w, int h) {
-		return new UIScannerBlock(x, y, w, h, getScannerCreator());
+	static UIScannerBlock* getUIScannerBlock(int x, int y, int w, int h, string name) {
+		return new UIScannerBlock(x, y, w, h, name, getScannerCreator());
 	}
 	static UIElement* getUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
 		ColorPainter* spainter = new ColorPainter({ "вк" }, AQUA, BLACK);
@@ -216,10 +216,11 @@ public:
 		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
 	}
 	static UIElement* getUIVerticalTextListElement(int x, int y, int ew, int eh, vector<string> names) {
-		UIElement* parent = getUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, "", 1, names.size());
+		UIElement* parent = getUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, "", 1, names.size()+1);
 		for (int i = 0; i < names.size(); i++) {
 			parent->enroll(getUIElement(0, (eh - 1) * i, ew, eh, names[i], 0, 0), 0, i);
 		}
+		parent->enroll(Bean::getUIScannerBlock(20, 0, 10, 5, "text"), 0, 4);
 		return parent;
 	}
 };

@@ -147,6 +147,7 @@
     <ClInclude Include="header\BlockCreator.h" />
     <ClInclude Include="header\ListUI.h" />
     <ClInclude Include="header\ScannerCreator.h" />
+    <ClInclude Include="header\UIScene.h" />
     <ClInclude Include="header\UITextBlock.h" />
     <ClInclude Include="header\UIManager.h" />
     <ClInclude Include="header\ButtonSelectScene.h" />
