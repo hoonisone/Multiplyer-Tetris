@@ -9,7 +9,7 @@ class UIScannerBlock : public UIElement{
 protected:
 	Scanner* scanner;
 	void drawBorder() {
-		painter->rectBorder(x, y, w, h);
+		painter->rectBorder(x, y, w, h, CURSOR_STD);
 	}
 	void drawScanner() {
 		scanner->draw();
@@ -23,7 +23,7 @@ public:
 			errorPrint("selectedPainter's piont shape is not same to unselectedPainter's");
 		int pw = unselectedPainter->getWidth();
 		int ph = unselectedPainter->getHeight();
-		this->scanner = scannerCreator->createScanner(x+pw, y+ph, w-2*pw, h-2*ph, new Printer());	// Element 크기에 테두리를 제외한 내부크기에 맞게 Scanner생성
+		this->scanner = scannerCreator->createScanner(x + pw, y + ph, w - 2 * pw, h - 2 * ph, new Printer());	// Element 크기에 테두리를 제외한 내부크기에 맞게 Scanner생성
 		delete scannerCreator;
 		unselect(false);
 	}

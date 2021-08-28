@@ -30,7 +30,7 @@
 
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
-	static vector<string> value = { "single menu scene", "multi menu scene", "developer scene", "end scene" };
+	static vector<string> value = { "single menu scene", "server connection scene", "developer scene", "end scene" };
 	string name = element->getName();
 	for (int i = 0; i < key.size(); i++) {
 		if (name == key[i]) {
@@ -48,6 +48,11 @@ string singleMenuSceneNextNameHandler(UIElement* element, State state) {
 			return value[i];
 		}
 	}
+	return "";
+}
+
+string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
+	cout << " sdlfjdslk";
 	return "";
 }
 class Bean {
@@ -84,9 +89,7 @@ public:
 	//static Scene* getServerSelectScene() {
 	//	return getTextInputScene(getServerSelectButtonManager(), getMainSceneCanvas());
 	//}
-	//static Scene* getSingleGameScene() {
-	//	return new SingleModeGameScene(getTetris(), "main menu");
-	//}
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	//static UIManager* getModeSelectSceneButtonManager(vector<string> names) {
 	//	ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
@@ -124,32 +127,7 @@ public:
 	//	return bm;
 	//}
 	
-	//static BlockBoard* getBlockBoard() {
-	//	return new BlockBoard(2, 1, 10, 20);
-	//}
-	//static BlockCreator* getRandomBlockCreator() {
-	//	return new SamePointBlockCreator({ "бс"});
-	//}
-	//static MainScreen* getMainScreen() {
-	//	return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
-	//}
-	//static ColorPainter* getMainScreenPainter() {
-	//	return new ColorPainter({ "вк" }, AQUA);
-	//}
-	//static SubScreen* getSubScreen() {
-	//	Block* block = getRandomBlockCreator()->createBlock();
-	//	ColorPainter* painter = new ColorPainter({ "вк"}, AQUA);
-	//	return new SubScreen(2*painter->getWidth()+BLOCK_WIDTH*block->getPainter()->getWidth(), 2 * painter->getHeight()+ 20*block->getPainter()->getHeight(), block, painter);
-	//}
-	//static Tetris* getTetris(){
-	//	return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
-	//}
-	//static ScoreBoard* getScoreBoard() {
-	//	return new ScoreBoard(34, new ColorPainter({ "бд" }));
-	//}
-	//static ScoreManager* getScoreManager() {
-	//	return new ScoreManager(getScoreBoard());
-	//}
+	
 
 	//static Scanner* getScanner(int x, int y, int width, int height) {
 	//	return new Scanner(x, y, width, height, new ColorPrinter(CENTER, MIDDLE, WHITE));
@@ -181,7 +159,11 @@ public:
 		return new ScannerCreator();
 	}
 	static UIScannerBlock* getUIScannerBlock(int x, int y, int w, int h, string name) {
-		return new UIScannerBlock(x, y, w, h, name, getScannerCreator());
+		ColorPainter* spainter = new ColorPainter({ "вк" }, AQUA, BLACK);
+		ColorPainter* upainter = new ColorPainter({ "вк" }, WHITE, BLACK);
+		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
+		return new UIScannerBlock(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
 	}
 	static UIElement* getUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
 		ColorPainter* spainter = new ColorPainter({ "вк" }, AQUA, BLACK);
@@ -210,6 +192,20 @@ public:
 		int ew = 20;
 		int eh = 5;
 		return getUIVerticalTextListElement(x, y, ew, eh, { "Start", "Rank", "Back" });
+	}
+	static UIElement* getServerConnectionUI() {
+		int x = WIDTH / 2;
+		int y = 20;
+		int ew = 20;
+		int eh = 5;
+		int en = 4;
+		UIElement* parent = getUIElement(x - ew / 2 - ew+1, y, ew, (eh - 1) * en+2, "", 3, en);
+		parent->enroll(getUIScannerBlock(ew-1, (eh - 1) * 0, ew, eh, "ip"), 2, 0);
+		parent->enroll(getUIScannerBlock(ew-1, (eh - 1) * 1, ew, eh, "port"), 2, 1);
+		parent->enroll(getUIElement(ew-1, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
+		parent->enroll(getUIElement(ew-1, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
+
+		return parent;
 	}
 
 	static Canvas* getMainSceneCanvas() {
@@ -266,6 +262,9 @@ public:
 		Director* director = new Director();
 		director->enrollScene("main menu scene", getMainMenuUIScene);
 		director->enrollScene("single menu scene", getSingleMenuUIScene);
+		director->enrollScene("single game scene", getSingleGameScene);
+		director->enrollScene("server connection scene", getServerConnectionScene);
+		
 		return director;
 	}
 	static Scene* getMainMenuUIScene() {
@@ -277,6 +276,40 @@ public:
 	}
 	static Scene* getSingleMenuUIScene() {
 		return getUIScene(getSingleMenuUI(), singleMenuSceneNextNameHandler);
+	}
+	static Scene* getSingleGameScene() {
+		return new SingleModeGameScene(getTetris(), "main menu scene");
+	}
+	static Scene* getServerConnectionScene() {
+		return getUIScene(getServerConnectionUI(), serverConnectionSceneNextNameHandler);
+	}
+
+	//Tetris
+	static Tetris* getTetris(){
+	return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
+	}
+	static BlockBoard* getBlockBoard() {
+		return new BlockBoard(2, 1, 10, 20);
+	}
+	static BlockCreator* getRandomBlockCreator() {
+		return new SamePointBlockCreator({ "бс"});
+	}
+	static MainScreen* getMainScreen() {
+		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
+	}
+	static ColorPainter* getMainScreenPainter() {
+		return new ColorPainter({ "вк" }, AQUA);
+	}
+	static SubScreen* getSubScreen() {
+		Block* block = getRandomBlockCreator()->createBlock();
+		ColorPainter* painter = new ColorPainter({ "вк"}, AQUA);
+		return new SubScreen(2*painter->getWidth()+BLOCK_WIDTH*block->getPainter()->getWidth(), 2 * painter->getHeight()+ 20*block->getPainter()->getHeight(), block, painter);
+	}
+	static ScoreBoard* getScoreBoard() {
+		return new ScoreBoard(34, new ColorPainter({ "бд" }));
+	}
+	static ScoreManager* getScoreManager() {
+		return new ScoreManager(getScoreBoard());
 	}
 };
 
