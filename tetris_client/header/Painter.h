@@ -17,8 +17,10 @@ std::string operator*(std::string str, int n) {
 	}
 	return s;
 }
-
+const static string eraseString = "                                                            ";
 class Painter {
+private:
+
 protected:
 	PointShape pointShape;
 	int pointWidth, pointHeight;
@@ -73,7 +75,7 @@ private:
 	}
 public:
 	static Painter GetEraser(int w, int h) {
-		string line = (w, " ");
+		string line = eraseString.substr(0, w);
 		vector<string> point;
 		for (int i = 0; i < h; i++) {
 			point.push_back(line);

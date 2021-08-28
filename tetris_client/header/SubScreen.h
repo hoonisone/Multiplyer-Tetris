@@ -34,6 +34,9 @@ private:
 			hold->erase(drawX + painter->getWidth(), drawY + painter->getHeight() + 1 + next->getHeight() + 1);
 	}
 public:
+	int getWidth() {
+		return width;
+	}
 	SubScreen(int width, int height, Block* next, ColorPainter *painter) : width(width), height(height), next(next), painter(painter){};
 	void draw(int x, int y) {
 		drawX = x;

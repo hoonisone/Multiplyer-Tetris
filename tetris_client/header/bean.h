@@ -65,6 +65,13 @@ string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
 	}
 	return "";
 }
+string singleRankSceneNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Back") {
+		return "single menu scene";
+	}
+	return "";
+}
 class Bean {
 public:
 	//// Director
@@ -232,17 +239,15 @@ public:
 
 		return parent;
 	}
-	static UIElement* getUIListElement(int x, int y, int len) {
+	static UIElement* getUIListElement(int x, int y, int w, int h, int len) {
 		ColorPainter* spainter = new ColorPainter({ "¢ª" }, AQUA, BLACK);
 		ColorPainter* upainter = new ColorPainter({ "¢ª" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
-		return new UIListElement(x, y, len, spainter, upainter, sprinter, uprinter);
+		return new UIListElement(x, y, w, h, len, spainter, upainter, sprinter, uprinter);
 	}
-	static UIElement* getRankUIListElementUI(vector<SingleScore> &scores) {
-		int x = WIDTH / 2-50;
-		int y = 10;
-		UIElement* element = getNunTerminalUIElement(x, y, 0, 0, 1, scores.size());
+	static UIElement* getRankUIListElementUI(int x, int y, vector<SingleScore> &scores) {
+		UIElement* element = getUIListElement(x, y, 94, 21, scores.size());
 		for (int i = 0; i < scores.size(); i++) {
 			element->enroll(getSingleScoreUIElement(0, 2 * i, scores[i], i + 1), 0, i);
 		}
@@ -257,52 +262,75 @@ public:
 		element->enroll(getTerminalUIElement(54, 0, 40, 3, score.getDate(), 0, 0), 3, 0);
 		return element;
 	}
+	static UIElement* getSingleScoreUIElementTitle(int x, int y){
+		UIElement* element = getTerminalUIElement(x, y, 94, 5, "", 4, 1);
+		element->enroll(getTerminalUIElement(0, 0, 10, 5, "Rank", 0, 0), 0, 0);
+		element->enroll(getTerminalUIElement(8, 0, 20, 5, "Score", 0, 0), 1, 0);
+		element->enroll(getTerminalUIElement(26, 0, 30, 5, "Name", 0, 0), 2, 0);
+		element->enroll(getTerminalUIElement(54, 0, 40, 5, "Date", 0, 0), 3, 0);
+		return element;
+	}
 	static UIElement* getSingleRankUI() {
-		UIElement* parent = getNunTerminalUIElement(0, 0, 0, 0, 2, 1);
-		UIElement* scoreList = Bean::getRankUIListElementUI(Bean::getSingleScoreManager()->data);
-		parent->enroll(getTerminalUIElement(0, 0, 20, 5, "Back", 0, 0), 0, 0);
+		UIElement* parent = getNunTerminalUIElement(WIDTH/2 - 68, 20, 0, 0, 3, 1);
+		UIElement* scoreList = Bean::getRankUIListElementUI(24, 4, Bean::getSingleScoreManager()->data);
+
+		parent->enroll(getSingleScoreUIElementTitle(24, 0), 2, 0, false);
+		parent->enroll(getTerminalUIElement(0, 4, 20, 5, "Back", 0, 0), 0, 0);
 		parent->enroll(scoreList, 1, 0);
 		return parent;
 	}
-	static Canvas* getMainSceneCanvas() {
+	static Canvas* getTetrisCanvas(int x, int y) {
 		vector<PointShape> letters = {
-			{"¢Ë¢Ë¢Ë",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "  ¢Ë  "},
+			{"¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    "},
 
-			{"¢Ë¢Ë¢Ë",
+			{"¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "¢Ë        ",
+			 "¢Ë        ",
+			 "¢Ë¢Ë¢Ë¢Ë¢Ë",
 			 "¢Ë    ",
-			 "¢Ë¢Ë¢Ë",
-			 "¢Ë    ",
-			 "¢Ë¢Ë¢Ë"},
+			 "¢Ë        ",
+			 "¢Ë¢Ë¢Ë¢Ë¢Ë"},
 
-			{"¢Ë¢Ë¢Ë",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "  ¢Ë  "},
+			{"¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    "},
 
-			{"¢Ë¢Ë  ",
-			 "¢Ë  ¢Ë",
-			 "¢Ë¢Ë¢Ë",
-			 "¢Ë  ¢Ë",
-			 "¢Ë  ¢Ë"},
+			{"¢Ë¢Ë¢Ë¢Ë  ",
+			 "¢Ë      ¢Ë",
+			 "¢Ë      ¢Ë",
+			 "¢Ë¢Ë¢Ë¢Ë  ",
+			 "¢Ë      ¢Ë",
+			 "¢Ë      ¢Ë",
+			 "¢Ë      ¢Ë"},
 
-			{"¢Ë¢Ë¢Ë",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "  ¢Ë  ",
-			 "¢Ë¢Ë¢Ë"},
+			{"¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "    ¢Ë    ",
+			 "¢Ë¢Ë¢Ë¢Ë¢Ë"},
 
-			{"¢Ë¢Ë¢Ë",
-			 "¢Ë    ",
-			 "¢Ë¢Ë¢Ë",
-			 "    ¢Ë",
-			 "¢Ë¢Ë¢Ë"} };
+			{"¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "¢Ë        ",
+			 "¢Ë        ",
+			 "¢Ë¢Ë¢Ë¢Ë¢Ë",
+			 "        ¢Ë",
+			 "        ¢Ë",
+			 "¢Ë¢Ë¢Ë¢Ë¢Ë"}};
 		vector<ColorPainter> colorPainters;
 		vector<Color> colors = { RED, YELLOW, GREEN, AQUA, BLUE, PURPLE };
+		//vector<Color> colors = { AQUA, AQUA, AQUA, AQUA, AQUA, AQUA };
 		for (int i = 0; i < letters.size(); i++) {
 			colorPainters.push_back(new ColorPainter(letters[i], colors[i], BLACK));
 		}
@@ -310,7 +338,63 @@ public:
 		int width = 100;
 		int num = colorPainters.size();
 		for (int i = 0; i < num; i++) {
-			canvas->enrollFigure(colorPainters[i].getCopy(), WIDTH / 2 - 30 + 10 * i, HEIGHT / 10 * 2);
+			canvas->enrollFigure(colorPainters[i].getCopy(), x + 13 * i, y);
+		}
+		return canvas;
+	}
+	static Canvas* getScoreCanvas() {
+		vector<PointShape> letters = {{ "¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"¢Ë        ",
+										"¢Ë        ",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"        ¢Ë",
+										"        ¢Ë",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë"},
+
+
+									   {"¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë        ",
+										"¢Ë        ",
+										"¢Ë        ",
+										"¢Ë      ¢Ë",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë"},
+
+									   {"¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë"},
+
+									   {"¢Ë¢Ë¢Ë¢Ë  ",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë¢Ë¢Ë¢Ë  ",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë",
+										"¢Ë      ¢Ë"},
+
+									   {"¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"¢Ë        ",
+										"¢Ë        ",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë",
+										"¢Ë        ",
+										"¢Ë        ",
+										"¢Ë¢Ë¢Ë¢Ë¢Ë"}};
+		vector<ColorPainter> colorPainters;
+		vector<Color> colors = { RED, YELLOW, GREEN, AQUA, BLUE, PURPLE };
+		for (int i = 0; i < letters.size(); i++) {
+			colorPainters.push_back(new ColorPainter(letters[i], colors[i], BLACK));
+		}
+		Canvas* canvas = new Canvas();
+		int width = 100;
+		int num = letters.size();
+		vector<int> ws = {75, 90, 105, 120, 135};
+		vector<int> hs = {10, 10, 10, 10, 10};
+		for (int i = 0; i < num; i++) {
+			canvas->enrollFigure(colorPainters[i].getCopy(), ws[i]-10, hs[i]);
 		}
 		return canvas;
 	}
@@ -320,26 +404,27 @@ public:
 		director->enrollScene("single menu scene", getSingleMenuUIScene);
 		director->enrollScene("single game scene", getSingleGameScene);
 		director->enrollScene("server connection scene", getServerConnectionScene);
-		
+		director->enrollScene("single rank scene", getSingleRankScene);
 		return director;
 	}
 	static Scene* getMainMenuUIScene() {
-		return getUIScene(getMainMenuUI(), mainMenuSceneNextNameHandler);
+		return new UIScene(getTetrisCanvas(), getMainMenuUI(), mainMenuSceneNextNameHandler);
 	}
-	static Scene* getUIScene(UIElement* element, string(*nextSceneNameHandler)(UIElement* element, State state)) {
-		Canvas* canvas = getMainSceneCanvas();
-		return new UIScene(canvas, element, nextSceneNameHandler);
+	static Canvas* getTetrisCanvas() {
+		return getTetrisCanvas(WIDTH / 2 - 40, 5);
 	}
 	static Scene* getSingleMenuUIScene() {
-		return getUIScene(getSingleMenuUI(), singleMenuSceneNextNameHandler);
+		return new UIScene(getTetrisCanvas(), getSingleMenuUI(), singleMenuSceneNextNameHandler);
 	}
 	static Scene* getSingleGameScene() {
-		return new SingleModeGameScene(getTetris(), "main menu scene");
+		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "main menu scene");
 	}
 	static Scene* getServerConnectionScene() {
-		return getUIScene(getServerConnectionUI(), serverConnectionSceneNextNameHandler);
+		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverConnectionSceneNextNameHandler);
 	}
-
+	static Scene* getSingleRankScene() {
+		return new UIScene(getScoreCanvas() ,getSingleRankUI(), singleRankSceneNextNameHandler);
+	}
 	//Tetris
 	static Tetris* getTetris(){
 	return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());

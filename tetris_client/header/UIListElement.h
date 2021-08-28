@@ -16,19 +16,19 @@ private:
 	bool checkElementSize(UIElement* element) {	// 자식의 크기가 정해진 크기에 맞는지 체크
 		return (elementW == element->getWidth() && elementH == element->getHeight());
 	}
-	void pullDownOneElement() {
+	void pullDownOneElement(bool redraw = true) {
 		//리스트를 element한개 만큼 끌어 내린다.
-		move(0, elementH - 1, false);
+		move(0, elementH - 1, redraw);
 	}
-	void pullUpOneElement() {
+	void pullUpOneElement(bool redraw = true) {
 		//리스트를 element한개 만큼 끌어 올린다.
-		move(0, elementH - 1, false);
+		move(0, -(elementH - 1), redraw);
 	}
 public:
-	UIListElement(int x, int y) :UIElement(x, y, 0, 0, "", 1, 10) { setBorderFlag(false); setTerminalFlag(false); };
-	UIListElement(int x, int y, int len) :UIElement(x, y, 0, 0, "", 1, len), listLen(len) { setBorderFlag(false); setTerminalFlag(false); };
-	UIListElement(int x, int y, int len, Painter* selectedPainter, Painter* unselectedPainter, Printer* selectedPrinter, Printer* unselectedPrinter) :
-		UIElement(x, y, 0, 0, "", selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, false, 1, len) {setTerminalFlag(false);};
+	UIListElement(int x, int y, int w, int h) :UIElement(x, y, w, h, "", 1, 10) { setBorderFlag(false); setTerminalFlag(false); };
+	UIListElement(int x, int y, int w, int h, int len) :UIElement(x, y, w, h, "", 1, len), listLen(len) { setBorderFlag(false); setTerminalFlag(false); };
+	UIListElement(int x, int y, int w, int h, int len, Painter* selectedPainter, Painter* unselectedPainter, Printer* selectedPrinter, Printer* unselectedPrinter) :
+		UIElement(x, y, w, h, "", selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, false, 1, len) {setTerminalFlag(false);};
 	void setElementSize(int w, int h) {
 		// 단 1번만 세팅 가능하다.	동일한 크기의 element를 지니기 위함
 		if (elementSettingFlag == false) {
@@ -51,6 +51,18 @@ public:
 		}
 		UIElement::enroll(element, x, y, true, selectFlag);	// 기존 enroll 함수로 자식 등록
 	}
+	void erase()override {
+		Painter({ " " }).rect(x, y, getWidth(), getHeight());
+	}
+	virtual void redraw() override {
+		int endIdx = min(startIdx + listLen - 1, children.size() - 1);
+		for (int i = startIdx; i <= endIdx; i++) {
+			children[i]->redraw();
+		}
+		drawBorder();
+		drawText();
+		getSelectedChild()->draw();
+	}
 	virtual void draw() override {
 		int endIdx = min(startIdx + listLen - 1, children.size() - 1);
 		for (int i = startIdx; i <= endIdx; i++) {
@@ -65,21 +77,25 @@ public:
 
 		switch ((Key)key) {
 		case KEY_UP:
-			if (selectUpChild())
+			if (selectUpChild(false)){
 				if (y < startIdx) {// y가 출력 범위를 뚫고 위로 튀어나오면
 					startIdx--; // 출력 범위 재조정 (이전 element 부터)
-					pullDownOneElement(); // 리스트 한 칸 내리기
+					pullDownOneElement(false); // 리스트 한 칸 내리기
 				}
+			}
+			redraw();
 			return true;
 			break;	// key에 해당하는 handling 후 성공 시 true반환
 		case KEY_DOWN:
-			if (selectDownChild()) {
+			if (selectDownChild(false)) {
 				int endIdx = startIdx + listLen - 1;
 				if (y > endIdx) {	// y가 출력 범위를 뚫고 아래로 튀어나오면
 					startIdx++;// 출력 범위 재조정 (다음 element 부터)
-					pullUpOneElement();	// 리스트 한 칸 올리기
+					pullUpOneElement(false);	// 리스트 한 칸 올리기
 				}
 			}
+			redraw();
+
 			return true;
 			break;
 		case KEY_SPACE:

@@ -47,6 +47,9 @@ public:
 			moveDown();
 		}
 	}
+	int getWidth() {
+		return mainScreen->getWidth() + subScreen->getWidth()-1;
+	}
 	int updateSpeed() {
 		return max(1000 - 50 * getLevel(), 150);
 	}

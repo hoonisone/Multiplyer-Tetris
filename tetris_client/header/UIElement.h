@@ -28,7 +28,6 @@ protected:
 	int selectX, selectY, mapW, mapH;
 	vector<vector<pair<UIElement*, bool>>> map;	// 모든 UIElement는 내부적으로 UIElement  자식들을 matrix 형태로 지닌다.	second는 선택 가능 여부
 	vector<UIElement*> children;
-
 	bool endFlag = false;
 
 	bool rangeCheck(int x, int y) { return 0 <= x && x < mapW && 0 <= y && y < mapH; }
@@ -61,6 +60,7 @@ protected:
 		vector<string>tokens = split(name, "\n");
 		printer->printText(x + painter->getWidth(), y + painter->getHeight(), w - 2 * painter->getWidth(), h - 2 * painter->getHeight(), tokens);
 	}
+	
 	bool selectFlag;// UIManager에 의해 선택되어있는지 여부
 	bool selectUpChild(bool redraw = true) {
 		return selectChild(selectX, selectY - 1, redraw);
@@ -149,7 +149,6 @@ public:
 				selectChild(x, y, false);
 			}
 		}
-
 	}
 	void setTerminalFlag(bool terminalFlag) {
 		this->terminalFlag = terminalFlag;
@@ -177,16 +176,26 @@ public:
 				getSelectedChild()->draw();
 			}
 		}
-
-		
 	};
-	virtual void erase() {
+	void drawAllText() {//All은 자식을 모두 포함
 		for (int i = 0; i < children.size(); i++) {
-			children[i]->erase();
+			children[i]->drawAllText();
 		}
+		drawText();
+		if (!terminalFlag) {
+			if (getSelectedChild() != NULL) {
+				getSelectedChild()->draw();
+			}
+		}
+	}
+	virtual void erase() {
 		Painter::GetEraser(w, h).point(x, y);	// 객체의 크기와 같은 공백의 점을 다루는 Painter로 해당 위치에 점을 찍는다.
+		//Painter({ " " }).rect(x, y, w, h);
 	};	// 기존 위치에 객체를 지운다.
-	
+	virtual void redraw() {
+		erase();
+		draw();
+	}
 	virtual bool keyInputHandler(char key) {
 	/*	key 입력에 대해 handling(처리)한 뒤 성공 여부 반환
 		자식 -> 자신 -> 부모 순으로 성공할 때 까지 재귀로 이어진다.

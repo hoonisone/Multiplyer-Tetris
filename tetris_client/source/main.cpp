@@ -19,12 +19,13 @@ int main(int argc, char* argv[])
     //    string response = c.request("default", request);
     //    printf("Response: %s\n", response.c_str());
     //}
-    //c.close(); 
-
+    //c.close();
     Consol::changeScreenSize(WIDTH, HEIGHT);
-    //Director* director = Bean::getDirector();
-    //director->run("main menu scene");
-    Bean::getSingleRankUI()->draw();
+    Consol::setCursorFlag(false);
+    Director* director = Bean::getDirector();
+    director->run("main menu scene");
 
-    while (true);
 }
+/*
+
+*/
