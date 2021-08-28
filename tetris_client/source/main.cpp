@@ -25,11 +25,6 @@ int main(int argc, char* argv[])
     Consol::setCursorFlag(false);
 
 
-
-    Bean::getDeveloperCanvas()->draw();
-    while (1);
-
-
     Director* director = Bean::getDirector();
     director->run("main menu scene");
 

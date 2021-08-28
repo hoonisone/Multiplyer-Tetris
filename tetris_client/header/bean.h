@@ -79,11 +79,15 @@ string singleRankSceneNextNameHandler(UIElement* element, State state) {
 
 string developerIndroductionFunction() {
 	vector<string> describe = {
-		"Main Developer : 한명훈(제주대학교 컴퓨터교육과 4학년)",
-		"Sub Developer1 : 김벼리(제주대학교 컴퓨터교육과 2학년)",
-		"Sub Developer2 : 양래은(제주대학교 컴퓨터교육과 1학년)",
-		"Overseas escape: 김이현(제주대학교 컴퓨터교육과 3학년)",
-		"Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
+		"* Main Developer : 한명훈(제주대학교 컴퓨터교육과 4학년)",
+		"",
+		"* Sub Developer1 : 김벼리(제주대학교 컴퓨터교육과 2학년)",
+		"",
+		"* Sub Developer2 : 양래은(제주대학교 컴퓨터교육과 1학년)",
+		"",
+		"* Fugitive       : 김이현(제주대학교 컴퓨터교육과 3학년)",
+		"",
+		"* Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
 	};
 	NoticeToast().action(describe);
 	return "main menu scene";
@@ -415,7 +419,7 @@ public:
 		}
 		return canvas;
 	}
-	static Canvas* getDeveloperCanvas() {
+	static Canvas* getDeveloperCanvas(int x, int y) {
 		vector<PointShape> letters = { 
 									   {"▦▦▦▦",
 										"▦      ▦",
@@ -497,9 +501,12 @@ public:
 		int width = 100;
 		int num = letters.size();
 		for (int i = 0; i < num; i++) {
-			canvas->enrollFigure(colorPainters[i].getCopy(), 45 + 12*i, 10);
+			canvas->enrollFigure(colorPainters[i].getCopy(), x + 12*i, y);
 		}
 		return canvas;
+	}
+	static Canvas* getDeveloperCanvas() {
+		return getDeveloperCanvas(45, 5);
 	}
 	static Director* getDirector() {
 		Director* director = new Director();
@@ -558,7 +565,7 @@ public:
 		return new ScoreManager(getScoreBoard());
 	}
 	static Scene* getDeveloperIntroductionScene() {
-		return new FunctionScene(developerIndroductionFunction);
+		return new FunctionScene(getDeveloperCanvas(), developerIndroductionFunction);
 	}
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
