@@ -29,7 +29,7 @@
 #include "Director.h"
 
 #include "singleScoreDao.h"
-
+#include "SingleScoreManager.h"
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
 	static vector<string> value = { "single menu scene", "server connection scene", "developer scene", "end scene" };
@@ -160,11 +160,14 @@ public:
 	//	return new UserManager(getUserDao());
 	//}
 
-	FileManager* getSingleScoreFileManager() {
+	static FileManager* getSingleScoreFileManager() {
 		return new FileManager("single mode score.txt");
 	}
-	SingleScoreDao* getSingleScoreDao() {
+	static SingleScoreDao* getSingleScoreDao() {
 		return new SingleScoreDao(getSingleScoreFileManager());
+	}
+	static SingleScoreManager* getSingleScoreManager() {
+		return new SingleScoreManager(getSingleScoreDao());
 	}
 
 	static ScannerCreator* getScannerCreator() {

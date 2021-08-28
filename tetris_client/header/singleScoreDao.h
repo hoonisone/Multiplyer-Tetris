@@ -28,9 +28,11 @@ public:
 	vector<SingleScore> getAllObjects() override {
 		vector<string> lines = fm->readLines();
 		vector<SingleScore> singleScores;
+		
 		for (int i = 0; i < lines.size(); i++) {
 			singleScores.push_back(parse(lines[i]));
 		}
+
 		return singleScores;
 	}
 

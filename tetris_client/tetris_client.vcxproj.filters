@@ -190,7 +190,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\아이비스PC방\Desktop\single mode score.txt">
+    <Text Include="single mode score.txt">
       <Filter>리소스 파일</Filter>
     </Text>
   </ItemGroup>

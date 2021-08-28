@@ -17,11 +17,15 @@ public:
 		ifstream openFile(fileName.data());
 		vector<string> lines;
 		string line;
+
 		if (openFile.is_open()) {
 			while (getline(openFile, line)) {
 				lines.push_back(line);
+
 			}
+
 		}
+
 		return lines;
 	}
 

@@ -21,4 +21,7 @@ public:
 	long long getScore() {
 		return score;
 	}
+	bool operator<(const SingleScore& target) { // 우선순위 값이 작다 -> 순위가 높다 -> 점수가 높다.
+		return score > target.score;
+	}
 };
