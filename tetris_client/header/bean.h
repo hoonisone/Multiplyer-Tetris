@@ -35,8 +35,8 @@
 #include "FunctionScene.h"
 
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
-	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
-	static vector<string> value = { "single menu scene", "server connection scene", "developer indroduction scene", "end scene" };
+	static vector<string> key = { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" };
+	static vector<string> value = { "single menu scene", "server connection scene", "guide scene","developer indroduction scene", "end scene" };
 	string name = element->getName();
 	for (int i = 0; i < key.size(); i++) {
 		if (name == key[i]) {
@@ -88,6 +88,21 @@ string developerIndroductionFunction() {
 		"* Fugitive       : 김이현(제주대학교 컴퓨터교육과 3학년)",
 		"",
 		"* Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
+	};
+	NoticeToast().action(describe);
+	return "main menu scene";
+}
+
+string guideFunction() {
+	vector<string> describe = {
+		"          @ Guide @           ",
+		"                              ",
+		"* ↑   : turn right           ",
+		"* ↓   : move down            ",
+		"* ←   : move left            ",
+		"* →   : move right           ",
+		"* c    : hold                 ",
+		"* space: pull downwards totaly",
 	};
 	NoticeToast().action(describe);
 	return "main menu scene";
@@ -202,8 +217,8 @@ public:
 		return new ScannerCreator();
 	}
 	static UIScannerElement* getUIScannerBlock(int x, int y, int w, int h, string name) {
-		ColorPainter* spainter = new ColorPainter({ "˚" }, AQUA, BLACK);
-		ColorPainter* upainter = new ColorPainter({ "˚" }, WHITE, BLACK);
+		ColorPainter* spainter = new ColorPainter({ "ㆍ" }, AQUA, BLACK);
+		ColorPainter* upainter = new ColorPainter({ "ㆍ" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
 		return new UIScannerElement(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
@@ -215,8 +230,8 @@ public:
 		return element;
 	}
 	static UIElement* getTerminalUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
-		ColorPainter* spainter = new ColorPainter({ "˚" }, AQUA, BLACK);
-		ColorPainter* upainter = new ColorPainter({ "˚" }, WHITE, BLACK);
+		ColorPainter* spainter = new ColorPainter({ "ㆍ" }, AQUA, BLACK);
+		ColorPainter* upainter = new ColorPainter({ "ㆍ" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
 		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
@@ -231,21 +246,21 @@ public:
 	static UIElement* getMainMenuUI() {	// UI for 메인 메뉴 화면
 		int x = WIDTH / 2;
 		int y = 20;
-		int ew = 20;
+		int ew = 30;
 		int eh = 5;
-		return getUIVerticalTextListElement(x, y, ew, eh, { "Single Mode", "Multi Mode", "Developer", "Exit" });
+		return getUIVerticalTextListElement(x, y, ew, eh, { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" });
 	}
 	static UIElement* getSingleMenuUI() {	// UI for 메인 메뉴 화면
 		int x = WIDTH / 2;
 		int y = 20;
-		int ew = 20;
+		int ew = 30;
 		int eh = 5;
 		return getUIVerticalTextListElement(x, y, ew, eh, { "Start", "Rank", "Back" });
 	}
 	static UIElement* getServerConnectionUI() {
 		int x = WIDTH / 2;
 		int y = 20;
-		int ew = 20;
+		int ew = 30;
 		int eh = 5;
 		int en = 4;
 		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en+1, 3, en);
@@ -508,17 +523,6 @@ public:
 	static Canvas* getDeveloperCanvas() {
 		return getDeveloperCanvas(45, 5);
 	}
-	static Director* getDirector() {
-		Director* director = new Director();
-		director->enrollScene("main menu scene", getMainMenuUIScene);
-		director->enrollScene("single menu scene", getSingleMenuUIScene);
-		director->enrollScene("single game scene", getSingleGameScene);
-		director->enrollScene("server connection scene", getServerConnectionScene);
-		director->enrollScene("single rank scene", getSingleRankScene);
-		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
-		
-		return director;
-	}
 	static Scene* getMainMenuUIScene() {
 		return new UIScene(getTetrisCanvas(), getMainMenuUI(), mainMenuSceneNextNameHandler);
 	}
@@ -529,13 +533,24 @@ public:
 		return new UIScene(getTetrisCanvas(), getSingleMenuUI(), singleMenuSceneNextNameHandler);
 	}
 	static Scene* getSingleGameScene() {
-		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "main menu scene", getSingleScoreManager());
+		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "single rank scene", getSingleScoreManager());
 	}
 	static Scene* getServerConnectionScene() {
 		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverConnectionSceneNextNameHandler);
 	}
 	static Scene* getSingleRankScene() {
 		return new UIScene(getScoreCanvas() ,getSingleRankUI(), singleRankSceneNextNameHandler);
+	}
+	static Director* getDirector() {
+		Director* director = new Director();
+		director->enrollScene("main menu scene", getMainMenuUIScene);
+		director->enrollScene("single menu scene", getSingleMenuUIScene);
+		director->enrollScene("single game scene", getSingleGameScene);
+		director->enrollScene("server connection scene", getServerConnectionScene);
+		director->enrollScene("single rank scene", getSingleRankScene);
+		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
+		director->enrollScene("guide scene", getGuideScene);
+		return director;
 	}
 	//Tetris
 	static Tetris* getTetris(){
@@ -566,6 +581,9 @@ public:
 	}
 	static Scene* getDeveloperIntroductionScene() {
 		return new FunctionScene(getDeveloperCanvas(), developerIndroductionFunction);
+	}
+	static Scene* getGuideScene() {
+		return new FunctionScene(getTetrisCanvas(), guideFunction);
 	}
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
