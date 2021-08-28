@@ -11,7 +11,7 @@ private:
 	long long score;
 
 public:
-	SingleScore(string name, string data, int score) : name(name), date(date), score(score) {};
+	SingleScore(string name, string date, int score) : name(name), date(date), score(score) {};
 	string getName() {
 		return name;
 	}

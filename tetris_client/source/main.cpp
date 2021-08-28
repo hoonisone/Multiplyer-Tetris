@@ -22,7 +22,9 @@ int main(int argc, char* argv[])
     //c.close(); 
 
     Consol::changeScreenSize(WIDTH, HEIGHT);
-    Director* director = Bean::getDirector();
-    director->run("main menu scene");
+    //Director* director = Bean::getDirector();
+    //director->run("main menu scene");
+    Bean::getSingleRankUI()->draw();
 
+    while (true);
 }

@@ -3,14 +3,13 @@
 #include "singleScore.h"
 #include "string+.h"
 #include "Dao.h"
-
 class SingleScoreDao : public Dao<SingleScore> {
 private:
 	SingleScore parse(string userInforString) override {
 		vector<string> tokens = split(userInforString, "/");
-		string name = tokens[0];
-		string date = tokens[1];
-		int score = stoi(tokens[2]);
+		int score = stoi(tokens[0]);
+		string name = tokens[1];
+		string date = tokens[2];
 		return SingleScore(name, date, score);
 	}
 	string toString(SingleScore object) override {
@@ -18,7 +17,7 @@ private:
 		string name = object.getName();
 		string date = object.getDate();
 		int score = object.getScore();
-		sprintf(arr, "%s/%s/%d", name.c_str(), date.c_str(), score);
+		sprintf(arr, "%d/%s/%s", score, name.c_str(), date.c_str());
 		return string(arr);
 	}
 public:
@@ -32,7 +31,6 @@ public:
 		for (int i = 0; i < lines.size(); i++) {
 			singleScores.push_back(parse(lines[i]));
 		}
-
 		return singleScores;
 	}
 

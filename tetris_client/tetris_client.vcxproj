@@ -151,6 +151,7 @@
     <ClInclude Include="header\singleScore.h" />
     <ClInclude Include="header\singleScoreDao.h" />
     <ClInclude Include="header\SingleScoreManager.h" />
+    <ClInclude Include="header\UIListElement.h" />
     <ClInclude Include="header\UIScene.h" />
     <ClInclude Include="header\ButtonSelectScene.h" />
     <ClInclude Include="header\Canvas.h" />

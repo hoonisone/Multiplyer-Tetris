@@ -19,6 +19,7 @@
 
 #include "UIScannerElement.h"
 #include "UIElement.h"
+#include "UIListElement.h"
 
 #include "UIScene.h"
 #include "TextInputScene.h"
@@ -179,7 +180,13 @@ public:
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
 		return new UIScannerElement(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
 	}
-	static UIElement* getUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
+	static UIElement* getNunTerminalUIElement(int x, int y, int w, int h, int mapW, int mapH) {
+		UIElement* element = getTerminalUIElement(x, y, w, h, "", mapW, mapH);
+		element->setTerminalFlag(false); // terminal 설정 취소
+		element->setBorderFlag(false); // numTerminal은 border를 기본적으로 그리지 않음
+		return element;
+	}
+	static UIElement* getTerminalUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
 		ColorPainter* spainter = new ColorPainter({ "˚" }, AQUA, BLACK);
 		ColorPainter* upainter = new ColorPainter({ "˚" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
@@ -187,9 +194,9 @@ public:
 		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
 	}
 	static UIElement* getUIVerticalTextListElement(int x, int y, int ew, int eh, vector<string> names) {
-		UIElement* parent = getUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, "", 1, names.size());
+		UIElement* parent = getNunTerminalUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, 1, names.size());
 		for (int i = 0; i < names.size(); i++) {
-			parent->enroll(getUIElement(0, (eh - 1) * i, ew, eh, names[i], 0, 0), 0, i);
+			parent->enroll(getTerminalUIElement(0, (eh - 1) * i, ew, eh, names[i], 0, 0), 0, i);
 		}
 		return parent;
 	}
@@ -213,19 +220,50 @@ public:
 		int ew = 20;
 		int eh = 5;
 		int en = 4;
-		UIElement* parent = getUIElement(x - ew, y, ew, (eh - 1) * en+1, "", 3, en);
+		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en+1, 3, en);
 
-		parent->enroll(getUIElement(0, (eh - 1) * 0, ew, eh, "IP ADDRESS:", 0, 0), 0, 0, false, false);
-		parent->enroll(getUIElement(0, (eh - 1) * 1, ew, eh, "PORT NUMBER:", 0, 0), 0, 1, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "IP ADDRESS:", 0, 0), 0, 0, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "PORT NUMBER:", 0, 0), 0, 1, false, false);
 
 		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 0, ew, eh, "ip"), 2, 0, true, true);
 		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "port"), 2, 1);
-		parent->enroll(getUIElement(ew-2, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
-		parent->enroll(getUIElement(ew-2, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
+		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
+		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
 
 		return parent;
 	}
-
+	static UIElement* getUIListElement(int x, int y, int len) {
+		ColorPainter* spainter = new ColorPainter({ "˚" }, AQUA, BLACK);
+		ColorPainter* upainter = new ColorPainter({ "˚" }, WHITE, BLACK);
+		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
+		return new UIListElement(x, y, len, spainter, upainter, sprinter, uprinter);
+	}
+	static UIElement* getRankUIListElementUI(vector<SingleScore> &scores) {
+		int x = WIDTH / 2-50;
+		int y = 10;
+		UIElement* element = getNunTerminalUIElement(x, y, 0, 0, 1, scores.size());
+		for (int i = 0; i < scores.size(); i++) {
+			element->enroll(getSingleScoreUIElement(0, 2 * i, scores[i], i + 1), 0, i);
+		}
+		return element;
+	}
+	static UIElement* getSingleScoreUIElement(int x, int y, SingleScore score, int rank) {
+		UIElement* element = getTerminalUIElement(x, y, 94, 3, "", 4, 1);	// 부모 입장에서는 terminal 처럼 보이나 내부적으로 여러 요소를 갖는다. -> 테이블 모습을 취하기 위함
+		//element->setBorderFlag(false);
+		element->enroll(getTerminalUIElement(0 , 0,  10, 3, to_string(rank), 0, 0), 0, 0);
+		element->enroll(getTerminalUIElement(8 , 0, 20, 3, to_string(score.getScore()), 0, 0), 1, 0);
+		element->enroll(getTerminalUIElement(26, 0, 30, 3, score.getName(), 0, 0), 2, 0);
+		element->enroll(getTerminalUIElement(54, 0, 40, 3, score.getDate(), 0, 0), 3, 0);
+		return element;
+	}
+	static UIElement* getSingleRankUI() {
+		UIElement* parent = getNunTerminalUIElement(0, 0, 0, 0, 2, 1);
+		UIElement* scoreList = Bean::getRankUIListElementUI(Bean::getSingleScoreManager()->data);
+		parent->enroll(getTerminalUIElement(0, 0, 20, 5, "Back", 0, 0), 0, 0);
+		parent->enroll(scoreList, 1, 0);
+		return parent;
+	}
 	static Canvas* getMainSceneCanvas() {
 		vector<PointShape> letters = {
 			{"▦▦▦",
