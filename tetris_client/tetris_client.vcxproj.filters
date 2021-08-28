@@ -28,6 +28,12 @@
     <Filter Include="헤더 파일\utill">
       <UniqueIdentifier>{3044722a-0165-492a-b202-a2d16f5ef8f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\tetris\file object">
+      <UniqueIdentifier>{4fe86ad4-a561-4c09-981b-b2175569c315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\file">
+      <UniqueIdentifier>{4b562c4b-93a1-4a10-b2e2-5e3bc8d50046}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\bean.h">
@@ -69,22 +75,10 @@
     <ClInclude Include="header\scoreManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\scoreManagerTest.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
     <ClInclude Include="header\SubScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\Tetris.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\User.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UserDao.h">
-      <Filter>헤더 파일\tetris</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UserManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\ButtonSelectScene.h">
@@ -112,9 +106,6 @@
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\string+.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\FileManager.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\random.h">
@@ -150,11 +141,35 @@
     <ClInclude Include="header\ScannerCreator.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\ScannerBlock.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\UIScene.h">
       <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIScannerElement.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="header\User.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserDao.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserManager.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\singleScoreDao.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\singleScore.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\FileManager.h">
+      <Filter>헤더 파일\file</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Dao.h">
+      <Filter>헤더 파일\file</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SingleScoreManager.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,5 +188,10 @@
     <ClCompile Include="source\test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\아이비스PC방\Desktop\single mode score.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

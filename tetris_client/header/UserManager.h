@@ -14,7 +14,7 @@ private:
 	vector<User> userList;
 public:
 	UserManager(UserDao* userDao) : userDao(userDao) {
-		userList = userDao->getAllUsers();
+		userList = userDao->getAllObjects();
 	}
 	vector<string> getAllUserNames() {
 		vector<string> names;

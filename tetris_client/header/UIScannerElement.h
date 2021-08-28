@@ -5,7 +5,7 @@
 #include "error.h"
 #include "UIManager.h"
 
-class UIScannerBlock : public UIElement{
+class UIScannerElement : public UIElement{
 protected:
 	Scanner* scanner;
 	void drawBorder() {
@@ -15,15 +15,15 @@ protected:
 		scanner->draw();
 	}
 public:
-	UIScannerBlock(int x, int y, int w, int h, string name, ScannerCreator* scannerCreator) :UIScannerBlock(x, y, w, h, name, scannerCreator, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true) {};
-	UIScannerBlock(int x, int y, int w, int h, string name, ScannerCreator * scannerCreator, Painter* selectedPainter, Painter* unselectedPainter,
+	UIScannerElement(int x, int y, int w, int h, string name, ScannerCreator* scannerCreator) :UIScannerElement(x, y, w, h, name, scannerCreator, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true) {};
+	UIScannerElement(int x, int y, int w, int h, string name, ScannerCreator * scannerCreator, Painter* selectedPainter, Painter* unselectedPainter,
 		Printer* selectedPrinter, Printer* unselectedPrinter, const bool borderFlag = true):
 		UIElement(x, y, w, h, name, selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, borderFlag, 0, 0){
 		if(!unselectedPainter->checkPointSize(selectedPainter))	// 두 Painter의 point shape가 동일해야 한다.
 			errorPrint("selectedPainter's piont shape is not same to unselectedPainter's");
 		int pw = unselectedPainter->getWidth();
 		int ph = unselectedPainter->getHeight();
-		this->scanner = scannerCreator->createScanner(x + pw, y + ph, w - 2 * pw, h - 2 * ph, new Printer());	// Element 크기에 테두리를 제외한 내부크기에 맞게 Scanner생성
+		this->scanner = scannerCreator->createScanner(x + pw, y + ph, w - 2 * pw, h - 2 * ph, new Printer(CENTER, MIDDLE));	// Element 크기에 테두리를 제외한 내부크기에 맞게 Scanner생성
 		delete scannerCreator;
 		unselect(false);
 	}

@@ -14,19 +14,21 @@
 #include "UserDao.h"
 #include "UserManager.h"
 
-#include "UIElement.h"
-#include "UITextBlock.h"
-
 #include "Scanner.h"
-#include "ScannerBlock.h"
 #include "ScannerCreator.h"
 
+#include "UIScannerElement.h"
 #include "UIManager.h"
-#include "Director.h"
+#include "UIElement.h"
+
+#include "UIScene.h"
 #include "TextInputScene.h"
 #include "ButtonSelectScene.h"
 #include "SingleModeGameScene.h"
-#include "UIScene.h"
+
+#include "Director.h"
+
+#include "singleScoreDao.h"
 
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
@@ -52,7 +54,15 @@ string singleMenuSceneNextNameHandler(UIElement* element, State state) {
 }
 
 string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
-	cout << " sdlfjdslk";
+	string name = element->getName();
+	if (name == "Back") {
+		return "main menu scene";
+	}
+	else if(name == "Connect"){
+		cout << state[0].second << endl;
+		cout << state[1].second << endl;
+		return "";
+	}
 	return "";
 }
 class Bean {
@@ -75,7 +85,6 @@ public:
 	//static Scene* getTextInputScene(UIManager* buttonManager, Canvas* canvas) {
 	//	return new TextInputScene(buttonManager, canvas, "main mune");
 	//}
-
 	//static Scene* getSingleMenuScene() {
 	//	const vector<string> buttonNames = { "Start", "Rank", "Back" };
 	//	const vector<string> nextSceneNames = { "single game", "single rank", "main menu" };
@@ -89,7 +98,6 @@ public:
 	//static Scene* getServerSelectScene() {
 	//	return getTextInputScene(getServerSelectButtonManager(), getMainSceneCanvas());
 	//}
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	//static UIManager* getModeSelectSceneButtonManager(vector<string> names) {
 	//	ColorPrinter printer(CENTER, MIDDLE, WHITE, BLACK);
@@ -104,7 +112,6 @@ public:
 	//	for (int i = 0; i < names.size(); i++) {
 	//		bm->enroll(new UITextBlock(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * i, w, h, names[i], painter.getCopy(), printer.newObject(), selectPainter.getCopy(), selectPrinter.newObject(), true), 0, i);
 	//	}
-
 	//	return bm;
 	//}
 	//static UIManager* getServerSelectButtonManager() {
@@ -126,9 +133,6 @@ public:
 	//	bm->enroll(getButton(x - w * painter.getWidth() / 2, y + (h - 1) * painter.getHeight() * (names.size() + 1), w, h, "Back", true), 2, names.size() + 1);
 	//	return bm;
 	//}
-	
-	
-
 	//static Scanner* getScanner(int x, int y, int width, int height) {
 	//	return new Scanner(x, y, width, height, new ColorPrinter(CENTER, MIDDLE, WHITE));
 	//}
@@ -155,15 +159,23 @@ public:
 	//static UserManager* getUserManager() {
 	//	return new UserManager(getUserDao());
 	//}
+
+	FileManager* getSingleScoreFileManager() {
+		return new FileManager("single mode score.txt");
+	}
+	SingleScoreDao* getSingleScoreDao() {
+		return new SingleScoreDao(getSingleScoreFileManager());
+	}
+
 	static ScannerCreator* getScannerCreator() {
 		return new ScannerCreator();
 	}
-	static UIScannerBlock* getUIScannerBlock(int x, int y, int w, int h, string name) {
+	static UIScannerElement* getUIScannerBlock(int x, int y, int w, int h, string name) {
 		ColorPainter* spainter = new ColorPainter({ "вк" }, AQUA, BLACK);
 		ColorPainter* upainter = new ColorPainter({ "вк" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
-		return new UIScannerBlock(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
+		return new UIScannerElement(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
 	}
 	static UIElement* getUIElement(int x, int y, int w, int h, string text, int mapW, int mapH) {
 		ColorPainter* spainter = new ColorPainter({ "вк" }, AQUA, BLACK);
@@ -199,11 +211,15 @@ public:
 		int ew = 20;
 		int eh = 5;
 		int en = 4;
-		UIElement* parent = getUIElement(x - ew / 2 - ew+1, y, ew, (eh - 1) * en+2, "", 3, en);
-		parent->enroll(getUIScannerBlock(ew-1, (eh - 1) * 0, ew, eh, "ip"), 2, 0);
-		parent->enroll(getUIScannerBlock(ew-1, (eh - 1) * 1, ew, eh, "port"), 2, 1);
-		parent->enroll(getUIElement(ew-1, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
-		parent->enroll(getUIElement(ew-1, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
+		UIElement* parent = getUIElement(x - ew, y, ew, (eh - 1) * en+1, "", 3, en);
+
+		parent->enroll(getUIElement(0, (eh - 1) * 0, ew, eh, "IP ADDRESS:", 0, 0), 0, 0, false, false);
+		parent->enroll(getUIElement(0, (eh - 1) * 1, ew, eh, "PORT NUMBER:", 0, 0), 0, 1, false, false);
+
+		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 0, ew, eh, "ip"), 2, 0, true, true);
+		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "port"), 2, 1);
+		parent->enroll(getUIElement(ew-2, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
+		parent->enroll(getUIElement(ew-2, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
 
 		return parent;
 	}

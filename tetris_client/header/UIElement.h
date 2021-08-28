@@ -26,28 +26,28 @@ protected:
 
 	UIElement* parent = NULL;
 	int selectX, selectY, mapW, mapH;
-	vector<vector<UIElement*>> map;	// 모든 UIElement는 내부적으로 UIElement  자식들을 matrix 형태로 지닌다.
+	vector<vector<pair<UIElement*, bool>>> map;	// 모든 UIElement는 내부적으로 UIElement  자식들을 matrix 형태로 지닌다.	second는 선택 가능 여부
 	vector<UIElement*> children;
 
 	bool endFlag = false;
 
 	bool rangeCheck(int x, int y) { return 0 <= x && x < mapW && 0 <= y && y < mapH; }
-	bool existCheck(int x, int y) { return map[y][x] != NULL; }
+	bool existCheck(int x, int y) { return map[y][x].second; }
 	bool selectChild(int selectX, int selectY, bool redraw = true) {
 		if (rangeCheck(selectX, selectY) && existCheck(selectX, selectY)) {
 			if (existCheck(this->selectX, this->selectY)) {
-				map[this->selectY][this->selectX]->unselect(redraw);
+				map[this->selectY][this->selectX].first->unselect(redraw);
 			}
 			this->selectX = selectX;
 			this->selectY = selectY;
-			map[this->selectY][this->selectX]->select(redraw);
+			map[this->selectY][this->selectX].first->select(redraw);
 			return true;
 		}
 		return false;
 	}
 	UIElement* getSelectedChild() {
 		if (rangeCheck(selectX, selectY) && existCheck(selectX, selectY))
-			return map[selectY][selectX];
+			return map[selectY][selectX].first;
 		else
 			return NULL;
 	}	 // 선택되어있는 자식 반환
@@ -92,10 +92,8 @@ protected:
 public:
 	UIElement(int x, int y, int w, int h, string text) :
 		UIElement(x, y, w, h, text, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true, 0, 0) {};
-
 	UIElement(int x, int y, int w, int h, string text, int mapW, int mapY) :
 		UIElement(x, y, w, h, text, DEFAULT_SELECTED_PAINTER, DEFAULT_UNSELECTED_PAINTER, DEFAULT_SELECTED_PRINTER, DEFAULT_UNSELECTED_PRINTER, true, mapW, mapY) {};
-
 	UIElement(int x, int y, int w, int h, string text, 
 		Painter* selectedPainter, Painter* unselectedPainter, 
 		Printer* selectedPrinter, Printer* unselectedPrinter,
@@ -104,7 +102,7 @@ public:
 		selectedPainter(selectedPainter), unselectedPainter(unselectedPainter),
 		selectedPrinter(selectedPrinter), unselectedPrinter(unselectedPrinter),
 		borderFlag(borderFlag), mapW(mapW), mapH(mapH) {
-		map = vector<vector<UIElement*>>(mapH, vector<UIElement*>(mapW, NULL));
+		map = vector<vector<pair<UIElement*, bool>>>(mapH, vector<pair<UIElement*, bool>>(mapW, pair<UIElement*, bool>(NULL, false)));
 		unselect(false);
 	};
 
@@ -117,7 +115,7 @@ public:
 	void setParent(UIElement* parent) {
 		this->parent = parent;
 	}
-	void enroll(UIElement* element, int x, int y, bool selectFlag = false) {
+	void enroll(UIElement* element, int x, int y, bool selectable = true, bool selectFlag = false) {
 		// 등록 불가능 예외 처리
 		if (!rangeCheck(x, y) || existCheck(x, y)) {	
 			char errorBuffer[100];
@@ -129,7 +127,7 @@ public:
 		element->setParent(this);	// 자식 노드에 자신을 부모를 등록한다.
 		children.push_back(element);	// 자식 노드 등록
 		element->move(this->x, this->y, false);	// 부모의 좌표를 기준으로 위치 재조정
-		map[y][x] = element;
+		map[y][x] = make_pair(element, selectable);
 		
 		unselect(false);	// 자식이 있는 노드는 select될 수 없기에  select를 취소
 		if (children.size() == 1 || selectFlag) {	// 처음으로 등록되거나 외부에서 설정한 경우 select 처리
@@ -151,10 +149,14 @@ public:
 		move(x - this->x, y - this->y, redraw);
 	}
 	virtual void draw() {
+		drawBorder();
 		for (int i = 0; i < children.size(); i++) {
 			children[i]->draw();
 		}
-		drawBorder();
+
+		if (getSelectedChild() != NULL) {
+			getSelectedChild()->draw();
+		}
 		drawText();
 	};
 	virtual void erase() {
