@@ -9,6 +9,9 @@ private:
 	int x, y, w, h;
 	string text;
 	Printer* printer;
+	bool checkInputRange(char c) {
+		return (21 <= c && c <= 126) || c==8;
+	}
 public:
 	void move(int dx, int dy, bool redraw = true) {
 		if (redraw) erase();
@@ -24,7 +27,7 @@ public:
 		Painter({ " " }).rect(x, y, w, h);
 	}
 	void enter(char c, bool redraw = true) {
-		if (c == 10 || c == 13)
+		if (!checkInputRange(c))
 			return;
 		if (c == 8) {	// backspace인 경우 맨 뒷 글자 제거
 			if (!text.empty()) {

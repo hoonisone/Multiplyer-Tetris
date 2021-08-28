@@ -27,6 +27,7 @@ public:
 		ColorPainter({ "#" }).rectBorder(x, y, w, h, CURSOR_STD);
 		ColorPrinter(CENTER, MIDDLE).printText(x + 1, y + 1, w - 2, h - 2, lines);
 		while (Input::getKey() != KEY_ENTER);	// enter를 입력하면 종료
+		ColorPainter::GetEraser(w, h).point(x, y);
 		return "";
 	}
 };

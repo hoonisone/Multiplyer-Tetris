@@ -28,6 +28,7 @@ public:
 	void insert(SingleScore object) {
 		int insertIdx = lower_bound(data.begin(), data.end(), object) - data.begin();	// 점수가 1점 낮은 경우에 대해 상한선을 구한다.
 		data.insert(data.begin()+insertIdx, object);
+		dao->setAllObjects(data);
 	}
 	void printAllObject() {
 

@@ -5,6 +5,7 @@
 #include "SingleScoreManager.h"
 #include "bean.h"
 #include "NoticeToast.h"
+#include "InputToast.h"
 class SingleModeGameScene:public Scene {
 	Tetris* tetris;
 	string nextSceneName;
@@ -39,6 +40,9 @@ public:
 			}
 		}
 		NoticeToast().action("Game Over");
+		string name = InputToast().action("Enter your name!!");
+		long long score = tetris->getScore();
+		ssm->insert(SingleScore(name, "date", score ));
 		return nextSceneName;
 	}
 	~SingleModeGameScene() {
