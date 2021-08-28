@@ -32,10 +32,11 @@
 #include "SingleScoreManager.h"
 #include "Toast.h"
 #include "NoticeToast.h"
+#include "FunctionScene.h"
 
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
-	static vector<string> value = { "single menu scene", "server connection scene", "developer scene", "end scene" };
+	static vector<string> value = { "single menu scene", "server connection scene", "developer indroduction scene", "end scene" };
 	string name = element->getName();
 	for (int i = 0; i < key.size(); i++) {
 		if (name == key[i]) {
@@ -74,7 +75,20 @@ string singleRankSceneNextNameHandler(UIElement* element, State state) {
 		return "single menu scene";
 	}
 	return "";
+}\
+
+string developerIndroductionFunction() {
+	vector<string> describe = {
+		"Main Developer : 한명훈(제주대학교 컴퓨터교육과 4학년)",
+		"Sub Developer1 : 김벼리(제주대학교 컴퓨터교육과 2학년)",
+		"Sub Developer2 : 양래은(제주대학교 컴퓨터교육과 1학년)",
+		"Overseas escape: 김이현(제주대학교 컴퓨터교육과 3학년)",
+		"Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
+	};
+	NoticeToast().action(describe);
+	return "main menu scene";
 }
+
 class Bean {
 public:
 	//// Director
@@ -401,6 +415,92 @@ public:
 		}
 		return canvas;
 	}
+	static Canvas* getDeveloperCanvas() {
+		vector<PointShape> letters = { 
+									   {"▦▦▦▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦▦▦▦  "},
+
+									   {"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦"},
+
+									   {"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"  ▦  ▦   ",
+										"    ▦    "},
+
+									   {"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦"},
+
+									   {"▦        ",
+										"▦        ",
+										"▦        ",
+										"▦        ",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦"},
+
+									   {"▦▦▦▦▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦",
+										"▦▦▦▦▦"},
+
+									   {"▦▦▦▦  ",
+										"▦      ▦",
+										"▦      ▦",
+										"▦▦▦▦  ",
+										"▦        ",
+										"▦        ",
+										"▦        "},
+
+									   {"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦",
+										"▦        ",
+										"▦        ",
+										"▦▦▦▦▦"},
+									   {"▦▦▦▦  ",
+										"▦      ▦",
+										"▦      ▦",
+										"▦▦▦▦  ",
+										"▦      ▦",
+										"▦      ▦",
+										"▦      ▦"}};
+		vector<ColorPainter> colorPainters;
+		vector<Color> colors = { RED, YELLOW, GREEN, LIGHT_GREEN, LIGHT_AQUA, AQUA, LIGHT_BLUE, BLUE, PURPLE };
+		//BLACK, BLUE, GREEN, AQUA, RED, PURPLE, YELLOW, WHITE, GRAY, LIGHT_BLUE, LIGHT_GREEN, LIGHT_AQUA, LIGHT_RED, LIGHT_PURPLE, LIGHT_YELLOW, LIGHT_WHITE
+		for (int i = 0; i < letters.size(); i++) {
+			colorPainters.push_back(new ColorPainter(letters[i], colors[i], BLACK));
+		}
+		Canvas* canvas = new Canvas();
+		int width = 100;
+		int num = letters.size();
+		for (int i = 0; i < num; i++) {
+			canvas->enrollFigure(colorPainters[i].getCopy(), 45 + 12*i, 10);
+		}
+		return canvas;
+	}
 	static Director* getDirector() {
 		Director* director = new Director();
 		director->enrollScene("main menu scene", getMainMenuUIScene);
@@ -408,6 +508,8 @@ public:
 		director->enrollScene("single game scene", getSingleGameScene);
 		director->enrollScene("server connection scene", getServerConnectionScene);
 		director->enrollScene("single rank scene", getSingleRankScene);
+		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
+		
 		return director;
 	}
 	static Scene* getMainMenuUIScene() {
@@ -455,7 +557,9 @@ public:
 	static ScoreManager* getScoreManager() {
 		return new ScoreManager(getScoreBoard());
 	}
-
+	static Scene* getDeveloperIntroductionScene() {
+		return new FunctionScene(developerIndroductionFunction);
+	}
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
 	}

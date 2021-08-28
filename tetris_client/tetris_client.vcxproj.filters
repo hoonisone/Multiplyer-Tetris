@@ -180,6 +180,9 @@
     <ClInclude Include="header\Calender.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
+    <ClInclude Include="header\FunctionScene.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\client.cpp">

@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
 
 
 
-
-
+    Bean::getDeveloperCanvas()->draw();
+    while (1);
 
 
     Director* director = Bean::getDirector();

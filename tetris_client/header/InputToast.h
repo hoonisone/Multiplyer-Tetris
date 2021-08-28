@@ -10,8 +10,7 @@
 #include "Scanner.h"
 class InputToast : public Toast {
 public:
-	string action(string question)override {
-		vector<string> lines = split(question, "\n");
+	string action(vector<string> lines) {
 		lines.push_back("");
 		lines.push_back("");	// 여백
 		int h = lines.size() + 2 + 2;	// 테두리 고려 1*2    여백 1*2
@@ -29,10 +28,10 @@ public:
 		ColorPrinter(CENTER, MIDDLE).printText(x + 1, y + 1, w - 2, h - 2, lines);
 		int sW = w - 10;
 		int sH = 1;
-		int sX = WIDTH/2 - sW/2;
+		int sX = WIDTH / 2 - sW / 2;
 		int sY = y + h - 3;
 		Scanner scanner = Scanner(sX, sY, sW, sH, new Printer(CENTER, MIDDLE));
-		
+
 		bool whileFlag = true;
 		while (whileFlag) {
 			char c = (char)Input::getKey();
@@ -46,5 +45,9 @@ public:
 		}
 		ColorPainter::GetEraser(w, h).point(x, y);
 		return scanner.getText();
+	}
+	string action(string question)override {
+		vector<string> lines = split(question, "\n");
+		return action(lines);
 	}
 };

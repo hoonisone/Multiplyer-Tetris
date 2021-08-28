@@ -146,6 +146,7 @@
     <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\BlockCreator.h" />
     <ClInclude Include="header\Calender.h" />
+    <ClInclude Include="header\FunctionScene.h" />
     <ClInclude Include="header\InputToast.h" />
     <ClInclude Include="header\NoticeToast.h" />
     <ClInclude Include="header\Dao.h" />
