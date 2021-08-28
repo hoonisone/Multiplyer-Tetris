@@ -3,7 +3,6 @@
 #include "ScannerCreator.h"
 #include "UIElement.h"
 #include "error.h"
-#include "UIManager.h"
 
 class UIScannerElement : public UIElement{
 protected:

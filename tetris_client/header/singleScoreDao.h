@@ -6,7 +6,6 @@
 
 class SingleScoreDao : public Dao<SingleScore> {
 private:
-	FileManager* fm;
 	SingleScore parse(string userInforString) override {
 		vector<string> tokens = split(userInforString, "/");
 		string name = tokens[0];
@@ -23,10 +22,11 @@ private:
 		return string(arr);
 	}
 public:
-	SingleScoreDao(FileManager* fm) :Dao(fm) {};
+	SingleScoreDao(FileManager* fm) :Dao(fm) { };
 
 	vector<SingleScore> getAllObjects() override {
 		vector<string> lines = fm->readLines();
+		
 		vector<SingleScore> singleScores;
 		
 		for (int i = 0; i < lines.size(); i++) {

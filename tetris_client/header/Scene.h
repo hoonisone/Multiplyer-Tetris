@@ -3,7 +3,6 @@
 #include "ColorPainter.h"
 #include "Canvas.h"
 #include <windows.h>
-#include "UIManager.h"
 #include "ColorPrinter.h"
 
 /*

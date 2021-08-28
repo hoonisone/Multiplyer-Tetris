@@ -18,7 +18,6 @@
 #include "ScannerCreator.h"
 
 #include "UIScannerElement.h"
-#include "UIManager.h"
 #include "UIElement.h"
 
 #include "UIScene.h"

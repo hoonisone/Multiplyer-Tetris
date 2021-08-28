@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "UIManager.h"
 #include "ColorPainter.h"
 #include "ColorPrinter.h"
 #include "KeyInput.h"

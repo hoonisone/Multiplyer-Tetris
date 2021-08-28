@@ -21,7 +21,6 @@ public:
 	vector<SingleScore> data;
 public:
 	SingleScoreManager(SingleScoreDao* dao) : dao(dao) {
-		
 		data = dao->getAllObjects();
 		
 	};
