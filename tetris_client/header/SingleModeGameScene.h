@@ -2,12 +2,16 @@
 #include "tetris.h"
 #include "Scene.h"
 #include "Consol.h"
+#include "SingleScoreManager.h"
+#include "bean.h"
+#include "NoticeToast.h"
 class SingleModeGameScene:public Scene {
 	Tetris* tetris;
 	string nextSceneName;
 	Canvas* canvas;
+	SingleScoreManager* ssm;
 public:
-	SingleModeGameScene(Canvas* canvas, Tetris* tetris, string nextSceneName) :canvas(canvas), tetris(tetris), nextSceneName(nextSceneName) {};
+	SingleModeGameScene(Canvas* canvas, Tetris* tetris, string nextSceneName, SingleScoreManager* ssm) :ssm(ssm), canvas(canvas), tetris(tetris), nextSceneName(nextSceneName) {};
 	string action() {
 		tetris->draw(WIDTH/2-tetris->getWidth()/2, 15);
 		canvas->draw();
@@ -34,10 +38,12 @@ public:
 				break;
 			}
 		}
+		NoticeToast().action("Game Over");
 		return nextSceneName;
 	}
 	~SingleModeGameScene() {
 		delete tetris;
 		delete canvas;
+		delete ssm;
 	}
 };

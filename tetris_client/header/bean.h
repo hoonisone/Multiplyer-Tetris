@@ -30,6 +30,9 @@
 
 #include "singleScoreDao.h"
 #include "SingleScoreManager.h"
+#include "Toast.h"
+#include "NoticeToast.h"
+
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Developer", "Exit" };
 	static vector<string> value = { "single menu scene", "server connection scene", "developer scene", "end scene" };
@@ -417,7 +420,7 @@ public:
 		return new UIScene(getTetrisCanvas(), getSingleMenuUI(), singleMenuSceneNextNameHandler);
 	}
 	static Scene* getSingleGameScene() {
-		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "main menu scene");
+		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "main menu scene", getSingleScoreManager());
 	}
 	static Scene* getServerConnectionScene() {
 		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverConnectionSceneNextNameHandler);
@@ -451,6 +454,10 @@ public:
 	}
 	static ScoreManager* getScoreManager() {
 		return new ScoreManager(getScoreBoard());
+	}
+
+	static Toast* getNoticeToast() {
+		return new NoticeToast();
 	}
 };
 

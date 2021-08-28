@@ -20,8 +20,16 @@ int main(int argc, char* argv[])
     //    printf("Response: %s\n", response.c_str());
     //}
     //c.close();
+
     Consol::changeScreenSize(WIDTH, HEIGHT);
     Consol::setCursorFlag(false);
+
+
+
+
+
+
+
     Director* director = Bean::getDirector();
     director->run("main menu scene");
 

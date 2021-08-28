@@ -7,7 +7,8 @@ private:
 	ScoreBoard* scoreBoard;
 	//ScoreBoard* scoreBoard;
 	int drawX, drawY;
-	int level, score, line, block;
+	int level, line, block;
+	long long score;
 	int lineScore() {	// 라인 클리어 점수
 		return level * 10;
 	}
@@ -29,6 +30,9 @@ public:
 	void draw(int drawX, int drawY) {
 		drawPointSetting(drawX, drawY);
 		redraw();
+	}
+	long long getScore() {
+		return score;
 	}
 	void redraw() {
 		scoreBoard->draw(drawX, drawY, level, score, line, block);

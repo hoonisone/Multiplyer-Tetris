@@ -5,7 +5,6 @@
 #include "scoreManager.h"
 #include "Timer.h"
 #include <algorithm>
-
 class Tetris {
 private:
 	int drawX, drawY;
@@ -46,6 +45,9 @@ public:
 			accTime -= updateSpeed();
 			moveDown();
 		}
+	}
+	long long getScore() {
+		return scoreManager->getScore();
 	}
 	int getWidth() {
 		return mainScreen->getWidth() + subScreen->getWidth()-1;
