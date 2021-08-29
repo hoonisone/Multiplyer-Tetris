@@ -12,20 +12,12 @@ int port = 5000;
 using namespace std;
 int main(int argc, char* argv[])
 {
-    //Client c(ip, port);
-    //while (1) {
-    //    string request;
-    //    cin >> request;
-    //    string response = c.request("default", request);
-    //    printf("Response: %s\n", response.c_str());
-    //}
-    //c.close();
 
-    Consol::changeScreenSize(WIDTH, HEIGHT);
-    Consol::setCursorFlag(false);
+    //Consol::changeScreenSize(WIDTH, HEIGHT);
+    //Consol::setCursorFlag(false);
 
-    Director* director = Bean::getDirector();
-    director->run("main menu scene");
+    //Director* director = Bean::getDirector();
+    //director->run("main menu scene");
 
 }
 /*

@@ -23,8 +23,6 @@
 #include "UIListElement.h"
 
 #include "UIScene.h"
-#include "TextInputScene.h"
-#include "ButtonSelectScene.h"
 #include "SingleModeGameScene.h"
 
 #include "Director.h"
@@ -618,9 +616,29 @@ public:
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
 	}
+
+	static Client* connectedClient;	// 모두가 공유하기 위함
+	static Client* getConnectedClient() {
+		if (connectedClient == NULL) {
+			errorPrint("There is no connected client");
+		}
+		else {
+			return connectedClient;
+		}
+	}
+	static Client* getNewClient(string ip, int port) {
+		Client* c;
+		try {
+			c = new Client(ip, port);
+		}
+		catch (...) {
+			return NULL;
+		}
+		connectedClient = c;
+		return connectedClient;
+	}
 };
-
-
+Client* Bean::connectedClient = NULL;
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" };
 	static vector<string> value = { "single menu scene", "server connection scene", "guide scene","developer indroduction scene", "end scene" };

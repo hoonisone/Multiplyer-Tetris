@@ -34,6 +34,18 @@
     <Filter Include="헤더 파일\file">
       <UniqueIdentifier>{4b562c4b-93a1-4a10-b2e2-5e3bc8d50046}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\ui\toast">
+      <UniqueIdentifier>{c5012d9c-9239-4d29-b747-a7de7bee19b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\scene">
+      <UniqueIdentifier>{992b24fb-90ce-42e7-9a2b-d8f110b4f1d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\element">
+      <UniqueIdentifier>{67c3acd6-cfbc-4c16-a8b4-8bb7636b6157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ui\scanner">
+      <UniqueIdentifier>{f181042b-31c0-46ab-95e4-4a4ec870519c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\bean.h">
@@ -81,21 +93,6 @@
     <ClInclude Include="header\Tetris.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\ButtonSelectScene.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Scanner.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Scene.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\SingleModeGameScene.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\TextInputScene.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\Director.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
@@ -126,21 +123,6 @@
     <ClInclude Include="header\Uuid.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\ListUI.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UIElement.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\ScannerCreator.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UIScene.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UIScannerElement.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\User.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
@@ -165,23 +147,8 @@
     <ClInclude Include="header\SingleScoreManager.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
-    <ClInclude Include="header\UIListElement.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Toast.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\NoticeToast.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="header\InputToast.h">
-      <Filter>헤더 파일\ui</Filter>
-    </ClInclude>
     <ClInclude Include="header\Calender.h">
       <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\FunctionScene.h">
-      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="header\ServerInfor.h">
       <Filter>헤더 파일\tetris\file object</Filter>
@@ -191,6 +158,42 @@
     </ClInclude>
     <ClInclude Include="header\ServerInforManager.h">
       <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Toast.h">
+      <Filter>헤더 파일\ui\toast</Filter>
+    </ClInclude>
+    <ClInclude Include="header\NoticeToast.h">
+      <Filter>헤더 파일\ui\toast</Filter>
+    </ClInclude>
+    <ClInclude Include="header\InputToast.h">
+      <Filter>헤더 파일\ui\toast</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Scene.h">
+      <Filter>헤더 파일\ui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIScene.h">
+      <Filter>헤더 파일\ui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SingleModeGameScene.h">
+      <Filter>헤더 파일\ui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\FunctionScene.h">
+      <Filter>헤더 파일\ui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIElement.h">
+      <Filter>헤더 파일\ui\element</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIListElement.h">
+      <Filter>헤더 파일\ui\element</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIScannerElement.h">
+      <Filter>헤더 파일\ui\element</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ScannerCreator.h">
+      <Filter>헤더 파일\ui\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Scanner.h">
+      <Filter>헤더 파일\ui\scanner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

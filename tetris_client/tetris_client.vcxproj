@@ -150,7 +150,6 @@
     <ClInclude Include="header\InputToast.h" />
     <ClInclude Include="header\NoticeToast.h" />
     <ClInclude Include="header\Dao.h" />
-    <ClInclude Include="header\ListUI.h" />
     <ClInclude Include="header\ScannerCreator.h" />
     <ClInclude Include="header\ServerInfor.h" />
     <ClInclude Include="header\ServerInforDao.h" />
@@ -161,7 +160,6 @@
     <ClInclude Include="header\Toast.h" />
     <ClInclude Include="header\UIListElement.h" />
     <ClInclude Include="header\UIScene.h" />
-    <ClInclude Include="header\ButtonSelectScene.h" />
     <ClInclude Include="header\Canvas.h" />
     <ClInclude Include="header\client.h" />
     <ClInclude Include="header\ColorPainter.h" />
@@ -187,7 +185,6 @@
     <ClInclude Include="header\system.h" />
     <ClInclude Include="header\test.h" />
     <ClInclude Include="header\Tetris.h" />
-    <ClInclude Include="header\TextInputScene.h" />
     <ClInclude Include="header\Timer.h" />
     <ClInclude Include="header\User.h" />
     <ClInclude Include="header\UserDao.h" />
