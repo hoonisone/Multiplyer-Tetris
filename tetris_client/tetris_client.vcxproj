@@ -192,7 +192,6 @@
     <ClInclude Include="header\Uuid.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\client.cpp" />
     <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\string+.cpp" />

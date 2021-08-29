@@ -75,7 +75,7 @@ string singleRankSceneNextNameHandler(UIElement* element, State state) {
 		return "single menu scene";
 	}
 	return "";
-}\
+}
 
 string developerIndroductionFunction() {
 	vector<string> describe = {
@@ -95,14 +95,14 @@ string developerIndroductionFunction() {
 
 string guideFunction() {
 	vector<string> describe = {
-		"          @ Guide @           ",
-		"                              ",
-		"* ก่   : turn right           ",
-		"* ก้   : move down            ",
-		"* ก็   : move left            ",
-		"* กๆ   : move right           ",
-		"* c    : hold                 ",
-		"* space: pull downwards totaly",
+		"       @ Guide @       ",
+		"                       ",
+		"* ก่   : turn right    ",
+		"* ก้   : move down     ",
+		"* ก็   : move left     ",
+		"* กๆ   : move right    ",
+		"* c    : hold          ",
+		"* space: pull instantly",
 	};
 	NoticeToast().action(describe);
 	return "main menu scene";

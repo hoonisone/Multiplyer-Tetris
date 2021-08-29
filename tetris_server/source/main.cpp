@@ -13,6 +13,15 @@ void responseHandler(char* request, char* response) {
 int main(int argc, char* argv[]) {
 	UserManager* um = Bean::getUserManager();
 	Server* server = Bean::getServer(5000);
+	server->enroll("connect", [&](string ip, int port, string data) -> string {
+		vector<string> userNames = um->getAllUserNames();
+		string s;
+		for (int i = 0; i < userNames.size(); i++) {
+			s += userNames[i] + "/";
+		}
+		s.pop_back();
+		return s;
+		});
 	server->enroll("default", [&](string ip, int port, string data) -> string {
 		vector<string> userNames = um->getAllUserNames();
 		string s;
