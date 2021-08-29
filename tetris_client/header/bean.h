@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Canvas.h"
 #include "Scene.h"
 #include "Block.h"
@@ -38,93 +39,14 @@
 #include "ServerInforDao.h"
 #include "ServerInforManager.h"
 
-string mainMenuSceneNextNameHandler(UIElement* element, State state) {
-	static vector<string> key = { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" };
-	static vector<string> value = { "single menu scene", "server connection scene", "guide scene","developer indroduction scene", "end scene" };
-	string name = element->getName();
-	for (int i = 0; i < key.size(); i++) {
-		if (name == key[i]) {
-			return value[i];
-		}
-	}
-	return "";
-}
-string singleMenuSceneNextNameHandler(UIElement* element, State state) {
-	static vector<string> key = { "Start", "Rank", "Back"};
-	static vector<string> value = { "single game scene", "single rank scene", "main menu scene"};
-	string name = element->getName();
-	for (int i = 0; i < key.size(); i++) {
-		if (name == key[i]) {
-			return value[i];
-		}
-	}
-	return "";
-}
-
-string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
-	string name = element->getName();
-	if (name == "Back") {
-		return "main menu scene";
-	}
-	else if(name == "Connect"){
-		cout << state[0].second << endl;
-		cout << state[1].second << endl;
-		return "";
-	}
-	else if(name == "New Account"){
-		return "account creation scene";
-	}
-	return "";
-}
-string accountCreationNextNameHandler(UIElement* element, State state) {
-	string name = element->getName();
-	if (name == "Create") {
-
-		return "server connection scene";
-	}
-	else if (name == "Back") {
-		return "server connection scene";
-	}
-	return "";
-}
-string singleRankSceneNextNameHandler(UIElement* element, State state) {
-	string name = element->getName();
-	if (name == "Back") {
-		return "single menu scene";
-	}
-	return "";
-}
-
-string developerIndroductionFunction() {
-	vector<string> describe = {
-		"* Main Developer : 한명훈(제주대학교 컴퓨터교육과 4학년)",
-		"",
-		"* Sub Developer1 : 김벼리(제주대학교 컴퓨터교육과 2학년)",
-		"",
-		"* Sub Developer2 : 양래은(제주대학교 컴퓨터교육과 1학년)",
-		"",
-		"* Fugitive       : 김이현(제주대학교 컴퓨터교육과 3학년)",
-		"",
-		"* Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
-	};
-	NoticeToast().action(describe);
-	return "main menu scene";
-}
-
-string guideFunction() {
-	vector<string> describe = {
-		"       @ Guide @       ",
-		"                       ",
-		"* ↑   : turn right    ",
-		"* ↓   : move down     ",
-		"* ←   : move left     ",
-		"* →   : move right    ",
-		"* c    : hold          ",
-		"* space: pull instantly",
-	};
-	NoticeToast().action(describe);
-	return "main menu scene";
-}
+string mainMenuSceneNextNameHandler(UIElement* element, State state);
+string singleMenuSceneNextNameHandler(UIElement* element, State state);
+string serverInforEnrollmentSceneNextNameHandler(UIElement* element, State state);
+string accountCreationNextNameHandler(UIElement* element, State state);
+string singleRankSceneNextNameHandler(UIElement* element, State state);
+string serverConnectionSceneNextNameHandler(UIElement* element, State state);
+string developerIndroductionFunction();
+string guideFunction();
 
 class Bean {
 public:
@@ -221,15 +143,34 @@ public:
 	//	return new UserManager(getUserDao());
 	//}
 
-	static FileManager* getSingleScoreFileManager() {
-		return new FileManager("single mode score.txt");
+	//Tetris
+	static Tetris* getTetris() {
+		return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
 	}
-	static SingleScoreDao* getSingleScoreDao() {
-		return new SingleScoreDao(getSingleScoreFileManager());
+	static BlockBoard* getBlockBoard() {
+		return new BlockBoard(2, 1, 10, 20);
 	}
-	static SingleScoreManager* getSingleScoreManager() {
-		return new SingleScoreManager(getSingleScoreDao());
+	static BlockCreator* getRandomBlockCreator() {
+		return new SamePointBlockCreator({ "■" });
 	}
+	static MainScreen* getMainScreen() {
+		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
+	}
+	static ColorPainter* getMainScreenPainter() {
+		return new ColorPainter({ "˚" }, AQUA);
+	}
+	static SubScreen* getSubScreen() {
+		Block* block = getRandomBlockCreator()->createBlock();
+		ColorPainter* painter = new ColorPainter({ "˚" }, AQUA);
+		return new SubScreen(2 * painter->getWidth() + BLOCK_WIDTH * block->getPainter()->getWidth(), 2 * painter->getHeight() + 20 * block->getPainter()->getHeight(), block, painter);
+	}
+	static ScoreBoard* getScoreBoard() {
+		return new ScoreBoard(34, new ColorPainter({ "·" }));
+	}
+	static ScoreManager* getScoreManager() {
+		return new ScoreManager(getScoreBoard());
+	}
+
 
 	static ScannerCreator* getScannerCreator() {
 		return new ScannerCreator();
@@ -255,21 +196,21 @@ public:
 		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
 	}
 	static UIElement* getUIVerticalTextListElement(int x, int y, int ew, int eh, vector<string> names) {
-		UIElement* parent = getNunTerminalUIElement(x - ew / 2, y, ew, (eh-1)* names.size()+1, 1, names.size());
+		UIElement* parent = getNunTerminalUIElement(x, y, ew, (eh-1)* names.size()+1, 1, names.size());
 		for (int i = 0; i < names.size(); i++) {
 			parent->enroll(getTerminalUIElement(0, (eh - 1) * i, ew, eh, names[i], 0, 0), 0, i);
 		}
 		return parent;
 	}
 	static UIElement* getMainMenuUI() {	// UI for 메인 메뉴 화면
-		int x = WIDTH / 2;
+		int x = WIDTH / 2-15;
 		int y = 20;
 		int ew = 30;
 		int eh = 5;
 		return getUIVerticalTextListElement(x, y, ew, eh, { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" });
 	}
 	static UIElement* getSingleMenuUI() {	// UI for 메인 메뉴 화면
-		int x = WIDTH / 2;
+		int x = WIDTH / 2-15;
 		int y = 20;
 		int ew = 30;
 		int eh = 5;
@@ -283,13 +224,14 @@ public:
 		int en = 5;
 		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en+1, 3, en);
 
-		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "IP ADDRESS:", 0, 0), 0, 0, false, false);
-		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "PORT NUMBER:", 0, 0), 0, 1, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "Name:", 0, 0), 0, 0, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "IP Address:", 0, 0), 0, 0, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 2, ew, eh, "Port:", 0, 0), 0, 1, false, false);
 
-		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 0, ew, eh, "ip"), 2, 0, true, true);
-		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "port"), 2, 1);
-		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
-		parent->enroll(getTerminalUIElement(ew - 2, (eh - 1) * 3, ew, eh, "New Account", 0, 0), 2, 3);
+		parent->enroll(getUIScannerBlock(ew - 2, (eh - 1) * 0, ew, eh, "name"), 2, 0, true, true);
+		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "ip"), 2, 1);
+		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 2, ew, eh, "port"), 2, 2);
+		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 3, ew, eh, "Enroll", 0, 0), 2, 3);
 		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 4, ew, eh, "Back", 0, 0), 2, 4);
 
 		return parent;
@@ -322,6 +264,15 @@ public:
 
 
 	// for single rank scene ui
+	static FileManager* getSingleScoreFileManager() {
+		return new FileManager("single mode score.txt");
+	}
+	static SingleScoreDao* getSingleScoreDao() {
+		return new SingleScoreDao(getSingleScoreFileManager());
+	}
+	static SingleScoreManager* getSingleScoreManager() {
+		return new SingleScoreManager(getSingleScoreDao());
+	}
 	static UIElement* getSingleRankUIListElementUI(int x, int y, vector<SingleScore> &scores) {
 		UIElement* element = getUIListElement(x, y, 94, 21, scores.size());
 		for (int i = 0; i < scores.size(); i++) {
@@ -356,7 +307,23 @@ public:
 		return parent;
 	}
 
+
 	// for server connect scene ui
+
+	static FileManager* getServerInforFileManager() {
+		return new FileManager("serverInfor.txt");
+	}
+	static ServerInforDao* getServerInforDao() {
+		return new ServerInforDao(getServerInforFileManager());
+	}
+	static ServerInforManager* getServerInforManager() {
+		return new ServerInforManager(getServerInforDao());
+	}
+	static UIElement* getServerInforMenuUIElement(int x, int y) {	// UI for 메인 메뉴 화면
+		int ew = 20;
+		int eh = 5;
+		return getUIVerticalTextListElement(x, y, ew, eh, { "Connect", "New Server", "Back"});
+	}
 	static UIElement* getServerInforUIElement(int x, int y, ServerInfor infor, int num) {// serverInforList에서 하나의 element를 구성
 		UIElement* element = getTerminalUIElement(x, y, 60, 3, "", 4, 1);	// 부모 입장에서는 terminal 처럼 보이나 내부적으로 여러 요소를 갖는다. -> 테이블 모습을 취하기 위함
 		element->enroll(getTerminalUIElement(0, 0, 8, 3, to_string(num), 0, 0), 0, 0);
@@ -381,16 +348,18 @@ public:
 		return element;
 	}
 	static UIElement* getServerInforListUI() {	// Server 선택 Scene의 최종 UI
-		UIElement* parent = getNunTerminalUIElement(WIDTH / 2 - 68, 20, 0, 0, 3, 1);
+		UIElement* parent = getNunTerminalUIElement(WIDTH / 2 - 50, 20, 0, 0, 3, 1);
 		vector<ServerInfor> infors = Bean::getServerInforManager()->getAllObject();
 		UIElement* scoreList = Bean::getServerInforUIListElementUI(24, 4, infors);
 
 		parent->enroll(getServerInforUIElementTitle(24, 0), 2, 0, false);
-		parent->enroll(getTerminalUIElement(0, 4, 20, 5, "Back", 0, 0), 0, 0);
+		parent->enroll(getServerInforMenuUIElement(0, 4), 0, 0);
 		parent->enroll(scoreList, 1, 0);
 		return parent;
 	}
 
+
+	//Canvas
 	static Canvas* getTetrisCanvas(int x, int y) {
 		vector<PointShape> letters = {
 			{"▦▦▦▦▦",
@@ -599,11 +568,13 @@ public:
 	static Canvas* getDeveloperCanvas() {
 		return getDeveloperCanvas(45, 5);
 	}
-	static Scene* getMainMenuUIScene() {
-		return new UIScene(getTetrisCanvas(), getMainMenuUI(), mainMenuSceneNextNameHandler);
-	}
 	static Canvas* getTetrisCanvas() {
 		return getTetrisCanvas(WIDTH / 2 - 40, 5);
+	}
+
+	// Scene
+	static Scene* getMainMenuUIScene() {
+		return new UIScene(getTetrisCanvas(), getMainMenuUI(), mainMenuSceneNextNameHandler);
 	}
 	static Scene* getSingleMenuUIScene() {
 		return new UIScene(getTetrisCanvas(), getSingleMenuUI(), singleMenuSceneNextNameHandler);
@@ -611,14 +582,23 @@ public:
 	static Scene* getSingleGameScene() {
 		return new SingleModeGameScene(getTetrisCanvas(),  getTetris(), "single rank scene", getSingleScoreManager());
 	}
-	static Scene* getServerConnectionScene() {
-		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverConnectionSceneNextNameHandler);
+	static Scene* getServerInforEnrollmentScene() {
+		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverInforEnrollmentSceneNextNameHandler);
 	}
 	static Scene* getAccountCreationScene() {
 		return new UIScene(getTetrisCanvas(), getAccountCreationUI(), accountCreationNextNameHandler);
 	}
 	static Scene* getSingleRankScene() {
 		return new UIScene(getScoreCanvas() ,getSingleRankUI(), singleRankSceneNextNameHandler);
+	}
+	static Scene* getServerConnectionScene() {
+		return new UIScene(getTetrisCanvas(), getServerInforListUI(), serverConnectionSceneNextNameHandler);
+	}
+	static Scene* getDeveloperIntroductionScene() {
+		return new FunctionScene(getDeveloperCanvas(), developerIndroductionFunction);
+	}
+	static Scene* getGuideScene() {
+		return new FunctionScene(getTetrisCanvas(), guideFunction);
 	}
 	static Director* getDirector() {
 		Director* director = new Director();
@@ -630,54 +610,114 @@ public:
 		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
 		director->enrollScene("guide scene", getGuideScene);
 		director->enrollScene("account creation scene", getAccountCreationScene);
+		director->enrollScene("server infor enrollment scene", getServerInforEnrollmentScene);
+		
 		return director;
 	}
-	//Tetris
-	static Tetris* getTetris(){
-	return new Tetris(getMainScreen(), getSubScreen(), getRandomBlockCreator(), getScoreManager());
-	}
-	static BlockBoard* getBlockBoard() {
-		return new BlockBoard(2, 1, 10, 20);
-	}
-	static BlockCreator* getRandomBlockCreator() {
-		return new SamePointBlockCreator({ "■"});
-	}
-	static MainScreen* getMainScreen() {
-		return new MainScreen(getBlockBoard(), getRandomBlockCreator()->createBlock(), getMainScreenPainter());
-	}
-	static ColorPainter* getMainScreenPainter() {
-		return new ColorPainter({ "˚" }, AQUA);
-	}
-	static SubScreen* getSubScreen() {
-		Block* block = getRandomBlockCreator()->createBlock();
-		ColorPainter* painter = new ColorPainter({ "˚"}, AQUA);
-		return new SubScreen(2*painter->getWidth()+BLOCK_WIDTH*block->getPainter()->getWidth(), 2 * painter->getHeight()+ 20*block->getPainter()->getHeight(), block, painter);
-	}
-	static ScoreBoard* getScoreBoard() {
-		return new ScoreBoard(34, new ColorPainter({ "·" }));
-	}
-	static ScoreManager* getScoreManager() {
-		return new ScoreManager(getScoreBoard());
-	}
-	static Scene* getDeveloperIntroductionScene() {
-		return new FunctionScene(getDeveloperCanvas(), developerIndroductionFunction);
-	}
-	static Scene* getGuideScene() {
-		return new FunctionScene(getTetrisCanvas(), guideFunction);
-	}
+
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
 	}
-
-	static FileManager* getServerInforFileManager() {
-		return new FileManager("serverInfor.txt");
-	}
-	static ServerInforDao* getServerInforDao() {
-		return new ServerInforDao(getServerInforFileManager());
-	}
-	static ServerInforManager* getServerInforManager() {
-		return new ServerInforManager(getServerInforDao());
-	}
-	
 };
 
+
+string mainMenuSceneNextNameHandler(UIElement* element, State state) {
+	static vector<string> key = { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" };
+	static vector<string> value = { "single menu scene", "server connection scene", "guide scene","developer indroduction scene", "end scene" };
+	string name = element->getName();
+	for (int i = 0; i < key.size(); i++) {
+		if (name == key[i]) {
+			return value[i];
+		}
+	}
+	return "";
+}
+string singleMenuSceneNextNameHandler(UIElement* element, State state) {
+	static vector<string> key = { "Start", "Rank", "Back" };
+	static vector<string> value = { "single game scene", "single rank scene", "main menu scene" };
+	string name = element->getName();
+	for (int i = 0; i < key.size(); i++) {
+		if (name == key[i]) {
+			return value[i];
+		}
+	}
+	return "";
+}
+string serverInforEnrollmentSceneNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Back") {
+		return "server connection scene";
+	}
+	else if (name == "Enroll") {
+		ServerInforManager *m = Bean::getServerInforManager();
+		if (m->chackNameExist(state["name"])) {	// 이름이 이미 존재한다면
+			Bean::getNoticeToast()->action("The server name already exist!!\nCheck your input");
+			return "server infor enrollment scene";
+		}
+		else {
+			m->insert(ServerInfor(state["name"], state["ip"], state["port"]));	// 등록
+			Bean::getNoticeToast()->action("Success!!");
+			return "server connection scene";
+		}
+	}
+	return "";
+}
+string accountCreationNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Create") {
+
+		return "server connection scene";
+	}
+	else if (name == "Back") {
+		return "server connection scene";
+	}
+	return "";
+}
+string singleRankSceneNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Back") {
+		return "single menu scene";
+	}
+	return "single rank scene";
+}
+string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Back") {
+		return "main menu scene";
+	}if (name == "Connect") {
+		return "main menu scene";
+	}
+	else if (name == "New Server") {
+		return "server infor enrollment scene";
+	}
+	return "";
+}
+string developerIndroductionFunction() {
+	vector<string> describe = {
+		"* Main Developer : 한명훈(제주대학교 컴퓨터교육과 4학년)",
+		"",
+		"* Sub Developer1 : 김벼리(제주대학교 컴퓨터교육과 2학년)",
+		"",
+		"* Sub Developer2 : 양래은(제주대학교 컴퓨터교육과 1학년)",
+		"",
+		"* Fugitive       : 김이현(제주대학교 컴퓨터교육과 3학년)",
+		"",
+		"* Just Member    : 조윤상(제주대학교 컴퓨터교육과 1학년)"
+	};
+	NoticeToast().action(describe);
+	return "main menu scene";
+}
+string guideFunction() {
+	vector<string> describe = {
+		"       @ Guide @       ",
+		"                       ",
+		"* ↑   : turn right    ",
+		"* ↓   : move down     ",
+		"* ←   : move left     ",
+		"* →   : move right    ",
+		"* c    : hold          ",
+		"* space: pull instantly",
+	};
+	NoticeToast().action(describe);
+	return "main menu scene";
+}

@@ -22,7 +22,14 @@ public:
 			if (key != -1){
 				ui->keyInputHandler(key);
 				if (ui->endCheck()) {
-					return nextSceneNameHandler(ui->getSelectedElement(), ui->getState());
+					string nextSceneName = nextSceneNameHandler(ui->getSelectedElement(), ui->getState());
+					if (nextSceneName != "") {
+						return nextSceneName;
+					}
+					else {
+
+					}
+
 				}
 
 			}

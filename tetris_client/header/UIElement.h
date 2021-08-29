@@ -3,6 +3,7 @@
 #include "ColorPainter.h"
 #include "ColorPrinter.h"
 #include "KeyInput.h"
+#include <unordered_map>
 #define DEFAULT_SELECTED_PAINTER new ColorPainter({"*"}, AQUA, BLACK)
 #define DEFAULT_UNSELECTED_PAINTER new ColorPainter({"*"}, WHITE, BLACK)
 #define DEFAULT_SELECTED_PRINTER new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK)
@@ -14,7 +15,7 @@
 - 출력과 지우기, 업데이트 등의 메소드를 갖는다.
 - 상태를 변화시키는 모든 함수는 redraw매개변수를 통해 변경과 동시에 재출력할 수 있다.
 */
-using State = vector<pair<string, string>>;
+using State = unordered_map<string, string>;
 class UIElement {
 protected:
 	int x, y, w, h;
@@ -233,9 +234,12 @@ public:
 	virtual State getState() {
 		State state;
 		for (int i = 0; i < children.size(); i++) {
-			vector<pair<string, string>> childState = children[i]->getState();
-			state.insert(state.end(), childState.begin(), childState.end());
+			State childState = children[i]->getState();
+			for (auto i : childState) {
+				state[i.first] = i.second;
+			}
 		}
+		state[name] = "";
 		return state;
 	}
 	UIElement* getSelectedElement() {	// element에서 최종적으로 선택되어있는 말단 자식노드 반환

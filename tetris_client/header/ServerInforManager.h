@@ -26,6 +26,7 @@ public:
 			errorPrint("server name already exist");
 		}
 		data.push_back(serverInfor);
+		dao->setAllObjects(data);
 	}
 
 	ServerInfor getObjectByName(string name) {

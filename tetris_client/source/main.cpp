@@ -24,8 +24,6 @@ int main(int argc, char* argv[])
     Consol::changeScreenSize(WIDTH, HEIGHT);
     Consol::setCursorFlag(false);
 
-    Bean::getServerInforListUI()->draw();
-    while (1);
     Director* director = Bean::getDirector();
     director->run("main menu scene");
 
