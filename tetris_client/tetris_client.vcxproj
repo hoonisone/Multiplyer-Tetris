@@ -152,6 +152,9 @@
     <ClInclude Include="header\Dao.h" />
     <ClInclude Include="header\ListUI.h" />
     <ClInclude Include="header\ScannerCreator.h" />
+    <ClInclude Include="header\ServerInfor.h" />
+    <ClInclude Include="header\ServerInforDao.h" />
+    <ClInclude Include="header\ServerInforManager.h" />
     <ClInclude Include="header\singleScore.h" />
     <ClInclude Include="header\singleScoreDao.h" />
     <ClInclude Include="header\SingleScoreManager.h" />
@@ -198,6 +201,7 @@
     <ClCompile Include="source\test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="serverInfor.txt" />
     <Text Include="single mode score.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -183,6 +183,15 @@
     <ClInclude Include="header\FunctionScene.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="header\ServerInfor.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ServerInforDao.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ServerInforManager.h">
+      <Filter>헤더 파일\tetris\file object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -200,6 +209,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="single mode score.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="serverInfor.txt">
       <Filter>리소스 파일</Filter>
     </Text>
   </ItemGroup>

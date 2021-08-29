@@ -31,21 +31,21 @@ private:
 public:
 	UserDao(FileManager* fm) : Dao(fm) {}
 
-	vector<User> getAllObjects() override {
-		vector<User> userList;
-		vector<string> lines = fm->readLines();
-		for (int i = 0; i < lines.size(); i++) {
-			userList.push_back(parse(lines[i]));
-		}
-		return userList;
-	}
-	void setAllObjects(vector<User> userList) override {
-		vector<string> lines;
-		for (int i = 0; i < userList.size(); i++) {
-			lines.push_back(toString(userList[i]));
-		}
-		fm->writeLines(lines);
-	}
+	//vector<User> getAllObjects() override {
+	//	vector<User> userList;
+	//	vector<string> lines = fm->readLines();
+	//	for (int i = 0; i < lines.size(); i++) {
+	//		userList.push_back(parse(lines[i]));
+	//	}
+	//	return userList;
+	//}
+	//void setAllObjects(vector<User> userList) override {
+	//	vector<string> lines;
+	//	for (int i = 0; i < userList.size(); i++) {
+	//		lines.push_back(toString(userList[i]));
+	//	}
+	//	fm->writeLines(lines);
+	//}
 	~UserDao() {
 		delete fm;
 	}

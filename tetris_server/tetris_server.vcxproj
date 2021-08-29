@@ -159,7 +159,9 @@
     <ClInclude Include="header\Bean.h" />
     <ClInclude Include="header\error.h" />
     <ClInclude Include="header\FileManager.h" />
+    <ClInclude Include="header\MessageConverter.h" />
     <ClInclude Include="header\server.h" />
+    <ClInclude Include="header\ServerResource.h" />
     <ClInclude Include="header\string+.h" />
     <ClInclude Include="header\User.h" />
     <ClInclude Include="header\UserDao.h" />

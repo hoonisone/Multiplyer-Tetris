@@ -34,6 +34,10 @@
 #include "NoticeToast.h"
 #include "FunctionScene.h"
 
+#include "ServerInfor.h"
+#include "ServerInforDao.h"
+#include "ServerInforManager.h"
+
 string mainMenuSceneNextNameHandler(UIElement* element, State state) {
 	static vector<string> key = { "Single Mode", "Multi Mode", "Guide", "Developer", "Exit" };
 	static vector<string> value = { "single menu scene", "server connection scene", "guide scene","developer indroduction scene", "end scene" };
@@ -66,6 +70,20 @@ string serverConnectionSceneNextNameHandler(UIElement* element, State state) {
 		cout << state[0].second << endl;
 		cout << state[1].second << endl;
 		return "";
+	}
+	else if(name == "New Account"){
+		return "account creation scene";
+	}
+	return "";
+}
+string accountCreationNextNameHandler(UIElement* element, State state) {
+	string name = element->getName();
+	if (name == "Create") {
+
+		return "server connection scene";
+	}
+	else if (name == "Back") {
+		return "server connection scene";
 	}
 	return "";
 }
@@ -262,7 +280,7 @@ public:
 		int y = 20;
 		int ew = 30;
 		int eh = 5;
-		int en = 4;
+		int en = 5;
 		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en+1, 3, en);
 
 		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "IP ADDRESS:", 0, 0), 0, 0, false, false);
@@ -271,7 +289,26 @@ public:
 		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 0, ew, eh, "ip"), 2, 0, true, true);
 		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "port"), 2, 1);
 		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 2, ew, eh, "Connect", 0, 0), 2, 2);
-		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
+		parent->enroll(getTerminalUIElement(ew - 2, (eh - 1) * 3, ew, eh, "New Account", 0, 0), 2, 3);
+		parent->enroll(getTerminalUIElement(ew-2, (eh - 1) * 4, ew, eh, "Back", 0, 0), 2, 4);
+
+		return parent;
+	}
+	static UIElement* getAccountCreationUI() {
+		int x = WIDTH / 2;
+		int y = 20;
+		int ew = 30;
+		int eh = 5;
+		int en = 5;
+		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en + 1, 3, en);
+
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "ID:", 0, 0), 0, 0, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "PASSWORD:", 0, 0), 0, 1, false, false);
+
+		parent->enroll(getUIScannerBlock(ew - 2, (eh - 1) * 0, ew, eh, "ip"), 2, 0, true, true);
+		parent->enroll(getUIScannerBlock(ew - 2, (eh - 1) * 1, ew, eh, "port"), 2, 1);
+		parent->enroll(getTerminalUIElement(ew - 2, (eh - 1) * 2, ew, eh, "Create", 0, 0), 2, 2);
+		parent->enroll(getTerminalUIElement(ew - 2, (eh - 1) * 3, ew, eh, "Back", 0, 0), 2, 3);
 
 		return parent;
 	}
@@ -538,6 +575,9 @@ public:
 	static Scene* getServerConnectionScene() {
 		return new UIScene(getTetrisCanvas(), getServerConnectionUI(), serverConnectionSceneNextNameHandler);
 	}
+	static Scene* getAccountCreationScene() {
+		return new UIScene(getTetrisCanvas(), getAccountCreationUI(), accountCreationNextNameHandler);
+	}
 	static Scene* getSingleRankScene() {
 		return new UIScene(getScoreCanvas() ,getSingleRankUI(), singleRankSceneNextNameHandler);
 	}
@@ -550,6 +590,9 @@ public:
 		director->enrollScene("single rank scene", getSingleRankScene);
 		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
 		director->enrollScene("guide scene", getGuideScene);
+		director->enrollScene("account creation scene", getAccountCreationScene);
+
+		
 		return director;
 	}
 	//Tetris
@@ -587,6 +630,16 @@ public:
 	}
 	static Toast* getNoticeToast() {
 		return new NoticeToast();
+	}
+
+	static FileManager* getServerInforFileManager() {
+		return new FileManager("serverInfor.txt");
+	}
+	static ServerInforDao* getServerInforDao() {
+		return new ServerInforDao(getServerInforFileManager());
+	}
+	static ServerInforManager* getServerInforManager() {
+		return new ServerInforManager(getServerInforDao());
 	}
 };
 

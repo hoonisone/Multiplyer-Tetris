@@ -55,5 +55,11 @@
     <ClInclude Include="header\FileManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="header\MessageConverter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ServerResource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

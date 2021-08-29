@@ -23,24 +23,24 @@ private:
 public:
 	SingleScoreDao(FileManager* fm) :Dao(fm) { };
 
-	vector<SingleScore> getAllObjects() override {
-		vector<string> lines = fm->readLines();
-		
-		vector<SingleScore> singleScores;
-		
-		for (int i = 0; i < lines.size(); i++) {
-			singleScores.push_back(parse(lines[i]));
-		}
-		return singleScores;
-	}
+	//vector<SingleScore> getAllObjects() override {
+	//	vector<string> lines = fm->readLines();
+	//	
+	//	vector<SingleScore> singleScores;
+	//	
+	//	for (int i = 0; i < lines.size(); i++) {
+	//		singleScores.push_back(parse(lines[i]));
+	//	}
+	//	return singleScores;
+	//}
 
-	void setAllObjects(vector<SingleScore> objects) override {
-		vector<string> lines;
-		for (int i = 0; i < objects.size(); i++) {
-			lines.push_back(toString(objects[i]));
-		}
-		fm->writeLines(lines);
-	}
+	//void setAllObjects(vector<SingleScore> objects) override {
+	//	vector<string> lines;
+	//	for (int i = 0; i < objects.size(); i++) {
+	//		lines.push_back(toString(objects[i]));
+	//	}
+	//	fm->writeLines(lines);
+	//}
 
 	~SingleScoreDao() {
 		delete fm;

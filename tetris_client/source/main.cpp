@@ -24,7 +24,11 @@ int main(int argc, char* argv[])
     Consol::changeScreenSize(WIDTH, HEIGHT);
     Consol::setCursorFlag(false);
 
-
+    vector<string> names = Bean::getServerInforManager()->getAllServerName();
+    for (auto name : names) {
+        cout << name << endl;
+    }
+    while (1);
     Director* director = Bean::getDirector();
     director->run("main menu scene");
 

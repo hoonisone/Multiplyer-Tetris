@@ -5,15 +5,6 @@
 #include "singleScore.h"
 
 using namespace std;
-class Test {
-public:
-	int a;
-	Test(int a) : a(a) {  };
-
-	bool operator<(const Test& b) {
-		return a > b.a;
-	}
-};
 
 class SingleScoreManager {
 public:

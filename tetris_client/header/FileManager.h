@@ -21,11 +21,8 @@ public:
 		if (openFile.is_open()) {
 			while (getline(openFile, line)) {
 				lines.push_back(line);
-
 			}
-
 		}
-
 		return lines;
 	}
 
