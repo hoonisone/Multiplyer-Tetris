@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="user.txt">
+    <Text Include="..\tetris_client\serverInfor.txt">
       <Filter>리소스 파일</Filter>
     </Text>
   </ItemGroup>

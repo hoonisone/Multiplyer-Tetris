@@ -38,7 +38,7 @@ public:
 	bool objectExistCheck(User user) {
 		return nameExistCheck(user.getName());
 	}
-	void createUser(User user){
+	void insertUser(User user){
 		if (!objectExistCheck(user)) {
 			userList.push_back(user);
 			userMap[user.getName()] = userList.size() - 1;
