@@ -44,5 +44,8 @@ public:
 		}
 		return names;
 	}
+	vector<ServerInfor> getAllObject() {
+		return data;
+	}
 
 };

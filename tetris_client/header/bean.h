@@ -319,7 +319,10 @@ public:
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
 		return new UIListElement(x, y, w, h, len, spainter, upainter, sprinter, uprinter);
 	}
-	static UIElement* getRankUIListElementUI(int x, int y, vector<SingleScore> &scores) {
+
+
+	// for single rank scene ui
+	static UIElement* getSingleRankUIListElementUI(int x, int y, vector<SingleScore> &scores) {
 		UIElement* element = getUIListElement(x, y, 94, 21, scores.size());
 		for (int i = 0; i < scores.size(); i++) {
 			element->enroll(getSingleScoreUIElement(0, 2 * i, scores[i], i + 1), 0, i);
@@ -345,13 +348,49 @@ public:
 	}
 	static UIElement* getSingleRankUI() {
 		UIElement* parent = getNunTerminalUIElement(WIDTH/2 - 68, 20, 0, 0, 3, 1);
-		UIElement* scoreList = Bean::getRankUIListElementUI(24, 4, Bean::getSingleScoreManager()->data);
+		UIElement* scoreList = Bean::getSingleRankUIListElementUI(24, 4, Bean::getSingleScoreManager()->data);
 
 		parent->enroll(getSingleScoreUIElementTitle(24, 0), 2, 0, false);
 		parent->enroll(getTerminalUIElement(0, 4, 20, 5, "Back", 0, 0), 0, 0);
 		parent->enroll(scoreList, 1, 0);
 		return parent;
 	}
+
+	// for server connect scene ui
+	static UIElement* getServerInforUIElement(int x, int y, ServerInfor infor, int num) {// serverInforList에서 하나의 element를 구성
+		UIElement* element = getTerminalUIElement(x, y, 60, 3, "", 4, 1);	// 부모 입장에서는 terminal 처럼 보이나 내부적으로 여러 요소를 갖는다. -> 테이블 모습을 취하기 위함
+		element->enroll(getTerminalUIElement(0, 0, 8, 3, to_string(num), 0, 0), 0, 0);
+		element->enroll(getTerminalUIElement(6, 0, 26, 3, infor.getName(), 0, 0), 1, 0);
+		element->enroll(getTerminalUIElement(30, 0, 22, 3, infor.getIp(), 0, 0), 2, 0);
+		element->enroll(getTerminalUIElement(50, 0, 10, 3, infor.getPort(), 0, 0), 3, 0);
+		return element;
+	}
+	static UIElement* getServerInforUIListElementUI(int x, int y, vector<ServerInfor>& infors) {	// serverInforList 의 내용 부분
+		UIElement* element = getUIListElement(x, y, 60, 21, infors.size());
+		for (int i = 0; i < infors.size(); i++) {
+			element->enroll(getServerInforUIElement(0, 2 * i, infors[i], i + 1), 0, i);
+		}
+		return element;
+	}
+	static UIElement* getServerInforUIElementTitle(int x, int y) {				// serverInforList의 Title 구성
+		UIElement* element = getTerminalUIElement(x, y, 60, 5, "", 4, 1);
+		element->enroll(getTerminalUIElement(0, 0, 8, 5, "Num", 0, 0), 0, 0);
+		element->enroll(getTerminalUIElement(6, 0, 26, 5, "Name", 0, 0), 1, 0);
+		element->enroll(getTerminalUIElement(30, 0, 22, 5, "IP Address", 0, 0), 2, 0);
+		element->enroll(getTerminalUIElement(50, 0, 10, 5, "Port", 0, 0), 3, 0);
+		return element;
+	}
+	static UIElement* getServerInforListUI() {	// Server 선택 Scene의 최종 UI
+		UIElement* parent = getNunTerminalUIElement(WIDTH / 2 - 68, 20, 0, 0, 3, 1);
+		vector<ServerInfor> infors = Bean::getServerInforManager()->getAllObject();
+		UIElement* scoreList = Bean::getServerInforUIListElementUI(24, 4, infors);
+
+		parent->enroll(getServerInforUIElementTitle(24, 0), 2, 0, false);
+		parent->enroll(getTerminalUIElement(0, 4, 20, 5, "Back", 0, 0), 0, 0);
+		parent->enroll(scoreList, 1, 0);
+		return parent;
+	}
+
 	static Canvas* getTetrisCanvas(int x, int y) {
 		vector<PointShape> letters = {
 			{"▦▦▦▦▦",
@@ -591,8 +630,6 @@ public:
 		director->enrollScene("developer indroduction scene", getDeveloperIntroductionScene);
 		director->enrollScene("guide scene", getGuideScene);
 		director->enrollScene("account creation scene", getAccountCreationScene);
-
-		
 		return director;
 	}
 	//Tetris
@@ -641,5 +678,6 @@ public:
 	static ServerInforManager* getServerInforManager() {
 		return new ServerInforManager(getServerInforDao());
 	}
+	
 };
 
