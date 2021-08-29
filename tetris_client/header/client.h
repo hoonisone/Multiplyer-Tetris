@@ -14,20 +14,25 @@ private:
     int port;
 public:
     Client(string ip, int port) :ip(ip), port(port) {
-        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) //소켓 라이브러리를 초기화하고 있다.
-            errorPrint("WSAStartup() error!");
+        try {
+            if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) //소켓 라이브러리를 초기화하고 있다.
+                errorPrint("WSAStartup() error!");
 
-        hSocket = socket(PF_INET, SOCK_STREAM, 0); //소켓을 생성하고
-        if (hSocket == INVALID_SOCKET)
-            errorPrint((char*)"socket() error");
+            hSocket = socket(PF_INET, SOCK_STREAM, 0); //소켓을 생성하고
+            if (hSocket == INVALID_SOCKET)
+                errorPrint((char*)"socket() error");
 
-        memset(&servAddr, 0, sizeof(servAddr));
-        servAddr.sin_family = AF_INET;
-        servAddr.sin_addr.s_addr = inet_addr(ip.c_str());
-        servAddr.sin_port = htons(port);
+            memset(&servAddr, 0, sizeof(servAddr));
+            servAddr.sin_family = AF_INET;
+            servAddr.sin_addr.s_addr = inet_addr(ip.c_str());
+            servAddr.sin_port = htons(port);
 
-        if (connect(hSocket, (SOCKADDR*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR) //생성된 소켓을 바탕으로 서버에 연결요청을 하고 있다
-            errorPrint((char*)"connect() error!");
+            if (connect(hSocket, (SOCKADDR*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR) //생성된 소켓을 바탕으로 서버에 연결요청을 하고 있다
+                errorPrint((char*)"connect() error!");
+        }catch(...) {
+            throw;
+        };
+
     };
 
     string request(string query, string data) {
