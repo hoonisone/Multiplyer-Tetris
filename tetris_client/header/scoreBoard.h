@@ -1,7 +1,7 @@
 #pragma once
 #include "ColorPainter.h"
 #include "ColorPrinter.h"
-typedef struct ScoreBoard {
+class ScoreBoard {
 	int drawX=0, drawY=0;
 	int width, height = 9;
 	Painter* painter;

@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bean" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgRBAggZEBACBgCHAIUCQCaABSIYFAAAAECmAACTE=</HashCode>
+      <FileName>header\bean.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAEAAAAAAAAAIAAAAAAEAEAAA=</HashCode>
+      <FileName>header\Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorPainter" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAEiAAAABEAAAAAAAoAAAAAACAAgAAAAAAAEIAAA=</HashCode>
+      <FileName>header\ColorPainter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorPrinter" Collapsed="true">
+    <Position X="0.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAAAIAAAQAAACAAAAAAAAAgAAAAAAAAIAAA=</HashCode>
+      <FileName>header\ColorPrinter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Consol" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIAAIAAAAAgASAAAAKAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Consol.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Painter" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAwmiAgAAAAQAAAIAAoAAAAAhSQAAQgAIAIIAAQAQ=</HashCode>
+      <FileName>header\Painter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAQgAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAABA=</HashCode>
+      <FileName>header\Printer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Block" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEAQoBAAAAAQKAAAIIABACAAAEQAAACABgCGZAACM=</HashCode>
+      <FileName>header\Block.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LineCounter" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAAAAAIAAAAAAAAAAAAAAAAAAAABBAwEAAAAAA=</HashCode>
+      <FileName>header\BlockBoard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockBoard" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQSAAAAgAAgYAQAIJADICAAhASEAQAIAQAAIEAAM=</HashCode>
+      <FileName>header\BlockBoard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockCreator" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\BlockCreator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SamePointBlockCreator" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>header\BlockCreator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainScreen" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAQIBABgQEAUAwAJYGBAGAMFAQAAQYAJADEIAhQI=</HashCode>
+      <FileName>header\MainScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScoreManager" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAAQAAAAAIAAAgABMIAJAAAAEAAMCAAACAAAIIBDA=</HashCode>
+      <FileName>header\scoreManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubScreen" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAACAAAAAAAQgYEIAABAAAiAAAgAJAEAAAAIAAII=</HashCode>
+      <FileName>header\SubScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQBAAIAAIACAAAAAAMAABBAMARQAADIAAJgGEYEQQA=</HashCode>
+      <FileName>header\Tetris.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerInfor" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAEAAgIAAAkAAAAAgA=</HashCode>
+      <FileName>header\ServerInfor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerInforDao" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>header\ServerInforDao.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerInforManager" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAQAABAAAAEAAAAAAAAAAAAAAAAAAAQAABAAAA=</HashCode>
+      <FileName>header\ServerInforManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleScore" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAQAAAAIAAAAAAAEAACAAAAkAQAAAAA=</HashCode>
+      <FileName>header\singleScore.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleScoreDao" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>header\singleScoreDao.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleScoreManager" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAABAAAAAAAAAAAAIAAAAAAAAAAAQAAACAAA=</HashCode>
+      <FileName>header\SingleScoreManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAACEAAQAAAAAJAAAAAAAAECAAAAAAGAAAAAEA=</HashCode>
+      <FileName>header\User.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserDao" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAQAAAAAAIAA=</HashCode>
+      <FileName>header\UserDao.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserManager" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAACAAAAAAAAIAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>header\UserManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Canvas" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAAAAAAAAAAAAoIAQAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>header\Canvas.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Director" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAhAAAAAIAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Director.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Input" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\KeyInput.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputToast" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\InputToast.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NoticeToast" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\NoticeToast.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Toast" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Toast.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunctionScene" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>header\FunctionScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIScene" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAQEAAAAAAAAAAAAAAAAAAAABAAIAAAIAA=</HashCode>
+      <FileName>header\UIScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleModeGameScene" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAABAAAAAAAAAAAQAAAIAACAAAAAAAQAAABAAAAAAA=</HashCode>
+      <FileName>header\SingleModeGameScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIListElement" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAQAAQAAAAAIIAAAgFAAAIEIAABAAAAAAKAA=</HashCode>
+      <FileName>header\UIListElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIElement" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgikAAAAgCAQBTIKAIIEgAQEAHEQUBBSBh0FgDACQM=</HashCode>
+      <FileName>header\UIElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIScannerElement" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAkAAAAAAAAAACAQAJAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>header\UIScannerElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScannerCreator" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>header\ScannerCreator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scanner" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAACAAQIICAAAAABAAAAIRAhgAACAAAE=</HashCode>
+      <FileName>header\Scanner.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAACAAAAAAAgAAIAgAAAMAAQ=</HashCode>
+      <FileName>header\client.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calender" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Calender.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Random" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>header\random.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Uuid" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Uuid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dao&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAACAAAAAABAAAAAAgAAIAAAAAAIAAIAA=</HashCode>
+      <FileName>header\Dao.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileManager" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAACAAAABAEAAAAAAAAA=</HashCode>
+      <FileName>header\FileManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Color" Collapsed="true">
+    <Position X="20.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAAAgAQIAAAAAgEABEggBAAAAAEEAAAAAAAAA=</HashCode>
+      <FileName>header\Consol.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PaintStd" Collapsed="true">
+    <Position X="13.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>header\Painter.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AlignX" Collapsed="true">
+    <Position X="12" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAIAA=</HashCode>
+      <FileName>header\Printer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AlignY" Collapsed="true">
+    <Position X="13.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAABAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Printer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BlockMove" Collapsed="true">
+    <Position X="15.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABABAAAAAAAEAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Block.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BlockTurn" Collapsed="true">
+    <Position X="19" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>header\Block.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BlockName" Collapsed="true">
+    <Position X="17.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIUAAQAAAAA=</HashCode>
+      <FileName>header\Block.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Key" Collapsed="true">
+    <Position X="12" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAABAgAABgAAAAAEBAAA=</HashCode>
+      <FileName>header\KeyInput.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

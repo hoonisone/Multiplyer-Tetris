@@ -13,11 +13,11 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-    //Consol::changeScreenSize(WIDTH, HEIGHT);
-    //Consol::setCursorFlag(false);
+    Consol::changeScreenSize(WIDTH, HEIGHT);
+    Consol::setCursorFlag(false);
 
-    //Director* director = Bean::getDirector();
-    //director->run("main menu scene");
+    Director* director = Bean::getDirector();
+    director->run("main menu scene");
 
 }
 /*
