@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\header\Dao.h" />
+    <ClInclude Include="..\lib\header\FileManager.h" />
     <ClInclude Include="header\Bean.h" />
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\BlockBoard.h" />
@@ -149,7 +151,6 @@
     <ClInclude Include="header\FunctionScene.h" />
     <ClInclude Include="header\InputToast.h" />
     <ClInclude Include="header\NoticeToast.h" />
-    <ClInclude Include="header\Dao.h" />
     <ClInclude Include="header\ScannerCreator.h" />
     <ClInclude Include="header\ServerInfor.h" />
     <ClInclude Include="header\ServerInforDao.h" />
@@ -166,7 +167,6 @@
     <ClInclude Include="header\ColorPrinter.h" />
     <ClInclude Include="header\Consol.h" />
     <ClInclude Include="header\Director.h" />
-    <ClInclude Include="header\FileManager.h" />
     <ClInclude Include="header\KeyInput.h" />
     <ClInclude Include="header\MainScreen.h" />
     <ClInclude Include="header\UIElement.h" />

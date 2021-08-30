@@ -21,8 +21,8 @@ public:
 			Key key = Input::getKey();
 			if (key != -1){
 				ui->keyInputHandler(key);
-				if (ui->endCheck()) {
-					string nextSceneName = nextSceneNameHandler(ui->getSelectedElement(), ui->getState());
+				if (ui->checkEnd()) {
+					string nextSceneName = nextSceneNameHandler(ui->getSelectedSubElement(), ui->getWholeState());
 					if (nextSceneName != "") {
 						return nextSceneName;
 					}

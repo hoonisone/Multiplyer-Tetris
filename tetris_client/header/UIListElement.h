@@ -25,10 +25,10 @@ private:
 		move(0, -(elementH - 1), redraw);
 	}
 public:
-	UIListElement(int x, int y, int w, int h) :UIElement(x, y, w, h, "", 1, 10) { setBorderFlag(false); setTerminalFlag(false); };
-	UIListElement(int x, int y, int w, int h, int len) :UIElement(x, y, w, h, "", 1, len), listLen(len) { setBorderFlag(false); setTerminalFlag(false); };
+	UIListElement(int x, int y, int w, int h) :UIElement(x, y, w, h, "", 1, 10) { setBorderFlag(false);};
+	UIListElement(int x, int y, int w, int h, int len) :UIElement(x, y, w, h, "", 1, len), listLen(len) { setBorderFlag(false); };
 	UIListElement(int x, int y, int w, int h, int len, Painter* selectedPainter, Painter* unselectedPainter, Printer* selectedPrinter, Printer* unselectedPrinter) :
-		UIElement(x, y, w, h, "", selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, false, 1, len) {setTerminalFlag(false);};
+		UIElement(x, y, w, h, "", selectedPainter, unselectedPainter, selectedPrinter, unselectedPrinter, false, 1, len) {};
 	void setElementSize(int w, int h) {
 		// 단 1번만 세팅 가능하다.	동일한 크기의 element를 지니기 위함
 		if (elementSettingFlag == false) {
@@ -61,7 +61,7 @@ public:
 		}
 		drawBorder();
 		drawText();
-		getSelectedChild()->draw();
+		getPointedSubElement()->draw();
 	}
 	virtual void draw() override {
 		int endIdx = min(startIdx + listLen - 1, children.size() - 1);
@@ -70,10 +70,10 @@ public:
 		}
 		drawBorder();
 		drawText();
-		getSelectedChild()->draw();
+		getPointedSubElement()->draw();
 	}
 	virtual bool keyInputHandler(char key) override {
-		int& y = selectY;	// 선택된 자식의 index;
+		int& y = selectPointY;	// 선택된 자식의 index;
 
 		switch ((Key)key) {
 		case KEY_UP:

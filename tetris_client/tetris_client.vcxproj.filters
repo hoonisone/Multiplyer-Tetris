@@ -126,12 +126,6 @@
     <ClInclude Include="header\singleScore.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
-    <ClInclude Include="header\FileManager.h">
-      <Filter>헤더 파일\file</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Dao.h">
-      <Filter>헤더 파일\file</Filter>
-    </ClInclude>
     <ClInclude Include="header\SingleScoreManager.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
@@ -182,6 +176,12 @@
     </ClInclude>
     <ClInclude Include="header\Scanner.h">
       <Filter>헤더 파일\ui\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\Dao.h">
+      <Filter>헤더 파일\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\FileManager.h">
+      <Filter>헤더 파일\file</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

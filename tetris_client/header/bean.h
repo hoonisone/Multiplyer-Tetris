@@ -181,8 +181,11 @@ public:
 		return new UIScannerElement(x, y, w, h, name, getScannerCreator(), spainter, upainter, sprinter, uprinter);
 	}
 	static UIElement* getNunTerminalUIElement(int x, int y, int w, int h, int mapW, int mapH) {
-		UIElement* element = getTerminalUIElement(x, y, w, h, "", mapW, mapH);
-		element->setTerminalFlag(false); // terminal 설정 취소
+		ColorPainter* spainter = new ColorPainter({ "ㆍ" }, AQUA, BLACK);
+		ColorPainter* upainter = new ColorPainter({ "ㆍ" }, WHITE, BLACK);
+		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
+		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
+		UIElement* element = new UIElement(x, y, w, h, "", spainter, upainter, sprinter, uprinter, true, mapW, mapH);
 		element->setBorderFlag(false); // numTerminal은 border를 기본적으로 그리지 않음
 		return element;
 	}
@@ -191,7 +194,9 @@ public:
 		ColorPainter* upainter = new ColorPainter({ "ㆍ" }, WHITE, BLACK);
 		ColorPrinter* sprinter = new ColorPrinter(CENTER, MIDDLE, AQUA, BLACK);
 		ColorPrinter* uprinter = new ColorPrinter(CENTER, MIDDLE, WHITE, BLACK);
-		return new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
+		UIElement* element = new UIElement(x, y, w, h, text, spainter, upainter, sprinter, uprinter, true, mapW, mapH);
+		element->setSelectPropagationFlag(false);
+		return element;
 	}
 	static UIElement* getUIVerticalTextListElement(int x, int y, int ew, int eh, vector<string> names) {
 		UIElement* parent = getNunTerminalUIElement(x, y, ew, (eh-1)* names.size()+1, 1, names.size());
@@ -289,8 +294,11 @@ public:
 	}
 	static UIElement* getSingleScoreUIElementTitle(int x, int y){
 		UIElement* element = getTerminalUIElement(x, y, 94, 5, "", 4, 1);
+		
 		element->enroll(getTerminalUIElement(0, 0, 10, 5, "Rank", 0, 0), 0, 0);
+		
 		element->enroll(getTerminalUIElement(8, 0, 20, 5, "Score", 0, 0), 1, 0);
+		
 		element->enroll(getTerminalUIElement(26, 0, 30, 5, "Name", 0, 0), 2, 0);
 		element->enroll(getTerminalUIElement(54, 0, 40, 5, "Date", 0, 0), 3, 0);
 		return element;
@@ -298,8 +306,9 @@ public:
 	static UIElement* getSingleRankUI() {
 		UIElement* parent = getNunTerminalUIElement(WIDTH/2 - 68, 20, 0, 0, 3, 1);
 		UIElement* scoreList = Bean::getSingleRankUIListElementUI(24, 4, Bean::getSingleScoreManager()->data);
-
+		
 		parent->enroll(getSingleScoreUIElementTitle(24, 0), 2, 0, false);
+		
 		parent->enroll(getTerminalUIElement(0, 4, 20, 5, "Back", 0, 0), 0, 0);
 		parent->enroll(scoreList, 1, 0);
 		return parent;

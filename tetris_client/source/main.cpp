@@ -16,9 +16,7 @@ int main(int argc, char* argv[])
     Consol::changeScreenSize(WIDTH, HEIGHT);
     Consol::setCursorFlag(false);
 
+    //Bean::getSingleRankUI()->draw();
     Director* director = Bean::getDirector();
     director->run("main menu scene");
 }
-/*
-
-*/
