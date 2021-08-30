@@ -121,7 +121,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>header;rapidjson;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;header;rapidjson;./../lib/header;</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -148,24 +148,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\string+.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tetris_client\serverInfor.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\header\Error.h" />
+    <ClInclude Include="..\lib\header\FileManager.h" />
+    <ClInclude Include="..\lib\header\MessageConverter.h" />
+    <ClInclude Include="..\lib\header\Server.h" />
+    <ClInclude Include="..\lib\header\ServerResource.h" />
+    <ClInclude Include="..\lib\header\string+.h" />
+    <ClInclude Include="..\lib\header\MultiUser.h" />
+    <ClInclude Include="..\lib\header\MultiUserDAO.h" />
+    <ClInclude Include="..\lib\header\MultiUserManager.h" />
     <ClInclude Include="header\Bean.h" />
-    <ClInclude Include="header\error.h" />
-    <ClInclude Include="header\FileManager.h" />
-    <ClInclude Include="header\MessageConverter.h" />
-    <ClInclude Include="header\server.h" />
-    <ClInclude Include="header\ServerResource.h" />
-    <ClInclude Include="header\string+.h" />
-    <ClInclude Include="header\User.h" />
-    <ClInclude Include="header\UserDao.h" />
-    <ClInclude Include="header\UserManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

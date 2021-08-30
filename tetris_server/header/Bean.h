@@ -1,6 +1,6 @@
 #pragma once
-#include "server.h"
-#include "UserManager.h"
+#include "Server.h"
+#include "MultiUserManager.h"
 class Bean {
 private:
 	static UserDao* getUserDao() {

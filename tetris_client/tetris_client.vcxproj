@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>header;./../lib/header;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="header\bean.h" />
+    <ClInclude Include="header\Bean.h" />
     <ClInclude Include="header\Block.h" />
     <ClInclude Include="header\BlockBoard.h" />
     <ClInclude Include="header\BlockCreator.h" />
@@ -161,41 +161,34 @@
     <ClInclude Include="header\UIListElement.h" />
     <ClInclude Include="header\UIScene.h" />
     <ClInclude Include="header\Canvas.h" />
-    <ClInclude Include="header\client.h" />
+    <ClInclude Include="header\Client.h" />
     <ClInclude Include="header\ColorPainter.h" />
     <ClInclude Include="header\ColorPrinter.h" />
     <ClInclude Include="header\Consol.h" />
     <ClInclude Include="header\Director.h" />
-    <ClInclude Include="header\error.h" />
     <ClInclude Include="header\FileManager.h" />
     <ClInclude Include="header\KeyInput.h" />
     <ClInclude Include="header\MainScreen.h" />
     <ClInclude Include="header\UIElement.h" />
     <ClInclude Include="header\Painter.h" />
     <ClInclude Include="header\Printer.h" />
-    <ClInclude Include="header\random.h" />
+    <ClInclude Include="header\Random.h" />
     <ClInclude Include="header\Scanner.h" />
     <ClInclude Include="header\UIScannerElement.h" />
     <ClInclude Include="header\Scene.h" />
-    <ClInclude Include="header\scoreBoard.h" />
-    <ClInclude Include="header\scoreManager.h" />
+    <ClInclude Include="header\ScoreBoard.h" />
+    <ClInclude Include="header\ScoreManager.h" />
     <ClInclude Include="header\SingleModeGameScene.h" />
-    <ClInclude Include="header\string+.h" />
     <ClInclude Include="header\SubScreen.h" />
-    <ClInclude Include="header\system.h" />
-    <ClInclude Include="header\test.h" />
     <ClInclude Include="header\Tetris.h" />
     <ClInclude Include="header\Timer.h" />
-    <ClInclude Include="header\User.h" />
-    <ClInclude Include="header\UserDao.h" />
-    <ClInclude Include="header\UserManager.h" />
+    <ClInclude Include="header\SingleUser.h" />
+    <ClInclude Include="header\SingleUserDao.h" />
+    <ClInclude Include="header\SingleUserManager.h" />
     <ClInclude Include="header\Uuid.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\error.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\string+.cpp" />
-    <ClCompile Include="source\test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="serverInfor.txt" />

@@ -3,13 +3,13 @@
 
 using namespace std;
 
-class User {
+class SingleUser {
 private:
 	string name;	// id
 	int win, draw, lose;	// multi
 	int maxScore;	// single
 public:
-	User(string name, int win, int draw, int lose, int maxScore) :name(name), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
+	SingleUser(string name, int win, int draw, int lose, int maxScore) :name(name), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
 	string getName() {
 		return name;
 	}

@@ -18,12 +18,6 @@
     <ClCompile Include="source\main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="source\string+.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="source\error.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tetris_client\serverInfor.txt">
@@ -31,34 +25,34 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\User.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UserDao.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UserManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\server.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\error.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="header\string+.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="header\Bean.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="header\FileManager.h">
+    <ClInclude Include="..\lib\header\Error.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="header\MessageConverter.h">
+    <ClInclude Include="..\lib\header\FileManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="header\ServerResource.h">
+    <ClInclude Include="..\lib\header\MessageConverter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\Server.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\ServerResource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\string+.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\MultiUser.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\MultiUserDAO.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\header\MultiUserManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

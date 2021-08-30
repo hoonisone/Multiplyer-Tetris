@@ -48,7 +48,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\bean.h">
+    <ClInclude Include="header\Bean.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="header\Timer.h">
@@ -81,10 +81,10 @@
     <ClInclude Include="header\MainScreen.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\scoreBoard.h">
+    <ClInclude Include="header\ScoreBoard.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
-    <ClInclude Include="header\scoreManager.h">
+    <ClInclude Include="header\ScoreManager.h">
       <Filter>헤더 파일\tetris</Filter>
     </ClInclude>
     <ClInclude Include="header\SubScreen.h">
@@ -96,40 +96,28 @@
     <ClInclude Include="header\Director.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\client.h">
+    <ClInclude Include="header\Client.h">
       <Filter>헤더 파일\network</Filter>
     </ClInclude>
     <ClInclude Include="header\KeyInput.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\string+.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\random.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\test.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="header\system.h">
+    <ClInclude Include="header\Random.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
     <ClInclude Include="header\Canvas.h">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="header\error.h">
-      <Filter>헤더 파일\utill</Filter>
-    </ClInclude>
     <ClInclude Include="header\Uuid.h">
       <Filter>헤더 파일\utill</Filter>
     </ClInclude>
-    <ClInclude Include="header\User.h">
+    <ClInclude Include="header\SingleUser.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
-    <ClInclude Include="header\UserDao.h">
+    <ClInclude Include="header\SingleUserDao.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
-    <ClInclude Include="header\UserManager.h">
+    <ClInclude Include="header\SingleUserManager.h">
       <Filter>헤더 파일\tetris\file object</Filter>
     </ClInclude>
     <ClInclude Include="header\singleScoreDao.h">
@@ -198,15 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="source\error.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="source\string+.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="source\test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

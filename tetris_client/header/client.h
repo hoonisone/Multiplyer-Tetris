@@ -1,9 +1,10 @@
 #pragma once
 #include <WinSock2.h>
-#include "error.h"
+#include "Error.h"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #pragma warning(disable : 4996)
 #define BUFFER_SIZE 1024
+using namespace std;
 
 class Client {
 private:

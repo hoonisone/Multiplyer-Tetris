@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <WinSock2.h>
-#include "client.h"
-#include "bean.h"
+#include "Client.h"
+#include "Bean.h"
 #include "Uuid.h"
 #include <algorithm>
 
@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
 
     Director* director = Bean::getDirector();
     director->run("main menu scene");
-
 }
 /*
 

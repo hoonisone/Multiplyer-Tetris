@@ -3,15 +3,15 @@
 
 using namespace std;
 
-class User {
+class MultiUser {
 private:
 	string name;	// id
 	string password;
 	int win, draw, lose;	// multi
 	int maxScore;	// single
 public:
-	User(string name, string password) :User(name, password, 0, 0, 0, 0) {};
-	User(string name, string password, int win, int draw, int lose, int maxScore) :name(name), password(password), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
+	MultiUser(string name, string password) :MultiUser(name, password, 0, 0, 0, 0) {};
+	MultiUser(string name, string password, int win, int draw, int lose, int maxScore) :name(name), password(password), win(win), draw(draw), lose(lose), maxScore(maxScore) {};
 	string getName() const {
 		return name;
 	}

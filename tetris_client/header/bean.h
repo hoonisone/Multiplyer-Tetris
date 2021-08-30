@@ -7,13 +7,13 @@
 #include "BlockBoard.h"
 #include "BlockCreator.h"
 #include "SubScreen.h"
-#include "scoreBoard.h"
-#include "scoreManager.h"
+#include "ScoreBoard.h"
+#include "ScoreManager.h"
 #include "Tetris.h"
 
 #include "FileManager.h"
-#include "UserDao.h"
-#include "UserManager.h"
+#include "SingleUserDao.h"
+#include "SingleUserManager.h"
 
 #include "Scanner.h"
 #include "ScannerCreator.h"
@@ -27,12 +27,12 @@
 
 #include "Director.h"
 
-#include "singleScoreDao.h"
+#include "SingleScoreDao.h"
 #include "SingleScoreManager.h"
 #include "Toast.h"
 #include "NoticeToast.h"
 #include "FunctionScene.h"
-
+#include "Client.h"
 #include "ServerInfor.h"
 #include "ServerInforDao.h"
 #include "ServerInforManager.h"

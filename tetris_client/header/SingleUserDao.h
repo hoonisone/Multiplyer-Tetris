@@ -1,24 +1,24 @@
 #pragma once
 #include <string>
-#include "User.h"
+#include "SingleUser.h"
 #include "FileManager.h"
 #include "string+.h"
 #include "Dao.h"
 
 using namespace std;
 
-class UserDao :public Dao<User> {
+class SingleUserDao :public Dao<SingleUser> {
 private:
-	User parse(string userInforString)override {
+	SingleUser parse(string userInforString)override {
 		vector<string> tokens = split(userInforString, "/");
 		string name = tokens[0];
 		int win = stoi(tokens[1]);
 		int draw = stoi(tokens[2]);
 		int lose = stoi(tokens[3]);
 		int maxScore = stoi(tokens[4]);
-		return User(name, win, draw, lose, maxScore);
+		return SingleUser(name, win, draw, lose, maxScore);
 	}
-	string toString(User user) override {
+	string toString(SingleUser user) override {
 		char arr[100];
 		string name = user.getName();
 		int win = user.getWin();
@@ -29,7 +29,7 @@ private:
 		return string(arr);
 	}
 public:
-	UserDao(FileManager* fm) : Dao(fm) {}
+	SingleUserDao(FileManager* fm) : Dao(fm) {}
 
 	//vector<User> getAllObjects() override {
 	//	vector<User> userList;
@@ -46,7 +46,7 @@ public:
 	//	}
 	//	fm->writeLines(lines);
 	//}
-	~UserDao() {
+	~SingleUserDao() {
 		delete fm;
 	}
 };

@@ -16,6 +16,7 @@
 query는 하나의 기능을 말하며 handler는 해당 query의 기능을 수행하는 함수이다.
 client가 request(query, data)를 보내면 query에 해당하는 handler에 (data)를 입력으로 주어 기능을 수행한다.
 */
+
 using string = std::string;
 
 class Server {
