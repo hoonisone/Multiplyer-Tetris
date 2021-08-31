@@ -126,8 +126,6 @@ protected:
 			selectOtherSubElement(selectPointX, selectPointY + 1, redraw);
 			return true;
 		}
-		cout << checkSubElementPosRange(selectPointX, selectPointY + 1) << endl;
-		cout << checkSubElementExist(selectPointX, selectPointY + 1) << endl;
 		return false;
 	}
 	bool selectRightChild(bool redraw = true) {

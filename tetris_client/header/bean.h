@@ -228,8 +228,8 @@ public:
 		UIElement* parent = getNunTerminalUIElement(x - ew, y, ew, (eh - 1) * en+1, 3, en);
 
 		parent->enroll(getTerminalUIElement(0, (eh - 1) * 0, ew, eh, "Name:", 0, 0), 0, 0, false, false);
-		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "IP Address:", 0, 0), 0, 0, false, false);
-		parent->enroll(getTerminalUIElement(0, (eh - 1) * 2, ew, eh, "Port:", 0, 0), 0, 1, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 1, ew, eh, "IP Address:", 0, 0), 0, 1, false, false);
+		parent->enroll(getTerminalUIElement(0, (eh - 1) * 2, ew, eh, "Port:", 0, 0), 0, 2, false, false);
 
 		parent->enroll(getUIScannerBlock(ew - 2, (eh - 1) * 0, ew, eh, "name"), 2, 0, true, true);
 		parent->enroll(getUIScannerBlock(ew-2, (eh - 1) * 1, ew, eh, "ip"), 2, 1);
