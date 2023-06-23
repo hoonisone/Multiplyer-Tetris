@@ -1,6 +1,7 @@
 # About this project
-This is c++ multiplayer Tetris project including single-mode and multi-mode
-Now only single mode is implemented
+This is C++ multiplayer Tetris project including single-mode and multi-mode
+
+Now only a single mode is implemented
 
 # How to use
 ```
