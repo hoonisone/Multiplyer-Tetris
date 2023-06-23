@@ -3,7 +3,7 @@ this is c++ tetris project including single-mode and multi-mode(not yet)
 
 # How to use
 ```
-1. download this codes
+1. download these codes
 2. just execute a project(tetris_client/tetris_client.sln)
 ```
 # Library
