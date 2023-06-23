@@ -1,6 +1,28 @@
 # multi_tetris
+this is c++ tetris project including single-mode and multi-mode(not yet)
 
+# Library
+* Text-based Painter
+  * You can draw lines and simple figures at a desired position on the screen.
+  * You can chang color and basic text corresponding to a point of the figure.
 
+* Text-based Printer
+  * You can draw a text box at a desired position on the screen.
+  * You can align a text (Top, Center, Botto,), (Left, Center, Right)
+
+* Text Console UI
+  * This is based on a Text-based Panter and Printer.
+  * This allows you to construct simple UI  
+  * You can select the desired element with the arrow keys.
+  * You can interact with it using a key (we use the space bar).
+  * Pop Up Event is implemented.
+  
+* File accessor
+  * You can access local files.
+  * You can manage member information and score information so on.
+* Tetris core
+  * 
+* 
 # Scene
 
 <table>
