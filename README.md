@@ -4,7 +4,7 @@ this is c++ tetris project including single-mode and multi-mode(not yet)
 # Library
 * Text-based Painter
   * You can draw lines and simple figures at a desired position on the screen.
-  * You can chang color and basic text corresponding to a point of the figure.
+  * You can change color and basic text corresponding to a point of the figure.
 
 * Text-based Printer
   * You can draw a text box at a desired position on the screen.
