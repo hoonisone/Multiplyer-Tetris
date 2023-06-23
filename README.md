@@ -1,5 +1,5 @@
 # Multi-Tetris
-this is c++ tetris project including single-mode and multi-mode(not yet)
+This is c++ tetris project including single-mode and multi-mode(not yet)
 
 # How to use
 ```
