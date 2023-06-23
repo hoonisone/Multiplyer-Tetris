@@ -1,6 +1,11 @@
-# multi_tetris
+# Multi-Tetris
 this is c++ tetris project including single-mode and multi-mode(not yet)
 
+# How to use
+```
+1. download this codes
+2. just execute a project(tetris_client/tetris_client.sln)
+```
 # Library
 * Text-based Painter
   * You can draw lines and simple figures at a desired position on the screen.
