@@ -20,11 +20,12 @@ this is c++ tetris project including single-mode and multi-mode(not yet)
 * File accessor
   * You can access local files.
   * You can manage member information and score information so on.
-* Tetris core
-  * 
-* 
+    
+* Tetris
+  * Client: Single-Mode & Multi-Mode(not yet)
+  * Server: (not yet)
+  
 # Scene
-
 <table>
   <tr>
     <td><img src="https://github.com/hoonisone/multi_tetris/assets/56896592/0ee814d0-ee34-4f28-940b-cff15acb6c9b"></td>
