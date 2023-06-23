@@ -3,6 +3,8 @@ This is C++ multiplayer Tetris project including single-mode and multi-mode
 
 Now only a single mode is implemented
 
+This project provides a library for text-based UI and Tetris code.
+
 # How to use
 ```
 1. download these codes
